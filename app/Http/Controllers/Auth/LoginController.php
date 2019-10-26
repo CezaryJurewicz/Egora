@@ -35,5 +35,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:web')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
+
+    protected function attemptLogin(\Illuminate\Http\Request $request)
+    {
+        if ($admin = \Auth::guard('admin')->attempt(
+            $this->credentials($request), $request->filled('remember')
+        )) {
+            return $admin;
+        }
+        
+        if ($user = \Auth::guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        )) {
+            return $user;
+        }
+    }       
+    
 }
