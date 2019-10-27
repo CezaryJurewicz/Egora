@@ -8,7 +8,7 @@
             <div class="panel-body">
                 <h3>{{ __('views.Users') }}</h3>
                 <div>
-                    @isset($users)
+                    @if($users->isNotEmpty())
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -28,12 +28,11 @@
                     @forelse ($users as $i=>$user)
                                 <tr>
                                     <th scope="row">{{$user->id}}</th>
-                                    <td>{{ __('tables.Name')}}: {{ $user->name }} 
-                                        @if($user->activated)
-                                            <span class="badge badge-danger">Activated</span> 
-                                        @endif
-                                        <br/>
-                                        {{ __('tables.Email')}}: {{ $user->email }}
+                                    <td>{{ __('user.Name')}}: {{ $user->name }} 
+                                        <br>
+                                        {{ __('user.Email')}}: {{ $user->email }}
+                                        <br>
+                                        {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                     </td>
                                     <td>
                                         @isset($user->ideas)
@@ -71,7 +70,7 @@
                         <p>@lang('users.No users')</p>
                     @endforelse
                     
-                    @isset($users)                    
+                    @if($users->isNotEmpty())                 
                             </tbody>
                         </table>
                     @endif

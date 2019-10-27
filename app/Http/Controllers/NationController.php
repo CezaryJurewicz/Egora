@@ -14,7 +14,9 @@ class NationController extends Controller
      */
     public function index()
     {
-        //
+        $nations = Nation::get();
+        
+        return view('nations.index')->with(compact('nations'));
     }
 
     /**

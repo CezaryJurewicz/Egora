@@ -31,6 +31,13 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{user}', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
     });
     
+    Route::prefix('/nations')->name('nations.')->group(function(){
+        Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
+        Route::get('/{nation}', 'NationController@show')->name('view')->middleware('can:view,nation');
+        Route::delete('/{nation}', 'NationController@destroy')->name('delete')->middleware('can:delete,nation');
+        Route::put('/{nation}', 'NationController@restore')->name('restore')->middleware('can:restore,App\Nation');
+    });
+    
     Route::prefix('/ideas')->name('ideas.')->group(function(){
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea');

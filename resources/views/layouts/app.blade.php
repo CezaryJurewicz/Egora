@@ -39,6 +39,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">                        
                         @if (auth('web')->check() || auth('admin')->check())
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Nation::class))
+                            <li>
+                                <a class="nav-link" href="{{ route('nations.index')}}">{{ __('Nations') }}</a>
+                            </li>
+                            @endif
+                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index')}}">{{ __('Users') }}</a>

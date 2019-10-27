@@ -45,6 +45,11 @@ class User extends Authenticatable
     {
         return false;
     }
+ 
+    public function nation()
+    {
+        return $this->belongsTo(Nation::class);
+    }
     
     public function createdDate()
     {

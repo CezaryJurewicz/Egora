@@ -14,7 +14,9 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        //
+        $ideas = Idea::get();
+        
+        return view('ideas.index')->with(compact('ideas'));
     }
 
     /**
