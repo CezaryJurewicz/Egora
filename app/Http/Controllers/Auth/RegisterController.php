@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Nation;
+use App\UserType;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,6 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'nation' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,10 +66,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            ''
         ]);
+
+        $nation = Nation::where('title', $data['nation'])->first();
+                
+        if (is_null($nation)) {
+            $nation = Nation::create([
+               'title' => $data['nation']
+            ]);
+        }
+
+        $user_type = UserType::where('title', 'User')->first();
+        
+        if (is_null($user_type)) {
+            $user_type = UserType::create([
+               'title' => 'User'
+            ]);
+        }
+
+        $user->nation()->associate($nation);
+        $user->user_type()->associate($user_type);
+        
+        $user->save();
+        
+        return $user;
     }
 }

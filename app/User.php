@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->belongsTo(Nation::class);
     }
     
+    public function user_type()
+    {
+        return $this->belongsTo(UserType::class);
+    }
+    
     public function createdDate()
     {
         return (new Carbon($this->created_at))->diffForHumans();//format('H:i d.m.y');
