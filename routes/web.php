@@ -45,4 +45,11 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{idea}', 'IdeaController@restore')->name('restore')->middleware('can:restore,App\Idea');
     });
     
+    Route::prefix('/user_types')->name('user_types.')->group(function(){
+        Route::get('/', 'UserTypeController@index')->name('index')->middleware('can:viewAny,App\UserType');
+        Route::get('/{user_type}', 'UserTypeController@show')->name('view')->middleware('can:view,user_type');
+        Route::delete('/{user_type}', 'UserTypeController@destroy')->name('delete')->middleware('can:delete,user_type');
+        Route::put('/{user_type}', 'UserTypeController@restore')->name('restore')->middleware('can:restore,App\UserType');
+    });
+    
 });

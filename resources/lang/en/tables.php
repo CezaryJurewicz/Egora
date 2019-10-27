@@ -13,5 +13,11 @@ return [
     'Created' => 'Created',
     'Updated' => 'Updated',
     'Url' => 'Url',
+    'Nation' => 'Nation',
+    'Content' => 'Content',
+    'User' => 'User',
+    'Position' => 'Position',
+    'Users' => 'Users',
+    'Subtitle' => 'Subtitle',
 
 ];

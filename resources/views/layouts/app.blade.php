@@ -50,6 +50,12 @@
                                 <a class="nav-link" href="{{ route('users.index')}}">{{ __('Users') }}</a>
                             </li>
                             @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\UserType::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user_types.index')}}">{{ __('User Types') }}</a>
+                            </li>
+                            @endif
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
                             <li>

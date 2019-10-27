@@ -14,7 +14,9 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        //
+        $user_types = UserType::get();
+        
+        return view('user_types.index')->with(compact('user_types'));   
     }
 
     /**
