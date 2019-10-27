@@ -69,8 +69,7 @@ class RegisterController extends Controller
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            ''
+            'password' => Hash::make($data['password'])
         ]);
 
         $nation = Nation::where('title', $data['nation'])->first();
@@ -81,11 +80,11 @@ class RegisterController extends Controller
             ]);
         }
 
-        $user_type = UserType::where('title', 'User')->first();
+        $user_type = UserType::where('title', 'Unverified User')->first();
         
         if (is_null($user_type)) {
             $user_type = UserType::create([
-               'title' => 'User'
+               'title' => 'Unverified User'
             ]);
         }
 
