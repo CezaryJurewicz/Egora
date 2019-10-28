@@ -1,1 +1,2 @@
-## About Egora
+# Egora
+The Worldwide Stock-Market of Ideas
