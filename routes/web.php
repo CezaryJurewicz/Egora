@@ -52,4 +52,11 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{user_type}', 'UserTypeController@restore')->name('restore')->middleware('can:restore,App\UserType');
     });
     
+    Route::prefix('/campaigns')->name('campaigns.')->group(function(){
+        Route::get('/', 'CampaignController@index')->name('index')->middleware('can:viewAny,App\Campaign');
+        Route::get('/{campaign}', 'CampaignController@show')->name('view')->middleware('can:view,campaign');
+        Route::delete('/{campaign}', 'CampaignController@destroy')->name('delete')->middleware('can:delete,campaign');
+        Route::put('/{campaign}', 'CampaignController@restore')->name('restore')->middleware('can:restore,App\Campaign');
+    });
+    
 });

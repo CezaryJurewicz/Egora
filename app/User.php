@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->belongsTo(Nation::class);
     }
     
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class);
+    }
+    
     public function user_type()
     {
         return $this->belongsTo(UserType::class);

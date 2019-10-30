@@ -14,7 +14,9 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        //
+        $campaigns = Campaign::get();
+        
+        return view('campaigns.index')->with(compact('campaigns'));   
     }
 
     /**
@@ -46,7 +48,7 @@ class CampaignController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        //
+        return view('campaigns.view')->with(compact('campaign'));
     }
 
     /**

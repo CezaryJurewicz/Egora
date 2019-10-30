@@ -28,7 +28,11 @@
                     @forelse ($ideas as $i=>$idea)
                                 <tr>
                                     <th scope="row">{{$idea->id}}</th>
-                                    <td>{{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...</td>
+                                    <td>
+                                        <a href="{{ route('ideas.view', $idea->id) }}">
+                                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...
+                                        </a>
+                                    </td>
                                     <td>{{ $idea->nation->title }}</td>
                                     <td>#{{ $idea->user->id }}: {{ $idea->user->name }}</td>
                                     <td>{{ $idea->position }}</td>
@@ -37,6 +41,10 @@
                                     
                                     
                                     <td>
+                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">
+                                            @lang('some.View')
+                                        </a>
+
                                         @if ($idea->trashed())
                                         <form action="{{ route('ideas.restore',['id'=>$idea->id]) }}" method="POST">
                                             @csrf

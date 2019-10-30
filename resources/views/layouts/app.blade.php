@@ -50,18 +50,25 @@
                                 <a class="nav-link" href="{{ route('users.index')}}">{{ __('Users') }}</a>
                             </li>
                             @endif
-                            
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\UserType::class))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user_types.index')}}">{{ __('User Types') }}</a>
-                            </li>
-                            @endif
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
                             <li>
                                 <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('Ideas') }}</a>
                             </li>
                             @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Campaign::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
+                            </li>
+                            @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\UserType::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user_types.index')}}">{{ __('User Types') }}</a>
+                            </li>
+                            @endif
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (auth('admin')->check()) {{  auth('admin')->user()->name  }} @endif

@@ -48,7 +48,7 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        //
+        return view('ideas.view')->with(compact('idea'));
     }
 
     /**
