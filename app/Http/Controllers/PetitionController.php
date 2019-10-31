@@ -14,7 +14,9 @@ class PetitionController extends Controller
      */
     public function index()
     {
-        //
+        $petitions = Petition::get();
+        
+        return view('petitions.index')->with(compact('petitions'));
     }
 
     /**

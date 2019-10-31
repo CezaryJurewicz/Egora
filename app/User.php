@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return (new Carbon($this->updated_at))->diffForHumans();
     }
+    
+    public function image()
+    {
+        return $this->morphOne(Media::class, 'mediable');
+    }
 }

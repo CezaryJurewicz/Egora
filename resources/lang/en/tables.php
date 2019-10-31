@@ -19,5 +19,9 @@ return [
     'Position' => 'Position',
     'Users' => 'Users',
     'Subtitle' => 'Subtitle',
+    'Supporters' => 'Supporters',
+    'Address' => 'Address',
+    'Topic' => 'Topic',
+    'Comments' => 'Comments',
 
 ];

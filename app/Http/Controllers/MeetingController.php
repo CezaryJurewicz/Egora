@@ -14,7 +14,9 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        //
+        $meetings = Meeting::get();
+        
+        return view('meetings.index')->with(compact('meetings'));   
     }
 
     /**

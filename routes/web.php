@@ -59,4 +59,18 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{campaign}', 'CampaignController@restore')->name('restore')->middleware('can:restore,App\Campaign');
     });
     
+    Route::prefix('/petitions')->name('petitions.')->group(function(){
+        Route::get('/', 'PetitionController@index')->name('index')->middleware('can:viewAny,App\Petition');
+        Route::get('/{petition}', 'PetitionController@show')->name('view')->middleware('can:view,petition');
+        Route::delete('/{petition}', 'PetitionController@destroy')->name('delete')->middleware('can:delete,petition');
+        Route::put('/{petition}', 'PetitionController@restore')->name('restore')->middleware('can:restore,App\Petition');
+    });
+    
+    Route::prefix('/meetings')->name('meetings.')->group(function(){
+        Route::get('/', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
+        Route::get('/{meeting}', 'MeetingController@show')->name('view')->middleware('can:view,meeting');
+        Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
+        Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
+    });
+    
 });

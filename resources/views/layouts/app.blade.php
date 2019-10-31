@@ -62,6 +62,18 @@
                                 <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
                             </li>
                             @endif
+
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Petition::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('petitions.index')}}">{{ __('Petitions') }}</a>
+                            </li>
+                            @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Meeting::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>
+                            </li>
+                            @endif
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\UserType::class))
                             <li class="nav-item">

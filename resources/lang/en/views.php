@@ -9,4 +9,6 @@ return [
     'Ideas' => 'Ideas',
     'Idea' => 'Idea',
     'Campaigns' => 'Campaigns',
+    'Petitions' => 'Petitions',
+    'Meetings' => 'Meetings',
 ];
