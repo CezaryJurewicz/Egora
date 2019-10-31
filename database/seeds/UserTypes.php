@@ -13,7 +13,7 @@ class UserTypes extends Seeder
     {
         $now = date('Y-m-d H:i:s');
         
-        DB::table('user_types')->insertOrIgnore([
+        DB::table('user_types')->insertOrIgnore([[
             'id' => 1,
             'title' => 'Unverified User',
             'subtitle' => '',
@@ -79,6 +79,6 @@ class UserTypes extends Seeder
             'subtitle' => 'Filosofos tou Dromou',
             'created_at' => $now,
             'updated_at' => $now
-        ]);
+        ]]);
     }
 }
