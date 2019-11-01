@@ -73,4 +73,11 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
     });
     
+    Route::prefix('/contents')->name('contents.')->group(function(){
+        Route::get('/', 'ContentController@index')->name('index')->middleware('can:viewAny,App\Content');
+        Route::get('/{content}', 'ContentController@show')->name('view')->middleware('can:view,content');
+        Route::delete('/{content}', 'ContentController@destroy')->name('delete')->middleware('can:delete,content');
+        Route::put('/{content}', 'ContentController@restore')->name('restore')->middleware('can:restore,App\Content');
+    });
+    
 });

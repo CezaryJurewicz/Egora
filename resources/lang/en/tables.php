@@ -23,5 +23,6 @@ return [
     'Address' => 'Address',
     'Topic' => 'Topic',
     'Comments' => 'Comments',
+    'Alias' => 'Alias',
 
 ];

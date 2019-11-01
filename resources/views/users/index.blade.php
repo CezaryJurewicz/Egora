@@ -28,11 +28,16 @@
                     @forelse ($users as $i=>$user)
                                 <tr>
                                     <th scope="row">{{$user->id}}</th>
-                                    <td>{{ __('user.Name')}}: {{ $user->name }} 
+                                    <td>
+                                        {{ __('user.Name')}}: {{ $user->name }} 
+                                        <br>
+                                        {{ __('user.Search Name')}}: {{ $user->active_search_names->first() ?: '-'}} 
                                         <br>
                                         {{ __('user.Email')}}: {{ $user->email }}
                                         <br>
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
+                                        <br>
+                                        {{ __('user.User Type')}}: {{ $user->user_type->title }}                                        
                                     </td>
                                     <td>
                                         @isset($user->ideas)

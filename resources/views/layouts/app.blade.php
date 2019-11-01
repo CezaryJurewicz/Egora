@@ -75,6 +75,12 @@
                             </li>
                             @endif
                             
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Content::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('contents.index')}}">{{ __('Contents') }}</a>
+                            </li>
+                            @endif
+                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\UserType::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user_types.index')}}">{{ __('User Types') }}</a>

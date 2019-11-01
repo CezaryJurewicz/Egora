@@ -11,4 +11,5 @@ return [
     'Campaigns' => 'Campaigns',
     'Petitions' => 'Petitions',
     'Meetings' => 'Meetings',
+    'Content' => 'Content',
 ];
