@@ -80,5 +80,25 @@ class UserTypes extends Seeder
             'created_at' => $now,
             'updated_at' => $now
         ]]);
+        
+        DB::table('user_types')
+              ->where('title', 'like', 'Verified%')
+              ->update(['verified' => 1]);
+        
+        DB::table('user_types')
+              ->where('title', 'like', 'Fake%')
+              ->update(['fake' => 1]);
+        
+        DB::table('user_types')
+              ->where('title', 'like', '%Candidate%')
+              ->update(['candidate' => 1]);
+        
+        $classes = ['user' => 'User', 'member' => 'Member', 'petitioner' => 'Petitioner', 'officer' => 'Officer'];
+        
+        foreach ($classes as $class => $string) {        
+            DB::table('user_types')
+                  ->where('title', 'like', '%'.$string.'%')
+                  ->update(['class' => $class]);
+        }
     }
 }

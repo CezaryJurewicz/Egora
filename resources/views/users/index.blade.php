@@ -37,7 +37,8 @@
                                         <br>
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                         <br>
-                                        {{ __('user.User Type')}}: {{ $user->user_type->title }}                                        
+                                        {{ __('user.User Class')}}: {{$user->user_type->fake_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
+                                            ({{$user->user_type->verified_text}})
                                     </td>
                                     <td>
                                         @isset($user->ideas)

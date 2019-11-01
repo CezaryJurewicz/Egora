@@ -11,4 +11,33 @@ class UserType extends Model
     protected $hidden = array(
         'created_at','updated_at','deleted_at'
     );
+    
+    public function getVerifiedTextAttribute()
+    {
+        return $this->attributes['verified']? 'verified' : 'unverified';
+    }
+    public function getCandidateTextAttribute()
+    {
+        return $this->attributes['candidate']? 'candidate' : '';
+    }
+    
+    public function getFakeTextAttribute()
+    {
+        return $this->attributes['fake']? 'verified' : '';
+    }
+    
+    public function scopeVerified($query)
+    {
+        return $query->where('verified', 1);
+    }
+    
+    public function scopeCandidate($query)
+    {
+        return $query->where('candidate', 1);
+    }
+    
+    public function scopeFake($query)
+    {
+        return $query->where('fake', 1);
+    }
 }

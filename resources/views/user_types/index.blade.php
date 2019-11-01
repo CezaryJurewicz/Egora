@@ -14,7 +14,11 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('tables.Title')}}</th>
-                                    <th scope="col">{{ __('tables.Subtitle')}}</th>
+                                    <!--<th scope="col">{{ __('tables.Subtitle')}}</th>-->
+                                    <th scope="col">{{ __('tables.Class')}}</th>
+                                    <th scope="col">{{ __('tables.Verified')}}</th>
+                                    <th scope="col">{{ __('tables.Candidate')}}</th>
+                                    <th scope="col">{{ __('tables.Fake')}}</th>
                                     <th scope="col">{{ __('tables.Actions')}}</th>
                                 </tr>
                             </thead>
@@ -24,8 +28,14 @@
                     @forelse ($user_types as $i=>$user_type)
                                 <tr>
                                     <th scope="row">{{$user_type->id}}</th>
-                                    <td>{{ $user_type->title }}</td>
-                                    <td>{{ $user_type->subtitle }}</td>
+                                    <td>{{ $user_type->title }}
+                                        <br>
+                                    {{ $user_type->subtitle }}
+                                    </td>
+                                    <td>{{ $user_type->class }}</td>
+                                    <td>{{ $user_type->verified }}</td>
+                                    <td>{{ $user_type->candidate }}</td>
+                                    <td>{{ $user_type->fake }}</td>
                                     <td>
                                         <form action="{{ route('user_types.delete',['id'=>$user_type->id]) }}" method="POST">
                                             @csrf

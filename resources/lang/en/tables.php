@@ -24,5 +24,9 @@ return [
     'Topic' => 'Topic',
     'Comments' => 'Comments',
     'Alias' => 'Alias',
+    'Class' => 'Class',
+    'Fake' => 'Fake',
+    'Verified' => 'Verified',
+    'Candidate' => 'Candidate',
 
 ];
