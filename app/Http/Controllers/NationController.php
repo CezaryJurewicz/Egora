@@ -18,6 +18,21 @@ class NationController extends Controller
         
         return view('nations.index')->with(compact('nations'));
     }
+    
+    public function indexApi(Request $request)
+    {
+        $prefix = $request->input('prefix');
+        
+        if ($prefix) {
+            $model = Nation::where('title', 'like', $prefix.'%');
+        } else {
+            $model = new Nation;
+        }
+        
+        $nations = $model->get();
+        
+        return response()->json(compact('nations'));
+    }
 
     /**
      * Show the form for creating a new resource.

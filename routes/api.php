@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::prefix('/nations')->name('nations.')->group(function(){
+        Route::get('/', 'NationController@indexApi')->name('index');//->middleware('can:viewAny,App\Nation');
+    });
+    
