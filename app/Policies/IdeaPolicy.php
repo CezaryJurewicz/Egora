@@ -19,7 +19,7 @@ class IdeaPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $this->allow();
     }
 
     /**
@@ -31,7 +31,7 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
-        //
+        return $this->allow();
     }
 
     /**

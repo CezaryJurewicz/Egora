@@ -123,6 +123,8 @@
         </nav>
 
         <main class="py-4">
+            @include('blocks.alerts')
+            
             @yield('content')
         </main>
     </div>

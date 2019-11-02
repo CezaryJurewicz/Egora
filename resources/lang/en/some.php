@@ -16,4 +16,5 @@ return [
     'Publish' => 'Publish',
     'Zoom' => 'Zoom',
     'Back' => 'Back',
+    'Search' => 'Search',
 ];

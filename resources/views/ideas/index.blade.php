@@ -7,6 +7,28 @@
         <div class="panel ">
             <div class="panel-body">
                 <h3>{{ __('views.Ideas') }}</h3>
+                    <form action="{{ route('ideas.search') }}" method="POST">
+                <div class="form-group row">
+                    <label for="search" class="col-md-2 col-form-label text-md-right">{{ __('Search') }}</label>
+
+                        @csrf
+                        <div class="col-md-7">
+                            <input id="search" type="text" class="form-control @error('search') is-invalid @enderror" name="search" value="{{ old('search') }}" autofocus required>
+
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
+                            </div>
+                        </div>
+                </div>
+                    </form>
+                
                 <div>
                     @if($ideas->isNotEmpty())
                         <table class="table table-striped">
@@ -29,9 +51,13 @@
                                 <tr>
                                     <th scope="row">{{$idea->id}}</th>
                                     <td>
-                                        <a href="{{ route('ideas.view', $idea->id) }}">
+                                        @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
+                                            <a href="{{ route('ideas.view', $idea->id) }}">
+                                        @endif
                                             {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...
-                                        </a>
+                                        @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
+                                            </a>
+                                        @endif
                                     </td>
                                     <td>{{ $idea->nation->title }}</td>
                                     <td>#{{ $idea->user->id }}: {{ $idea->user->name }}</td>
@@ -41,26 +67,30 @@
                                     
                                     
                                     <td>
+                                        @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
                                         <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">
                                             @lang('some.View')
                                         </a>
-
-                                        @if ($idea->trashed())
-                                        <form action="{{ route('ideas.restore',['id'=>$idea->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PUT"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-warning'>{{__('some.Restore')}}</button>
-                                            </div>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('ideas.delete',['id'=>$idea->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="DELETE"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
-                                            </div>
-                                        </form>
+                                        @endif
+                                        
+                                        @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $idea))
+                                            @if ($idea->trashed())
+                                            <form action="{{ route('ideas.restore',['id'=>$idea->id]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PUT"/>
+                                                <div class="input-group">
+                                                    <button type='submit' class='btn btn-sm btn-warning'>{{__('some.Restore')}}</button>
+                                                </div>
+                                            </form>
+                                            @else
+                                            <form action="{{ route('ideas.delete',['id'=>$idea->id]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="DELETE"/>
+                                                <div class="input-group">
+                                                    <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
+                                                </div>
+                                            </form>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>

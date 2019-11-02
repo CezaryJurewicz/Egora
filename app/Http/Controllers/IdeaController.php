@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Idea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class IdeaController extends Controller
 {
@@ -19,6 +20,23 @@ class IdeaController extends Controller
         return view('ideas.index')->with(compact('ideas'));
     }
 
+    public function search(Request $request) 
+    {
+        $validator = Validator::make($request->all(),[
+            'search' => 'required|min:3|string',
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->route('ideas.index')
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $search = $request->input('search');
+        $ideas = Idea::where('content','like', '%'.$search.'%')->get();
+        
+        return view('ideas.index')->with(compact('ideas'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
