@@ -7,7 +7,7 @@ const API_URL = '/api/nations';
 
 class Search extends Component {
   state = {
-    query: '',
+    query: this.props.query ? this.props.query : '',
     value: '',
     results: []
   }
@@ -58,5 +58,6 @@ class Search extends Component {
 export default Search
     
 if (document.getElementById('NationSearch')) {
-    ReactDOM.render(<Search />, document.getElementById('NationSearch'));
+    var value = document.getElementById('NationSearch').getAttribute('value');
+    ReactDOM.render(<Search query={ value } />, document.getElementById('NationSearch'));
 }

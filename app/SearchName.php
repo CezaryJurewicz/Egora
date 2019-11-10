@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SearchName extends Model
 {
-    
+    protected $fillable = [
+        'name', 'seachable', 'active',
+    ];
+
     /**
      * Scope a query to only include active.
      *

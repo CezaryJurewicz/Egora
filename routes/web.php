@@ -30,6 +30,20 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea');
     });
+    
+    Route::prefix('/users')->name('users.')->group(function(){
+        Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
+        Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
+        Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
+    });
+    
+    Route::prefix('/search_names')->name('search_names.')->group(function(){
+        Route::get('/create', 'SearchNameController@create')->name('create')->middleware('can:create,App\SearchName');
+        Route::post('/', 'SearchNameController@store')->name('store')->middleware('can:create,App\SearchName');
+        Route::get('/{search_name}/edit', 'SearchNameController@edit')->name('edit')->middleware('can:view,search_name');
+        Route::put('/{search_name}', 'SearchNameController@update')->name('update')->middleware('can:update,search_name');
+    });
+
 });
 
 Route::middleware(['auth:web'])->group(function() {
@@ -41,9 +55,9 @@ Route::middleware(['auth:admin'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
-        Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
+//        Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
-        Route::put('/{user}', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
+        Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

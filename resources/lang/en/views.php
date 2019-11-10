@@ -4,6 +4,7 @@ return [
 
     'Users' => 'Users',
     'User' => 'User',
+    'User Edit' => 'User Edit',
     'User Types' => 'User Types',
     'Nations' => 'Nations',
     'Ideas' => 'Ideas',
