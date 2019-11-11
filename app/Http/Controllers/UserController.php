@@ -22,6 +22,30 @@ class UserController extends Controller
         return view('users.index')->with(compact('users'));
     }
 
+    public function search(Request $request)
+    {        
+        if ($request->exists('q')){     
+            $validator = Validator::make($request->all(),[
+                'q' => 'required|min:3|string',
+            ]); 
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+            
+            $users = User::whereHas('search_names', function($q) use ($request){
+                $q->where('name','like', $request->input('q').'%');
+                $q->where('seachable','1');
+                $q->where('active','1');
+            })->get();
+        } else {
+            $users = collect();
+        }
+        
+        return view('users.search')->with(compact('users'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -78,7 +102,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nation' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
-//            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
          
         if ($validator->fails()) {
@@ -88,7 +112,7 @@ class UserController extends Controller
         
         $user->name = $request->name;
         $user->email = $request->email;
-//        $user->password = Hash::make($request->password);
+        $user->password = Hash::make($request->password);
 
         $nation = Nation::where('title', $request->nation)->first();
                 

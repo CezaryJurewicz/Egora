@@ -7,6 +7,29 @@
         <div class="panel ">
             <div class="panel-body">
                 <h3>{{ __('views.Users') }}</h3>
+                
+                <form action="{{ route('users.search') }}" method="POST">
+                    <div class="form-group row">
+                        <label for="q" class="col-md-2 col-form-label text-md-right">{{ __('Search') }}</label>
+
+                        @csrf
+                        <div class="col-md-7">
+                            <input id="q" type="text" class="form-control @error('q') is-invalid @enderror" name="q" value="{{ old('q') }}" autofocus required>
+
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
                 <div>
                     @if($users->isNotEmpty())
                         <table class="table table-striped">
@@ -14,12 +37,9 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('tables.Info')}}</th>
-                                    <!--<th scope="col">{{ __('tables.Name')}}</th>-->
-                                    <!--<th scope="col">{{ __('tables.Email')}}</th>-->
                                     <th scope="col">{{ __('tables.Ideas')}}</th>
                                     <th scope="col">{{ __('tables.Created')}}</th>
                                     <th scope="col">{{ __('tables.Updated')}}</th>
-                                    <th scope="col">{{ __('tables.Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,28 +69,6 @@
                                     </td>
                                     <td>{{ $user->createdDate() }}</td>
                                     <td>{{ $user->updatedDate() }}</td>
-                                    <td>
-                                        @if (!$user->trashed())
-                                        <a class="btn btn-sm btn-primary" href="{{ route('users.view', $user->id) }}">@lang('some.View')</a>
-                                        @endif
-                                        @if ($user->trashed())
-                                        <form action="{{ route('users.restore',['id'=>$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PUT"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-warning'>{{__('some.Restore')}}</button>
-                                            </div>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('users.delete',['id'=>$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="DELETE"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
-                                            </div>
-                                        </form>
-                                        @endif
-                                    </td>
                                 </tr>
                     @empty
                         <p>@lang('users.No users')</p>

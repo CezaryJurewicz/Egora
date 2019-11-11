@@ -19,6 +19,15 @@ class IdeaController extends Controller
         
         return view('ideas.index')->with(compact('ideas'));
     }
+    
+    public function ipi(Request $request)
+    {
+        $ideas =  Idea::whereHas('user', function($q) use ($request){
+            $q->where('id', $request->user()->id);
+        })->get();
+        
+        return view('ideas.index')->with(compact('ideas'));
+    }
 
     public function search(Request $request) 
     {

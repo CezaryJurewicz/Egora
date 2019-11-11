@@ -53,7 +53,7 @@
                                 @enderror
                             </div>
                         </div>
-<!--
+
                         <div class="form-group">
                             <label for="password" class="col-form-label">{{ __('Password') }}</label>
 
@@ -74,7 +74,7 @@
                             <div>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
-                        </div>-->
+                        </div>
 
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary">

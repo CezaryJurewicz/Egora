@@ -15,7 +15,7 @@
                     <!--<a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->id) }}">Edit</a>-->
                     </div>
                     <div>Nation: {{ $user->nation->title }}</div>
-                    <div>Ideas:</div>
+                    <div class="mt-3">Ideas:</div>
                     @foreach($user->ideas as $idea)
                     <div>
                         <a href="{{ route('ideas.view', $idea->id) }}">#{{$idea->id}} {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...</a>
@@ -23,9 +23,38 @@
                     @endforeach
                 </div>
                 
-                <a class="btn btn-sm btn-primary" href="{{  url()->previous() }}">Back</a>
-                <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                <div class="mt-3">
+                    <a class="btn btn-sm btn-primary" href="{{  url()->previous() }}">Back</a>
+                    <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                </div>
+            </div>
+            <div class="mt-3">
+                
+                @if($user->image)
+                <h5 class="mb-1">{{ __('media.Profile photo')}}</h5>
+                <img src="{{ Storage::url($user->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
 
+                <div class="mt-3">
+                    <form action="{{ route('media.delete',$user->image->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <div class="input-group">
+                            <button type='submit' class='btn btn-warning'>{{__('some.Delete')}}</button>
+                        </div>
+                    </form>
+                </div>
+                @else
+                <h5 class="mb-1">{{ __('media.Upload your photo')}}</h5>
+
+                <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="input-group">
+                        <input type="file" name="file" id="file"/>
+                        <input type="hidden" name="type" value="image"/>
+                        <button type='submit' class='btn btn-primary'>{{__('some.Upload')}}</button>
+                    </div>
+                </form>
+                @endif
             </div>
         </div>
     </div>

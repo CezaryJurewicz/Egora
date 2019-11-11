@@ -20,6 +20,11 @@ class UserPolicy
     {
         //
     }
+    
+    public function searchAny(User $user)
+    {
+        return $this->allow();
+    }
 
     /**
      * Determine whether the user can view the model.

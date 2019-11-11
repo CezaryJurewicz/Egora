@@ -45,6 +45,12 @@
                             </li>
                             @endif
                             
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.search')}}">{{ __('Search') }}</a>
+                            </li>
+                            @endif
+                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index')}}">{{ __('Users') }}</a>
@@ -54,6 +60,12 @@
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
                             <li>
                                 <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('Ideas') }}</a>
+                            </li>
+                            @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
+                            <li>
+                                <a class="nav-link" href="{{ route('ideas.ipi')}}">{{ __('Ideological Profile Ideas') }}</a>
                             </li>
                             @endif
                             

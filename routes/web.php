@@ -26,12 +26,19 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
     });
     
+    Route::prefix('/media')->name('media.')->group(function(){
+        Route::post('/store', 'MediaController@store')->name('store');
+        Route::delete('/{media}', 'MediaController@destroy')->name('delete')->middleware('can:delete,media');
+    });
+    
     Route::prefix('/ideas')->name('ideas.')->group(function(){
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
+        Route::get('/ipi', 'IdeaController@ipi')->name('ipi')->middleware('can:viewAny,App\Idea');
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea');
     });
     
     Route::prefix('/users')->name('users.')->group(function(){
+        Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
         Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
@@ -55,21 +62,17 @@ Route::middleware(['auth:admin'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
-//        Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){
-//        Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
         Route::get('/{nation}', 'NationController@show')->name('view')->middleware('can:view,nation');
         Route::delete('/{nation}', 'NationController@destroy')->name('delete')->middleware('can:delete,nation');
         Route::put('/{nation}', 'NationController@restore')->name('restore')->middleware('can:restore,App\Nation');
     });
     
     Route::prefix('/ideas')->name('ideas.')->group(function(){
-//        Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
-//        Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea');
         Route::delete('/{idea}', 'IdeaController@destroy')->name('delete')->middleware('can:delete,idea');
         Route::put('/{idea}', 'IdeaController@restore')->name('restore')->middleware('can:restore,App\Idea');
     });
