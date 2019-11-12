@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Nation;
+use App\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -126,7 +127,7 @@ class UserController extends Controller
         $user->save();
         
         
-        return redirect()->route('users.view', $request->user()->id)->with('status', 'User information updated!');   
+        return redirect()->route('users.view', $request->user()->id)->with('success', 'User information updated!');   
     }
 
     /**
@@ -138,5 +139,27 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+    
+    public function verify(User $user)
+    {
+        $type = UserType::where('class', $user->user_type->class)
+                ->where('verified', 1)
+                ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
+        return redirect()->back()->with('success', 'User verification updated!');  
+    }
+    
+    public function unverify(User $user)
+    {
+        $type = UserType::where('class', $user->user_type->class)
+                ->where('verified', 0)
+                ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
+        return redirect()->back()->with('success', 'User verification updated!');  
     }
 }

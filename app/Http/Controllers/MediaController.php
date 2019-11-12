@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Media;
+use App\Passport;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -40,7 +41,7 @@ class MediaController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'file' => 'required|mimes:jpeg,jpg,png',
-            'type' => 'required|in:image'
+            'type' => 'required|in:image,passport'
         ],[
             'file.mimes'     => 'Uploaded file is not an Image format.',
             'file.required'  => 'File is required.'
@@ -58,7 +59,8 @@ class MediaController extends Controller
             $storage_disk = env('STORAGE_DISK','local');
             $filename = uniqid().".$extention";
 
-            $imported = Media::where('hash', $hash)->first();
+//            $imported = Media::where('hash', $hash)->first();
+            $imported = null;
             if (is_null($imported)) {
                 Storage::disk($storage_disk)->makeDirectory('public'.DIRECTORY_SEPARATOR.$request->type);
                 if (Storage::disk($storage_disk)->putFileAs('public'.DIRECTORY_SEPARATOR.$request->type, $file, $filename)) {
@@ -74,6 +76,18 @@ class MediaController extends Controller
                       
                     if ($request->type == 'image') {
                         if ($request->user()->image()->create($data)) {
+                            return redirect()->back()->with('success','File uploaded.');
+                        }
+                    } else if ($request->type == 'passport') {
+                        $passport = new Passport;
+                        $passport->user()->associate($request->user());
+                        $passport->save();
+
+                        $media = new Media($data);
+                        $media->mediable()->associate($passport);
+                        $media->save();
+
+                        if ($media->save()) {
                             return redirect()->back()->with('success','File uploaded.');
                         }
                     }

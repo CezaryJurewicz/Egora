@@ -56,7 +56,7 @@ class SearchNameController extends Controller
         
         $search_name->save();
         
-        return redirect()->route('users.view', $request->user()->id)->with('status', 'Search Name created!');   
+        return redirect()->route('users.view', $request->user()->id)->with('success', 'Search Name created!');   
     }
 
     /**

@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->morphOne(Media::class, 'mediable');
     }
+        
+    public function verification_id()
+    {
+        return $this->hasOne(Passport::class);
+    }
 }

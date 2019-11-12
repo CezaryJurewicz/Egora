@@ -31,6 +31,10 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::delete('/{media}', 'MediaController@destroy')->name('delete')->middleware('can:delete,media');
     });
     
+    Route::prefix('/passports')->name('passports.')->group(function(){
+        Route::delete('/{passport}', 'PassportController@destroy')->name('delete')->middleware('can:delete,passport');
+    });
+    
     Route::prefix('/ideas')->name('ideas.')->group(function(){
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
         Route::get('/ipi', 'IdeaController@ipi')->name('ipi')->middleware('can:viewAny,App\Idea');
@@ -64,6 +68,8 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
+        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,App\User');
+        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:verify,App\User');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

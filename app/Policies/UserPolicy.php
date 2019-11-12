@@ -84,7 +84,7 @@ class UserPolicy
     {
         //
     }
-
+    
     /**
      * Determine whether the user can permanently delete the model.
      *
@@ -96,4 +96,10 @@ class UserPolicy
     {
         //
     }
+    
+    public function verify(User $user, User $model)
+    {
+        //
+    }
+
 }
