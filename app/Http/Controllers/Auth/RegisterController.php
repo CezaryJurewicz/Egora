@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Nation;
 use App\UserType;
+use App\SearchName;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,7 +66,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {        
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -92,7 +93,27 @@ class RegisterController extends Controller
         $user->user_type()->associate($user_type);
         
         $user->save();
+
+        $search_name = new SearchName();        
+        $search_name->name = $this->gen_search_name($data['name']);
+        $search_name->seachable = 1;
+        $search_name->active = 1;
         
+        $search_name->user()->associate($user);
+        $search_name->save();
+
         return $user;
+    }
+    
+    private function gen_search_name($name) 
+    {
+        $i = 1;
+        do {
+            $new_name = $name.' '.$i;
+            $search_name = SearchName::where('name', $new_name)->get();
+            $i++;
+        } while($search_name->isNotEmpty());
+        
+        return $new_name;
     }
 }

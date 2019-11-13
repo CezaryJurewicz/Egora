@@ -8,6 +8,7 @@ use App\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::withTrashed()->get();
         
         return view('users.index')->with(compact('users'));
     }
@@ -136,9 +137,28 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        //
+        if (!($request->user() instanceof \App\Admin)) {        
+            Auth::logout();
+        }
+        
+        if (!$user->user_type->verified) {
+            $user->forceDelete();
+            return redirect()->route('index')->with('success', 'User permanently deleted');  
+        } else {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted');  
+        }
+        
+        return redirect()->back()->withErrors(['User deletion error']);
+    }
+    
+    public function restore(User $user) 
+    {
+        $user->restore();
+        
+        return redirect()->back()->with('success', 'User restored');  
     }
     
     public function verify(User $user)

@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Auth::routes();
 
@@ -46,6 +46,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
+        Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
     });
     
     Route::prefix('/search_names')->name('search_names.')->group(function(){
@@ -66,10 +67,9 @@ Route::middleware(['auth:admin'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
-        Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
-        Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,App\User');
-        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,App\User');
-        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:verify,App\User');
+        Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
+        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
+        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:verify,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

@@ -54,7 +54,7 @@
                                         <a class="btn btn-sm btn-primary" href="{{ route('users.view', $user->id) }}">@lang('some.View')</a>
                                         @endif
                                         @if ($user->trashed())
-                                        <form action="{{ route('users.restore',['id'=>$user->id]) }}" method="POST">
+                                        <form action="{{ route('users.restore',[$user->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="PUT"/>
                                             <div class="input-group">
@@ -62,7 +62,7 @@
                                             </div>
                                         </form>
                                         @else
-                                        <form action="{{ route('users.delete',['id'=>$user->id]) }}" method="POST">
+                                        <form action="{{ route('users.delete',[$user->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">

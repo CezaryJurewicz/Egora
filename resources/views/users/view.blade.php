@@ -28,11 +28,26 @@
                     @endforeach
                 </div>
                 
-                <div class="mt-3">
-                    <a class="btn btn-sm btn-primary" href="{{  url()->previous() }}">Back</a>
-
+                <div class="mt-3 row">
+                    <div class="col-md-1">
+                        <a class="btn btn-sm btn-primary" href="{{  url()->previous() }}">Back</a>
+                    </div>
                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
-                    <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                    <div class="col-md-1">
+                        <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                    </div>
+                    @endif
+                    
+                    @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user))
+                    <div class="col-md-1">
+                        <form action="{{ route('users.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="_method" value="DELETE"/>
+                            <div class="input-group">
+                                <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
+                            </div>
+                        </form>
+                    </div>
                     @endif
                 </div>
             </div>
