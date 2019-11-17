@@ -14,4 +14,6 @@ return [
     'Meetings' => 'Meetings',
     'Content' => 'Content',
     'Ideological Profile' => 'Ideological Profile',
+    'Create Search Name' => 'Create Search Name',
+    'Update Search Name' => 'Update Search Name',
 ];

@@ -14,8 +14,8 @@
                     <div>Search Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
                         
                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
-                    <a class="btn btn-sm btn-warning" href="{{ route('search_names.create') }}">Create</a>
-                    <!--<a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->id) }}">Edit</a>-->
+                    <!--<a class="btn btn-sm btn-warning" href="{{ route('search_names.create') }}">Create</a>-->
+                    <a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
                     @endif
                     
                     </div>

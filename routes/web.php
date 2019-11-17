@@ -56,7 +56,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
     Route::prefix('/search_names')->name('search_names.')->group(function(){
         Route::get('/create', 'SearchNameController@create')->name('create')->middleware('can:create,App\SearchName');
         Route::post('/', 'SearchNameController@store')->name('store')->middleware('can:create,App\SearchName');
-        Route::get('/{search_name}/edit', 'SearchNameController@edit')->name('edit')->middleware('can:view,search_name');
+        Route::get('/{search_name}/edit', 'SearchNameController@edit')->name('edit')->middleware('can:update,search_name');
         Route::put('/{search_name}', 'SearchNameController@update')->name('update')->middleware('can:update,search_name');
     });
 

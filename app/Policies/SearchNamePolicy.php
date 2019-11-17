@@ -54,7 +54,7 @@ class SearchNamePolicy
      */
     public function update(User $user, SearchName $searchName)
     {
-        //
+        return $searchName->user->id == $user->id; 
     }
 
     /**

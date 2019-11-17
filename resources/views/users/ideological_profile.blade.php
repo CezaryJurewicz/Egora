@@ -13,8 +13,30 @@
                             
                             <div>{{ $user->user_type->title }}</div>
                             <div>{{ $user->name }}</div>
-                            <div>Search Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif</div>
+                            <div>Search Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
+                                @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                                <a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
+                                @endif
+                            </div>
                             <div>{{ $user->email }}</div>
+                            
+                            @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                            <div>
+                                <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                            </div>
+                            @endif
+
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user))
+                            <div class="mt-2">
+                                <form action="{{ route('users.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE"/>
+                                    <div class="input-group">
+                                        <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
+                                    </div>
+                                </form>
+                            </div>
+                            @endif
                         </div>
                         <div class="col-md-9">
                             <div class="card">

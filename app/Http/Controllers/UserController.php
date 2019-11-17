@@ -137,10 +137,10 @@ class UserController extends Controller
         
         if($user->save()){
             event(new UserNameChanged($user));
-            return redirect()->route('users.view', $request->user()->id)->with('success', 'User information updated!');   
+            return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'User information updated!');   
         }
         
-        return redirect()->route('users.view', $request->user()->id)->withErrors('User information update failed!');   
+        return redirect()->route('users.ideological_profile', $request->user()->id)->withErrors('User information update failed!');   
     }
 
     /**

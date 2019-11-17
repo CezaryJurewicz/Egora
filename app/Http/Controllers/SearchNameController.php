@@ -43,7 +43,7 @@ class SearchNameController extends Controller
         ]);
          
         if ($validator->fails()) {
-            return redirect()->back() //route('search_name.create')
+            return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
 
@@ -78,7 +78,7 @@ class SearchNameController extends Controller
      */
     public function edit(SearchName $searchName)
     {
-        //
+        return view('search_name.edit')->with(compact('searchName'));
     }
 
     /**
@@ -90,7 +90,23 @@ class SearchNameController extends Controller
      */
     public function update(Request $request, SearchName $searchName)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|min:3|string',
+            'seachable' => 'boolean',
+            'active' => 'boolean',
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        $searchName->name = $request->input('name');
+        $searchName->seachable = $request->input('seachable')?:0;
+        $searchName->active = $request->input('active')?:0;
+        $searchName->save();
+        
+        return redirect()->back()->with('success', 'Search Name updated!');   
     }
 
     /**
