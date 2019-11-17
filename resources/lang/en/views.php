@@ -13,4 +13,5 @@ return [
     'Petitions' => 'Petitions',
     'Meetings' => 'Meetings',
     'Content' => 'Content',
+    'Ideological Profile' => 'Ideological Profile',
 ];

@@ -9,10 +9,13 @@
                 <h3>{{ __('views.Ideas') }}</h3>
                     <form action="{{ route('ideas.search') }}" method="POST">
                 <div class="form-group row">
-                    <label for="search" class="col-md-2 col-form-label text-md-right">{{ __('Search') }}</label>
+                    <div class="col-md-2">
+                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a>
+                    </div>
+                    <label for="search" class="col-md-1 col-form-label text-md-right">{{ __('Search') }}</label>
 
                         @csrf
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <input id="search" type="text" class="form-control @error('search') is-invalid @enderror" name="search" value="{{ old('search') }}" autofocus required>
 
                             @error('search')
@@ -21,7 +24,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <div class="input-group">
                                 <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
                             </div>

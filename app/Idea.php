@@ -10,6 +10,8 @@ class Idea extends Model
 {
     use SoftDeletes;
     
+    protected $fillable = array('content', 'position');
+    
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -33,6 +33,11 @@ class IdeaPolicy
     {
         return $this->allow();
     }
+    
+    public function like(User $user, Idea $idea)
+    {
+        return $this->allow();
+    }
 
     /**
      * Determine whether the user can create ideas.
@@ -42,7 +47,7 @@ class IdeaPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->allow();
     }
 
     /**

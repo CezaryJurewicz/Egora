@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Events\UserNameChanged;
 
 class UserController extends Controller
 {
@@ -79,6 +80,15 @@ class UserController extends Controller
     {
         return view('users.view')->with(compact('user'));
     }
+    
+    public function ideological_profile(User $user)
+    {
+        $user->load(['ideas'=>function($q){
+            $q->orderBy('position', 'desc');
+        }]);
+        
+        return view('users.ideological_profile')->with(compact('user'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -104,7 +114,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nation' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'password' => ['nullable', 'string', 'min:8', 'confirmed']
         ]);
          
         if ($validator->fails()) {
@@ -125,10 +135,12 @@ class UserController extends Controller
         }
         $user->nation()->associate($nation);
         
-        $user->save();
+        if($user->save()){
+            event(new UserNameChanged($user));
+            return redirect()->route('users.view', $request->user()->id)->with('success', 'User information updated!');   
+        }
         
-        
-        return redirect()->route('users.view', $request->user()->id)->with('success', 'User information updated!');   
+        return redirect()->route('users.view', $request->user()->id)->withErrors('User information update failed!');   
     }
 
     /**

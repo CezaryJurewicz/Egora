@@ -90,4 +90,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Passport::class);
     }
+    
+    public function liked_ideas()
+    {
+        return $this->belongsToMany(Idea::class)->withPivot('position');
+    }
 }

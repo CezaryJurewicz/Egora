@@ -63,11 +63,11 @@
                             </li>
                             @endif
                             
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
+                            {{-- @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
                             <li>
                                 <a class="nav-link" href="{{ route('ideas.ipi')}}">{{ __('Ideological Profile Ideas') }}</a>
                             </li>
-                            @endif
+                            @endif --}}
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Campaign::class))
                             <li class="nav-item">
@@ -111,8 +111,15 @@
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('users.view',  auth('web')->user()->id) }}">
                                         {{ __('Profile') }}
                                     </a></li>
+                                    @endif
+                                    
+                                    @if (auth('web')->check() && auth('web')->user()->can('ideological_profile',auth('web')->user()) )
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('users.ideological_profile',  auth('web')->user()->id)}}">{{ __('Ideological Profile') }}</a>
+                                    </li>
                                     <li class="dropdown-divider"></li>
                                     @endif
+                                    
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('logout') }}" 
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

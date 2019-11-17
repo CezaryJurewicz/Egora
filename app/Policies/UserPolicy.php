@@ -37,6 +37,11 @@ class UserPolicy
     {
         return $user->id == $model->id;
     }
+    
+    public function ideological_profile(User $user, User $model)
+    {
+        return $this->allow();
+    }
 
     /**
      * Determine whether the user can create models.

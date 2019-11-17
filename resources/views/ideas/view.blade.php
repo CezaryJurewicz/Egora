@@ -14,7 +14,13 @@
                     <div>Content: {{ $idea->content }}</div>
                 </div>
                 
-                <a class="btn btn-sm btn-primary" href="{{  url()->previous() }}">Back</a>
+                <div class="row mt-2">
+                    <form class="col-md-1" action="{{ url()->previous() }}" method="GET">
+                        <button type='submit' class='btn btn-primary'>{{__('Back')}}</button>
+                    </form>
+                
+                    @include('blocks.like')
+                </div>
             </div>
         </div>
     </div>

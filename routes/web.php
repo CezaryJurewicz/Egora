@@ -38,11 +38,15 @@ Route::middleware(['auth:admin,web'])->group(function() {
     Route::prefix('/ideas')->name('ideas.')->group(function(){
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:viewAny,App\Idea');
         Route::get('/ipi', 'IdeaController@ipi')->name('ipi')->middleware('can:viewAny,App\Idea');
-        Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea');
+        Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
+        Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
+        Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
+        Route::post('/{idea}/like', 'IdeaController@like')->name('like')->middleware('can:like,idea')->where('idea', '[0-9]+');
     });
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
+        Route::get('/{user}/ideological_profile', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,user');
         Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
@@ -79,8 +83,8 @@ Route::middleware(['auth:admin'])->group(function() {
     });
     
     Route::prefix('/ideas')->name('ideas.')->group(function(){
-        Route::delete('/{idea}', 'IdeaController@destroy')->name('delete')->middleware('can:delete,idea');
-        Route::put('/{idea}', 'IdeaController@restore')->name('restore')->middleware('can:restore,App\Idea');
+        Route::delete('/{idea}', 'IdeaController@destroy')->name('delete')->middleware('can:delete,idea')->where('idea', '[0-9]+');
+        Route::put('/{idea}', 'IdeaController@restore')->name('restore')->middleware('can:restore,App\Idea')->where('idea', '[0-9]+');
     });
     
     Route::prefix('/user_types')->name('user_types.')->group(function(){
