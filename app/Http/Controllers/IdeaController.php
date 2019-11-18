@@ -24,14 +24,17 @@ class IdeaController extends Controller
     public function _ideas(Request $request, $view) 
     {
         $search = null;
-        $nation_id = null;
+        $relevance = null;
+        $unverified = null;
         $nations = $this->_user_nation($request);
         
+        $model = Idea::query();
         if (!empty($request->all()))
         {
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
-                'nation' => 'nullable',
+                'relevance' => 'nullable|numeric',
+                'unverified' => 'nullable|boolean',
             ]);
 
             if ($validator->fails()) {
@@ -39,26 +42,31 @@ class IdeaController extends Controller
                         ->withInput()->withErrors($validator);
             }
 
-            $model = Idea::query();
+            $unverified = $request->input('unverified');
+            if(!$request->exists('unverified')) {
+                $model->whereHas('user.user_type',function($q){
+                    $q->where('verified', 1);
+                });
+            }
+            
             $search = $request->input('search');
             if($search) {
                 $model->where('content','like', '%'.$search.'%');
             }
             
-            $nation_id= $request->input('nation');
-            if($nation_id) {
-                $model->where('nation_id', $nation_id);
+            $relevance = $request->input('relevance');
+            if($relevance && $relevance != -1) {
+                $model->where('nation_id', $relevance);
+            } else if ($relevance && $relevance == -1) {
+                $egora = Nation::where('title', 'Egora')->first();
+                $model->where('nation_id', '<>', $egora->id);
             }
             
-            
-            $ideas = $model->get();
         }
-        else
-        {
-            $ideas = Idea::get();
-        }
+        
+        $ideas = $model->paginate(10);
 
-        return view($view)->with(compact('ideas', 'nations', 'search', 'nation_id'));
+        return view($view)->with(compact('ideas', 'nations', 'search', 'relevance', 'unverified'));
     }
     
     public function indexes(Request $request)

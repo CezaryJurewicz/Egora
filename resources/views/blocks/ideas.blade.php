@@ -11,6 +11,7 @@
                                     @else
                                     <th scope="col">{{ __('tables.Supporters')}}</th>
                                     @endif
+                                    <th scope="col">{{ __('tables.User Type')}}</th>
                                     <th scope="col">{{ __('tables.Created')}}</th>
                                     <th scope="col">{{ __('tables.Updated')}}</th>                                    
                                 </tr>
@@ -36,15 +37,18 @@
                                     @else
                                     <td>{{ $idea->liked_users->count() }}</td>
                                     @endif
+                                    <td>{{ $idea->user->user_type->title }}</td>
                                     <td>{{ $idea->createdDate() }}</td>
                                     <td>{{ $idea->updatedDate() }}</td>
                                 </tr>
                     @empty
-                        <p>@lang('ideas.No ideas')</p>
+                        <p>@lang('ideas.No ideas found')</p>
                     @endforelse
                     
                     @if($ideas->isNotEmpty())                  
                             </tbody>
                         </table>
+                    
+                        {{ $ideas->links() }}
                     @endif
                 </div>

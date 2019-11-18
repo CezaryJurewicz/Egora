@@ -16,6 +16,7 @@ return [
     'Nation' => 'Nation',
     'Content' => 'Content',
     'User' => 'User',
+    'User Type' => 'User Type',
     'Position' => 'Position',
     'Users' => 'Users',
     'Subtitle' => 'Subtitle',
