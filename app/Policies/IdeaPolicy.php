@@ -21,6 +21,11 @@ class IdeaPolicy
     {
         return $this->allow();
     }
+    
+    public function administrate(User $user)
+    {
+        return $this->deny();
+    }
 
     /**
      * Determine whether the user can view the idea.

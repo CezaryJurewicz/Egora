@@ -57,18 +57,18 @@
                             </li>
                             @endif
 
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('administrate', App\Idea::class))
                             <li>
                                 <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('Ideas') }}</a>
                             </li>
                             @endif
                             
-                            {{-- @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
+                            @if (auth('web')->user() && auth('web')->user()->can('viewAny', App\Idea::class))
                             <li>
-                                <a class="nav-link" href="{{ route('ideas.ipi')}}">{{ __('Ideological Profile Ideas') }}</a>
+                                <a class="nav-link" href="{{ route('ideas.indexes')}}">{{ __('Indexes') }}</a>
                             </li>
-                            @endif --}}
-                            
+                            @endif
+                                                        
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Campaign::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
@@ -131,9 +131,7 @@
                                 </ul>
                             </li>
                         @else                                        
-<!--                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>-->
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Login / Register') }}</a>

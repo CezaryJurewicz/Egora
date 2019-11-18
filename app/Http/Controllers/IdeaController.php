@@ -21,6 +21,56 @@ class IdeaController extends Controller
         return view('ideas.index')->with(compact('ideas'));
     }
     
+    public function _ideas(Request $request, $view) 
+    {
+        $search = null;
+        $nation_id = null;
+        $nations = $this->_user_nation($request);
+        
+        if (!empty($request->all()))
+        {
+            $validator = Validator::make($request->all(),[
+                'search' => 'nullable|min:3|string',
+                'nation' => 'nullable',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+
+            $model = Idea::query();
+            $search = $request->input('search');
+            if($search) {
+                $model->where('content','like', '%'.$search.'%');
+            }
+            
+            $nation_id= $request->input('nation');
+            if($nation_id) {
+                $model->where('nation_id', $nation_id);
+            }
+            
+            
+            $ideas = $model->get();
+        }
+        else
+        {
+            $ideas = Idea::get();
+        }
+
+        return view($view)->with(compact('ideas', 'nations', 'search', 'nation_id'));
+    }
+    
+    public function indexes(Request $request)
+    {
+        return $this->_ideas($request, 'ideas.indexes');
+    }
+    
+    public function popularity_indexes(Request $request)
+    {
+        return $this->_ideas($request, 'ideas.popularity_indexes');
+    }
+    
     public function ipi(Request $request)
     {
         $ideas =  Idea::whereHas('user', function($q) use ($request){

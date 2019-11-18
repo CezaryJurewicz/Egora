@@ -28,5 +28,6 @@ return [
     'Fake' => 'Fake',
     'Verified' => 'Verified',
     'Candidate' => 'Candidate',
+    'Points' => 'Points',
 
 ];

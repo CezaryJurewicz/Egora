@@ -10,7 +10,6 @@
                 <div>
                     <div>Nation: {{ $idea->nation->title }}</div>
                     <div>User: <a href="{{ route('users.view', $idea->user->id) }}">{{ $idea->user->name }}</a> (aka '{{ $idea->user->active_search_names->first()? $idea->user->active_search_names->first()->name : '-'}}')</div>
-                    <div>Position: {{ $idea->position }}</div>
                     <div>Content: {{ $idea->content }}</div>
                 </div>
                 

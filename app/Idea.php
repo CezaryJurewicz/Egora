@@ -31,4 +31,9 @@ class Idea extends Model
     {
         return (new Carbon($this->updated_at))->diffForHumans();
     }
+    
+    public function liked_users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('position');
+    }
 }

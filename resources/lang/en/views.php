@@ -16,4 +16,6 @@ return [
     'Ideological Profile' => 'Ideological Profile',
     'Create Search Name' => 'Create Search Name',
     'Update Search Name' => 'Update Search Name',
+    'Idea Dominance Index' => 'Idea Dominance Index',
+    'Idea Popularity Index' => 'Idea Popularity Index',
 ];
