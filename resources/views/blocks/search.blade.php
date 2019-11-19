@@ -1,10 +1,6 @@
                 <form action="{{ route(Route::current()->getName()) }}" method="POST">
                     <div class="form-group row">
-                        <div class="col-md-2">
-                            <!--<a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a>-->
-                        </div>
-
-                        <label for="relevance" class="col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
+                        <label for="relevance" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
 
                         <div class="col-md-6">
                             <select id="relevance" type="text" class="form-control @error('relevance') is-invalid @enderror" name="relevance" value="{{ old('relevance') }}">

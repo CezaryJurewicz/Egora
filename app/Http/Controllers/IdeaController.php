@@ -193,6 +193,9 @@ class IdeaController extends Controller
         
         $idea->save();
         
+        $request->user()->liked_ideas()->syncWithoutDetaching($idea);
+        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
+
         return redirect()->back()->with('success', 'New Idea created');   
     }
 

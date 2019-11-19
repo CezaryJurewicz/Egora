@@ -39,27 +39,25 @@
                             @endif
                         </div>
                         <div class="col-md-9">
-                            <div class="card">
-                                <div class="card-header">Ideas: <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a></div>
-                                <div class="card-body">
-                                    @foreach($user->ideas as $idea)
-                                    <div>
-                                        #{{$idea->position}} {{$idea->nation->title}} 
-                                        <a href="{{ route('ideas.view', $idea->id) }}">{{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...</a>
-
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
                             @if($user->liked_ideas->isNotEmpty())
-                            <div class="card mt-2">
-                                <div class="card-header">Liked Ideas:</div>
-                                <div class="card-body">
+                            <div>
+                                <div class="mb-1">Ideas: <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a></div>
+                                <div class="card p-2">
                                     @foreach($user->liked_ideas as $idea)
-                                    <div>
-                                        #{{$idea->pivot->position}} {{$idea->nation->title}} 
-                                        <a href="{{ route('ideas.view', $idea->id) }}">{{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...</a>
-
+                                    <div class="card mb-3">
+                                        <div class="card-header row">
+                                            <div class="col-md-1">{{$idea->pivot->position}}</div>
+                                            <div class="col-md-2">{{$idea->nation->title}} </div>
+                                            <div class="col-md-2">
+                                                <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a> 
+                                            </div>
+                                            <div class="offset-3 col-md-2">
+                                            IDI Points {{ $idea->liked_users->pluck('pivot.position')->sum() }}
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 50)) }} ...
+                                        </div>
                                     </div>
                                     @endforeach
                                 </div>

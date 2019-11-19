@@ -16,6 +16,6 @@
                                 @endfor
                             </select>
 
-                            <button type='submit' class='btn btn-danger'>{{__('Like')}}</button>
+                            <button type='submit' class='btn btn-danger'>{{__('Save')}}</button>
                         </div>
                     </form>

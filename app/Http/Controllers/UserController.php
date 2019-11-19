@@ -86,7 +86,7 @@ class UserController extends Controller
         $user->load(['ideas'=>function($q){
             $q->orderBy('position', 'desc');
         }]);
-        
+
         return view('users.ideological_profile')->with(compact('user'));
     }
 
