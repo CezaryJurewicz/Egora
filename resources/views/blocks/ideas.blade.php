@@ -12,8 +12,8 @@
                                     <th scope="col">{{ __('tables.Supporters')}}</th>
                                     @endif
                                     <th scope="col">{{ __('tables.User Type')}}</th>
-                                    <th scope="col">{{ __('tables.Created')}}</th>
-                                    <th scope="col">{{ __('tables.Updated')}}</th>                                    
+<!--                                    <th scope="col">{{ __('tables.Created')}}</th>
+                                    <th scope="col">{{ __('tables.Updated')}}</th>                                    -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,8 +38,8 @@
                                     <td>{{ $idea->liked_users->count() }}</td>
                                     @endif
                                     <td>{{ $idea->user->user_type->title }}</td>
-                                    <td>{{ $idea->createdDate() }}</td>
-                                    <td>{{ $idea->updatedDate() }}</td>
+<!--                                    <td>{{ $idea->createdDate() }}</td>
+                                    <td>{{ $idea->updatedDate() }}</td>-->
                                 </tr>
                     @empty
                         <p>@lang('ideas.No ideas found')</p>
@@ -49,6 +49,6 @@
                             </tbody>
                         </table>
                     
-                        {{ $ideas->links() }}
+                        {{ $ideas->appends(request()->except('_token'))->links() }}
                     @endif
                 </div>

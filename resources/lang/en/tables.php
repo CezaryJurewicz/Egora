@@ -30,5 +30,6 @@ return [
     'Verified' => 'Verified',
     'Candidate' => 'Candidate',
     'Points' => 'Points',
+    'Search Name' => 'Search Name',
 
 ];

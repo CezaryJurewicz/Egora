@@ -33,27 +33,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">                        
                         @if (auth('web')->check() || auth('admin')->check())
+                            @if (auth('web')->check() && auth('web')->user()->can('ideological_profile',auth('web')->user()) )
+                            <li>
+                                <a class="nav-link" href="{{ route('users.ideological_profile',  auth('web')->user()->id)}}">{{ __('Home') }}</a>
+                            </li>
+                            @endif                        
+
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.search')}}">{{ __('Users') }}</a>
+                            </li>
+                            @endif
+
+                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Nation::class))
                             <li>
                                 <a class="nav-link" href="{{ route('nations.index')}}">{{ __('Nations') }}</a>
                             </li>
                             @endif
                             
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.search')}}">{{ __('Search') }}</a>
-                            </li>
-                            @endif
-                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.index')}}">{{ __('Users') }}</a>
+                                <a class="nav-link" href="{{ route('users.index')}}">{{ __('All users') }}</a>
                             </li>
                             @endif
 
@@ -98,6 +100,12 @@
                                 <a class="nav-link" href="{{ route('user_types.index')}}">{{ __('User Types') }}</a>
                             </li>
                             @endif
+                            
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">                        
+                            
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

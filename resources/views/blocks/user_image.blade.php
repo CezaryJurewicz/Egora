@@ -13,14 +13,16 @@
                                 </div>
                                 @endif
                             @else
-                            <h5 class="mb-1">{{ __('media.Upload your photo')}}</h5>
+                                @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                                <h5 class="mb-1">{{ __('media.Upload your photo')}}</h5>
 
-                            <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="input-group">
-                                    <input type="file" name="file" id="file"/>
-                                    <input type="hidden" name="type" value="image"/>
-                                    <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Upload')}}</button>
-                                </div>
-                            </form>
+                                <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input type="file" name="file" id="file"/>
+                                        <input type="hidden" name="type" value="image"/>
+                                        <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Upload')}}</button>
+                                    </div>
+                                </form>
+                                @endif
                             @endif          

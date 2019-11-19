@@ -62,6 +62,10 @@ class IdeaController extends Controller
                 $model->where('nation_id', '<>', $egora->id);
             }
             
+        } else {
+            $model->whereHas('user.user_type',function($q){
+                $q->where('verified', 1);
+            });
         }
         
         $ideas = $model->paginate(10);

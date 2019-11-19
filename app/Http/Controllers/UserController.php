@@ -27,9 +27,15 @@ class UserController extends Controller
 
     public function search(Request $request)
     {        
-        if ($request->exists('q')){     
+        $search_name = null;
+        $nation = null;
+        
+        $nations = Nation::get();
+        
+        if ($request->exists('search_name')){     
             $validator = Validator::make($request->all(),[
-                'q' => 'required|min:3|string',
+                'search_name' => 'required|min:3|string',
+                'nation' => 'nullable|exists:nations,id',
             ]); 
 
             if ($validator->fails()) {
@@ -37,16 +43,28 @@ class UserController extends Controller
                         ->withInput()->withErrors($validator);
             }
             
-            $users = User::whereHas('search_names', function($q) use ($request){
-                $q->where('name','like', $request->input('q').'%');
+            $search_name = $request->input('search_name');
+            $nation = $request->input('nation');
+            
+            $model = User::whereHas('search_names', function($q) use ($request){
+                $q->where('name','like', $request->input('search_name').'%');
                 $q->where('seachable','1');
                 $q->where('active','1');
-            })->get();
+            });
+            
+            if ($nation) {
+                $model->whereHas('nation', function($q) use ($request){
+                    $q->where('id', $request->input('nation'));
+                });
+            }
+            
+            $users = $model->paginate(10);
+            
         } else {
             $users = collect();
         }
         
-        return view('users.search')->with(compact('users'));
+        return view('users.search')->with(compact('users', 'nations', 'search_name', 'nation'));
     }
 
     /**

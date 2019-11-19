@@ -3,6 +3,7 @@
 return [
 
     'Users' => 'Users',
+    'Egora User Search' => 'Egora User Search',
     'User' => 'User',
     'User Edit' => 'User Edit',
     'User Types' => 'User Types',
