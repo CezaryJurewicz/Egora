@@ -112,7 +112,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    @if (auth('web')->check())
+                                   {{-- @if (auth('web')->check())
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('users.view',  auth('web')->user()->id) }}">
                                         {{ __('Profile') }}
                                     </a></li>
@@ -124,7 +124,7 @@
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     @endif
-                                    
+                                    --}}
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('logout') }}" 
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

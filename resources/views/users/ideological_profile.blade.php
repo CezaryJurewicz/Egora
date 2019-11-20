@@ -39,13 +39,13 @@
                             @endif
                         </div>
                         <div class="col-md-9">
-                            @if($user->liked_ideas->isNotEmpty())
                             <div>
                                 <div class="mb-1">Ideas: 
                                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a>
                                     @endif
                                 </div>
+                                @if($user->liked_ideas->isNotEmpty())
                                 <div class="card p-2">
                                     @foreach($user->liked_ideas as $idea)
                                     <div class="card mb-3">
@@ -54,7 +54,7 @@
                                                 <div class="col-md-1">{{$idea->pivot->position}}</div>
                                                 <div class="col-md-2">{{$idea->nation->title}} </div>
                                                 <div class="col-md-2">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a> 
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
                                                 <div class="offset-3 col-md-2">
                                                 IDI Points {{ $idea->liked_users->pluck('pivot.position')->sum() }}
@@ -67,8 +67,8 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                @endif
                             </div>
-                            @endif
                         </div>
                         
 
