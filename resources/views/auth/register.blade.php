@@ -1,9 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <div class="card bg-dark text-light text-center shadow-sm p-2 mb-3">
+                Humanity,<br/>
+                here all tyrants drown<br/>
+                in the ocean of your collective wisdom.<br/>
+                --------------------------------------------<br/>
+                Cezary Jurewicz, Filosofos Vasileus, International Logic Party<br/>
+                <br/>
+                (July 31?)
+            </div>
+            
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -74,8 +84,7 @@
     </div>
 </div>
 
-
-<div class="container registration mt-5">
+<div class="container registration mt-3">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

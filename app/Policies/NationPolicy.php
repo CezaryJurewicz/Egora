@@ -19,7 +19,7 @@ class NationPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->allow();
+//        return $this->allow();
     }
 
     /**

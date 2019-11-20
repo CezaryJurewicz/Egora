@@ -7,5 +7,5 @@ return [
     'User Type' => 'User Type',
     'User Class' => 'User Class',
     'Search Name' => 'Search Name',
-
+    'No users found' => 'No users found',
 ];

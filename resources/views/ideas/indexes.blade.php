@@ -38,7 +38,7 @@
                 @include('blocks.search')
 
                 @include('blocks.ideas', ['index'=>'dominance'])
-                
+
             </div>
         </div>
     </div>

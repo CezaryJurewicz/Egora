@@ -23,7 +23,7 @@
             @include('blocks.header')        
         @endif
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Egora') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,7 +46,6 @@
                             </li>
                             @endif
 
-                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Nation::class))
                             <li>
                                 <a class="nav-link" href="{{ route('nations.index')}}">{{ __('Nations') }}</a>
@@ -105,8 +104,6 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">                        
-                            
-                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (auth('admin')->check()) {{  auth('admin')->user()->name  }} @endif
@@ -139,7 +136,8 @@
                                 </ul>
                             </li>
                         @else                                        
-
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Login / Register') }}</a>
@@ -157,6 +155,10 @@
             
             @yield('content')
         </main>
+        
+        <div class="mt-3 text-center">
+            Egora - Copyleft 2018
+        </div>
     </div>
 </body>
 </html>

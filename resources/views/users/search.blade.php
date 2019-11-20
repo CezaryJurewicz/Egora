@@ -86,7 +86,7 @@
                                     </td>
                                 </tr>
                     @empty
-                        <p>@lang('users.No users')</p>
+                        <p>@lang('user.No users found')</p>
                     @endforelse
                     
                     @if($users->isNotEmpty())                 
