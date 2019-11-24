@@ -40,11 +40,16 @@ class MediaPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, $user_profile)
     {
-        //
+        return ($user_profile->id == $user->id && $user->user_type->verified);
     }
 
+    public function verification(User $user)
+    {
+        return (!$user->user_type->verified);
+    }
+    
     /**
      * Determine whether the user can update the media.
      *

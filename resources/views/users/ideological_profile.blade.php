@@ -6,23 +6,31 @@
         <div class="col-md-12">
             <div class="panel ">
                 <div class="panel-body">
-                    <h3>{{ __('views.Ideological Profile') }}</h3>
                     <div class="row">
                         <div class="col-md-3">
                             @include('blocks.user_image')                 
                             
-                            <div>{{ $user->user_type->title }}</div>
-                            <div>{{ $user->name }}</div>
-                            <div>Search Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
-                                @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                            <div class="mt-2">{{ $user->user_type->title }}</div>
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
+                            <div class="mt-2">{{ $user->name }}</div>
+                            @endif
+                            
+                            <div class="mt-2">
+                                @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
+                                
+                                @if (auth('web')->user() && $user->id == auth('web')->user()->id && $user->active_search_names->first())
                                 <a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
                                 @endif
                             </div>
-                            <div>{{ $user->email }}</div>
                             
-                            @if (auth('web')->user() && $user->id == auth('web')->user()->id)
-                            <div>
-                                <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
+                            <div class="mt-2">{{ $user->email }}</div>
+                            @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
+                            <div class="mt-2">
+                                <a class="btn btn-sm btn-warning btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
                             </div>
                             @endif
 
@@ -32,13 +40,23 @@
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE"/>
                                     <div class="input-group">
-                                        <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
+                                        <button type='submit' class='btn btn-sm btn-danger btn-block'>{{__('some.Delete')}}</button>
                                     </div>
                                 </form>
                             </div>
                             @endif
+                            
+                            <div class="mt-3">
+                            @include('blocks.verification')
+                            </div>
+                            
+                            <div class="mt-2">
+                            @include('blocks.ilp')
+                            </div>
                         </div>
+                        
                         <div class="col-md-9">
+                            <h3>{{ __('views.Ideological Profile') }}</h3>
                             <div>
                                 <div class="mb-1">Ideas: 
                                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)

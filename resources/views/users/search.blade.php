@@ -68,11 +68,11 @@
                                 <tr>
                                     <td>
                                         {{$user->user_type->title}}
-<!--                                        {{$user->user_type->fake_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
-                                            ({{$user->user_type->verified_text}})-->
                                     </td>
                                     <td>
-                                        {{ __('user.Search Name')}}: {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                                        <a href="{{ route('users.ideological_profile', $user->id) }}">
+                                        {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $user->nation->title }}                                        

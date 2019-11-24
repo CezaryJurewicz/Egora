@@ -6,11 +6,16 @@
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
-                <h3>{{ __('views.Idea') }}</h3>
-                <div>
-                    <div>Nation: {{ $idea->nation->title }}</div>
-                    <div>User: <a href="{{ route('users.view', $idea->user->id) }}">{{ $idea->user->name }}</a> (aka '{{ $idea->user->active_search_names->first()? $idea->user->active_search_names->first()->name : '-'}}')</div>
-                    <div>Content: {{ $idea->content }}</div>
+                <h3>{{ __('views.Idea') }} {{__('for')}} {{ $idea->nation->title }} </h3>
+                <div class="card">
+                    <div class="card-header">
+                        By: <a href="{{ route('users.ideological_profile', $idea->user->id) }}">
+                            {{ $idea->user->active_search_names->first()? $idea->user->active_search_names->first()->name : '-'}}
+                        </a>
+                    </div>
+                    <div class="card-body">
+                    {{ $idea->content }}
+                    </div>
                 </div>
                 
                 <div class="row mt-2">

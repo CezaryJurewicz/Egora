@@ -59,8 +59,7 @@ class MediaController extends Controller
             $storage_disk = env('STORAGE_DISK','local');
             $filename = uniqid().".$extention";
 
-//            $imported = Media::where('hash', $hash)->first();
-            $imported = null;
+            $imported = Media::where('hash', $hash)->first();
             if (is_null($imported)) {
                 Storage::disk($storage_disk)->makeDirectory('public'.DIRECTORY_SEPARATOR.$request->type);
                 if (Storage::disk($storage_disk)->putFileAs('public'.DIRECTORY_SEPARATOR.$request->type, $file, $filename)) {
@@ -98,7 +97,12 @@ class MediaController extends Controller
         }
         return redirect()->back()->withErrors(['File is not found.']);
     }
-        
+
+    public function verification(Request $request)
+    {
+        return $this->store($request);
+    }
+    
     /**
      * Display the specified resource.
      *

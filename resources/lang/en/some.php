@@ -17,4 +17,6 @@ return [
     'Zoom' => 'Zoom',
     'Back' => 'Back',
     'Search' => 'Search',
+    'Save and Close' => 'Save and Close',
+    'Cancel and Close' => 'Cancel and Close',
 ];

@@ -1,3 +1,4 @@
+                    @if(Auth::guard('web')->check())
                     <form class="col-md-3" action="{{ route('ideas.like',[$idea->id]) }}" method="POST">
                         @csrf
 
@@ -19,3 +20,4 @@
                             <button type='submit' class='btn btn-danger'>{{__('Save')}}</button>
                         </div>
                     </form>
+                    @endif

@@ -30,7 +30,7 @@
                                 <input class="form-check-input" id="seachable" name="seachable" value=1 type="checkbox" {{ (old('seachable')?: $searchName->seachable) ? ' checked' : '' }} >
                                 <label for="seachable" class="col-form-label">{{ __('searchable') }}</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check" hidden>
                                 <input class="form-check-input" id="active" name="active" value=1 type="checkbox" {{ (old('active')?: $searchName->active) ? ' checked' : '' }} >
                                 <label for="active" class="col-form-label">{{ __('active') }}</label>
                             </div>

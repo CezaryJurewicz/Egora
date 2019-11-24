@@ -40,4 +40,9 @@ class UserType extends Model
     {
         return $query->where('fake', 1);
     }
+    
+    public function getIsIlpAttribute()
+    {
+        return ($this->attributes['class'] != 'user' && $this->attributes['candidate'] == 0);
+    }
 }

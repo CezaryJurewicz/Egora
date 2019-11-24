@@ -27,7 +27,8 @@ Route::middleware(['auth:admin,web'])->group(function() {
     });
     
     Route::prefix('/media')->name('media.')->group(function(){
-        Route::post('/store', 'MediaController@store')->name('store');
+        Route::post('/store/{user}', 'MediaController@store')->name('store')->middleware('can:create,App\Media,user');
+        Route::post('/verification', 'MediaController@verification')->name('verification')->middleware('can:verification,App\Media');
         Route::delete('/{media}', 'MediaController@destroy')->name('delete')->middleware('can:delete,media');
     });
     
@@ -47,11 +48,23 @@ Route::middleware(['auth:admin,web'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
-        Route::get('/{user}/ideological_profile', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,user');
-        Route::get('/{user}', 'UserController@show')->name('view')->middleware('can:view,user');
+        Route::get('/{user}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,user');
+        Route::get('/{user}/profile', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
+        Route::get('/{user}/ilp_signup', 'IlpController@index')->name('ilp_signup')->middleware('can:ilp_signup,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
+    });
+    
+    Route::prefix('/ilp')->name('ilp.')->group(function(){
+        Route::get('/', 'IlpController@index')->name('index');
+        Route::get('/menu', 'IlpController@menu')->name('menu');
+        Route::get('/principles', 'IlpController@principles')->name('principles');
+        Route::get('/guide', 'IlpController@guide')->name('guide');
+        Route::get('/officer_petition', 'IlpController@officer_petition')->name('officer_petition');
+        Route::post('/{user}/submit_officer_application', 'IlpController@submit_officer_application')->name('submit_officer_application')->middleware('can:submit_officer_application,user');
+        Route::post('/{user}/submit_application', 'IlpController@submit_application')->name('submit_application')->middleware('can:submit_application,user');
+        Route::get('/{user}/accept_application', 'IlpController@accept_application')->name('accept_application')->middleware('can:accept_application,user');
     });
     
     Route::prefix('/search_names')->name('search_names.')->group(function(){

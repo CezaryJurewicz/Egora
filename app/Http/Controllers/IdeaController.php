@@ -211,7 +211,11 @@ class IdeaController extends Controller
      */
     public function show(Request $request, Idea $idea)
     {
-        list($numbered, $zeros) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        if (auth()->guard('web')->check()) {
+            list($numbered, $zeros) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        } else {
+            list($numbered, $zeros) = [[],[]];
+        }
         
         return view('ideas.view')->with(compact('idea', 'zeros', 'numbered'));
     }

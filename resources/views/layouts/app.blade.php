@@ -60,7 +60,7 @@
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('administrate', App\Idea::class))
                             <li>
-                                <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('Ideas') }}</a>
+                                <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('All Ideas') }}</a>
                             </li>
                             @endif
                             

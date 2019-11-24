@@ -38,6 +38,16 @@ class UserPolicy
         return $user->id == $model->id;
     }
     
+    public function submit_application(User $user, User $model)
+    {
+        return $user->id == $model->id;
+    }
+    
+    public function accept_application(User $user, User $model)
+    {
+        //
+    }
+    
     public function ideological_profile(User $user, User $model)
     {
         return $this->allow();
@@ -107,4 +117,8 @@ class UserPolicy
         //
     }
 
+    public function ilp_signup(User $user, User $model)
+    {
+        return $user->id == $model->id && !$user->user_type->isIlp;
+    }
 }
