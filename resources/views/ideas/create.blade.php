@@ -50,8 +50,10 @@
                                 <div class="form-group row pl-3">
                                     <select id="position1" type="text" class="col-md-2 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                         <option></option>
-                                        @for($i=1; $i<24; $i++)
-                                        <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif @if(old('position1') && old('position1')== $i) selected @endif value="{{$i}}">{{$i}}</option>
+                                        @for($i=23; $i>0; $i--)
+                                        <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
+                                                @if(old('position1') && old('position1')== $i) selected @endif
+                                                value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
 
@@ -63,13 +65,6 @@
                                     </select>
                                 </div>
                                 
-                                {{-- <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" req1uired autocomplete="position" autofocus>
-
-                                @error('position')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror --}}
                             </div>
                         </div>
 

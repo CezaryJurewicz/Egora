@@ -123,10 +123,11 @@ class IdeaController extends Controller
         return $nations;
     }
     
-    private function _numbers_zeros(Request $request, $ideas)
+    private function _numbers_zeros(Request $request, $ideas, $idea=null)
     {
         $numbered = [];
         $zeros = [];
+        $current_idea_position = null;
         foreach($ideas as $i) 
         {
             $position = ($i->pivot) ? $i->pivot->position: $i->position;
@@ -136,9 +137,13 @@ class IdeaController extends Controller
             } else {
                 $zeros[] = count($zeros)+1;
             }
+            
+            if($idea && $i->id == $idea->id) {
+                $current_idea_position = $i->pivot->position;
+            }
         }
         
-        return [$numbered, $zeros];
+        return [$numbered, $zeros, $current_idea_position];
     }
 
 
@@ -151,9 +156,9 @@ class IdeaController extends Controller
     {
         $nations = $this->_user_nation($request);
         
-        list($numbered, $zeros) = $this->_numbers_zeros($request,$request->user()->ideas);
+        list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
         
-        return view('ideas.create')->with(compact('nations', 'numbered', 'zeros'));
+        return view('ideas.create')->with(compact('nations', 'numbered', 'zeros', 'current_idea_position'));
     }
 
     /**
@@ -200,7 +205,7 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
 
-        return redirect()->back()->with('success', 'New Idea created');   
+        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'New Idea created');   
     }
 
     /**
@@ -212,12 +217,12 @@ class IdeaController extends Controller
     public function show(Request $request, Idea $idea)
     {
         if (auth()->guard('web')->check()) {
-            list($numbered, $zeros) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+            list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
-            list($numbered, $zeros) = [[],[]];
+            list($numbered, $zeros, $current_idea_position) = [[],[]];
         }
         
-        return view('ideas.view')->with(compact('idea', 'zeros', 'numbered'));
+        return view('ideas.view')->with(compact('idea', 'zeros', 'numbered', 'current_idea_position'));
     }
 
     /**
@@ -275,7 +280,7 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
         
-        return redirect()->back()->with('success', 'Idea added to liked list');   
+        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea added to liked list');   
     }
     
 }
