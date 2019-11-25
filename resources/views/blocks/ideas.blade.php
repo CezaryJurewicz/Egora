@@ -3,7 +3,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">{{ __('tables.Content')}}</th>
                                     <th scope="col">{{ __('tables.Nation')}}</th>
                                     @if($index == 'dominance')
@@ -19,7 +18,6 @@
                     
                     @forelse ($ideas as $i=>$idea)
                                 <tr>
-                                    <th scope="row">{{$idea->id}}</th>
                                     <td>
                                         @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
                                             <a href="{{ route('ideas.view', $idea->id) }}">
@@ -31,9 +29,9 @@
                                     </td>
                                     <td>{{ $idea->nation->title }}</td>
                                     @if($index == 'dominance')
-                                    <td>{{ $idea->liked_users->pluck('pivot.position')->sum() }}</td>
+                                    <td>{{ $idea->liked_users_sum }}</td>
                                     @else
-                                    <td>{{ $idea->liked_users->count() }}</td>
+                                    <td>{{ $idea->liked_users_count }}</td>
                                     @endif
                                     <td>{{ $idea->user->user_type->title }}</td>
                                 </tr>

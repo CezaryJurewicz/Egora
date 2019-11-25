@@ -36,7 +36,7 @@ class IdeaController extends Controller
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
                 'relevance' => 'nullable|numeric',
-                'another_nation' => 'nullable|numeric',
+                'another_nation' => 'nullable|string|min:3|max:50',
                 'unverified' => 'nullable|boolean',
             ]);
 
@@ -53,27 +53,43 @@ class IdeaController extends Controller
             }
             
             $search = $request->input('search');
-            if($search) {
-                $model->where('content','like', '%'.$search.'%');
-            }
-            
             $relevance = $request->input('relevance');
-            if($relevance && $relevance != -1) {
-                $model->where('nation_id', $relevance);
-            } else if ($relevance && $relevance == -1) {
-                $egora = Nation::where('title', 'Egora')->first();
-                $model->where('nation_id', '<>', $egora->id);
-            }
-
             $another_nation = $request->input('another_nation');
-            if($another_nation) {
-                $model->orWhere('nation_id', $another_nation);
-            }
+            
+            $model->where(function($q) use ($search, $relevance, $another_nation){
+                if($search) {
+                    $q->where('content','like', '%'.$search.'%');
+                }
+                
+                $q->where(function($q) use ($relevance, $another_nation){
+                    if($relevance && $relevance != -1) {
+                        $q->where('nation_id', $relevance);
+                    } else if ($relevance && $relevance == -1) {
+                        $egora = Nation::where('title', 'Egora')->first();
+                        $q->where('nation_id', '<>', $egora->id);
+                    }
+                    
+                    if($another_nation) {
+                        $q->orWhereHas('nation', function($q) use ($another_nation) {
+                            $q->where('title', 'like', $another_nation.'%');
+                        });
+                    }
+                });
+                
+            });
             
         } else {
             $model->whereHas('user.user_type',function($q){
                 $q->where('verified', 1);
             });
+        }
+
+        $model->withCount(['liked_users']);
+        if ($view == 'popularity_indexes'){
+            $model->orderBy('liked_users_count', 'desc');
+        } else {
+            $model->selectSub('select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` where `ideas`.`id` = `idea_user`.`idea_id` and `users`.`deleted_at` is null', 'liked_users_sum');
+            $model->orderBy('liked_users_sum', 'desc');
         }
         
         $ideas = $model->paginate(10);

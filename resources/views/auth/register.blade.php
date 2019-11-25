@@ -91,7 +91,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <h4>Egora User Agriment</h4>
+                    <h4>Egora User Agreement</h4>
                     <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u> - hence forth referred to as the "user" 
                     - and the International Logic Party - the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
                     administration of Egora - enter into and agreement on the following terms.</p>
