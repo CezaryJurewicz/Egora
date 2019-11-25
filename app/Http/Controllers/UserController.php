@@ -194,6 +194,7 @@ class UserController extends Controller
     public function verify(User $user)
     {
         $type = UserType::where('class', $user->user_type->class)
+                ->where('candidate', $user->user_type->candidate)
                 ->where('verified', 1)
                 ->first();
         
@@ -205,6 +206,7 @@ class UserController extends Controller
     public function unverify(User $user)
     {
         $type = UserType::where('class', $user->user_type->class)
+                ->where('candidate', $user->user_type->candidate)
                 ->where('verified', 0)
                 ->first();
         
