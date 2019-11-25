@@ -38,7 +38,7 @@ class MoreUserTypes extends Seeder
                 'title' => 'Verified Former Member',
                 'subtitle' => '',
                 'class' => 'member',
-                'verified' => 0,
+                'verified' => 1,
                 'candidate' => 0,
                 'fake' => 0,
                 'created_at' => $now,
