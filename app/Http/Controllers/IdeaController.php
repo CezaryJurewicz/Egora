@@ -25,8 +25,10 @@ class IdeaController extends Controller
     {
         $search = null;
         $relevance = null;
+        $another_nation = null;
         $unverified = null;
         $nations = $this->_user_nation($request);
+        $all_nations = Nation::get();
         
         $model = Idea::query();
         if (!empty($request->all()))
@@ -34,6 +36,7 @@ class IdeaController extends Controller
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
                 'relevance' => 'nullable|numeric',
+                'another_nation' => 'nullable|numeric',
                 'unverified' => 'nullable|boolean',
             ]);
 
@@ -61,6 +64,11 @@ class IdeaController extends Controller
                 $egora = Nation::where('title', 'Egora')->first();
                 $model->where('nation_id', '<>', $egora->id);
             }
+
+            $another_nation = $request->input('another_nation');
+            if($another_nation) {
+                $model->orWhere('nation_id', $another_nation);
+            }
             
         } else {
             $model->whereHas('user.user_type',function($q){
@@ -70,7 +78,7 @@ class IdeaController extends Controller
         
         $ideas = $model->paginate(10);
 
-        return view($view)->with(compact('ideas', 'nations', 'search', 'relevance', 'unverified'));
+        return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'another_nation'));
     }
     
     public function indexes(Request $request)

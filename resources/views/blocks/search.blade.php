@@ -18,6 +18,25 @@
                             @enderror
                         </div>
                     </div>                    
+                    
+                    <div class="form-group row">
+                        <label for="relevance" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Another Nation:') }}</label>
+
+                        <div class="col-md-6">
+                            <select id="another_nation" type="text" class="form-control @error('another_nation') is-invalid @enderror" name="another_nation" value="{{ old('another_nation') }}">
+                            <option></option>
+                            @foreach($all_nations as $nation)
+                            <option @if((old('another_nation') && old('another_nation')==$nation->id) || ($another_nation && $another_nation==$nation->id)) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
+                            @endforeach
+                            </select>
+
+                            @error('another_nation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>                    
 
                     <div class="form-group row">
                         <label for="search" class="col-md-3 col-form-label text-md-right">{{ __('Containing text:') }}</label>
