@@ -16,9 +16,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <a class="nav1-link" href="{{ route('register') }}">
-        <img  width="100%" src='{{ asset('img/Egora_E-image.png') }}'>
-    </a>
+    <div class="text-center" style="background-image: url({{ asset('img/line.png') }}); background-repeat: repeat-x; background-size: 200px 700px;">
+        <a href="{{ route('register') }}">
+            <img  height="700px" src='{{ asset('img/Egora_E-image.png') }}'>
+            <div id="example" style="font-size: 20px; position: absolute; top:450px; left:50%; margin: 0 0 0 -30px;"><b>ENTER</b></div>
+        </a>
+    </div>
     <div id="app">
         <main>
             @include('blocks.alerts')

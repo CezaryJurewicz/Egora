@@ -36,7 +36,7 @@ class IdeaController extends Controller
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
                 'relevance' => 'nullable|numeric',
-                'another_nation' => 'nullable|string|min:3|max:50',
+                'nation' => 'nullable|string|min:3|max:50',
                 'unverified' => 'nullable|boolean',
             ]);
 
@@ -54,7 +54,7 @@ class IdeaController extends Controller
             
             $search = $request->input('search');
             $relevance = $request->input('relevance');
-            $another_nation = $request->input('another_nation');
+            $another_nation = $request->input('nation');
             
             $model->where(function($q) use ($search, $relevance, $another_nation){
                 if($search) {
@@ -82,6 +82,9 @@ class IdeaController extends Controller
             $model->whereHas('user.user_type',function($q){
                 $q->where('verified', 1);
             });
+            
+            $relevance = $request->user()->nation->id;
+            $model->where('nation_id', $relevance);
         }
 
         $model->withCount(['liked_users']);

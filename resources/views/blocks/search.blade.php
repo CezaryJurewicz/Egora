@@ -4,7 +4,6 @@
 
                         <div class="col-md-6">
                             <select id="relevance" type="text" class="form-control @error('relevance') is-invalid @enderror" name="relevance" value="{{ old('relevance') }}">
-                            <option></option>
                             <option value="-1"  @if((old('relevance') && old('relevance')==-1) || ($relevance && $relevance==-1)) selected @endif>All Categories, except Egora</option>
                             @foreach($nations as $nation)
                             <option @if((old('relevance') && old('relevance')==$nation->id) || ($relevance && $relevance==$nation->id)) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
@@ -23,7 +22,7 @@
                         <label for="relevance" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Another Nation:') }}</label>
 
                         <div class="col-md-6">
-                            <input id="another_nation" type="text" class="form-control @error('another_nation') is-invalid @enderror" name="another_nation" value="{{ old('another_nation') ?: $another_nation }}">
+                            <div id="NationSearch" value="{{  $another_nation }}"></div>
 
                             @error('another_nation')
                                 <span class="invalid-feedback" role="alert">

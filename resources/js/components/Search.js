@@ -46,7 +46,7 @@ class Search extends Component {
             <input 
                 value={this.state.query} 
                 onChange={this.handleInputChange} 
-                id="nation" type="text" className="form-control" name="nation" required 
+                id="nation" type="text" className="form-control" name="nation" 
             />
 
             <Suggestions results={this.state.results} onClickValue={this.onClickValueHandler}/>
