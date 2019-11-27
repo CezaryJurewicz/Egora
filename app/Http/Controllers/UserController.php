@@ -47,9 +47,16 @@ class UserController extends Controller
             $nation = $request->input('nation');
             
             $model = User::whereHas('search_names', function($q) use ($request){
-                $q->where('name','like', $request->input('search_name').'%');
-                $q->where('seachable','1');
-                $q->where('active','1');
+                $q->where(function($q) use ($request){
+                    $q->where('name','like', $request->input('search_name').'%');
+                    $q->where('seachable','1');
+                    $q->where('active','1');
+                });
+                $q->orWhere(function($q) use ($request){
+                    $q->where('name','like', $request->input('search_name'));
+                    $q->where('seachable','0');
+                    $q->where('active','1');
+                });
             });
             
             if ($nation) {
