@@ -4,6 +4,7 @@
 
                         <div class="col-md-6">
                             <select id="relevance" type="text" class="form-control @error('relevance') is-invalid @enderror" name="relevance" value="{{ old('relevance') }}">
+                            <option value=""></option>
                             <option value="-1"  @if((old('relevance') && old('relevance')==-1) || ($relevance && $relevance==-1)) selected @endif>All Categories, except Egora</option>
                             @foreach($nations as $nation)
                             <option @if((old('relevance') && old('relevance')==$nation->id) || ($relevance && $relevance==$nation->id)) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>

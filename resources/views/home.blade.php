@@ -91,7 +91,7 @@
             </div>
 
             <div class="card mb-3">
-                <div class="card-header">IPL Users</div>
+                <div class="card-header">ILP Users</div>
                 <div class="card-body text-center">
                     Verified - {{ $total_verified_ipl_users }}<br/>
                     Total - {{ $total_ipl_users }}<br/>
@@ -105,7 +105,7 @@
                 </div>
             </div>
             <div class="card mb-3">
-                <div class="card-header">Users by Nation</div>
+                <div class="card-header">Verified Users by Nation</div>
                 <div class="card-body text-center">
                 @foreach($group_by_nation as $nation)
                 {{ $nation->title }} - {{ $nation->users->count() }}<br/>

@@ -58,7 +58,7 @@ class IlpController extends Controller
             
         $type = UserType::where('class', 'member')
             ->where('verified', $user->user_type->verified)
-            ->where('candidate', 1)
+            ->where('candidate', 0) //Accepr member ILP declaration
             ->first();
         
         $user->user_type()->associate($type);

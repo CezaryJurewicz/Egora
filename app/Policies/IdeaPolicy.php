@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Idea;
 use App\User;
+use App\Nation;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Traits\PolicyTrait;
 
@@ -36,11 +37,25 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
+        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
+            return $this->deny();
+        }
+
         return $this->allow();
     }
     
     public function like(User $user, Idea $idea)
     {
+        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
+            return $this->deny();
+        }
+        
+        $nations = Nation::whereIn('title', ['Edora', 'Universal', $user->nation->title])->get()->pluck('id');
+        
+        if (!$nations->contains($idea->nation->id)) {
+            return $this->deny();
+        }
+        
         return $this->allow();
     }
 

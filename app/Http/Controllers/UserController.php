@@ -35,7 +35,7 @@ class UserController extends Controller
         if ($request->exists('search_name')){     
             $validator = Validator::make($request->all(),[
                 'search_name' => 'required|min:3|string',
-                'nation' => 'nullable|exists:nations,id',
+                'nation' => 'nullable|exists:nations,title',
             ]); 
 
             if ($validator->fails()) {
@@ -54,7 +54,7 @@ class UserController extends Controller
             
             if ($nation) {
                 $model->whereHas('nation', function($q) use ($request){
-                    $q->where('id', $request->input('nation'));
+                    $q->where('title', $request->input('nation'));
                 });
             }
             

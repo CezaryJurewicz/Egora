@@ -1,4 +1,4 @@
-                    @if(Auth::guard('web')->check())
+                    @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('like', $idea) )
                     <form class="col-md-8" action="{{ route('ideas.like',[$idea->id]) }}" method="POST">
                         @csrf
 
@@ -18,9 +18,9 @@
                                 <option></option>
                                 <option @if(in_array(1, $zeros)) style="background-color: lightgray;" disabled @endif 
                                         @if($current_idea_position === 0) selected @endif 
-                                        value="0">1</option>
+                                        value="0">0</option>
                                 @for($i=2; $i<24; $i++)
-                                <option @if(in_array($i, $zeros)) style="background-color: lightgray;" disabled @endif value="0">{{$i}}</option>
+                                <option @if(in_array($i, $zeros)) style="background-color: lightgray;" disabled @endif value="0">0</option>
                                 @endfor
                             </select>
 

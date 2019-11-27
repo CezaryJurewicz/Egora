@@ -35,8 +35,8 @@ class IdeaController extends Controller
         {
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
-                'relevance' => 'nullable|numeric',
-                'nation' => 'nullable|string|min:3|max:50',
+                'relevance' => 'nullable|numeric|required_without:nation',
+                'nation' => 'nullable|exists:nations,title|required_without:relevance',
                 'unverified' => 'nullable|boolean',
             ]);
 
@@ -140,7 +140,7 @@ class IdeaController extends Controller
     {
         $n = ['Universal'];
         
-        if ($request->user()->user_type->class == 'user') {
+        if ($request->user()->user_type->class !== 'user') {
             $n[] = 'Egora';
         }
         

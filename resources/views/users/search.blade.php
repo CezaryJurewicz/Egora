@@ -27,12 +27,7 @@
 
                         @csrf
                         <div class="col-md-7">
-                            <select id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" autocomplete="nation" >
-                            <option></option>
-                            @foreach($nations as $n)
-                            <option @if((old('nation') && old('nation')== $n->id) || ($nation && $nation == $n->id)) selected @endif value="{{$n->id}}">{{$n->title}}</option>
-                            @endforeach
-                            </select>
+                            <div id="NationSearch" value="{{  $nation }}"></div>
 
                             @error('nation')
                                 <span class="invalid-feedback" role="alert">
