@@ -21,7 +21,10 @@
                     {{ $idea->content }}
                     </div>
                     <div class="card-footer">
-                        Current Point Position in my IP: {{ $current_idea_position }}
+                        Current Point Position in my IP: {{ $current_idea_position }} 
+                        @if(!is_null($current_idea_position))
+                        <a class='btn btn-primary btn-sm ml-2' href="{{  route('ideas.unlike', $idea->id) }}">{{__('some.Remove and Close')}}</a>
+                        @endif
                     </div>
                 <div class="mt-2 mb-2">
                     @include('blocks.like')

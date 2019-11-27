@@ -307,7 +307,14 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
         
-        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea added to liked list');   
+        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea added to your IP');   
+    }
+    
+    public function unlike(Request $request, Idea $idea) 
+    {
+        $request->user()->liked_ideas()->detach($idea);
+        
+        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea removed from your IP');   
     }
     
 }

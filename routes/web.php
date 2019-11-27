@@ -44,6 +44,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
         Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
         Route::post('/{idea}/like', 'IdeaController@like')->name('like')->middleware('can:like,idea')->where('idea', '[0-9]+');
+        Route::get('/{idea}/unlike', 'IdeaController@unlike')->name('unlike')->middleware('can:unlike,idea')->where('idea', '[0-9]+');
     });
     
     Route::prefix('/users')->name('users.')->group(function(){

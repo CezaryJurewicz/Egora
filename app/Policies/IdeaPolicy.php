@@ -58,7 +58,13 @@ class IdeaPolicy
         
         return $this->allow();
     }
-
+    
+    public function unlike(User $user, Idea $idea)
+    {
+        return $this->allow();
+    }
+    
+    
     /**
      * Determine whether the user can create ideas.
      *
