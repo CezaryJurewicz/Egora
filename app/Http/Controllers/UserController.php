@@ -162,6 +162,18 @@ class UserController extends Controller
                'title' => $request->nation
             ]);
         }
+        
+        if ($user->nation->id !== $nation->id) {
+            $user->load(['liked_ideas' => function($q) use ($user){
+                $q->whereHas('nation', function($q) use ($user){
+                    $q->where('id', $user->nation->id);
+                });
+            }]);
+            $ids = $user->liked_ideas->pluck('id')->toArray();
+            
+            $user->liked_ideas()->toggle($ids);
+        }
+        
         $user->nation()->associate($nation);
         
         if($user->save()){
