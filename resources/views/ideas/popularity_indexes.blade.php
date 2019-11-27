@@ -14,14 +14,13 @@
                         <a href="{{ route('ideas.indexes') }}">{{ __('views.Idea Dominance Index') }}</a>
                     </div>
                 </div>
-
                 
                 <div class="accordion mb-3" id="accordion">
                     <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
                       <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                           <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            The Idea Popularity Index...
+                            Guide
                           </button>
                         </h2>
                       </div>

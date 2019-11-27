@@ -31,5 +31,6 @@ return [
     'Candidate' => 'Candidate',
     'Points' => 'Points',
     'Search Name' => 'Search Name',
+    'User Category' => 'User Category',
 
 ];

@@ -1,7 +1,7 @@
                                 @if($user->verification_id)
                                 
                                     @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
-                                    <h5 class="mb-1">{{ __('media.Verification id')}}</h5>
+                                    <h5 class="mb-1">{{ __('media.Verification ID')}}</h5>
                                     <img src="{{ Storage::url($user->verification_id->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
 
                                     <div class="mt-1">

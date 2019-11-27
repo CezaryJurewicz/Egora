@@ -50,10 +50,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">{{ __('tables.Class')}}</th>
+                                    <th scope="col">{{ __('tables.User Category')}}</th>
                                     <th scope="col">{{ __('tables.Search Name')}}</th>
                                     <th scope="col">{{ __('tables.Nation')}}</th>
-                                    <th scope="col">{{ __('tables.Ideas')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,13 +70,6 @@
                                     </td>
                                     <td>
                                         {{ $user->nation->title }}                                        
-                                    </td>
-                                    <td>
-                                        @isset($user->ideas)
-                                        {{ count($user->ideas) }}
-                                        @else
-                                        -
-                                        @endif
                                     </td>
                                 </tr>
                     @empty

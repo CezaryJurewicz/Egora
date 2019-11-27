@@ -1,48 +1,28 @@
-                <div>
-                    @if($ideas->isNotEmpty())
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">{{ __('tables.Content')}}</th>
-                                    <th scope="col">{{ __('tables.Nation')}}</th>
-                                    @if($index == 'dominance')
-                                    <th scope="col">{{ __('tables.Points')}}</th>
-                                    @else
-                                    <th scope="col">{{ __('tables.Supporters')}}</th>
+                    @forelse($ideas as $idea)
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="offset-1 col-md-2">{{$idea->nation->title}} </div>
+                                <div class="col-md-2">
+                                    @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
+                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                     @endif
-                                    <th scope="col">{{ __('tables.User Type')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    @endif
-                    
-                    @forelse ($ideas as $i=>$idea)
-                                <tr>
-                                    <td>
-                                        @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                            <a href="{{ route('ideas.view', $idea->id) }}">
-                                        @endif
-                                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...
-                                        @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>{{ $idea->nation->title }}</td>
+                                </div>
+                                <div class="offset-3 col-md-2">
                                     @if($index == 'dominance')
-                                    <td>{{ $idea->liked_users_sum }}</td>
+                                    IDI Points {{ $idea->liked_users_sum }}
                                     @else
-                                    <td>{{ $idea->liked_users_count }}</td>
+                                    Supporters {{ $idea->liked_users_count }}
                                     @endif
-                                    <td>{{ $idea->user->user_type->title }}</td>
-                                </tr>
+                                    
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 50)) }} ...
+                        </div>
+                    </div>
                     @empty
                         <p>@lang('ideas.No ideas found')</p>
                     @endforelse
-                    
-                    @if($ideas->isNotEmpty())                  
-                            </tbody>
-                        </table>
-                    
-                        {{ $ideas->appends(request()->except('_token'))->links() }}
-                    @endif
-                </div>

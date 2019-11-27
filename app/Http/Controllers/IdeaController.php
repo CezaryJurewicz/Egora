@@ -95,7 +95,7 @@ class IdeaController extends Controller
             $model->orderBy('liked_users_sum', 'desc');
         }
         
-        $ideas = $model->paginate(10);
+        $ideas = $model->paginate(100);
 
         return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'another_nation'));
     }
