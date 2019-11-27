@@ -39,7 +39,7 @@ class IlpController extends Controller
         
     }
     
-    public function submit_application(Request $request, User $user)
+    public function submit_application(Request $request, User $usr)
     {
         $user = $request->user();
         $name = $user->name;
@@ -64,7 +64,7 @@ class IlpController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        return redirect()->back()->with('success', 'Application submitted');           
+        return redirect()->route('users.ideological_profile', $user->id)->with('success', 'Application submitted');           
     }
     
     public function accept_application(User $user)

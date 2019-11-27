@@ -6,12 +6,12 @@
                             <select id="relevance" type="text" class="form-control @error('relevance') is-invalid @enderror" name="relevance" value="{{ old('relevance') }}">
                             <option value=""></option>
                             <option value="-1"  @if((old('relevance') && old('relevance')==-1) || ($relevance && $relevance==-1)) selected @endif>All Categories, except Egora</option>
-                            @foreach($nations as $nation)
-                            <option @if((old('relevance') && old('relevance')==$nation->id) || ($relevance && $relevance==$nation->id)) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
+                            @foreach($nations as $n)
+                            <option @if((old('relevance') && old('relevance')==$n->id) || ($relevance && $relevance==$n->id)) selected @endif value="{{$n->id}}">{{$n->title}}</option>
                             @endforeach
                             </select>
 
-                            @error('nation')
+                            @error('relevance')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -23,9 +23,9 @@
                         <label for="relevance" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Another Nation:') }}</label>
 
                         <div class="col-md-6">
-                            <div id="NationSearch" value="{{  $another_nation }}"></div>
+                            <div id="NationSearch" value="{{  $nation }}"></div>
 
-                            @error('another_nation')
+                            @error('nation')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -59,7 +59,7 @@
                     <div class="form-group row">
                         <div class="col-md-1 offset-3">
                             <div class="input-group">
-                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
+                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Generate')}}</button>
                             </div>
                         </div>
                     </div>

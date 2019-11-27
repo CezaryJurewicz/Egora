@@ -20,4 +20,5 @@ return [
     'Save and Close' => 'Save and Close',
     'Remove and Close' => 'Remove and Close',
     'Cancel and Close' => 'Cancel and Close',
+    'Generate' => 'Generate',
 ];

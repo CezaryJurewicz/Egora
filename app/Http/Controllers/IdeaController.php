@@ -25,7 +25,7 @@ class IdeaController extends Controller
     {
         $search = null;
         $relevance = null;
-        $another_nation = null;
+        $nation = null;
         $unverified = null;
         $nations = $this->_user_nation($request);
         $all_nations = Nation::get();
@@ -54,14 +54,14 @@ class IdeaController extends Controller
             
             $search = $request->input('search');
             $relevance = $request->input('relevance');
-            $another_nation = $request->input('nation');
+            $nation = $request->input('nation');
             
-            $model->where(function($q) use ($search, $relevance, $another_nation){
+            $model->where(function($q) use ($search, $relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
                 }
                 
-                $q->where(function($q) use ($relevance, $another_nation){
+                $q->where(function($q) use ($relevance, $nation){
                     if($relevance && $relevance != -1) {
                         $q->where('nation_id', $relevance);
                     } else if ($relevance && $relevance == -1) {
@@ -69,9 +69,9 @@ class IdeaController extends Controller
                         $q->where('nation_id', '<>', $egora->id);
                     }
                     
-                    if($another_nation) {
-                        $q->orWhereHas('nation', function($q) use ($another_nation) {
-                            $q->where('title', 'like', $another_nation.'%');
+                    if($nation) {
+                        $q->orWhereHas('nation', function($q) use ($nation) {
+                            $q->where('title', 'like', $nation.'%');
                         });
                     }
                 });
@@ -102,8 +102,8 @@ class IdeaController extends Controller
         }
         
         $ideas = $model->paginate(100);
-
-        return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'another_nation'));
+        
+        return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
     }
     
     public function indexes(Request $request)
