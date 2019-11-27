@@ -109,7 +109,11 @@ class UserController extends Controller
     public function ideological_profile(User $user)
     {
         $user->load(['liked_ideas' => function($q){
-            $q->with('nation', 'liked_users');
+            $q->with(['nation', 'liked_users' => function($q){
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
         }]);
 
         return view('users.ideological_profile')->with(compact('user'));

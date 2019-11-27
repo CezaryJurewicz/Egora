@@ -87,11 +87,17 @@ class IdeaController extends Controller
             $model->where('nation_id', $relevance);
         }
 
-        $model->withCount(['liked_users']);
+        $model->withCount(['liked_users' => function($q){
+            $q->whereHas('user_type',function($q){
+                $q->where('verified', 1);                
+            });
+        }]);
+        
         if ($view == 'popularity_indexes'){
             $model->orderBy('liked_users_count', 'desc');
         } else {
-            $model->selectSub('select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` where `ideas`.`id` = `idea_user`.`idea_id` and `users`.`deleted_at` is null', 'liked_users_sum');
+            $model->selectSub('select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
+                    . 'where `ideas`.`id` = `idea_user`.`idea_id` and exists (select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1) and `users`.`deleted_at` is null', 'liked_users_sum');
             $model->orderBy('liked_users_sum', 'desc');
         }
         
