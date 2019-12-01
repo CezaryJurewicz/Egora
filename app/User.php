@@ -61,6 +61,21 @@ class User extends Authenticatable
         return $this->hasMany(SearchName::class);
     }
     
+    public function followingUser(User $user)
+    {
+        return $this->following->pluck('pivot.user_id')->contains($user->id);
+    }
+    
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+    
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+    
     public function active_search_names()
     {
         return $this->search_names()->active();

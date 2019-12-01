@@ -38,6 +38,16 @@ class UserPolicy
         return $user->id == $model->id;
     }
     
+    public function settings(User $user, User $model)
+    {
+        return $user->id == $model->id;
+    }
+    
+    public function follow(User $user, User $model)
+    {
+        return $user->id != $model->id;
+    }
+    
     public function submit_application(User $user, User $model)
     {
         return $user->id == $model->id;

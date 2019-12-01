@@ -21,4 +21,6 @@ return [
     'Remove and Close' => 'Remove and Close',
     'Cancel and Close' => 'Cancel and Close',
     'Generate' => 'Generate',
+    'Follow' => 'Follow',
+    'Unfollow' => 'Unfollow',
 ];

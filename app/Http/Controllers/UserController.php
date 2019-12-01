@@ -237,4 +237,16 @@ class UserController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'User verification updated!');  
     }
+    
+    public function follow(Request $request, User $user)
+    {
+        $user->followers()->syncWithoutDetaching($request->user());
+        return redirect()->back()->with('success', 'Added follower');  
+    }
+    
+    public function unfollow(Request $request, User $user)
+    {
+        $user->followers()->detach($request->user()->id);
+        return redirect()->back()->with('success', 'Removed follower');  
+    }
 }

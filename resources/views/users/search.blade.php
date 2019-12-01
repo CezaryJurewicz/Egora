@@ -3,13 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-    <div class="col-md-12">
-        <div class="panel ">
+    <div class="col-md-9">
+        <div class="panel">
             <div class="panel-body">
                 <h3>{{ __('views.Egora User Search') }}</h3>
                 <form action="{{ route('users.search') }}" method="POST">
                     <div class="form-group row mt-4">
-                        <label for="search_name" class="col-md-2 col-form-label">{{ __('"Search Name" (complete or partial)') }}</label>
+                        <label for="search_name" class="col-md-3 col-form-label">{{ __('"Search Name" (complete or partial)') }}</label>
 
                         @csrf
                         <div class="col-md-7">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="nation" class="col-md-2 col-form-label">{{ __('Nation (optional)') }}</label>
+                        <label for="nation" class="col-md-3 col-form-label">{{ __('Nation (optional)') }}</label>
 
                         @csrf
                         <div class="col-md-7">
@@ -86,6 +86,11 @@
             </div>
         </div>
     </div>
+        
+    <div class="col-md-3">
+        @include('blocks.following')
+    </div>
+        
     </div>
 </div>
 @endsection

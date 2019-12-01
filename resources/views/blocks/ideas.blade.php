@@ -10,18 +10,32 @@
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                     @endif
                                 </div>
-                                <div class="offset-3 col-md-2">
+                                <div class="offset-1 col-md-2">
                                     @if($index == 'dominance')
-                                    IDI Points:
+                                    IDI Points: 
                                     @else
                                     Supporters:
                                     @endif
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     @if($index == 'dominance')
                                     {{ $idea->liked_users_sum }}
                                     @else
                                     {{ $idea->liked_users_count }}
+                                    @endif
+                                </div>
+                                <div class="col-md-2">
+                                    @if($index == 'dominance')
+                                    Supporters:
+                                    @else
+                                    IDI Points: 
+                                    @endif
+                                </div>
+                                <div class="col-md-1">
+                                    @if($index == 'dominance')
+                                    {{ $idea->liked_users_count }}
+                                    @else
+                                    {{ $idea->liked_users_sum }}
                                     @endif
                                 </div>
                             </div>

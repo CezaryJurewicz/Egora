@@ -53,6 +53,9 @@
                             <div class="mt-2">
                             @include('blocks.ilp')
                             </div>
+                            <div class="mt-2">
+                            @include('blocks.follow')
+                            </div>
                         </div>
                         
                         <div class="col-md-9">

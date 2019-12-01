@@ -55,6 +55,9 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}/ilp_signup', 'IlpController@index')->name('ilp_signup')->middleware('can:ilp_signup,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
+        Route::post('/{user}/follow', 'UserController@follow')->name('follow')->middleware('can:follow,user');
+        Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:follow,user');
+        Route::get('/{user}/settings', 'UserController@settings')->name('settings')->middleware('can:settings,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){
