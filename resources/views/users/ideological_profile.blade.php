@@ -20,7 +20,7 @@
                                 @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id && $user->active_search_names->first())
-                                <a class="btn btn-sm btn-warning" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
+                                <a class="btn btn-sm btn-secondary" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
                                 @endif
                             </div>
                             
@@ -30,7 +30,7 @@
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
                             <div class="mt-2">
-                                <a class="btn btn-sm btn-warning btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                                <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
                             </div>
                             @endif
 

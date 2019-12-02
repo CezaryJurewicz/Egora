@@ -13,7 +13,7 @@
 
                         @csrf
                         <div class="col-md-7">
-                            <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name') ?: $search_name }}" autofocus required>
+                            <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name') ?: $search_name }}" autofocus>
 
                             @error('search_name')
                                 <span class="invalid-feedback" role="alert">
@@ -25,7 +25,6 @@
                     <div class="form-group row">
                         <label for="nation" class="col-md-3 col-form-label">{{ __('Nation (optional)') }}</label>
 
-                        @csrf
                         <div class="col-md-7">
                             <div id="NationSearch" value="{{  $nation }}"></div>
 
@@ -34,6 +33,20 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="officer" class="col-md-3 col-form-label">{{ __('Search ILP officers:') }}</label>
+
+                        <div class="col-md-1">
+                            <input class="form-control-sm" id="officer" name="officer" value=1 type="checkbox" {{ (old('officer')?: $officer) ? ' checked' : '' }} >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="officer_petitioner" class="col-md-3 col-form-label">{{ __('Search officer-petitioners:') }}</label>
+
+                        <div class="col-md-1">
+                            <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
                         </div>
                     </div>
                     <div class="form-group row mt-4">

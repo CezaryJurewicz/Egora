@@ -7,11 +7,11 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <h3>{{ __('views.Idea Popularity Index') }}</h3>
                     </div>
-                    <div class="col-md-2 text-md-right">
-                        <a href="{{ route('ideas.indexes') }}">{{ __('views.Idea Dominance Index') }}</a>
+                    <div class="col-md-3 text-md-right">
+                        <a class="btn btn-primary" href="{{ route('ideas.indexes') }}">{{ __('views.Idea Dominance Index') }}</a>
                     </div>
                 </div>
                 

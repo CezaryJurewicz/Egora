@@ -29,13 +29,17 @@ class UserController extends Controller
     {        
         $search_name = null;
         $nation = null;
+        $officer = null;
+        $officer_petitioner = null;
         
         $nations = Nation::get();
-        
+//        dd($request->all());
         if ($request->exists('search_name')){     
             $validator = Validator::make($request->all(),[
-                'search_name' => 'required|min:3|string',
+                'search_name' => 'nullable|min:3|string|required_without_all:officer_petitioner,officer',
                 'nation' => 'nullable|exists:nations,title',
+                'officer' => 'nullable|boolean',
+                'officer_petitioner' => 'nullable|boolean',
             ]); 
 
             if ($validator->fails()) {
@@ -45,25 +49,60 @@ class UserController extends Controller
             
             $search_name = $request->input('search_name');
             $nation = $request->input('nation');
+            $officer = $request->input('officer');
+            $officer_petitioner = $request->input('officer_petitioner');
             
-            $model = User::whereHas('search_names', function($q) use ($request){
-                $q->where(function($q) use ($request){
-                    $q->where('name','like', $request->input('search_name').'%');
-                    $q->where('seachable','1');
-                    $q->where('active','1');
-                });
-                $q->orWhere(function($q) use ($request){
-                    $q->where('name','like', $request->input('search_name'));
-                    $q->where('seachable','0');
-                    $q->where('active','1');
-                });
-            });
+            $model = User::query();
             
-            if ($nation) {
-                $model->whereHas('nation', function($q) use ($request){
-                    $q->where('title', $request->input('nation'));
+            if ($search_name) {
+                $model->whereHas('search_names', function($q) use ($request){
+                    $q->where(function($q) use ($request){
+                        $q->where('name','like', $request->input('search_name').'%');
+                        $q->where('seachable','1');
+                        $q->where('active','1');
+                    });
+                    $q->orWhere(function($q) use ($request){
+                        $q->where('name','like', $request->input('search_name'));
+                        $q->where('seachable','0');
+                        $q->where('active','1');
+                    });
+                });
+            
+                if ($nation) {
+                    $model->whereHas('nation', function($q) use ($request){
+                        $q->where('title', $request->input('nation'));
+                    });
+                }
+            }
+            
+            if ($officer) {
+                $model->orWhere(function($q) use ($request) {
+                    $q->whereHas('user_type', function($q) {
+                        $q->where('class','officer');
+                    });
+                    
+                    if ($request->input('nation')) {
+                        $q->whereHas('nation', function($q) use ($request){
+                            $q->where('title', $request->input('nation'));
+                        });
+                    }
                 });
             }
+            
+            if ($officer_petitioner) {
+                $model->orWhere(function($q) use ($request) {
+                    $q->whereHas('user_type', function($q) {
+                        $q->where('class','petitioner');
+                    });
+                    
+                    if ($request->input('nation')) {
+                        $q->whereHas('nation', function($q) use ($request){
+                            $q->where('title', $request->input('nation'));
+                        });
+                    }
+                });
+            }
+            
             
             $users = $model->paginate(10);
             
@@ -71,7 +110,7 @@ class UserController extends Controller
             $users = collect();
         }
         
-        return view('users.search')->with(compact('users', 'nations', 'search_name', 'nation'));
+        return view('users.search')->with(compact('users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
 
     /**

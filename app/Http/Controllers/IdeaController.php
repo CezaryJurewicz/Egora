@@ -46,11 +46,9 @@ class IdeaController extends Controller
             }
 
             $unverified = $request->input('unverified');
-            if(!$request->exists('unverified')) {
-                $model->whereHas('user.user_type',function($q){
-                    $q->where('verified', 1);
-                });
-            }
+            $model->whereHas('user.user_type',function($q){
+                $q->where('verified', 1);
+            });
             
             $search = $request->input('search');
             $relevance = $request->input('relevance');
@@ -87,17 +85,27 @@ class IdeaController extends Controller
             $model->where('nation_id', $relevance);
         }
 
-        $model->withCount(['liked_users' => function($q){
-            $q->whereHas('user_type',function($q){
-                $q->where('verified', 1);                
-            });
+        $model->withCount(['liked_users' => function($q) use ($request){
+            if (!$request->input('unverified')) {
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);                
+                });
+            }
         }]);
         
         if ($view == 'popularity_indexes'){
             $model->orderBy('liked_users_count', 'desc');
         } else {
-            $model->selectSub('select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
-                    . 'where `ideas`.`id` = `idea_user`.`idea_id` and exists (select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1) and `users`.`deleted_at` is null', 'liked_users_sum');
+            $subSql = 'select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
+                    . 'where `ideas`.`id` = `idea_user`.`idea_id` and exists (select * from `user_types` where `users`.`user_type_id` = `user_types`.`id`';
+            
+            if (!$request->input('unverified')) {
+                    $subSql .= ' and `verified` = 1';
+            }
+                    
+            $subSql .= ') and `users`.`deleted_at` is null';
+            
+            $model->selectSub($subSql, 'liked_users_sum');
             $model->orderBy('liked_users_sum', 'desc');
         }
         
