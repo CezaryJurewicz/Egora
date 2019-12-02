@@ -2,15 +2,15 @@
                                 
                                     @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
                                     <h5 class="mb-1">{{ __('media.Verification ID')}}</h5>
-                                    <img src="{{ Storage::url($user->verification_id->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
-
+                                    <div class="img-wrap">
+                                        <span class="close" title="Delete Image" onclick="event.preventDefault(); document.getElementById('verify-delete-form').submit();">&times;</span>
+                                        <img src="{{ Storage::url($user->verification_id->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
+                                    </div>
+                                    
                                     <div class="mt-1">
-                                        <form action="{{ route('passports.delete',$user->verification_id->id) }}" method="POST" enctype="multipart/form-data">
+                                        <form id="verify-delete-form" action="{{ route('passports.delete',$user->verification_id->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-block btn-warning'>{{__('some.Delete')}}</button>
-                                            </div>
                                         </form>
                                     </div>
                                     @endif
