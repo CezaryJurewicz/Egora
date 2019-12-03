@@ -288,4 +288,38 @@ class UserController extends Controller
         $user->followers()->detach($request->user()->id);
         return redirect()->back()->with('success', 'Removed follower');  
     }
+    
+    public function settings(User $user)
+    {
+        return view('users.settings')->with(compact('user'));
+    }
+    
+    public function disqualify_membership (Request $request, User $user) 
+    {
+        $type = UserType::where('class', 'member')
+                ->where('verified', $user->user_type->verified)
+                ->where('former', 1)
+                ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Member disqualified.');  
+    }
+    
+    public function cancel_guardianship(Request $request, User $user) 
+    {
+        $user->guardianship = false;
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Guardianship disabled.');          
+    }
+    
+    public function allow_guardianship(Request $request, User $user) 
+    {
+        $user->guardianship = true;
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Guardianship enabled.');          
+    }
 }

@@ -112,12 +112,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    {{--@if (auth('web')->check() && auth('web')->user()->can('settings',auth('web')->user()) )
+                                    @if (auth('web')->check() && auth('web')->user()->can('settings',auth('web')->user()) )
                                     <li>
                                         <a class="dropdown-item" href="{{ route('users.settings',  auth('web')->user()->id)}}">{{ __('Settings') }}</a>
                                     </li>
                                     <li class="dropdown-divider"></li>
-                                    @endif --}}
+                                    @endif
                                     
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('logout') }}" 
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

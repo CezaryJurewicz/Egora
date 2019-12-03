@@ -4,12 +4,20 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Traits\PolicyTrait;
 
 class UserPolicy
 {
-    use HandlesAuthorization, PolicyTrait;
+    use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if (!in_array($ability, ['disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
+            if ($user->isAdmin()) {
+                return $this->allow();
+            }
+        }
+    }
+    
     /**
      * Determine whether the user can view any models.
      *
@@ -124,11 +132,68 @@ class UserPolicy
     
     public function verify(User $user, User $model)
     {
-        //
+        if ($user->isAdmin() && $user->guardianship) {
+            return $this->allow();
+        }
+
+        return $this->deny();
     }
 
     public function ilp_signup(User $user, User $model)
     {
-        return $user->id == $model->id && !$user->user_type->isIlp;
+        return $user->id == $model->id && !$model->user_type->isIlp;
+    }
+
+    public function submit_officer_application(User $user, User $model)
+    {
+        return $user->id == $model->id && $model->user_type->isIlp && $model->user_type->isVerified && is_null($model->petition);
+    }
+    
+    public function cancel_officer_application(User $user, User $model)
+    {
+        return $user->id == $model->id && $model->user_type->isIlp && $model->user_type->isVerified && $model->petition && !$model->petition->finished;
+    }
+    
+    public function support_officer_application(User $user, User $model)
+    {
+        return $user->id != $model->id && $model->petition && $model->petition->supporters->count() < 46 
+                && !$model->petition->supporters->pluck('id')->contains($user->id);
+    }
+    
+    public function unsupport_officer_application(User $user, User $model)
+    {
+        return $model->petition && $model->petition->supporters->pluck('id')->contains($user->id);
+    }
+
+    public function disqualify_membership(User $user, User $model) 
+    {
+        if ($user->isAdmin() && $model->user_type->class !== 'user' && !$model->user_type->former) {
+            return $this->allow();
+        }
+
+        return $this->deny();
+    }
+    
+    public function cancel_guardianship(User $user, User $model) 
+    {
+        if ($user->isAdmin() && $model->user_type->isIlp && $model->guardianship) {
+            return $this->allow();
+        }
+
+        return $this->deny();
+    }
+    
+    public function allow_guardianship(User $user, User $model) 
+    {
+        if ($user->isAdmin() && $model->user_type->isIlp && !$model->guardianship) {
+            return $this->allow();
+        }
+
+        return $this->deny();
+    }
+    
+    public function withdraw_from_ilp(User $user, User $model) 
+    {
+        return $user->id == $model->id && $model->user_type->isIlp;
     }
 }

@@ -63,14 +63,14 @@
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify mt-5 mb-5">
-                        I, <input style='width: 200px; border: none; border-bottom: 1px solid;' placeholder="(user name)" name="name">, am a member of the International Logic Party.                    
+                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a member of the International Logic Party.                    
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <a class='btn btn-secondary btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                            <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('some.Cancel and Close')}}</a>
                         </div>
                         <div class="col-md-3 offset-6">
-                            <button type='submit' class='btn btn-primary btn-block'>{{__('some.Save and Close')}}</button>                            
+                            <button type='submit' class='btn btn-ilp btn-block'>{{__('some.Save and Close')}}</button>                            
                         </div>
                     </div>
                 </form>

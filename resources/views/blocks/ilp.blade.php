@@ -6,7 +6,7 @@
                                         </a>
                                     </div>
                                     @else
-                                    <a class="btn btn-sm btn-primary btn-block" style="background-color: #0e004e; border-color: #0e004e;" href="{{ route('ilp.index') }}">ILP</a>
+                                    <a class="btn btn-sm btn-primary btn-block btn-ilp" href="{{ route('ilp.index') }}">ILP</a>
                                     @endif
                                 @else
                                     <div class="text-center">

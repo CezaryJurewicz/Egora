@@ -21,7 +21,7 @@
                                             @csrf
                                             <input type="hidden" name="_method" value="PUT"/>
                                             <div class="input-group">
-                                                <button type='submit' class='btn btn-warning'>{{__('some.Verify')}}</button>
+                                                <button type='submit' class='btn btn-danger btn-sm btn-block'>{{__('This account is authentic')}}</button>
                                             </div>
                                         </form>
                                     </div>
@@ -33,7 +33,7 @@
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">
-                                                <button type='submit' class='btn btn-warning'>{{__('some.Unverify')}}</button>
+                                                <button type='submit' class='btn btn-black btn-sm btn-block'>{{__('Inauthenticate Account')}}</button>
                                             </div>
                                         </form>
                                     </div>

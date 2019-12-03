@@ -53,11 +53,16 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}/profile', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::get('/{user}/ilp_signup', 'IlpController@index')->name('ilp_signup')->middleware('can:ilp_signup,user');
+        Route::get('/{user}/withdraw_from_ilp', 'IlpController@withdraw_from_ilp')->name('withdraw_from_ilp')->middleware('can:withdraw_from_ilp,user');
+        Route::post('/{user}/withdraw_from_ilp_process', 'IlpController@withdraw_from_ilp_process')->name('withdraw_from_ilp_process')->middleware('can:withdraw_from_ilp,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::post('/{user}/follow', 'UserController@follow')->name('follow')->middleware('can:follow,user');
         Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:follow,user');
         Route::get('/{user}/settings', 'UserController@settings')->name('settings')->middleware('can:settings,user');
+        Route::get('/{user}/disqualify_membership', 'UserController@disqualify_membership')->name('disqualify_membership')->middleware('can:disqualify_membership,user');
+        Route::get('/{user}/cancel_guardianship', 'UserController@cancel_guardianship')->name('cancel_guardianship')->middleware('can:cancel_guardianship,user');
+        Route::get('/{user}/allow_guardianship', 'UserController@allow_guardianship')->name('allow_guardianship')->middleware('can:allow_guardianship,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){
@@ -67,8 +72,11 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/guide', 'IlpController@guide')->name('guide');
         Route::get('/officer_petition', 'IlpController@officer_petition')->name('officer_petition');
         Route::post('/{user}/submit_officer_application', 'IlpController@submit_officer_application')->name('submit_officer_application')->middleware('can:submit_officer_application,user');
+        Route::get('/{user}/cancel_officer_application', 'IlpController@cancel_officer_application')->name('cancel_officer_application')->middleware('can:cancel_officer_application,user');
         Route::post('/{user}/submit_application', 'IlpController@submit_application')->name('submit_application')->middleware('can:submit_application,user');
         Route::get('/{user}/accept_application', 'IlpController@accept_application')->name('accept_application')->middleware('can:accept_application,user');
+        Route::get('/{user}/support_officer_application', 'IlpController@support_officer_application')->name('support_officer_application')->middleware('can:support_officer_application,user');
+        Route::get('/{user}/unsupport_officer_application', 'IlpController@unsupport_officer_application')->name('unsupport_officer_application')->middleware('can:unsupport_officer_application,user');
     });
     
     Route::prefix('/search_names')->name('search_names.')->group(function(){

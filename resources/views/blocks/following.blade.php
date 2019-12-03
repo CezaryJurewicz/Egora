@@ -1,4 +1,4 @@
-        @if (auth('web')->user()->following->isNotEmpty())
+        @if (auth('web')->check() && auth('web')->user()->following->isNotEmpty())
         <div class="card">
             <div class="card-header">
                 @lang('Following')

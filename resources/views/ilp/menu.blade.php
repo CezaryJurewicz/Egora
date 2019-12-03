@@ -13,13 +13,20 @@
                         <ul class="offset-2">
                             <li><a href="{{ route('ilp.principles') }}">Review the ILP Principles</a></li>
                             <li><a href="{{ route('ilp.guide') }}">Guide to the Structure of the Provisional Administrative Leadership of the ILP</a></li>
+                            @if (auth('web')->check() && auth('web')->user()->can('submit_officer_application', auth('web')->user()))
                             <li><a href="{{ route('ilp.officer_petition') }}">Petition to become an ILP officer</a></li>
-                            <li>Withdraw from ILP membership</li>
+                            @endif
+                            @if (auth('web')->check() && auth('web')->user()->can('cancel_officer_application', auth('web')->user()))
+                            <li><a href="{{ route('ilp.cancel_officer_application', auth('web')->user()->id ) }}">Cancel petition to become an ILP officer</a></li>
+                            @endif
+                            @if (auth('web')->check() && auth('web')->user()->can('withdraw_from_ilp', auth('web')->user()))
+                            <li><a href="{{ route('users.withdraw_from_ilp', auth('web')->user()->id ) }}">Withdraw from ILP membership</a></li>
+                            @endif
                         </ul>
                         
                         <div class="row mt-5">
                             <div class="offset-4 col-md-3">
-                                <a class='btn btn-primary btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
+                                <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
                             </div>
                         </div>
                     </div>

@@ -29,3 +29,17 @@ a[aria-expanded=false] .fa-chevron-down {
 .img-wrap:hover .close {
     opacity: 1;
 }
+
+.btn-ilp {
+    @include button-variant( #0e004e,  #0e004e);
+}
+
+.btn-black {
+    @include button-variant( #000,  #000);
+}
+
+input.line {
+    width: 200px; 
+    border: none; 
+    border-bottom: 1px solid;
+}

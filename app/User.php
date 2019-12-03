@@ -46,6 +46,17 @@ class User extends Authenticatable
         return false;
     }
  
+    public function petition()
+    {
+        return $this->hasOne(Petition::class);
+    }
+    
+    public function supporting()
+    {
+        return $this->belongsToMany(Petition::class, 'petition_users');
+    }
+
+    
     public function nation()
     {
         return $this->belongsTo(Nation::class);

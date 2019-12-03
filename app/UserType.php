@@ -45,4 +45,9 @@ class UserType extends Model
     {
         return ($this->attributes['class'] != 'user' && $this->attributes['candidate'] == 0);
     }
+    
+    public function getIsVerifiedAttribute()
+    {
+        return $this->attributes['verified'];
+    }
 }

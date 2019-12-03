@@ -53,8 +53,31 @@
                             <div class="mt-2">
                             @include('blocks.ilp')
                             </div>
+                            
+                            <div class="mt-2">
+                            @include('blocks.petition')
+                            </div>
+                            
                             <div class="mt-2">
                             @include('blocks.follow')
+                            </div>
+                            
+                            <div class="mt-2">
+                                @if ( (auth('admin')->user() ?: auth('web')->user())->can('disqualify_membership', $user) )
+                                <a class="btn btn-black btn-sm btn-block" href="{{ route('users.disqualify_membership', $user->id ) }}">Disqualify Membership</a>
+                                @endif
+                            </div>
+                            
+                            <div class="mt-2">
+                                @if ( (auth('admin')->user() ?: auth('web')->user())->can('cancel_guardianship', $user) )
+                                <a class="btn btn-black btn-sm btn-block" href="{{ route('users.cancel_guardianship', $user->id ) }}">Cancel Guardianship</a>
+                                @endif
+                            </div>
+                            
+                            <div class="mt-2">
+                                @if ( (auth('admin')->user() ?: auth('web')->user())->can('allow_guardianship', $user) )
+                                <a class="btn btn-black btn-sm btn-block" href="{{ route('users.allow_guardianship', $user->id ) }}">Allow Guardianship</a>
+                                @endif
                             </div>
                         </div>
                         

@@ -260,7 +260,7 @@ class IdeaController extends Controller
         if (auth()->guard('web')->check()) {
             list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
-            list($numbered, $zeros, $current_idea_position) = [[],[]];
+            list($numbered, $zeros, $current_idea_position) = [[],[], null];
         }
         
         return view('ideas.view')->with(compact('idea', 'zeros', 'numbered', 'current_idea_position'));

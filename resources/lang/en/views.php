@@ -2,6 +2,7 @@
 
 return [
 
+    'Settings' => 'Settings',
     'Users' => 'Users',
     'Egora User Search' => 'Egora User Search',
     'User' => 'User',

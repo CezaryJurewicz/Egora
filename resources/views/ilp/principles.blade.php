@@ -16,10 +16,10 @@
                         </div>
                         <div class="row mt-5">
                             <div class="col-md-3">
-                                <a class='btn btn-primary btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
+                                <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
                             </div>
                             <div class="col-md-3 offset-6">
-                                <a class='btn btn-primary btn-block' href="{{ url()->previous() }}">{{__('ILP Functions')}}</a>                            
+                                <a class='btn btn-ilp btn-block' href="{{ route('ilp.menu') }}">{{__('ILP Functions')}}</a>                            
                             </div>
                         </div>
                     </div>
