@@ -46,9 +46,10 @@ class IdeaController extends Controller
             }
 
             $unverified = $request->input('unverified');
-            $model->whereHas('user.user_type',function($q){
-                $q->where('verified', 1);
-            });
+            // NOTE: Show all users ideas
+//            $model->whereHas('user.user_type',function($q){
+//                $q->where('verified', 1);
+//            });
             
             $search = $request->input('search');
             $relevance = $request->input('relevance');
@@ -77,9 +78,10 @@ class IdeaController extends Controller
             });
             
         } else {
-            $model->whereHas('user.user_type',function($q){
-                $q->where('verified', 1);
-            });
+            // NOTE: Show all users ideas
+//            $model->whereHas('user.user_type',function($q){
+//                $q->where('verified', 1);
+//            });
             
             $relevance = $request->user()->nation->id;
             $model->where('nation_id', $relevance);
