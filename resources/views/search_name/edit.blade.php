@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" id="seachable" name="seachable" value=1 type="checkbox" {{ (old('seachable')?: $searchName->seachable) ? ' checked' : '' }} >
-                                <label for="seachable" class="col-form-label">{{ __('Uncheck this box if you want to be found only with an exact Search Name match.') }}</label>
+                                <label for="seachable" class="col-form-label">{{ __('Searchable – check this box if you want others to be able to find you without knowing your complete Search Name.') }}</label>
                             </div>
                             <div class="form-check" hidden>
                                 <input class="form-check-input" id="active" name="active" value=1 type="checkbox" {{ (old('active')?: $searchName->active) ? ' checked' : '' }} >

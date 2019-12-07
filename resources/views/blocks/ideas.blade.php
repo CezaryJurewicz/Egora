@@ -4,13 +4,13 @@
                         <div class="p-2">
                             <div class="row">
                                 <div class="col-md-1">{{$i + $ideas->firstItem()}} </div>
-                                <div class="col-md-2">{{$idea->nation->title}} </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">{{$idea->nation->title}} </div>
+                                <div class="col-md-2 text-center">
                                     @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                     @endif
                                 </div>
-                                <div class="offset-1 col-md-2">
+                                <div class="col-md-2">
                                     @if($index == 'dominance')
                                     IDI Points: 
                                     @else
@@ -42,15 +42,15 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 50)) }} ...
+                                {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', implode(' ', array_slice(explode(' ', $idea->content), 0, 50)))), '<br><p><b><i><li><ul><ol>') !!} ...
                             </div>
                         </div>
                     </div>
                     @empty
-                        <p>@lang('ideas.No ideas found')</p>
+                        <!--<p>@lang('ideas.No ideas found')</p>-->
                     @endforelse
                     
                     @if($ideas->isNotEmpty())       
-                        {{ $ideas->appends(compact('search', 'relevance', 'unverified', 'nation'))->render() }}
+                        {{  $ideas->appends(compact('search', 'relevance', 'unverified', 'nation'))->render() }}
                     @endif
                     </div>

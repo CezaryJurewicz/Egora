@@ -23,11 +23,12 @@ class IdeaController extends Controller
     
     public function _ideas(Request $request, $view) 
     {
+        $ideas = collect();
         $search = null;
         $relevance = null;
         $nation = null;
         $unverified = null;
-        $nations = $this->_user_nation($request);
+        $nations = $this->_nation_select($request);
         $all_nations = Nation::get();
         
         $model = Idea::query();
@@ -35,7 +36,7 @@ class IdeaController extends Controller
         {
             $validator = Validator::make($request->all(),[
                 'search' => 'nullable|min:3|string',
-                'relevance' => 'nullable|numeric|required_without:nation',
+                'relevance' => ['nullable', 'numeric', 'required_without:nation'],
                 'nation' => 'nullable|exists:nations,title|required_without:relevance',
                 'unverified' => 'nullable|boolean',
             ]);
@@ -45,6 +46,12 @@ class IdeaController extends Controller
                         ->withInput()->withErrors($validator);
             }
 
+            // Note: 'required_without:nation' 
+            if ($request->has('relevance') && $request->input('relevance')==0 && empty($request->input('nation'))) {
+                return redirect()->back()
+                        ->withInput()->withErrors('Please check relevance.');                
+            }
+            
             $unverified = $request->input('unverified');
             // NOTE: Show all users ideas
 //            $model->whereHas('user.user_type',function($q){
@@ -77,41 +84,37 @@ class IdeaController extends Controller
                 
             });
             
-        } else {
-            // NOTE: Show all users ideas
-//            $model->whereHas('user.user_type',function($q){
-//                $q->where('verified', 1);
-//            });
-            
-            $relevance = $request->user()->nation->id;
-            $model->where('nation_id', $relevance);
-        }
+            $model->withCount(['liked_users' => function($q) use ($request){
+                if (!$request->input('unverified')) {
+                    $q->whereHas('user_type',function($q){
+                        $q->where('verified', 1);                
+                    });
+                }
+            }]);
 
-        $model->withCount(['liked_users' => function($q) use ($request){
-            if (!$request->input('unverified')) {
-                $q->whereHas('user_type',function($q){
-                    $q->where('verified', 1);                
-                });
-            }
-        }]);
-        
-        if ($view == 'popularity_indexes'){
-            $model->orderBy('liked_users_count', 'desc');
-        } else {
             $subSql = 'select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
                     . 'where `ideas`.`id` = `idea_user`.`idea_id` and exists (select * from `user_types` where `users`.`user_type_id` = `user_types`.`id`';
-            
+
             if (!$request->input('unverified')) {
                     $subSql .= ' and `verified` = 1';
             }
-                    
+
             $subSql .= ') and `users`.`deleted_at` is null';
-            
+
             $model->selectSub($subSql, 'liked_users_sum');
-            $model->orderBy('liked_users_sum', 'desc');
-        }
+            
+            
+            if ($view == 'ideas.popularity_indexes'){
+                $model->orderBy('liked_users_count', 'desc');
+            } else {
+                $model->orderBy('liked_users_sum', 'desc');
+            }
+
+            $ideas = $model->paginate(100);
         
-        $ideas = $model->paginate(100);
+        } else {
+            $relevance = $request->user()->nation->id;
+        }
         
         return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
     }
@@ -166,6 +169,30 @@ class IdeaController extends Controller
         return $nations;
     }
     
+    private function _nation_select(Request $request)
+    {
+        $result = [
+            'All Categories, except Egora'=>-1, 
+        ];
+        
+        $nation = Nation::where('title', 'Universal')->first();
+        if ($nation) {
+            $result[$nation->title] = $nation->id;
+        }
+
+        $result[$request->user()->nation->title] = $request->user()->nation->id;
+        $result['-'] = 0;
+        
+        if ($request->user()->user_type->class !== 'user') {
+            $nation = Nation::where('title', 'Egora')->first();
+            if ($nation) {
+                $result[$nation->title] = $nation->id;
+            }
+        }
+        
+        return $result;
+    }
+    
     private function _numbers_zeros(Request $request, $ideas, $idea=null)
     {
         $numbered = [];
@@ -196,7 +223,7 @@ class IdeaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
+    {        
         $nations = $this->_user_nation($request);
         
         list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);

@@ -28,19 +28,22 @@
                     <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                 </div>
                 <div class="card">
-                    <div class="card-header row">
-                        <div class="col-md-10">
-                        Relevance: {{ $idea->nation->title }} 
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                            Relevance: {{ $idea->nation->title }} 
+                            </div>
+
+                            @if(!is_null($current_idea_position))
+                            <div class="col-md-2">
+                                <a class='btn btn-primary btn-sm ml-2' href="{{ route('ideas.unlike', $idea->id) }}">{{__('some.Remove and Close')}}</a>
+                            </div>
+                            @endif
                         </div>
-                        
-                        @if(!is_null($current_idea_position))
-                        <div class="col-md-2">
-                            <a class='btn btn-primary btn-sm ml-2' href="{{ route('ideas.unlike', $idea->id) }}">{{__('some.Remove and Close')}}</a>
-                        </div>
-                        @endif
                     </div>
                     <div class="card-body">
-                    {{ $idea->content }}
+                    {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', $idea->content)), '<br><p><b><i><li><ul><ol>') !!} ...
+
                     </div>
                     <div class="card-footer">
                         Current Point Position in my IP: {{ $current_idea_position }} 

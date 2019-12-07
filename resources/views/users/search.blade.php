@@ -6,10 +6,12 @@
     <div class="col-md-9">
         <div class="panel">
             <div class="panel-body">
+                <div class="text-center"> 
                 <h3>{{ __('views.Egora User Search') }}</h3>
+                </div>
                 <form action="{{ route('users.search') }}" method="POST">
                     <div class="form-group row mt-4">
-                        <label for="search_name" class="col-md-3 col-form-label">{{ __('"Search Name" (complete or partial)') }}</label>
+                        <label for="search_name" class="col-md-3 col-form-label">@lang('"Search Name"') <br>@lang('(complete or partial)')</label>
 
                         @csrf
                         <div class="col-md-7">
@@ -23,7 +25,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="nation" class="col-md-3 col-form-label">{{ __('Nation (optional)') }}</label>
+                        <label for="nation" class="col-md-3 col-form-label">@lang('"Nation"')<br> @lang('(optional)')</label>
 
                         <div class="col-md-7">
                             <div id="NationSearch" value="{{  $nation }}"></div>
@@ -50,7 +52,7 @@
                         </div>
                     </div>
                     <div class="form-group row mt-4">
-                        <div class="offset-2 col-md-3">
+                        <div class="offset-5 col-md-3">
                             <div class="input-group">
                                 <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
                             </div>
