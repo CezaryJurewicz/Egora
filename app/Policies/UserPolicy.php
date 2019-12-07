@@ -161,7 +161,8 @@ class UserPolicy
     
     public function support_officer_application(User $user, User $model)
     {
-        return $user->id != $model->id && $model->petition && $model->petition->supporters->count() < 46 
+        //NOTE: allow own support
+        return $model->petition && $model->petition->supporters->count() < 46 
                 && !$model->petition->supporters->pluck('id')->contains($user->id);
     }
     

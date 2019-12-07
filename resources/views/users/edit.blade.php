@@ -41,6 +41,20 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="contacts" class="col-form-label">{{ __('Your Contact Info') }}</label>
+
+                            <div>
+                                <input id="contacts" type="text" class="form-control @error('contacts') is-invalid @enderror" name="contacts" value="{{ old('contacts') ?: $user->contacts  }}">
+
+                                @error('contacts')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="password" class="col-form-label">{{ __('Password') }}</label>
 
                             <div>

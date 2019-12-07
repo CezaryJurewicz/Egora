@@ -10,20 +10,41 @@
                         <div class="col-md-3">
                             @include('blocks.user_image')                 
                             
-                            <div class="mt-2">{{ $user->user_type->title }}</div>
+                            <div class="mt-2">{{ $user->user_type->subtitle }}</div>
+                            <!--<div class="mt-2">{{ $user->user_type->title }}</div>-->
                             
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
-                            <div class="mt-2">{{ $user->name }}</div>
+                            @if (auth('web')->check() && auth('web')->user()->can('update', $user))
+                            <div class="mt-2"><h3>{{ $user->name }}</h3></div>
+                            <form action="{{ route('users.update_name', $user->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                <button disabled class="btn btn-ssm btn-secondary col-md-3">Edit</button>
+                            </form>
                             @endif
                             
                             <div class="mt-2">
-                                @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
-                                
+                                @if(null !== $user->active_search_names->first()) <b>{{ $user->active_search_names->first()->name }}</b> @else - @endif
+                                <br>
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id && $user->active_search_names->first())
-                                <a class="btn btn-sm btn-secondary" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
+                                <a class="btn btn-ssm btn-secondary col-md-3" href="{{ route('search_names.edit', $user->active_search_names->first()->id) }}">Edit</a>
                                 @endif
                             </div>
-                                                        
+
+                            <div class="mt-2">{{ $user->nation->title }}</div>
+                            @if (auth('web')->check() && auth('web')->user()->can('update', $user))
+                            <form action="{{ route('users.update_nation', $user->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                <button disabled class="btn btn-ssm btn-secondary col-md-3">Edit</button>
+                            </form>
+                            @endif
+                            
+                            <div class="mt-2">{{ $user->contacts }}</div>
+                            @if (auth('web')->check() && auth('web')->user()->can('update', $user))
+                            <form action="{{ route('users.update_contacts', $user->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                <button disabled class="btn btn-ssm btn-secondary col-md-3"">Edit</button>
+                            </form>
+                            @endif
+                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
                             <div class="mt-2">
                                 <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
@@ -87,7 +108,7 @@
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
                                                 <div class="offset-1 col-md-3">
-                                                IDI Points {{ $idea->liked_users->pluck('pivot.position')->sum() }}
+                                                IDI Points: {{ $idea->liked_users->pluck('pivot.position')->sum() }}
                                                 </div>
                                             </div>
                                         </div>

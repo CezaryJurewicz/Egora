@@ -16,10 +16,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="text-center" style="background-image: url({{ asset('img/line.png') }}); background-repeat: repeat-x; background-size: 200px 700px;">
+    <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 800px;">
         <a href="{{ route('register') }}">
-            <img  height="700px" src='{{ asset('img/Egora_E-image.png') }}'>
-            <div id="example" style="font-size: 20px; position: absolute; top:450px; left:50%; margin: 0 0 0 -30px;"><b>ENTER</b></div>
+            <img src='{{ asset('img/Egora_E-Image_L.jpg') }}'>
         </a>
     </div>
     <div id="app">

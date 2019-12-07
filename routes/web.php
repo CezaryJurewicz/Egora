@@ -52,6 +52,9 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,user');
         Route::get('/{user}/profile', 'UserController@show')->name('view')->middleware('can:view,user');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
+        Route::post('/{user}/name', 'UserController@update_name')->name('update_name')->middleware('can:update,user');
+        Route::post('/{user}/nation', 'UserController@update_nation')->name('update_nation')->middleware('can:update,user');
+        Route::post('/{user}/contacts', 'UserController@update_contacts')->name('update_contacts')->middleware('can:update,user');
         Route::get('/{user}/ilp_signup', 'IlpController@index')->name('ilp_signup')->middleware('can:ilp_signup,user');
         Route::get('/{user}/withdraw_from_ilp', 'IlpController@withdraw_from_ilp')->name('withdraw_from_ilp')->middleware('can:withdraw_from_ilp,user');
         Route::post('/{user}/withdraw_from_ilp_process', 'IlpController@withdraw_from_ilp_process')->name('withdraw_from_ilp_process')->middleware('can:withdraw_from_ilp,user');
