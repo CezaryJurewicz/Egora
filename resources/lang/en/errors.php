@@ -8,4 +8,7 @@ return [
     'The selected name is invalid.' => 'The selected name is invalid.',
     'The name you entered does not match your registered name.' => 'The name you entered does not match your registered name.',
     'The name field is required.' => 'The name field is required.',
+    'Write new email in a box.' => 'Write new email in a box.',
+    'Incorrect signed user and email token.' => 'Incorrect signed user and email token.',
+    
 ];

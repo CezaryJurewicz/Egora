@@ -63,6 +63,12 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}/disqualify_membership', 'UserController@disqualify_membership')->name('disqualify_membership')->middleware('can:disqualify_membership,user');
         Route::get('/{user}/cancel_guardianship', 'UserController@cancel_guardianship')->name('cancel_guardianship')->middleware('can:cancel_guardianship,user');
         Route::get('/{user}/allow_guardianship', 'UserController@allow_guardianship')->name('allow_guardianship')->middleware('can:allow_guardianship,user');
+        Route::put('/email/{token}', 'UserController@update_email')->name('update_email');
+        Route::get('/email/{token}', 'UserController@update_email_confirm')->name('update_email_confirm');
+        Route::put('/{user}/email', 'UserController@update_email_send_token')->name('update_email_send_token')->middleware('can:update,user');
+        Route::put('/{user}/password', 'UserController@update_password')->name('update_password')->middleware('can:update,user');
+        Route::put('/{user}/privacy', 'UserController@update_privacy')->name('update_privacy')->middleware('can:update,user');
+        Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:update,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){

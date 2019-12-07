@@ -37,9 +37,9 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
-        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
-            return $this->deny();
-        }
+//        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
+//            return $this->deny();
+//        }
 
         return $this->allow();
     }

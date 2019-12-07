@@ -34,18 +34,6 @@
                             </div>
                             @endif
 
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user))
-                            <div class="mt-2">
-                                <form action="{{ route('users.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE"/>
-                                    <div class="input-group">
-                                        <button type='submit' class='btn btn-sm btn-danger btn-block'>{{__('some.Delete')}}</button>
-                                    </div>
-                                </form>
-                            </div>
-                            @endif
-                            
                             <div class="mt-3">
                             @include('blocks.verification')
                             </div>

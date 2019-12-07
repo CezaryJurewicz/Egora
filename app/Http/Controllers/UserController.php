@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Events\UserNameChanged;
+use App\Notifications\UserEmailChange;
+use App\Notifications\UserEmailChanged;
 
 class UserController extends Controller
 {
@@ -33,7 +35,7 @@ class UserController extends Controller
         $officer_petitioner = null;
         
         $nations = Nation::get();
-//        dd($request->all());
+        
         if ($request->exists('search_name')){     
             $validator = Validator::make($request->all(),[
                 'search_name' => 'nullable|min:3|string|required_without_all:officer_petitioner,officer',
@@ -181,7 +183,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'nation' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed']
         ]);
          
@@ -191,7 +192,6 @@ class UserController extends Controller
         }
         
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->password = Hash::make($request->password);
 
         $nation = Nation::where('title', $request->nation)->first();
@@ -322,4 +322,63 @@ class UserController extends Controller
         
         return redirect()->back()->with('success', 'Guardianship enabled.');          
     }
+    
+    public function update_email_send_token(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        if ($request->email !== $user->email) {
+            $user->another_email = $request->email;
+            $user->email_token = \Illuminate\Support\Str::random(60);
+
+            if ($user->save()) {
+                $user->notify(new UserEmailChange());
+
+                return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+            }
+            
+        } else {
+            return redirect()->back()->withErrors('Write new email in a box');   
+        }
+        
+        return redirect()->back()->withErrors('Email update failed!');        
+    }
+
+    public function update_email(Request $request, string $token) 
+    {
+        $user = User::where('id', $request->user()->id)
+                ->where('email_token', $token)->first();
+        
+        if ($user) {
+            $user->email = $user->another_email;
+            $user->another_email = null;
+            $user->email_token = null;
+            $user->save();
+
+            $user->notify(new UserEmailChanged());
+            
+            return redirect()->route('users.settings', $user->id)->with('success', 'Email changed.');
+        }
+        
+        return redirect()->back()->withErrors('Incorrect signed user and email token.');
+    }
+    
+    public function update_email_confirm(Request $request, string $token) 
+    {
+        $user = User::where('id', $request->user()->id)
+                ->where('email_token', $token)->first();
+        
+        if ($user) {
+            return view('users.update_email_confirm')->with(compact('user', 'token'));
+        }
+        
+        return redirect()->back()->withErrors('Incorrect signed user and email token.');
+    }    
 }
