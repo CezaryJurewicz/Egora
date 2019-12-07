@@ -25,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UpdatePetitionStatus',
             'App\Listeners\ChangeUserType',
         ],
+        'App\Events\SearchNameChanged' => [
+            'App\Listeners\RemoveFollowers',
+        ],
     ];
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SearchName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Events\SearchNameChanged;
 
 class SearchNameController extends Controller
 {
@@ -100,7 +101,11 @@ class SearchNameController extends Controller
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
-
+        
+        if ($searchName->name != $request->input('name')) {
+            event(new SearchNameChanged($searchName->user));
+        }
+        
         $searchName->name = $request->input('name');
         $searchName->seachable = $request->input('seachable')?:0;
         $searchName->active = $request->input('active')?:0;
