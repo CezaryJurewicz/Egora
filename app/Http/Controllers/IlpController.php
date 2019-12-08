@@ -59,12 +59,33 @@ class IlpController extends Controller
         $petition->user()->associate($user);
         $petition->save();
         
+        // Change class to petitioner
+        $type = UserType::where('class', 'petitioner')
+            ->where('verified', $user->user_type->verified)
+            ->where('candidate',  $user->user_type->candidate)
+            ->where('former',  $user->user_type->former)
+            ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
+        
         return redirect()->route('ilp.menu')->with('success', 'Petition started');      
     }
     
     public function cancel_officer_application(Request $request, User $usr)
     {
-        $request->user()->petition->delete();
+        $user = $request->user();
+        $user->petition->delete();
+        
+        // Change class to member
+        $type = UserType::where('class', 'member')
+            ->where('verified', $user->user_type->verified)
+            ->where('candidate',  $user->user_type->candidate)
+            ->where('former',  $user->user_type->former)
+            ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
         
         return redirect()->route('ilp.menu')->with('success', 'Petition canceled');      
     }
