@@ -50,7 +50,7 @@ class IdeaPolicy
             return $this->deny();
         }
         
-        $nations = Nation::whereIn('title', ['Edora', 'Universal', $user->nation->title])->get()->pluck('id');
+        $nations = Nation::whereIn('title', ['Egora', 'Universal', $user->nation->title])->get()->pluck('id');
         
         if (!$nations->contains($idea->nation->id)) {
             return $this->deny();
