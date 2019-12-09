@@ -19,7 +19,7 @@ class MeetingPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $this->allow();
     }
 
     /**
@@ -42,7 +42,7 @@ class MeetingPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->user_type->isIlp;
     }
 
     /**
@@ -66,7 +66,7 @@ class MeetingPolicy
      */
     public function delete(User $user, Meeting $meeting)
     {
-        //
+        return $user->id == $meeting->user->id;
     }
 
     /**

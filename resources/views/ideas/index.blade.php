@@ -78,7 +78,7 @@
                                         
                                         @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $idea))
                                             @if ($idea->trashed())
-                                            <form action="{{ route('ideas.restore',['id'=>$idea->id]) }}" method="POST">
+                                            <form action="{{ route('ideas.restore',$idea->id) }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="PUT"/>
                                                 <div class="input-group">
@@ -86,7 +86,7 @@
                                                 </div>
                                             </form>
                                             @else
-                                            <form action="{{ route('ideas.delete',['id'=>$idea->id]) }}" method="POST">
+                                            <form action="{{ route('ideas.delete',$idea->id) }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="DELETE"/>
                                                 <div class="input-group">

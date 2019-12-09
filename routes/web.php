@@ -94,6 +94,15 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{search_name}/edit', 'SearchNameController@edit')->name('edit')->middleware('can:update,search_name');
         Route::put('/{search_name}', 'SearchNameController@update')->name('update')->middleware('can:update,search_name');
     });
+    
+    Route::prefix('/meetings')->name('meetings.')->group(function(){
+        Route::get('/', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
+        Route::post('/', 'MeetingController@store')->name('store')->middleware('can:create,App\Meeting');
+        Route::get('/{meeting}', 'MeetingController@show')->name('view')->middleware('can:view,meeting');
+        Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
+        Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
+    });
+
 
 });
 
@@ -143,12 +152,12 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{petition}', 'PetitionController@restore')->name('restore')->middleware('can:restore,App\Petition');
     });
     
-    Route::prefix('/meetings')->name('meetings.')->group(function(){
-        Route::get('/', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
-        Route::get('/{meeting}', 'MeetingController@show')->name('view')->middleware('can:view,meeting');
-        Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
-        Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
-    });
+//    Route::prefix('/meetings')->name('meetings.')->group(function(){
+//        Route::get('/', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
+//        Route::get('/{meeting}', 'MeetingController@show')->name('view')->middleware('can:view,meeting');
+//        Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
+//        Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
+//    });
     
     Route::prefix('/contents')->name('contents.')->group(function(){
         Route::get('/', 'ContentController@index')->name('index')->middleware('can:viewAny,App\Content');

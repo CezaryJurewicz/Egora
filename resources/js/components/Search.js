@@ -3,20 +3,35 @@ import ReactDOM from 'react-dom';
 import axios from 'axios'
 import Suggestions from './Suggestions'
 
-const API_URL = '/api/nations';
+const API_URL = {
+       'nation': '/api/nations',
+       'country': '/api/countries',
+       'city': '/api/cities'
+    };
+
+function Store(initialState = {}) {
+}
+
+var myStore = new Store();
 
 class Search extends Component {
   state = {
     query: this.props.query ? this.props.query : '',
+    type: (this.props.type && (API_URL[this.props.type] !== undefined)) ? this.props.type : 'nation',
     value: '',
     results: []
   }
 
   getInfo = () => {
-    axios.get(`${API_URL}?prefix=${this.state.query}`)
+    var url = `${API_URL[this.state.type]}?prefix=${this.state.query}`;
+      
+    if (typeof this.props.myStore.country !== 'undefined' && typeof this.props.myStore[this.props.type] === 'undefined' ) {
+        url = url + `&country=${this.props.myStore.country}`;
+    }
+    axios.get(url)
       .then(({ data }) => {
         this.setState({
-          results: data.nations
+          results: data.result
         });
     });
   }
@@ -38,6 +53,8 @@ class Search extends Component {
     this.setState({ value: val.target.title });
     this.setState({ query: val.target.title });
     this.setState({ results: [] });
+    
+    this.props.myStore[this.state.type] = val.target.title;
   }
 
   render() {
@@ -46,7 +63,7 @@ class Search extends Component {
             <input 
                 value={this.state.query} 
                 onChange={this.handleInputChange} 
-                id="nation" type="text" className="form-control" name="nation" 
+                id={this.state.type} type="text" className="form-control" name={this.state.type} 
             />
 
             <Suggestions results={this.state.results} onClickValue={this.onClickValueHandler}/>
@@ -59,5 +76,21 @@ export default Search
     
 if (document.getElementById('NationSearch')) {
     var value = document.getElementById('NationSearch').getAttribute('value');
-    ReactDOM.render(<Search query={ value } />, document.getElementById('NationSearch'));
+    ReactDOM.render(<Search type="nation" query={ value } myStore = {myStore}/>, document.getElementById('NationSearch'));
+}
+
+if (document.getElementById('Search')) {
+    var value = document.getElementById('Search').getAttribute('value');
+    var searchtype = document.getElementById('Search').getAttribute('type');
+    ReactDOM.render(<Search type={ searchtype } query={ value } myStore = {myStore}/>, document.getElementById('Search'));
+}
+
+if (document.getElementById('CountrySearch')) {
+    var value = document.getElementById('CountrySearch').getAttribute('value');
+    ReactDOM.render(<Search type="country"  query={ value } myStore = {myStore}/>, document.getElementById('CountrySearch'));
+}
+
+if (document.getElementById('CitySearch')) {
+    var value = document.getElementById('CitySearch').getAttribute('value');
+    ReactDOM.render(<Search type="city"  query={ value } myStore = {myStore}/>, document.getElementById('CitySearch'));
 }

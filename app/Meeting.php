@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meeting extends Model
 {
+    protected $casts = [
+        'start_at' => 'datetime:Y-m-d H:i:s',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -15,11 +19,6 @@ class Meeting extends Model
     {
         return $this->belongsTo(City::class);
     }
-    
-//    public function country()
-//    {
-//        return $this->hasOneThrough(Country::class, City::class, 'country_id', 'id');
-//    }
     
     public function country()
     {

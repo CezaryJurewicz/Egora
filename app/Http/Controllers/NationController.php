@@ -29,9 +29,9 @@ class NationController extends Controller
             $model = new Nation;
         }
         
-        $nations = $model->get();
+        $result = $model->get();
         
-        return response()->json(compact('nations'));
+        return response()->json(compact('result'));
     }
 
     /**

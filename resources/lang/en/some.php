@@ -23,4 +23,5 @@ return [
     'Generate' => 'Generate',
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
+    'Submit' => 'Submit'
 ];

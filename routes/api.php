@@ -14,6 +14,14 @@ use Illuminate\Http\Request;
 */
 
     Route::prefix('/nations')->name('nations.')->group(function(){
-        Route::get('/', 'NationController@indexApi')->name('index');//->middleware('can:viewAny,App\Nation');
+        Route::get('/', 'NationController@indexApi')->name('indexapi');
+    });
+    
+    Route::prefix('/countries')->name('countries.')->group(function(){
+        Route::get('/', 'CountryController@indexApi')->name('indexapi');
+    });
+    
+    Route::prefix('/cities')->name('cities.')->group(function(){
+        Route::get('/', 'CityController@indexApi')->name('indexapi');
     });
     

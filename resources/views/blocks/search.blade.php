@@ -1,4 +1,6 @@
                 <form action="{{ route(Route::current()->getName()) }}" method="POST">
+                    @csrf
+
                     <div class="form-group row">
                         <label for="relevance" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
 
@@ -34,16 +36,15 @@
                     <div class="form-group row">
                         <label for="search" class="col-md-3 col-form-label text-md-right">{{ __('Containing text:') }}</label>
 
-                            @csrf
-                            <div class="col-md-6">
-                                <input id="search" type="text" class="form-control @error('search') is-invalid @enderror" name="search" value="{{ old('search')?: $search }}">
+                        <div class="col-md-6">
+                            <input id="search" type="text" class="form-control @error('search') is-invalid @enderror" name="search" value="{{ old('search')?: $search }}">
 
-                                @error('search')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
                     
                     <div class="form-group row">
