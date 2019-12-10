@@ -6,6 +6,7 @@ use App\Idea;
 use App\Nation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Events\IdeaSupportHasChanged;
 
 class IdeaController extends Controller
 {
@@ -84,9 +85,16 @@ class IdeaController extends Controller
                 
             });
             
+            if (!$request->input('unverified')) {
+                $model->whereHas('liked_users.user_type', function($q){
+                    $q->where('verified', 1);                
+                });
+            }
+            
+            
             $model->withCount(['liked_users' => function($q) use ($request){
                 if (!$request->input('unverified')) {
-                    $q->whereHas('user_type',function($q){
+                    $q->whereHas('user_type', function($q){
                         $q->where('verified', 1);                
                     });
                 }
@@ -106,8 +114,10 @@ class IdeaController extends Controller
             
             if ($view == 'ideas.popularity_indexes'){
                 $model->orderBy('liked_users_count', 'desc');
+                $model->orderBy('liked_users_sum', 'desc');
             } else {
                 $model->orderBy('liked_users_sum', 'desc');
+                $model->orderBy('liked_users_count', 'desc');
             }
 
             $ideas = $model->paginate(100);
@@ -115,7 +125,7 @@ class IdeaController extends Controller
         } else {
             $relevance = $request->user()->nation->id;
         }
-        
+//        dd($ideas->pluck('id'));
         return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
     }
     
@@ -350,12 +360,16 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
         
+        event(new IdeaSupportHasChanged($idea));
+        
         return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea added to your IP');   
     }
     
     public function unlike(Request $request, Idea $idea) 
     {
         $request->user()->liked_ideas()->detach($idea);
+        
+        event(new IdeaSupportHasChanged($idea));
         
         return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea removed from your IP');   
     }

@@ -28,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SearchNameChanged' => [
             'App\Listeners\RemoveFollowers',
         ],
+        'App\Events\IdeaSupportHasChanged' => [
+            'App\Listeners\RemoveIdea',
+        ],
     ];
 
     /**

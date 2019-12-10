@@ -39,6 +39,6 @@ class Idea extends Model
     
     public function getPositionSumAttribute($value)
     {
-        return $this->liked_users()->sum('position');
+        return $this->liked_users->sum('position');
     }
 }

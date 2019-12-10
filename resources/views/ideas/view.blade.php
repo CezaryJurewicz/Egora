@@ -17,8 +17,7 @@
                         && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] == auth('web')->user()->id )
                         <h3>{{ __('views.Ideological Profile') }}</h3>
                     @else 
-                        <h3>{{ App\User::findOrFail(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'])->active_search_names->first()->name ?? '' }}
-                        {{--<h3>{{ $idea->user->active_search_names->first()? $idea->user->active_search_names->first()->name : '-'}}</h3>--}}
+                        <h3>{{ App\User::findOrFail(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] ?? $idea->user->id)->active_search_names->first()->name ?? '' }}
                     @endif 
                     
                     <h3>Idea: Open</h3>
