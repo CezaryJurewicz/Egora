@@ -13,8 +13,8 @@
                             <div class="mt-2">{{ $user->user_type->subtitle }}</div>
                             <!--<div class="mt-2">{{ $user->user_type->title }}</div>-->
                             
-                            @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <div class="mt-2"><h3>{{ $user->name }}</h3></div>
+                            @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_name', $user->id) }}" method="POST" style="display: none;">
                                 @csrf
                                 <button disabled class="btn btn-ssm btn-secondary col-md-3">Edit</button>
@@ -101,19 +101,19 @@
                                     @foreach($user->liked_ideas as $idea)
                                     <div class="card mb-3">
                                         <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-md-1">{{$idea->pivot->position}}</div>
-                                                <div class="col-md-3">{{$idea->nation->title}} </div>
-                                                <div class="col-md-4 text-center">
+                                            <div class="row small">
+                                                <div class="col-md-1"><b>#{{$idea->pivot->position}}</b></div>
+                                                <div class="col-md-4">{{$idea->nation->title}} </div>
+                                                <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
-                                                <div class="offset-1 col-md-3">
-                                                IDI Points: {{ $idea->liked_users->pluck('pivot.position')->sum() }}
+                                                <div class="offset-1 col-md-4">
+                                                IDI Points: {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', implode(' ', array_slice(explode(' ', $idea->content), 0, 50)))), '<br><p><b><i><li><ul><ol>') !!} ...
+                                            <textarea disabled class="col-md-12 idea" rows="3">{{ $idea->content }}</textarea>
                                         </div>
                                     </div>
                                     @endforeach

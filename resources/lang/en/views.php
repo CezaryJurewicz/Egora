@@ -4,7 +4,7 @@ return [
 
     'Settings' => 'Settings',
     'Users' => 'Users',
-    'Egora User Search' => 'Egora User Search',
+    'User Search' => 'User Search',
     'User' => 'User',
     'User Edit' => 'User Edit',
     'User Types' => 'User Types',

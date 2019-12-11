@@ -7,7 +7,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="text-center"> 
-                <h3>{{ __('views.Egora User Search') }}</h3>
+                <h3>{{ __('views.User Search') }}</h3>
                 </div>
                 <form action="{{ route('users.search') }}" method="POST">
                     <div class="form-group row mt-4">
