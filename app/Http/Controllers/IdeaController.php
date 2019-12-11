@@ -242,6 +242,18 @@ class IdeaController extends Controller
     }
 
     /**
+     * Return leading space to content
+     */
+    private function _starting_space(Request $request, $name) 
+    {
+        if (($_POST[$name] !== $request->input($name)) && preg_match('/^(\s+)\S+/', $_POST[$name], $matches) && $matches[1]) {
+            return $matches[1];
+        }
+        
+        return null;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -273,7 +285,7 @@ class IdeaController extends Controller
         }
         
         $idea = new Idea([
-            'content' => $request->input('content'),
+            'content' => $this->_starting_space($request, 'content').$request->input('content'),
             'position' => $position,
         ]);
                 
