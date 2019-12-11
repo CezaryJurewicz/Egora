@@ -29,7 +29,7 @@ class IdeaController extends Controller
         $relevance = null;
         $nation = null;
         $unverified = null;
-        $nations = $this->_nation_select($request);
+        $nations = $this->_nation_select($request, $view);
         $all_nations = Nation::get();
         
         $model = Idea::query();
@@ -179,7 +179,7 @@ class IdeaController extends Controller
         return $nations;
     }
     
-    private function _nation_select(Request $request)
+    private function _nation_select(Request $request, $view)
     {
         $result = [
             'All Categories, except Egora'=>-1, 
@@ -193,7 +193,7 @@ class IdeaController extends Controller
         $result[$request->user()->nation->title] = $request->user()->nation->id;
         $result['-'] = 0;
         
-        if ($request->user()->user_type->class !== 'user') {
+        if ($view == 'ideas.popularity_indexes') {
             $nation = Nation::where('title', 'Egora')->first();
             if ($nation) {
                 $result[$nation->title] = $nation->id;
