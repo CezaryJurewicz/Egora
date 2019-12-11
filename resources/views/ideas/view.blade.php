@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', $idea->content)), '<br><p><b><i><li><ul><ol>') !!} ...
+                    {!! strip_tags(nl2br(str_replace(array(' ', "\t"), array('&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $idea->content)), '<br><p><b><i><li><ul><ol>') !!} ...
 
                     </div>
                     <div class="card-footer">

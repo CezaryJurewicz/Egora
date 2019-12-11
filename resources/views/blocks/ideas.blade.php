@@ -1,4 +1,5 @@
-                    <div class="card p-2">
+@if($ideas->isNotEmpty()) 
+<div class="card p-2">
                     @forelse($ideas as $i=>$idea)
                     <div class="mb-3">
                         <div class="p-2">
@@ -42,7 +43,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', implode(' ', array_slice(explode(' ', $idea->content), 0, 50)))), '<br><p><b><i><li><ul><ol>') !!} ...
+                                {!! strip_tags(nl2br(str_replace(array(' ', "\t"), array('&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), implode(' ', array_slice(explode(' ', $idea->content), 0, 50)))), '<br><p><b><i><li><ul><ol>') !!} ...
                             </div>
                         </div>
                     </div>
@@ -50,7 +51,7 @@
                         <!--<p>@lang('ideas.No ideas found')</p>-->
                     @endforelse
                     
-                    @if($ideas->isNotEmpty())       
                         {{  $ideas->appends(compact('search', 'relevance', 'unverified', 'nation'))->render() }}
-                    @endif
                     </div>
+
+@endif

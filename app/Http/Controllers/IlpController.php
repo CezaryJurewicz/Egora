@@ -115,7 +115,7 @@ class IlpController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        return redirect()->route('users.ideological_profile', $user->id)->with('success', 'Application submitted');           
+        return redirect()->route('users.ideological_profile', $user->id)->with('success', __('Member declaration has been signed.'));           
     }
     
     public function accept_application(User $user)
