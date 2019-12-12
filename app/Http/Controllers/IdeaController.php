@@ -32,7 +32,8 @@ class IdeaController extends Controller
         $nations = $this->_nation_select($request, $view);
         $all_nations = Nation::get();
         
-        $model = Idea::query();
+        // if creator is not deactivated
+        $model = Idea::whereHas('user');
         if (!empty($request->all()))
         {
             $validator = Validator::make($request->all(),[
@@ -125,7 +126,7 @@ class IdeaController extends Controller
         } else {
             $relevance = $request->user()->nation->id;
         }
-//        dd($ideas->pluck('id'));
+        
         return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
     }
     

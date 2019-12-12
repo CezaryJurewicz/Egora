@@ -150,6 +150,7 @@ class UserController extends Controller
     public function ideological_profile(User $user)
     {
         $user->load(['liked_ideas' => function($q){
+            $q->whereHas('user');
             $q->with(['nation', 'liked_users' => function($q){
                 $q->whereHas('user_type',function($q){
                     $q->where('verified', 1);
@@ -225,6 +226,71 @@ class UserController extends Controller
         return redirect()->route('users.ideological_profile', $request->user()->id)->withErrors('User information update failed!');   
     }
 
+    public function update_password(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'current' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        if ( Hash::check($request->current, $user->password) ) {
+        
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return redirect()->route('users.settings', $request->user()->id)->with('success', 'Password updated!');   
+        }
+        
+        return redirect()->route('users.settings', $request->user()->id)->withErrors('Current password doesn\'t match!');
+    }
+    
+    public function update_privacy(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'seachable' => ['required', 'boolean'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        $searchName = $request->user()->active_search_names->first();
+        
+        $searchName->seachable = $request->input('seachable')?:0;
+        $searchName->save();
+
+        return redirect()->back()->with('success', 'Privacy updated.');       
+    }
+
+    public function deactivate(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'deactivate' => ['required', 'boolean'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        
+        if ($request->input('deactivate')) 
+        {
+            Auth::logout();
+            
+            $user->delete();
+            return redirect()->back()->with('success', 'User deactivated.');  
+        }            
+        
+        return redirect()->back()->withErrors(['Deactivate field is missing']);
+    }
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -79,7 +79,7 @@
 
                                 <div class="form-group">
                                     <a class="btn btn-black btn-sm col-md-1" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button disabled="" type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
+                                    <button type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
                                         {{ __('Save') }}
                                     </button>
                                 </div>      
@@ -108,7 +108,7 @@
                                 
                                 <div class="form-group">
                                     <a class="btn btn-black btn-sm col-md-1" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button disabled="" type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
+                                    <button type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
                                         {{ __('Save') }}
                                     </button>
                                 </div>      
@@ -145,7 +145,7 @@
                                 
                                 <div class="form-group">
                                     <a class="btn btn-black btn-sm col-md-1" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button disabled="" type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
+                                    <button type="submit" class="btn btn-secondary btn-sm col-md-1 offset-1">
                                         {{ __('Save') }}
                                     </button>
                                 </div>      

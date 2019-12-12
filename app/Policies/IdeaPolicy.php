@@ -37,15 +37,15 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
-//        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
-//            return $this->deny();
-//        }
-
-        return $this->allow();
+        return ($idea->user) ? $this->allow() : $this->deny();
     }
     
     public function like(User $user, Idea $idea)
     {
+        if ( is_null($idea->user) ) {
+            return $this->deny();
+        }
+        
         if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
             return $this->deny();
         }
@@ -61,6 +61,10 @@ class IdeaPolicy
     
     public function unlike(User $user, Idea $idea)
     {
+        if ( is_null($idea->user) ) {
+            return $this->deny();
+        }
+        
         return $this->allow();
     }
     
