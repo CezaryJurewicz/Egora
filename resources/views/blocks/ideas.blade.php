@@ -4,7 +4,7 @@
                     <div class="mb-3">
                         <div class="p-2">
                             <div class="row">
-                                <div class="col-md-1">{{$i + $ideas->firstItem()}} </div>
+                                <div class="col-md-1">#{{$i + $ideas->firstItem()}} </div>
                                 <div class="col-md-4">{{$idea->nation->title}} </div>
                                 <div class="col-md-1 text-center">
                                     @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
