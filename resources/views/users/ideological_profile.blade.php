@@ -113,7 +113,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <textarea disabled class="col-md-12 idea" rows="3">{{ $idea->content }}</textarea>
+                                            {!! shorten_text($idea->content) !!}
                                         </div>
                                     </div>
                                     @endforeach
