@@ -3,7 +3,7 @@
                     @forelse($ideas as $i=>$idea)
                     <div class="mb-3">
                         <div class="p-2">
-                            <div class="row small">
+                            <div class="row">
                                 <div class="col-md-1">{{$i + $ideas->firstItem()}} </div>
                                 <div class="col-md-4">{{$idea->nation->title}} </div>
                                 <div class="col-md-1 text-center">
@@ -11,7 +11,7 @@
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                     @endif
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1" style="padding: 0;">
                                     @if($index == 'dominance')
                                     IDI Points: 
                                     @else
@@ -25,7 +25,7 @@
                                     {{ number_format($idea->liked_users_count) }}
                                     @endif
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1" style="padding: 0;">
                                     @if($index == 'dominance')
                                     Supporters:
                                     @else

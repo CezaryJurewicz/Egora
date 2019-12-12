@@ -101,8 +101,8 @@
                                     @foreach($user->liked_ideas as $idea)
                                     <div class="card mb-3">
                                         <div class="card-header">
-                                            <div class="row small">
-                                                <div class="col-md-1">{{$idea->pivot->position}}</div>
+                                            <div class="row">
+                                                <div class="col-md-1"><b>{{$idea->pivot->position}}</b></div>
                                                 <div class="col-md-4">{{$idea->nation->title}} </div>
                                                 <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>

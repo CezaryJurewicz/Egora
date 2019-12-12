@@ -23,9 +23,9 @@
             @include('blocks.header')        
         @endif
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+<!--                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Egora') }}
-                </a>
+                </a>-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -34,6 +34,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (auth('web')->check() || auth('admin')->check())
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'home') ? ' active' : '' }}" href="{{ route('home')}}">{{ __('Egora') }}</a>
+                            </li>
                             @if (auth('web')->check() && auth('web')->user()->can('ideological_profile',auth('web')->user()) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) == auth('web')->user()->id) ? ' active' : '' }}" href="{{ route('users.ideological_profile',  auth('web')->user()->id)}}">{{ __('Home') }}</a>
