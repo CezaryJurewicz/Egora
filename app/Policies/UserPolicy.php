@@ -73,7 +73,7 @@ class UserPolicy
     
     public function ideological_profile(User $user, User $model)
     {
-        return $this->allow();
+        return (!$model->trashed())? $this->allow() : $this->deny() ;
     }
 
     /**
