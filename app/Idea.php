@@ -10,7 +10,7 @@ class Idea extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = array('content', 'position');
+    protected $fillable = array('content', 'position', 'order');
     
     public function user()
     {

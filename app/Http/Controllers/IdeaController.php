@@ -207,24 +207,23 @@ class IdeaController extends Controller
     private function _numbers_zeros(Request $request, $ideas, $idea=null)
     {
         $numbered = [];
-        $zeros = [];
         $current_idea_position = null;
         foreach($ideas as $i) 
         {
-            $position = ($i->pivot) ? $i->pivot->position: $i->position;
-            
-            if($position>0) {
-                $numbered[] = $position;
-            } else {
-                $zeros[] = count($zeros)+1;
-            }
+            $position = ($i->pivot) ? $i->pivot->order: $i->position;
+//            print $position . '<hr/>';
+//            if($position>0) {
+            $numbered[] = $position;
+//            } else {
+//                $zeros[] = count($zeros)+1;
+//            }
             
             if($idea && $i->id == $idea->id) {
-                $current_idea_position = $i->pivot->position;
+                $current_idea_position = $i->pivot->order;
             }
         }
         
-        return [$numbered, $zeros, $current_idea_position];
+        return [$numbered, $current_idea_position];
     }
 
 
@@ -237,9 +236,9 @@ class IdeaController extends Controller
     {        
         $nations = $this->_user_nation($request);
         
-        list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
         
-        return view('ideas.create')->with(compact('nations', 'numbered', 'zeros', 'current_idea_position'));
+        return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position'));
     }
 
     /**
@@ -267,18 +266,15 @@ class IdeaController extends Controller
         $validator = Validator::make($request->all(),[
             'content' => 'required|string',
             'nation' => 'required|integer|in:'.implode(',',$nations->toArray()),
-//            'position' => 'required|integer|between:0,23',
-            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:23'],
-            'position2' => ['required_without:position1', 'nullable', 'numeric', 'min:0', 'max:1'],
+            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46'],
         ]);
          
-        
-        if ($request->exists('position1') && $request->input('position1')>0) {
-            $position = $request->input('position1');
+        $order = $request->input('position1');
+        if ($request->exists('position1') && $request->input('position1')>23) {
+            $position = $request->input('position1')-23;
         } else {
             $position = '0';
         }
-        
         
         if ($validator->fails()) {
             return redirect()->back()
@@ -287,7 +283,7 @@ class IdeaController extends Controller
         
         $idea = new Idea([
             'content' => $this->_starting_space($request, 'content').$request->input('content'),
-            'position' => $position,
+//            'position' => $position,
         ]);
                 
         $idea->user()->associate($request->user()->id);
@@ -296,7 +292,7 @@ class IdeaController extends Controller
         $idea->save();
         
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
-        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
+        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
 
         return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'New Idea created');   
     }
@@ -310,12 +306,18 @@ class IdeaController extends Controller
     public function show(Request $request, Idea $idea)
     {
         if (auth()->guard('web')->check()) {
-            list($numbered, $zeros, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
+            list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
             list($numbered, $zeros, $current_idea_position) = [[],[], null];
         }
         
-        return view('ideas.view')->with(compact('idea', 'zeros', 'numbered', 'current_idea_position'));
+        if($current_idea_position>23) {
+            $current_idea_point_position = $current_idea_position - 23;
+        } else {
+            $current_idea_point_position = 0;
+        }
+        
+        return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position'));
     }
 
     /**
@@ -355,8 +357,7 @@ class IdeaController extends Controller
     public function like(Request $request, Idea $idea) 
     {
         $validator = Validator::make($request->all(),[
-            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:23'],
-            'position2' => ['required_without:position1', 'nullable', 'numeric', 'min:0', 'max:1'],
+            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46'],
         ]);
          
         if ($validator->fails()) {
@@ -364,14 +365,15 @@ class IdeaController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
-        if ($request->exists('position1') && $request->input('position1')>0) {
-            $position = $request->input('position1');
+        $order = $request->input('position1');
+        if ($request->exists('position1') && $request->input('position1')>23) {
+            $position = $request->input('position1')-23;
         } else {
             $position = '0';
         }
         
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
-        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position]);
+        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
         
         event(new IdeaSupportHasChanged($idea));
         

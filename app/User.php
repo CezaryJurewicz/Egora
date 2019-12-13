@@ -119,7 +119,7 @@ class User extends Authenticatable
     
     public function liked_ideas()
     {
-        return $this->belongsToMany(Idea::class)->withPivot('position')
-                ->orderBy('pivot_position', 'desc');
+        return $this->belongsToMany(Idea::class)->withPivot('position', 'order')
+                ->orderBy('pivot_order', 'desc');
     }
 }
