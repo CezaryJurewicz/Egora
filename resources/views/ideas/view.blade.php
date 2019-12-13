@@ -44,7 +44,7 @@
                     {!! strip_tags(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $idea->content)), '<br><p><b><i><li><ul><ol>') !!}
                     </div>
                     <div class="card-footer">
-                        Current Point Position in my IP: {{ $current_idea_position }} 
+                        Current Point Position in my IP: {{ $current_idea_point_position }} 
                     </div>
                 <div class="mt-2 mb-2">
                     @include('blocks.like')
