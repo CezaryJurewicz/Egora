@@ -45,7 +45,7 @@
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) != auth('web')->user()->id) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Users') }}</a>
+                                <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->id) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Users') }}</a>
                             </li>
                             @endif
 
