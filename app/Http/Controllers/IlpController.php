@@ -133,7 +133,6 @@ class IlpController extends Controller
     
     public function support_officer_application(Request $request, User $user)
     {
-//        $user->petition->supporters()->syncWithoutDetaching($request->user());
         $request->user()->supporting()->sync($user->petition->id);
         event(new PetitionSupportersChanged($user->petition, $request->user()));
         

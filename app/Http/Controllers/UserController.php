@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\UserNameChanged;
 use App\Notifications\UserEmailChange;
 use App\Notifications\UserEmailChanged;
-use App\Events\IdeaSupportHasChanged;
+use App\Events\BeforeUserNationChanged;
 
 class UserController extends Controller
 {
@@ -205,20 +205,7 @@ class UserController extends Controller
         }
         
         if ($user->nation->id !== $nation->id) {
-            $user->load(['liked_ideas' => function($q) use ($user){
-                $q->whereHas('nation', function($q) use ($user){
-                    $q->where('id', $user->nation->id);
-                });
-            }]);
-            $ideas = $user->liked_ideas;
-            
-            $ids = $ideas->pluck('id')->toArray();
-            $user->liked_ideas()->toggle($ids);
-            
-            foreach($ideas as $idea)
-            {
-                event(new IdeaSupportHasChanged($idea));
-            }
+            event(new BeforeUserNationChanged($user));
         }
         
         $user->nation()->associate($nation);

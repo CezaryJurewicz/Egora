@@ -160,15 +160,16 @@ class UserPolicy
     }
     
     public function support_officer_application(User $user, User $model)
-    {
+    {        
         //NOTE: allow own support
-        return $model->petition && $model->petition->supporters->count() < 46 
+        return ($model->nation->id == $user->nation->id) && $user->user_type->isIlp && $user->user_type->verified
+                && $model->petition && $model->petition->supporters->count() < 46 
                 && !$model->petition->supporters->pluck('id')->contains($user->id);
     }
     
     public function unsupport_officer_application(User $user, User $model)
     {
-        return $model->petition && $model->petition->supporters->pluck('id')->contains($user->id);
+        return $user->user_type->isIlp && $model->petition && $model->petition->supporters->pluck('id')->contains($user->id);
     }
 
     public function disqualify_membership(User $user, User $model) 
