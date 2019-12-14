@@ -9,7 +9,7 @@ use App\Traits\PolicyTrait;
 
 class ContentPolicy
 {
-    use HandlesAuthorization, PolicyTrait;
+    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view any contents.
@@ -19,7 +19,7 @@ class ContentPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $this->deny();
     }
 
     /**

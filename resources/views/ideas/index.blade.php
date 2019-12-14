@@ -40,8 +40,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('tables.Content')}}</th>
                                     <th scope="col">{{ __('tables.Nation')}}</th>
-                                    <th scope="col">{{ __('tables.User')}}</th>
-                                    <th scope="col">{{ __('tables.Position')}}</th>
                                     <th scope="col">{{ __('tables.Created')}}</th>
                                     <th scope="col">{{ __('tables.Updated')}}</th>                                    
                                     <th scope="col">{{ __('tables.Actions')}}</th>
@@ -63,8 +61,6 @@
                                         @endif
                                     </td>
                                     <td>{{ $idea->nation->title }}</td>
-                                    <td>#{{ $idea->user->id }}: {{ $idea->user->name }}</td>
-                                    <td>{{ $idea->position }}</td>
                                     <td>{{ $idea->createdDate() }}</td>
                                     <td>{{ $idea->updatedDate() }}</td>
                                     
@@ -104,6 +100,8 @@
                     @if($ideas->isNotEmpty())                  
                             </tbody>
                         </table>
+                    
+                        {{ $ideas->links() }}
                     @endif
                 </div>
             </div>

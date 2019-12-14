@@ -79,6 +79,8 @@
                     @if($users->isNotEmpty())                 
                             </tbody>
                         </table>
+                    
+                        {{ $users->links() }}
                     @endif
                 </div>
             </div>

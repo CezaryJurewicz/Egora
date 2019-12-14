@@ -29,7 +29,7 @@
                                     <td>{{ $petition->user->name }}</td>
                                     <td>{{ $petition->supporters->count() }}</td>
                                     <td>
-                                        <form action="{{ route('petitions.delete',['id'=>$petition->id]) }}" method="POST">
+                                        <form action="{{ route('petitions.delete', $petition->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">

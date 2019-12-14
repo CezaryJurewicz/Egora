@@ -9,7 +9,7 @@ use App\Traits\PolicyTrait;
 
 class CampaignPolicy
 {
-    use HandlesAuthorization, PolicyTrait;
+    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view any campaigns.
@@ -19,7 +19,7 @@ class CampaignPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $this->deny();
     }
 
     /**

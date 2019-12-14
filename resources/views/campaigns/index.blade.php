@@ -25,7 +25,7 @@
                                     <th scope="row">{{$campaign->id}}</th>
                                     <td>{{ $campaign->users->count() }}</td>
                                     <td>
-                                        <form action="{{ route('campaigns.delete',['id'=>$campaign->id]) }}" method="POST">
+                                        <form action="{{ route('campaigns.delete', $campaign->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">

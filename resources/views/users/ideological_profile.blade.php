@@ -91,6 +91,25 @@
                             <h3>{{ __('views.Ideological Profile') }}</h3>
                             </div>
                             <div>
+                                <div class="accordion mb-3" id="accordion">
+                                    <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                                      <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Guide
+                                          </button>
+                                        </h2>
+                                      </div>
+
+                                      <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>The Ideological Profile is your existential, political, economic, social, and even personal philosophy. The 23-point idea is your most fundamental idea or most practically important idea. The 0-point ideas are a convenient way to organize your alternative ideas to the numbered ideas. The 0-point ideas are also used by ILP Members to support Egora related ideas.</p>
+                                            <p>If you ever need more good ideas, you will always find them in the Ideological Profiles of your friends and on either of the Indexes. But to learn about those ideas in detail, there is no better opportunity than the ILP meetings.</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                 <div class="mb-1 text-right"> 
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>

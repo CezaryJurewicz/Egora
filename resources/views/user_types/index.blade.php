@@ -37,7 +37,7 @@
                                     <td>{{ $user_type->candidate }}</td>
                                     <td>{{ $user_type->fake }}</td>
                                     <td>
-                                        <form action="{{ route('user_types.delete',['id'=>$user_type->id]) }}" method="POST">
+                                        <form action="{{ route('user_types.delete', $user_type->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">

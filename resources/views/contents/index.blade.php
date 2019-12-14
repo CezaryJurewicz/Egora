@@ -27,7 +27,7 @@
                                     <td>{{ $content->title }}</td>
                                     <td>{{ $content->alias }}</td>
                                     <td>
-                                        <form action="{{ route('contents.delete',['id'=>$content->id]) }}" method="POST">
+                                        <form action="{{ route('contents.delete', $content->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
                                             <div class="input-group">
