@@ -5,7 +5,7 @@
                                             <img  width="200px" src='{{ asset('img/ILP_logo.jpg') }}' title="ILP functionalities">
                                         </a>
                                     </div>
-                                    @else
+                                    @elseif ($user->can('submit_application', $user))
                                     <a class="btn btn-sm btn-primary btn-block btn-ilp" href="{{ route('ilp.index') }}">ILP</a>
                                     @endif
                                 @elseif ($user->user_type->class !== 'user')

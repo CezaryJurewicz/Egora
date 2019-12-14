@@ -35,6 +35,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\RemoveToggleLikedIdeas',
             'App\Listeners\RemoveOfficerPetitionSupport',
         ],
+        'App\Events\UserLeftIlp' => [
+            'App\Listeners\RemoveOfficerPetition',
+        ],
     ];
 
     /**

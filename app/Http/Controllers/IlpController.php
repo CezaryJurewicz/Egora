@@ -8,6 +8,7 @@ use App\UserType;
 use App\User;
 use App\Petition;
 use App\Events\PetitionSupportersChanged;
+use App\Events\UserLeftIlp;
 
 class IlpController extends Controller
 {
@@ -74,7 +75,25 @@ class IlpController extends Controller
     
     public function cancel_officer_application(Request $request, User $usr)
     {
+        return view('ilp.cancel_officer_petition');
+    }
+    
+    public function cancel_officer_application_proceed(Request $request, User $usr)
+    {
         $user = $request->user();
+        $name = $user->name;
+        $polis = $user->petition->polis;
+        
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|in:'.$name,
+            'polis' => 'required|in:'.$polis,
+        ]);
+        
+        if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+
         $user->petition->delete();
         
         // Change class to member
@@ -154,12 +173,15 @@ class IlpController extends Controller
     
     public function withdraw_from_ilp_process(Request $request, User $user) 
     {
-        $type = UserType::where('class', 'user')
+        $type = UserType::where('class', 'member')
             ->where('verified', $user->user_type->verified)
+            ->where('former', 1)
             ->first();
         
         $user->user_type()->associate($type);
         $user->save();
+        
+        event(new UserLeftIlp($user));
         
         return redirect()->route('users.ideological_profile', $user->id)->with('success', 'Withdrawn from ILP.');           
     }

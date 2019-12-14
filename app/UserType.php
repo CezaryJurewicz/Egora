@@ -43,7 +43,7 @@ class UserType extends Model
     
     public function getIsIlpAttribute()
     {
-        return ($this->attributes['class'] != 'user' && $this->attributes['candidate'] == 0);
+        return ($this->attributes['class'] != 'user' && $this->attributes['candidate'] == 0 && $this->attributes['former'] == 0);
     }
     
     public function getIsVerifiedAttribute()

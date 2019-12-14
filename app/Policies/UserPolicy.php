@@ -61,9 +61,9 @@ class UserPolicy
         return $user->id != $model->id;
     }
     
-    public function submit_application(User $user, User $model)
+    public function submit_application(User $user)
     {
-        return $user->id == $model->id;
+        return !$user->user_type->isIlp && $user->user_type->former == 0;
     }
     
     public function accept_application(User $user, User $model)
@@ -142,11 +142,6 @@ class UserPolicy
         }
 
         return $this->deny();
-    }
-
-    public function ilp_signup(User $user, User $model)
-    {
-        return $user->id == $model->id && !$model->user_type->isIlp;
     }
 
     public function submit_officer_application(User $user, User $model)
