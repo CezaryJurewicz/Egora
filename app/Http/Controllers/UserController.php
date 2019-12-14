@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\UserNameChanged;
 use App\Notifications\UserEmailChange;
 use App\Notifications\UserEmailChanged;
+use App\Events\IdeaSupportHasChanged;
 
 class UserController extends Controller
 {
@@ -211,9 +212,15 @@ class UserController extends Controller
                     $q->where('id', $user->nation->id);
                 });
             }]);
-            $ids = $user->liked_ideas->pluck('id')->toArray();
+            $ideas = $user->liked_ideas;
             
+            $ids = $ideas->pluck('id')->toArray();
             $user->liked_ideas()->toggle($ids);
+            
+            foreach($ideas as $idea)
+            {
+                event(new IdeaSupportHasChanged($idea));
+            }
         }
         
         $user->nation()->associate($nation);
