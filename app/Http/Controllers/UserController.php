@@ -186,7 +186,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'contacts' => ['nullable', 'string', 'max:255'],
             'nation' => ['required', 'string', 'max:255'],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed']
         ]);
          
         if ($validator->fails()) {
@@ -196,7 +195,6 @@ class UserController extends Controller
         
         $user->name = $request->name;
         $user->contacts = $request->contacts;
-        $user->password = Hash::make($request->password);
 
         $nation = Nation::where('title', $request->nation)->first();
                 
