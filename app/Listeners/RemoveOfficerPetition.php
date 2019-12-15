@@ -26,6 +26,7 @@ class RemoveOfficerPetition
      */
     public function handle(UserLeftIlp $event)
     {
-        $event->user->petition->delete();
+        if($event->user->petition)
+            $event->user->petition->delete();
     }
 }
