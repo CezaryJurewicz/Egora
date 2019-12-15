@@ -53,7 +53,7 @@
                 </div>
                 
                 <div class="row mt-3">
-                    <div class="col-md-3 offset-4">
+                    <div class="col-md-4 offset-4">
                         <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                     </div>
                 </div>

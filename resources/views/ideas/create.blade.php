@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="form-group row">
-                        <label for="nation" class="col-md-2 col-form-label text-md-right">{{ __('Relevance') }}</label>
+                        <label for="nation" class="col-md-2 col-form-label text-md-middle">{{ __('Relevance') }}</label>
 
                         <div class="col-md-10">
                             <select id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" required autocomplete="nation" >
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     <div class="row mt-3">
-                        <div class="col-md-3 offset-4">
+                        <div class="col-md-4 offset-4">
                             <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                         </div>
                     </div>

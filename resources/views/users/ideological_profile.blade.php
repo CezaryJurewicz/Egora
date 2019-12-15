@@ -121,8 +121,8 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <div class="row">
-                                                <div class="col-md-2"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
-                                                <div class="col-md-3">{{$idea->nation->title}} </div>
+                                                <div class="col-md-1 pr-0"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
+                                                <div class="col-md-4">{{$idea->nation->title}} </div>
                                                 <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
