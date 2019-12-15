@@ -29,6 +29,7 @@ class RemoveUserVerification
     {
         $type = UserType::where('class', $event->user->user_type->class)
                 ->where('verified', 0)
+                ->where('former', $event->user->user_type->former)
                 ->first();
         
         $event->user->user_type()->associate($type);

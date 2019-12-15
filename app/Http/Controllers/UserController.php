@@ -193,7 +193,10 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
-        $user->name = $request->name;
+        if ($user->name != $request->name) {
+            $user->name = $request->name;
+            event(new UserNameChanged($user));
+        }
         $user->contacts = $request->contacts;
 
         $nation = Nation::where('title', $request->nation)->first();
@@ -211,7 +214,6 @@ class UserController extends Controller
         $user->nation()->associate($nation);
         
         if($user->save()){
-            event(new UserNameChanged($user));
             return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'User information updated!');   
         }
         
