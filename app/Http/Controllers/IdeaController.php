@@ -308,13 +308,16 @@ class IdeaController extends Controller
         if (auth()->guard('web')->check()) {
             list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
-            list($numbered, $zeros, $current_idea_position) = [[],[], null];
+            list($numbered, $current_idea_position) = [[],[], null];
         }
         
-        if($current_idea_position>23) {
-            $current_idea_point_position = $current_idea_position - 23;
-        } else {
-            $current_idea_point_position = 0;
+        $current_idea_point_position = $current_idea_position;
+        if(!is_null($current_idea_position)) {
+            if($current_idea_position>23) {
+                $current_idea_point_position = $current_idea_position - 23;
+            } else {
+                $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
+            }
         }
         
         return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position'));
