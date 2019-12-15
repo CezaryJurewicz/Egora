@@ -1,14 +1,12 @@
                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('like', $idea) )
                     <form action="{{ route('ideas.like',[$idea->id]) }}" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-7 float-right">
-                                <div class="float-right">
-                                    <label class="mr-3 mt-1">Assign Point Position</label> 
-                                </div>
-                            </div>
-                            <div class="input-group col-md-5">
-                                <select id="position1" type="text" class="mr-1 col-md-6 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
+                        <div class="form-group row">
+                            <label for="position1" class="col-md-3 col-form-label text-md-right">{{ __('Assign Point Position') }}</label>
+
+                            <div class="col-md-9">
+                                <div class="form-group input-group row pl-3">
+                                <select id="position1" type="text" class="mr-1 col-md-3 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                     <option></option>
                                     <optgroup label="Point Positions">
                                         @for($i=23; $i>0; $i--)
@@ -25,7 +23,11 @@
                                         @endfor
                                     </optgroup>
                                 </select>
-                                <button type='submit' class='btn btn-primary col-md-6 mr-1'>{{__('Save and Close')}}</button>
+                                
+                                    <button type="submit" class="btn btn-primary col-md-3">
+                                        {{ __('Save & Close') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>

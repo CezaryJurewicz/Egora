@@ -49,9 +49,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="nation" class="col-md-2 col-form-label text-md-right">{{ __('Assign Position') }}</label>
+                            <label for="position1" class="col-md-3 col-form-label text-md-right">{{ __('Assign Point Position') }}</label>
 
-                            <div class="col-md-10">
+                            <div class="col-md-9">
                                 <div class="form-group input-group row pl-3">
                                     <select id="position1" type="text" class="mr-1 col-md-3 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                         <option></option>

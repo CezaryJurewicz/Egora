@@ -46,9 +46,9 @@
                     <div class="card-footer pt-4 pb-4">
                         @if(!is_null($current_idea_point_position))Current Point Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span> @endif
                     </div>
-                <div class="mt-2 mb-2">
-                    @include('blocks.like')
-                </div>
+                    <div class="card-body">
+                        @include('blocks.like')
+                    </div>
                 
                 </div>
                 
