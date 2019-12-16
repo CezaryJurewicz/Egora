@@ -44,9 +44,7 @@ class CampaignController extends Controller
                 $result = \DB::select('select sum(`position`) as `points` from (
                         select sum(`idea_user`.`position`) as `position` from `idea_user` where `idea_id` in (
                             select `ideas`.`id` from `ideas` inner join `idea_user` on `ideas`.`id` = `idea_user`.`idea_id` where `idea_user`.`user_id` = ? and exists (
-                                select * from `users` where `ideas`.`user_id` = `users`.`id` and exists (
-                                    select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1
-                                ) and `users`.`deleted_at` is null
+                                select * from `users` where `ideas`.`user_id` = `users`.`id` and `users`.`deleted_at` is null
                             ) and `ideas`.`deleted_at` is null
                         ) and exists (
                             select * from `users` where `idea_user`.`user_id` = `users`.`id` and exists (
