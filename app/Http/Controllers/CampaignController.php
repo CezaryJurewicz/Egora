@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Campaign;
+use App\Idea;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CampaignController extends Controller
 {
@@ -12,13 +15,64 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $campaigns = Campaign::get();
+        $nation = null;
+        $rows = collect();
         
-        return view('campaigns.index')->with(compact('campaigns'));   
-    }
+        if ($request->has('nation') && $request->input('nation')) {
+            
+            $validator = Validator::make($request->all(),[
+                'nation' => 'required|exists:nations,title',
+            ]);
 
+            $nation = $request->input('nation');
+            
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+            
+            $users = User::whereHas('campaign')
+                ->whereHas('nation', function($q) use ($request) {
+                    $q->where('title', $request->input('nation'));
+                })->get();
+
+            $user_points = collect();
+            
+            foreach ($users as $user) {
+                $result = \DB::select('select sum(`position`) as `points` from (
+                        select sum(`idea_user`.`position`) as `position` from `idea_user` where `idea_id` in (
+                            select `ideas`.`id` from `ideas` inner join `idea_user` on `ideas`.`id` = `idea_user`.`idea_id` where `idea_user`.`user_id` = ? and exists (
+                                select * from `users` where `ideas`.`user_id` = `users`.`id` and exists (
+                                    select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1
+                                ) and `users`.`deleted_at` is null
+                            ) and `ideas`.`deleted_at` is null
+                        ) and exists (
+                            select * from `users` where `idea_user`.`user_id` = `users`.`id` and exists (
+                                select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1
+                            ) and `users`.`deleted_at` is null
+                        )
+                        group by `idea_user`.`idea_id`
+                        order by `position` desc
+                        limit 23
+                    ) as `p`', [$user->id]);
+                
+                if ($result && is_array($result) && isset($result[0]) && $result[0]->points) {
+                    $user_points->push([
+                        'user_id' => $user->id,
+                        'search_name' => $user->active_search_names->first()->name ?? '-',
+                        'points' =>$result[0]->points
+                    ]);
+                }
+            }
+            
+            $rows = $user_points->sortByDesc('points')->groupBy('points');
+        }
+        
+        return view('campaigns.index')->with(compact('rows', 'nation'));   
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +91,11 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campaign = new Campaign();
+        $campaign->user()->associate($request->user());
+        $campaign->save();
+        
+        return redirect()->back()->with('success','Candidacy announced.');
     }
 
     /**
@@ -82,6 +140,7 @@ class CampaignController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        //
+        $campaign->delete();
+        return redirect()->back()->with('success','Candidacy withdrawn.');
     }
 }

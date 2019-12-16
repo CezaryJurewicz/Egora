@@ -69,12 +69,6 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes')}}">{{ __('Indexes') }}</a>
                             </li>
                             @endif
-                                                        
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Campaign::class))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
-                            </li>
-                            @endif
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Petition::class))
                             <li class="nav-item">
@@ -87,6 +81,12 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>
                             </li>
                             @endif
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Campaign::class))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
+                            </li>
+                            @endif                            
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Content::class))
                             <li class="nav-item">

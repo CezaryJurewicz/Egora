@@ -11,5 +11,6 @@ return [
     'Write new email in a box.' => 'Write new email in a box.',
     'Incorrect signed user and email token.' => 'Incorrect signed user and email token.',
     'Please check relevance.' => 'Please check relevance.',
-    'The selected polis is invalid.' => 'The selected polis is invalid.'
+    'The selected polis is invalid.' => 'The selected polis is invalid.',
+    'The selected nation is invalid.' => 'The selected nation is invalid.'
 ];

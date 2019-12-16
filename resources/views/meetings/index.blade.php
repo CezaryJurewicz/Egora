@@ -11,7 +11,7 @@
                         <h3>{{ __('Meeting Organizer') }}</h3>
                     </div>
                 </div>
-                
+                <div class="clearfix">&nbsp;</div>
                 <div class="accordion mb-3" id="accordion">
                     <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
                       <div class="card-header" id="headingOne">

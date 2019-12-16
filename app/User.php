@@ -46,6 +46,11 @@ class User extends Authenticatable
         return false;
     }
  
+    public function campaign()
+    {
+        return $this->hasOne(Campaign::class);
+    }
+    
     public function petition()
     {
         return $this->hasOne(Petition::class);

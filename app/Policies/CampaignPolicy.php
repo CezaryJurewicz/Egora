@@ -19,7 +19,7 @@ class CampaignPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->deny();
+        return $this->allow();
     }
 
     /**
@@ -42,7 +42,7 @@ class CampaignPolicy
      */
     public function create(User $user)
     {
-        //
+        return ($user->user_type->isIlp && $user->user_type->verified && !$user->campaign);
     }
 
     /**
@@ -66,7 +66,7 @@ class CampaignPolicy
      */
     public function delete(User $user, Campaign $campaign)
     {
-        //
+        return ($user->user_type->isIlp && $user->user_type->verified && $campaign->user->id == $user->id);
     }
 
     /**
