@@ -218,7 +218,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Your Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -233,7 +233,6 @@
 
                             <div class="col-md-6">
                                 <div id="NationSearch" value="{{ old('nation') }}"></div>
-                                {{-- <input id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" required autocomplete="nation" autofocus> --}}
 
                                 @error('nation')
                                     <span class="invalid-feedback" role="alert">
