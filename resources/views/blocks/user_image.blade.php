@@ -1,10 +1,12 @@
                             @if($user->image)
                                 <div class="img-wrap">
+                                @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user->image))
                                     <span class="close" title="Delete Image" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">&times;</span>
+                                    @endif
                                     <img src="{{ Storage::url($user->image->filename) }}" class="img-fluid img-thumbnail" alt=""> 
                                 </div>
                                 
-                                @if (auth('web')->check() && auth('web')->user()->can('delete', $user->image))
+                                @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user->image))
                                 <form id="delete-form" action="{{ route('media.delete',$user->image->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE"/>
