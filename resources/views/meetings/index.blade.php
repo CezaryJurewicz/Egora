@@ -106,7 +106,7 @@
                             <label for="search" class="col-md-2 col-form-label text-md-right">{{ __('Date:') }}</label>
 
                             <div class="col-md-2">
-                                <input id="date" min="{{ date('Y-m-d') }}" type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}">
+                                <input id="date" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime(date('Y-m-d') . ' + 46 days')) }}" type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}">
 
                                 @error('date')
                                     <span class="invalid-feedback" role="alert">
@@ -190,64 +190,95 @@
                 <div class="p-2">
                     <h4>Upcoming meetings</h4>
                     @foreach($countries as $country)
+                        <a style="color:#000" data-toggle="collapse" href="#collapsec{{$country->id}}" role="button" aria-expanded="false" aria-controls="collapsec{{$country->id}}">
+                            <div>{{ $country->title }}
+                                <i class="fa fa-chevron-down pull-right"></i>
+                                <i class="fa fa-chevron-right pull-right"></i>
+                            </div>
+                        </a>
+                    
+                        <div class="collapse p-2" id="collapsec{{$country->id}}">
                         @foreach($country->cities as $city)
                             <a style="color:#000" data-toggle="collapse" href="#collapse{{$city->id}}" role="button" aria-expanded="false" aria-controls="collapse{{$city->id}}">
-                                <div>{{ $country->title }} &gt; {{$city->title}} 
+                                <div>{{$city->title}} 
                                     <i class="fa fa-chevron-down pull-right"></i>
                                     <i class="fa fa-chevron-right pull-right"></i>
                                 </div>
                             </a>
-                            <div class="collapse" id="collapse{{$city->id}}">
-                            @foreach($city->meetings as $i=>$meeting)
-                            <div class="mb-3">
-                                <div class="p-2">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-4">{{ $meeting->start_at->format('d/m Y, H:m') }}</div>
-                                                <div class="col-md-8">
-                                                {{ $meeting->address }}
+                        
+                            <div class="collapse p-2" id="collapse{{$city->id}}">
+                            @foreach($city['dates']->sortKeys() as $date => $meetings)
+                                <a style="color:#000" data-toggle="collapse" href="#collapse{{$city->id}}{{$date}}" role="button" aria-expanded="false" aria-controls="collapse{{$city->id}}{{$date}}">
+                                    <div>
+                                        <script>
+                                            document.write( new Date('{{ $date }}').toLocaleDateString());
+                                        </script>
+                                        <i class="fa fa-chevron-down pull-right"></i>
+                                        <i class="fa fa-chevron-right pull-right"></i>
+                                    </div>
+                                </a>
+                            
+                                <div class="collapse p-2" id="collapse{{$city->id}}{{$date}}">
+                                @foreach($meetings->sortBy('start_at') as $i=>$meeting)
+                                <div class="mb-3">
+                                    <div class="p-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <script>
+                                                        document.write( new Date('{{ $meeting->start_at }}').toLocaleDateString());
+                                                        </script>
+
+                                                        {{ $meeting->start_at->format('H:m') }}
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    {{ $meeting->address }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">@lang('Topic')</div>
-                                                <div class="col-md-8">
-                                                {{ $meeting->topic }}
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">@lang('Topic')</div>
+                                                    <div class="col-md-8">
+                                                    {{ $meeting->topic }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">@lang('Comments')</div>
-                                                <div class="col-md-8">
-                                                {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', $meeting->comments)), '<br><p><b><i><li><ul><ol>') !!}
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">@lang('Comments')</div>
+                                                    <div class="col-md-8">
+                                                    {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', $meeting->comments)), '<br><p><b><i><li><ul><ol>') !!}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">@lang('Organizer')</div>
-                                                <div class="col-md-7">
-                                                    <a href="{{ route('users.ideological_profile', $meeting->user->id)}}">
-                                                    {{ $meeting->user->active_search_names->first() ? $meeting->user->active_search_names->first()->name : '-'}} 
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-1 text-right">
-                                                    @if (auth('web')->check() && auth('web')->user()->can('delete', $meeting))
-                                                    <form action="{{ route('meetings.delete',$meeting->id) }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="_method" value="DELETE"/>
-                                                        <div class="input-group">
-                                                            <button type='submit' class='btn btn-primary btn-sm btn-block'>{{__('some.Delete')}}</button>
-                                                        </div>
-                                                    </form>
-                                                    @endif                                                    
+                                                <div class="row mt-2">
+                                                    <div class="col-md-4">@lang('Organizer')</div>
+                                                    <div class="col-md-7">
+                                                        <a href="{{ route('users.ideological_profile', $meeting->user->id)}}">
+                                                        {{ $meeting->user->active_search_names->first() ? $meeting->user->active_search_names->first()->name : '-'}} 
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-1 text-right">
+                                                        @if (auth('web')->check() && auth('web')->user()->can('delete', $meeting))
+                                                        <form action="{{ route('meetings.delete',$meeting->id) }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method" value="DELETE"/>
+                                                            <div class="input-group">
+                                                                <button type='submit' class='btn btn-primary btn-sm btn-block'>{{__('some.Delete')}}</button>
+                                                            </div>
+                                                        </form>
+                                                        @endif                                                    
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                @endforeach
+                                </div>
                             @endforeach
                             </div>
                         @endforeach               
+                        </div>
                     @endforeach               
+                </div>
             </div>
         </div>
     </div>

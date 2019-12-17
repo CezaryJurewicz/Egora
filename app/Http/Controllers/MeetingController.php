@@ -26,7 +26,19 @@ class MeetingController extends Controller
                     $q->where('start_at','>', Carbon::now());
                 })
                 ->get();
-        
+                
+        foreach ($countries as &$country) {
+            foreach($country->cities as &$city) {
+                $city['dates'] = collect();
+                foreach($city->meetings as $meeting) {
+                    if (!isset($city['dates'][$meeting->start_at->format('Y-m-d')])){
+                        $city['dates'][$meeting->start_at->format('Y-m-d')] = collect();
+                    }
+                    $city['dates'][$meeting->start_at->format('Y-m-d')]->push($meeting);
+                }
+            }
+        }
+                
         return view('meetings.index')->with(compact('countries'));   
     }
 
