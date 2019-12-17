@@ -18,14 +18,19 @@ class MeetingController extends Controller
      */
     public function index()
     {
-       $countries = Country::with(['cities.meetings'=>function($q){
+       $countries = Country::with(['cities'=>function($q){ 
+                $q->with(['meetings'=>function($q){
                     $q->where('start_at','>', Carbon::now());
                     $q->with('user.search_names');
-                }])
-                ->whereHas('cities.meetings', function($q){
+                }]); 
+                $q->whereHas('meetings', function($q){
                     $q->where('start_at','>', Carbon::now());
-                })
-                ->get();
+                });
+            }])
+            ->whereHas('cities.meetings', function($q){
+                $q->where('start_at','>', Carbon::now());                                                                           
+            })
+            ->get();
                 
         foreach ($countries as &$country) {
             foreach($country->cities as &$city) {
