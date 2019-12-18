@@ -21,6 +21,7 @@ class MeetingController extends Controller
        $countries = Country::with(['cities'=>function($q){ 
                 $q->with(['meetings'=>function($q){
                     $q->where('start_at','>', Carbon::now());
+                    $q->whereHas('user');
                     $q->with('user.search_names');
                 }]); 
                 $q->whereHas('meetings', function($q){
