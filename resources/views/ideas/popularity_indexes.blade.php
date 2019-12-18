@@ -7,7 +7,7 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-11 text-center">
+                    <div class="col-md-10 offset-1 text-center">
                         <h3>{{ __('views.Idea Popularity Index') }}</h3>
                     </div>
                     <div class="col-md-1 text-md-right">

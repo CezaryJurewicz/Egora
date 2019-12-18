@@ -2,7 +2,7 @@
                     <form action="{{ route('ideas.like',[$idea->id]) }}" method="POST">
                         @csrf
                         <div class="form-group row">
-                            <label for="position1" class="col-md-3 col-form-label text-md-right">{{ __('Assign Point Position') }}</label>
+                            <label for="position1" class="col-md-2 col-form-label">{{ __('Assign Position:') }}</label>
 
                             <div class="col-md-9">
                                 <div class="form-group input-group row pl-3">

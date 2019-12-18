@@ -27,6 +27,11 @@ class IlpController extends Controller
         return view('ilp.principles');
     }
     
+    public function founding_members() 
+    {
+        return view('ilp.founding_members');
+    }
+    
     public function guide() 
     {
         return view('ilp.guide');

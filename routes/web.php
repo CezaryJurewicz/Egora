@@ -77,6 +77,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/', 'IlpController@index')->name('index')->middleware('can:submit_application,App\User');
         Route::get('/menu', 'IlpController@menu')->name('menu');
         Route::get('/principles', 'IlpController@principles')->name('principles');
+        Route::get('/founding_members', 'IlpController@founding_members')->name('founding_members');
         Route::get('/guide', 'IlpController@guide')->name('guide');
         Route::get('/officer_petition', 'IlpController@officer_petition')->name('officer_petition');
         Route::post('/{user}/submit_officer_application', 'IlpController@submit_officer_application')->name('submit_officer_application')->middleware('can:submit_officer_application,user');

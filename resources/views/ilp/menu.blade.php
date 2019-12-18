@@ -11,8 +11,8 @@
                 <div class="card">
                     <div class="card-body text-justify">
                         <ul class="offset-2">
-                            <li><a href="{{ route('ilp.principles') }}">Review the ILP Principles</a></li>
-                            <li><a href="{{ route('ilp.guide') }}">Guide to the Structure of the Provisional Administrative Leadership of the ILP</a></li>
+                            <li><a href="{{ route('ilp.principles') }}">ILP Principles</a></li>
+                            <li><a href="{{ route('ilp.guide') }}">Provisional Administrative Leadership of the ILP</a></li>
                             @if (auth('web')->check() && auth('web')->user()->can('submit_officer_application', auth('web')->user()))
                             <li><a href="{{ route('ilp.officer_petition') }}">Petition to become an ILP officer</a></li>
                             @endif
@@ -22,11 +22,12 @@
                             @if (auth('web')->check() && auth('web')->user()->can('withdraw_from_ilp', auth('web')->user()))
                             <li><a href="{{ route('users.withdraw_from_ilp', auth('web')->user()->id ) }}">Withdraw from ILP membership</a></li>
                             @endif
+                            <li><a href="{{ route('ilp.founding_members') }}">ILP Founding Members</a></li>
                         </ul>
                         
-                        <div class="row mt-5">
-                            <div class="offset-4 col-md-3">
-                                <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <a class='btn btn-ilp col-md-2 btn-sm' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
                             </div>
                         </div>
                     </div>

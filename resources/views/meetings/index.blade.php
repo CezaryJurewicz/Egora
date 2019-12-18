@@ -7,7 +7,7 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-11 text-center">
+                    <div class="col-md-12 text-center">
                         <h3>{{ __('Meeting Organizer') }}</h3>
                     </div>
                 </div>
@@ -177,11 +177,9 @@
                         </div>
                     </div>
                     
-                    <div class="form-group row">
-                        <div class="col-md-1 offset-5">
-                            <div class="input-group">
-                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Submit')}}</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Submit')}}</button>
                         </div>
                     </div>
                 </form>
@@ -210,9 +208,7 @@
                             @foreach($city['dates']->sortKeys() as $date => $meetings)
                                 <a style="color:#000" data-toggle="collapse" href="#collapse{{$city->id}}{{$date}}" role="button" aria-expanded="false" aria-controls="collapse{{$city->id}}{{$date}}">
                                     <div>
-                                        <script>
-                                            document.write( new Date('{{ $date }}').toLocaleDateString());
-                                        </script>
+                                        {{ (new \Carbon\Carbon($date))->format('d/m/Y') }}
                                         <i class="fa fa-chevron-down pull-right"></i>
                                         <i class="fa fa-chevron-right pull-right"></i>
                                     </div>
@@ -226,43 +222,37 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <script>
-                                                        document.write( new Date('{{ $meeting->start_at }}').toLocaleDateString());
-                                                        </script>
-
-                                                        {{ $meeting->start_at->format('H:m') }}
+                                                        {{ $meeting->start_at->format('d/m/Y H:m') }}
                                                     </div>
                                                     <div class="col-md-8">
                                                     {{ $meeting->address }}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-4">@lang('Topic')</div>
+                                                    <div class="col-md-4">@lang('Topic:')</div>
                                                     <div class="col-md-8">
                                                     {{ $meeting->topic }}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-4">@lang('Comments')</div>
+                                                    <div class="col-md-4">@lang('Comments:')</div>
                                                     <div class="col-md-8">
-                                                    {!! strip_tags(nl2br(str_replace(' ', '&nbsp;', $meeting->comments)), '<br><p><b><i><li><ul><ol>') !!}
+                                                    {!! strip_tags(nl2br(str_replace('  ', '&nbsp;&nbsp;', $meeting->comments)), '<br><p><b><i><li><ul><ol>') !!}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-4">@lang('Organizer')</div>
-                                                    <div class="col-md-7">
+                                                    <div class="col-md-4">@lang('Organizer:')</div>
+                                                    <div class="col-md-6">
                                                         <a href="{{ route('users.ideological_profile', $meeting->user->id)}}">
                                                         {{ $meeting->user->active_search_names->first() ? $meeting->user->active_search_names->first()->name : '-'}} 
                                                         </a>
                                                     </div>
-                                                    <div class="col-md-1 text-right">
+                                                    <div class="col-md-2 text-right">
                                                         @if (auth('web')->check() && auth('web')->user()->can('delete', $meeting))
                                                         <form action="{{ route('meetings.delete',$meeting->id) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="DELETE"/>
-                                                            <div class="input-group">
-                                                                <button type='submit' class='btn btn-primary btn-sm btn-block'>{{__('some.Delete')}}</button>
-                                                            </div>
+                                                            <button type='submit' class='btn btn-primary btn-sm'>{{__('some.Delete')}}</button>
                                                         </form>
                                                         @endif                                                    
                                                     </div>

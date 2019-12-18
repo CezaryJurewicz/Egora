@@ -51,11 +51,9 @@
                             <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
                         </div>
                     </div>
-                    <div class="form-group row mt-4">
-                        <div class="offset-5 col-md-3">
-                            <div class="input-group">
-                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Search')}}</button>
                         </div>
                     </div>
                 </form>
@@ -88,7 +86,7 @@
                                     </td>
                                 </tr>
                     @empty
-                        <p>@lang('user.No users found')</p>
+                        <!--<p>@lang('user.No users found')</p>-->
                     @endforelse
                     
                     @if($users->isNotEmpty())                 

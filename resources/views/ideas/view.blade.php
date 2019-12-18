@@ -30,7 +30,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                            Relevance: {{ $idea->nation->title }} 
+                            Relevance: &nbsp;&nbsp;&nbsp;{{ $idea->nation->title }} 
                             </div>
 
                             @if(!is_null($current_idea_position))
@@ -44,7 +44,7 @@
                     {!! strip_tags(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $idea->content)), '<br><p><b><i><li><ul><ol>') !!}
                     </div>
                     <div class="card-footer pt-4 pb-4">
-                        @if(!is_null($current_idea_point_position))Current Point Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span> @endif
+                        @if(!is_null($current_idea_point_position))Current Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span> @endif
                     </div>
                     <div class="card-body">
                         @include('blocks.like')
@@ -53,7 +53,7 @@
                 </div>
                 
                 <div class="row mt-3">
-                    <div class="col-md-4 offset-4">
+                    <div class="col-md-4">
                         <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                     </div>
                 </div>

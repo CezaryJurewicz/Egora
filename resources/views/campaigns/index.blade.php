@@ -73,6 +73,9 @@
                     </div>
                     @endif       
 
+                </div>
+                
+                <div class="panel-body">
                     <div class="text-center mt-5 mb-3">
                         <h4>Candidate Rank Listing</h4>
                     </div>                
@@ -81,9 +84,9 @@
                         @csrf
                         <input type="hidden" name="_method" value="PUT"/>
                         <div class="form-group row">
-                            <label for="nation" class="col-md-2 col-form-label text-md-left">{{ __('Nation:') }}</label>
+                            <label for="nation" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Nation:') }}</label>
 
-                            <div class="col-md-10">
+                            <div class="col-md-6">
                                 <div id="NationSearch" value="{{ $nation ?? '' }}"></div>
 
                                 @error('nation')

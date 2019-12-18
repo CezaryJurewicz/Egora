@@ -19,7 +19,7 @@
                     </div>                    
                     
                     <div class="form-group row">
-                        <label for="relevance" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Another Nation:') }}</label>
+                        <label for="relevance" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('And:') }}</label>
 
                         <div class="col-md-6">
                             <div id="NationSearch" value="{{  $nation }}"></div>
@@ -46,6 +46,7 @@
                         </div>
                     </div>
                     
+                    {{--
                     <div class="form-group row">
                         <label for="unverified" class="col-md-5 col-form-label text-md-right">{{ __('Include support for ideas from unverified users:') }}</label>
 
@@ -53,6 +54,7 @@
                             <input class="form-control-sm form-check-input" id="unverified" name="unverified" value=1 type="checkbox" {{ (old('unverified')?: $unverified) ? ' checked' : '' }} >
                         </div>
                     </div>
+                    --}}
                     
                     <div class="form-group row">
                         <div class="col-md-1 offset-3">
