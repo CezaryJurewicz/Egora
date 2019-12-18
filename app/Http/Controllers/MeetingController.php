@@ -25,6 +25,7 @@ class MeetingController extends Controller
                     $q->with('user.search_names');
                 }]); 
                 $q->whereHas('meetings', function($q){
+                    $q->whereHas('user');
                     $q->where('start_at','>', Carbon::now());
                 });
             }])
