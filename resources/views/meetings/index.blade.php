@@ -75,12 +75,6 @@
 
                             <div class="col-md-6">
                                 <div id="CountrySearch" value="{{ old('country') }}"></div>
-
-                                @error('country')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
                     </div>  
@@ -90,41 +84,23 @@
                             <label for="city" class="col-md-2 col-form-label text-md-right">{{ __('City') }}</label>
 
                             <div class="col-md-6">
-                                <div id="CitySearch" value="{{ old('city') }}"></div>
-
-                                @error('city')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div id="CitySearch" value="{{ old('city') }}" cssClass="form-control @error('city') is-invalid @enderror"></div>
                             </div>
                         </div>
                     </div>  
                     
                     <div class="form-group row">
                         <div class="offset-1 col-md-12 row">
-                            <label for="search" class="col-md-2 col-form-label text-md-right">{{ __('Date:') }}</label>
+                            <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date:') }}</label>
 
                             <div class="col-md-2">
-                                <input id="date" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime(date('Y-m-d') . ' + 46 days')) }}" type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}">
-
-                                @error('date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div id="dateInput" cssClass="form-control @error('date') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
                             </div>
                             
-                            <label for="search" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock):') }}</label>
+                            <label for="time" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock):') }}</label>
 
                             <div class="col-md-2">
-                                <input id="time" type="time" class="form-control @error('time') is-invalid @enderror" name="time" value="{{ old('time') }}">
-
-                                @error('time')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div id="timeInput" cssClass="form-control @error('time') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
                             </div>
                         </div>
                     </div>
@@ -135,12 +111,6 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}">
-
-                                @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -151,12 +121,6 @@
 
                             <div class="col-md-6">
                                 <input id="topic" type="text" class="form-control @error('topic') is-invalid @enderror" name="topic" value="{{ old('topic') }}">
-
-                                @error('topic')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -167,12 +131,6 @@
 
                             <div class="col-md-6">
                                 <textarea id="comments" type="text" class="form-control @error('comments') is-invalid @enderror" name="comments">{{ old('comments') }}</textarea>
-
-                                @error('topic')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -222,7 +180,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        {{ $meeting->start_at->format('d/m/Y H:m') }}
+                                                        {{ $meeting->start_at->format('d/m/Y H:i') }}
                                                     </div>
                                                     <div class="col-md-8">
                                                     {{ $meeting->address }}

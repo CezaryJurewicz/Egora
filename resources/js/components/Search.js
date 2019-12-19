@@ -19,6 +19,7 @@ class Search extends Component {
     query: this.props.query ? this.props.query : '',
     type: (this.props.type && (API_URL[this.props.type] !== undefined)) ? this.props.type : 'nation',
     value: '',
+    cssClass: this.props.cssClass ? this.props.cssClass : 'form-control',
     results: []
   }
 
@@ -63,7 +64,7 @@ class Search extends Component {
             <input 
                 value={this.state.query} 
                 onChange={this.handleInputChange} 
-                id={this.state.type} type="text" className="form-control" name={this.state.type} 
+                id={this.state.type} type="text" className={this.state.cssClass} name={this.state.type} 
             />
 
             <Suggestions results={this.state.results} onClickValue={this.onClickValueHandler}/>
@@ -87,10 +88,12 @@ if (document.getElementById('Search')) {
 
 if (document.getElementById('CountrySearch')) {
     var value = document.getElementById('CountrySearch').getAttribute('value');
-    ReactDOM.render(<Search type="country"  query={ value } myStore = {myStore}/>, document.getElementById('CountrySearch'));
+    var cssClass = document.getElementById('CitySearch').getAttribute('cssClass');
+    ReactDOM.render(<Search type="country"  query={ value } myStore = {myStore} cssClass={cssClass} />, document.getElementById('CountrySearch'));
 }
 
 if (document.getElementById('CitySearch')) {
     var value = document.getElementById('CitySearch').getAttribute('value');
-    ReactDOM.render(<Search type="city"  query={ value } myStore = {myStore}/>, document.getElementById('CitySearch'));
+    var cssClass = document.getElementById('CitySearch').getAttribute('cssClass');
+    ReactDOM.render(<Search type="city"  query={ value } myStore = {myStore} cssClass={cssClass} />, document.getElementById('CitySearch'));
 }

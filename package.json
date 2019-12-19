@@ -25,5 +25,8 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0"
+    },
+    "dependencies": {
+        "react-datepicker": "^2.10.1"
     }
 }

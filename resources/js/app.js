@@ -15,3 +15,5 @@ require('./bootstrap');
 require('./components/Register');
 require('./components/Suggestions');
 require('./components/Search');
+require('./components/Date');
+require('./components/Time');

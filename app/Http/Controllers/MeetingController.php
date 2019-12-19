@@ -70,7 +70,7 @@ class MeetingController extends Controller
         $validator = Validator::make($request->all(),[
             'country' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date', 'after:yesterday'], //TODO: create custom rule
+            'date' => ['required', 'date_format:"d/m/Y"', 'after:yesterday'], //TODO: create custom rule
             'time' => ['required', 'date_format:"H:i"'],
             'address' => ['required', 'string'],
             'topic' => ['required', 'string', 'max:255'],
@@ -102,11 +102,11 @@ class MeetingController extends Controller
         }
 
         $meeting = new Meeting();
-        $meeting->start_at = Carbon::parse($request->date.' '.$request->time)->format('Y-m-d H:i:s');
+        $meeting->start_at = Carbon::createFromFormat("d/m/Y H:i", $request->date.' '.$request->time)->format('Y-m-d H:i:s');
         $meeting->address = $request->address;
         $meeting->topic = $request->topic;
         $meeting->comments = $request->comments;
-
+//dd($request->date, $request->time, $meeting->start_at);
         $meeting->city()->associate($city);
         $meeting->user()->associate($request->user());
         $meeting->save();
