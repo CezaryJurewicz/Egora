@@ -25,7 +25,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
+                        <div class="card-body col-md-10 offset-1">
                             <p>This campaign organizing function is only minimally operational –
                             there are many critical filters and other essential features that are not
                             yet available.</p>
@@ -105,19 +105,19 @@
 
                     </form>
                     
-                    
+                    <div class="col-md-8 col-centered">
                     @if($rows->isNotEmpty()) 
                         <div class="row mt-5 mb-3">
                             <div class="col-md-2"><b>Rank</b></div>
-                            <div class="col-md-3"><b>Score</b></div>
-                            <div class="col-md-7"><b>Candidate</b></div>
+                            <div class="col-md-2"><b>Score</b></div>
+                            <div class="col-md-8"><b>Candidate</b></div>
                         </div>
 
                         @foreach($rows as $points => $row)
                         <div class="row mb-3">
                             <div class="col-md-2">{{$loop->iteration}}</div>
-                            <div class="col-md-3">{{ number_format($points) }}</div>
-                            <div class="col-md-7">
+                            <div class="col-md-2">{{ number_format($points) }}</div>
+                            <div class="col-md-8">
                                 @foreach($row as $names)
                                 <div>
                                     <a href="{{ route('users.ideological_profile', $names['user_id']) }}">
@@ -129,6 +129,7 @@
                         </div>
                         @endforeach
                     @endif
+                    </div>
                 </div>
             </div>
         </div>

@@ -52,10 +52,8 @@
                 
                 </div>
                 
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
-                    </div>
+                <div class="row col-md-3 mt-3">
+                    <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                 </div>
             </div>
         </div>

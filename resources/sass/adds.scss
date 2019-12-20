@@ -68,3 +68,32 @@ textarea:disabled.idea {
     color: #000;
     background-color: #fff;
 }
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+ol.bold {
+  margin:0 0 1.5em;
+  padding:0;
+  counter-reset:item;
+  
+  li {
+    margin:0;
+    padding:0 0 0 2.5em;
+    text-indent: -2em;
+    list-style-type:none;
+    counter-increment:item;
+  }
+  
+  li:before {
+    display:inline-block;
+    width:2em;
+    padding-right:0.5em;
+    font-weight:bold;
+    text-align:right;
+    content:counter(item) ".";
+  }
+}
+ 

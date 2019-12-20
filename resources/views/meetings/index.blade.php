@@ -23,7 +23,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
+                        <div class="card-body col-md-10 offset-1">
                             <p>This scheduling function is only minimally operational – eventually
                             it will have other important and helpful features. But for now, here
                             are the key points about how our meetings work and how the
@@ -65,7 +65,9 @@
                 </div>
                 
                 @if (auth('web')->check() && auth('web')->user()->can('create', App\Meeting::class))
+                <div class="text-center mt-5">
                 <h4>Schedule a meeting</h4>
+                </div>
                 <form action="{{ route('meetings.store') }}" method="POST">
                     @csrf
                     
@@ -144,7 +146,10 @@
                 @endif
                 
                 <div class="p-2">
+                    <div class="text-center mt-5">
                     <h4>Upcoming meetings</h4>
+                    </div>
+                    <div class="col-md-10 offset-1">
                     @foreach($countries as $country)
                         <a style="color:#000" data-toggle="collapse" href="#collapsec{{$country->id}}" role="button" aria-expanded="false" aria-controls="collapsec{{$country->id}}">
                             <div>{{ $country->title }}
@@ -180,7 +185,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        {{ $meeting->start_at->format('d/m/Y H:i') }}
+                                                        {{ $meeting->start_at->format('H:i') }}
                                                     </div>
                                                     <div class="col-md-8">
                                                     {{ $meeting->address }}
@@ -226,6 +231,7 @@
                         @endforeach               
                         </div>
                     @endforeach               
+                    </div>
                 </div>
             </div>
         </div>

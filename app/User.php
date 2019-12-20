@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(Idea::class);
     }
     
+    public function meetings()
+    {
+        return $this->hasMany(Meeting::class);
+    }
+    
     public function search_names()
     {
         return $this->hasMany(SearchName::class);

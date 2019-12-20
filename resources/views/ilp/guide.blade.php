@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Provisional Administrative Leadership') }}</h4>
                 <div class="card">
-                    <div class="card-body text-justify">
+                    <div class="card-body col-md-10 offset-1 text-justify">
                         <p class="text-center">                        
                             <b>Guide to the Structure<br/>
                             of the Provisional Administrative Leadership<br/>

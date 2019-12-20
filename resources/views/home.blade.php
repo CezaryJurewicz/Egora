@@ -15,7 +15,7 @@
                   </div>
 
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
+                    <div class="card-body col-md-10 offset-1">
                         <p>Philosopher {{ (auth('web')->user()?:auth('admin')->user())->name }} –</p>
                         <p>Whether or not you were a philosopher before, now that you are here
                         and have an Ideological Profile, you are a philosopher. Egora turns
@@ -24,7 +24,7 @@
                         place by learning from one another.</p>
                         <p>That said, I want to give you a brief description of how everything
                         works:</p>
-                        <ol>
+                        <ol class="bold">
                         <li>By filling out your Ideological Profile (IP), you assemble the
                         ideas and issues that identify you. This process alone already has two
                         great benefits. First, through your IP you can quickly and
@@ -91,21 +91,19 @@
             </div>
 
             <div class="card mb-3">
-                <div class="card-header">ILP Members</div>
-                <div class="card-body text-center">
-                    Verified - {{ $total_verified_ipl_users }}<br/>
-                    Total - {{ $total_ipl_users }}<br/>
-                </div>
-            </div>
-            <div class="card mb-3">
                 <div class="card-header">Egora Users</div>
                 <div class="card-body text-center">
-                Verified - {{ $total_verified_users }}<br/>
-                Total - {{ $total_users }}<br/>
+                    All Nations - {{ $total_verified_users }}<br/>
                 </div>
             </div>
             <div class="card mb-3">
-                <div class="card-header">Users by Nation</div>
+                <div class="card-header">ILP Members</div>
+                <div class="card-body text-center">
+                    All Nations - {{ $total_verified_ipl_users }}<br/>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">ILP Members by Nation</div>
                 <div class="card-body text-center">
                 @foreach($group_by_nation as $nation)
                 {{ $nation->title }} - {{ $nation->users->count() }}<br/>

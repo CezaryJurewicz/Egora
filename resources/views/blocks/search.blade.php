@@ -46,21 +46,9 @@
                         </div>
                     </div>
                     
-                    {{--
                     <div class="form-group row">
-                        <label for="unverified" class="col-md-5 col-form-label text-md-right">{{ __('Include support for ideas from unverified users:') }}</label>
-
-                        <div class="col-md-1">
-                            <input class="form-control-sm form-check-input" id="unverified" name="unverified" value=1 type="checkbox" {{ (old('unverified')?: $unverified) ? ' checked' : '' }} >
-                        </div>
-                    </div>
-                    --}}
-                    
-                    <div class="form-group row">
-                        <div class="col-md-1 offset-3">
-                            <div class="input-group">
-                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Generate')}}</button>
-                            </div>
+                        <div class="col-md-12 text-center">
+                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Generate')}}</button>
                         </div>
                     </div>
                 </form>

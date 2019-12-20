@@ -10,7 +10,9 @@
                 <h4>{{ __('Principles') }}</h4>
                 <div class="card">
                     <div class="card-body text-justify">
+                        <div class="col-md-10 offset-1">
                         @include('blocks.principles')
+                        </div>
                         <div class="text-center">
                             <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                         </div>

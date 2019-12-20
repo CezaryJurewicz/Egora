@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon; 
 
 class Meeting extends Model
 {
@@ -25,5 +26,9 @@ class Meeting extends Model
         return $this->city->country();
     }
 
+    public function scopeFromNow($q) 
+    {
+        $q->where('start_at', '>', (new Carbon())->format('Y-m-d H:i'));
+    }
     
 }

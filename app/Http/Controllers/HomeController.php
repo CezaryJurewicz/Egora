@@ -25,14 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $total_users = User::get()->count();
-        
         $total_verified_users = User::whereHas('user_type',function($q){
                 $q->where('verified', 1);
-            })->get()->count();
-            
-        $total_ipl_users = User::whereHas('user_type',function($q){
-                $q->where('class', '<>' ,'user');
             })->get()->count();
             
         $total_verified_ipl_users = User::whereHas('user_type',function($q){
@@ -44,7 +38,7 @@ class HomeController extends Controller
                 $q->where('verified', 1);
             }) ->get();
             
-        return view('home')->with(compact('total_users','total_verified_users', 'total_verified_ipl_users', 'total_ipl_users', 'group_by_nation'));
+        return view('home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
     }
     
     public function indexAdmin()

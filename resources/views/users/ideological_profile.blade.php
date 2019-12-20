@@ -51,14 +51,14 @@
                             </div>
                             @endif
 
-                            <div class="mt-3">
-                            @include('blocks.verification')
-                            </div>
-                            
                             <div class="mt-2">
                             @include('blocks.ilp')
                             </div>
                             
+                            <div class="mt-3">
+                            @include('blocks.verification')
+                            </div>
+
                             <div class="mt-2">
                             @include('blocks.petition')
                             </div>

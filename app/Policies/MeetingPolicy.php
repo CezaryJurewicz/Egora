@@ -42,7 +42,7 @@ class MeetingPolicy
      */
     public function create(User $user)
     {
-        return $user->user_type->isIlp;
+        return ($user->meetings()->fromNow()->count() < 2) && $user->user_type->isIlp;
     }
 
     /**
