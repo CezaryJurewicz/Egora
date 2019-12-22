@@ -31,6 +31,7 @@ class MeetingController extends Controller
             }])
             ->whereHas('cities.meetings', function($q){
                 $q->where('start_at','>', Carbon::now());                                                                           
+                $q->whereHas('user');
             })
             ->get();
                 
