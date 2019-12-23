@@ -48,7 +48,7 @@
                     
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
-                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Generate')}}</button>
+                            <button type='submit' class='btn btn-sm btn-primary btn-static-200'>{{__('some.Generate')}}</button>
                         </div>
                     </div>
                 </form>

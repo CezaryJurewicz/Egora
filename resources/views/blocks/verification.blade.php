@@ -3,8 +3,12 @@
                                     @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
                                     <h5 class="mb-1">{{ __('media.Verification ID')}}</h5>
                                     <div class="img-wrap">
+                                        @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
                                         <span class="close" title="Delete Image" onclick="event.preventDefault(); document.getElementById('verify-delete-form').submit();">&times;</span>
-                                        <img src="{{ Storage::url($user->verification_id->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
+                                        @endif
+                                        <a href="{{ route('users.verification_id_image', $user) }}">
+                                            <img src="{{ Storage::url($user->verification_id->image->filename) }}"  width1="250" class="img-fluid img-thumbnail" alt=""> 
+                                        </a>
                                     </div>
                                     
                                     <div class="mt-1">
@@ -15,7 +19,7 @@
                                     </div>
                                     @endif
 
-                                    @if (auth('admin')->user() && !$user->user_type->verified)
+                                    @if ((auth('web')->user() ?: auth('admin')->user())->can('verify', $user) && !$user->user_type->verified)
                                     <div class="mt-3">
                                         <form action="{{ route('users.verify',$user->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -27,7 +31,7 @@
                                     </div>
                                     @endif
 
-                                    @if (auth('admin')->user() && $user->user_type->verified)
+                                    @if ((auth('web')->user() ?: auth('admin')->user())->can('verify', $user) && $user->user_type->verified)
                                     <div class="mt-3">
                                         <form action="{{ route('users.unverify',$user->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf

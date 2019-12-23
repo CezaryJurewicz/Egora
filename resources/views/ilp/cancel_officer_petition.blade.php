@@ -9,13 +9,13 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Withdraw Officer Petition') }}</h4>
                 
-                <div class="text-center">
+                <div class="text-center mt-5">
                     <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                 </div>
                 
                 <form action="{{ route('ilp.cancel_officer_application_proceed', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="text-justify mt-5 mb-5">
+                    <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
                         I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, am withdrawing my petition to be 
                         Filosofos tou Dromou of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch
                         of International Logic Party for the Polis of <input class="line" value="{{ old('polis') ?: auth('web')->user()->petition->polis }}" placeholder=" (your polis)" name="polis">.

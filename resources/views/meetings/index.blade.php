@@ -139,7 +139,7 @@
                     
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Submit')}}</button>
+                            <button type='submit' class='btn btn-sm btn-primary btn-static-200'>{{__('some.Submit')}}</button>
                         </div>
                     </div>
                 </form>
@@ -211,7 +211,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-2 text-right">
-                                                        @if (auth('web')->check() && auth('web')->user()->can('delete', $meeting))
+                                                        @if ((auth('admin')->user() ?: auth('web')->user())->can('delete', $meeting))
                                                         <form action="{{ route('meetings.delete',$meeting->id) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="DELETE"/>

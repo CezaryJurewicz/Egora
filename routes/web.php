@@ -58,7 +58,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::get('/{user}/withdraw_from_ilp', 'IlpController@withdraw_from_ilp')->name('withdraw_from_ilp')->middleware('can:withdraw_from_ilp,user');
         Route::post('/{user}/withdraw_from_ilp_process', 'IlpController@withdraw_from_ilp_process')->name('withdraw_from_ilp_process')->middleware('can:withdraw_from_ilp,user');
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
-        Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
+        Route::delete('/{user}', 'UserController@delete_by_user')->name('delete_by_user')->middleware('can:delete,user');
         Route::post('/{user}/follow', 'UserController@follow')->name('follow')->middleware('can:follow,user');
         Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:follow,user');
         Route::get('/{user}/settings', 'UserController@settings')->name('settings')->middleware('can:settings,user');
@@ -71,6 +71,9 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::put('/{user}/password', 'UserController@update_password')->name('update_password')->middleware('can:update,user');
         Route::put('/{user}/privacy', 'UserController@update_privacy')->name('update_privacy')->middleware('can:update,user');
         Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:update,user');
+        Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
+        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
+        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:verify,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){
@@ -122,9 +125,8 @@ Route::middleware(['auth:admin'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
+        Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
-        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
-        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:verify,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

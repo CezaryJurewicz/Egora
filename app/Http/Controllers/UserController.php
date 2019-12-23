@@ -57,27 +57,6 @@ class UserController extends Controller
             
             $model = User::query();
             
-            if ($search_name) {
-                $model->whereHas('search_names', function($q) use ($request){
-                    $q->where(function($q) use ($request){
-                        $q->where('name','like', $request->input('search_name').'%');
-                        $q->where('seachable','1');
-                        $q->where('active','1');
-                    });
-                    $q->orWhere(function($q) use ($request){
-                        $q->where('name','like', $request->input('search_name'));
-                        $q->where('seachable','0');
-                        $q->where('active','1');
-                    });
-                });
-            
-                if ($nation) {
-                    $model->whereHas('nation', function($q) use ($request){
-                        $q->where('title', $request->input('nation'));
-                    });
-                }
-            }
-            
             if ($officer) {
                 $model->orWhere(function($q) use ($request) {
                     $q->whereHas('user_type', function($q) {
@@ -89,10 +68,17 @@ class UserController extends Controller
                             $q->where('title', $request->input('nation'));
                         });
                     }
+                    
+                    if ($request->input('search_name')) {
+                        $q->whereHas('search_names', function($q) use ($request){
+                            $q->where(function($q) use ($request){
+                                $q->where('name','like', $request->input('search_name').'%');
+                                $q->where('active','1');
+                            });
+                        });
+                    }
                 });
-            }
-            
-            if ($officer_petitioner) {
+            } else if ($officer_petitioner) {
                 $model->orWhere(function($q) use ($request) {
                     $q->whereHas('user_type', function($q) {
                         $q->where('class','petitioner');
@@ -103,7 +89,41 @@ class UserController extends Controller
                             $q->where('title', $request->input('nation'));
                         });
                     }
+                    
+                    if ($request->input('search_name')) {
+                        $q->whereHas('search_names', function($q) use ($request){
+                            $q->where(function($q) use ($request){
+                                $q->where('name','like', $request->input('search_name').'%');
+                                $q->where('active','1');
+                            });
+                        });
+                    }                    
                 });
+            } else  if ($search_name) {
+                $model->where(function($q) use ($request) {
+                    $q->whereHas('user_type', function($q) {
+                        $q->where('class','user');
+                        $q->orWhere('class','member');
+                    });
+                    $q->whereHas('search_names', function($q) use ($request){
+                        $q->where(function($q) use ($request){
+                            $q->where('name','like', $request->input('search_name').'%');
+                            $q->where('seachable','1');
+                            $q->where('active','1');
+                        });
+                        $q->orWhere(function($q) use ($request){
+                            $q->where('name','like', $request->input('search_name'));
+                            $q->where('seachable','0');
+                            $q->where('active','1');
+                        });
+                    });
+                });
+            
+                if ($nation) {
+                    $model->whereHas('nation', function($q) use ($request){
+                        $q->where('title', $request->input('nation'));
+                    });
+                }
             }
             
             
@@ -308,6 +328,32 @@ class UserController extends Controller
         return redirect()->back()->withErrors(['User deletion error']);
     }
     
+    public function delete_by_user(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'delete' => ['required', 'boolean'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        if (!($request->user() instanceof \App\Admin)) {        
+            Auth::logout();
+        }
+        
+        if (!$user->user_type->verified) {
+            $user->forceDelete();
+            return redirect()->route('index')->with('success', 'User permanently deleted');  
+        } else {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted');  
+        }
+        
+        return redirect()->back()->withErrors(['User deletion error']);
+    }
+    
     public function restore(User $user) 
     {
         $user->restore();
@@ -319,6 +365,7 @@ class UserController extends Controller
     {
         $type = UserType::where('class', $user->user_type->class)
                 ->where('candidate', $user->user_type->candidate)
+                ->where('former', $user->user_type->former)
                 ->where('verified', 1)
                 ->first();
         
@@ -331,6 +378,7 @@ class UserController extends Controller
     {
         $type = UserType::where('class', $user->user_type->class)
                 ->where('candidate', $user->user_type->candidate)
+                ->where('former', $user->user_type->former)
                 ->where('verified', 0)
                 ->first();
         
@@ -442,5 +490,10 @@ class UserController extends Controller
         }
         
         return redirect()->back()->withErrors('Incorrect signed user and email token.');
-    }    
+    }
+    
+    public function verification_id_image(Request $request, User $user)
+    {
+        return view('users.verification_id_image')->with(compact('user'));
+    }
 }

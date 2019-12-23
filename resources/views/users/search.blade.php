@@ -41,24 +41,26 @@
                         <label for="officer" class="col-md-3 col-form-label">{{ __('Search ILP officers:') }}</label>
 
                         <div class="col-md-1">
-                            <input class="form-control-sm" id="officer" name="officer" value=1 type="checkbox" {{ (old('officer')?: $officer) ? ' checked' : '' }} >
+                            <input class="form-control-sm" id="officer" name="officer" value=1 type="checkbox" onClick="c = document.getElementById('officer_petitioner'); c.checked = false;" {{ (old('officer')?: $officer) ? ' checked' : '' }}>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="officer_petitioner" class="col-md-3 col-form-label">{{ __('Search officer-petitioners:') }}</label>
 
                         <div class="col-md-1">
-                            <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
+                            <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" onClick="c = document.getElementById('officer'); c.checked = false;" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type='submit' class='btn btn-sm btn-primary col-md-2'>{{__('some.Search')}}</button>
+                            <button type='submit' class='btn btn-sm btn-primary btn-static-200'>{{__('some.Search')}}</button>
                         </div>
                     </div>
                 </form>
-                
-                <div>
+                <script>
+                    </script>
+                    
+                <div class="mt-5">
                     @if($users->isNotEmpty())
                         <table class="table table-striped">
                             <thead>

@@ -34,9 +34,13 @@ class HomeController extends Controller
                 $q->where('verified', 1);
             })->get()->count();
             
-        $group_by_nation = Nation::whereHas('users.user_type',function($q){
-                $q->where('verified', 1);
-            }) ->get();
+        $group_by_nation = Nation::whereHas('users')
+            ->with(['users' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->where('verified', 1);
+                    $q->where('former', 0);
+                });
+            }])->get();
             
         return view('home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
     }

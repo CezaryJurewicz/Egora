@@ -9,6 +9,7 @@ use App\User;
 use App\Petition;
 use App\Events\PetitionSupportersChanged;
 use App\Events\UserLeftIlp;
+use Illuminate\Support\Facades\Cookie;
 
 class IlpController extends Controller
 {
@@ -17,9 +18,21 @@ class IlpController extends Controller
         return view('ilp.index');
     }
     
-    public function menu() 
+    public function menu(Request $request) 
     {
-        return view('ilp.menu');
+        $show = false;
+        
+        if ($request->user()->user_type->isOfficer) {
+            if (is_null($request->cookie('cmsgvd'))) {
+                $show = true;
+                
+                
+            }
+        }
+        
+        Cookie::queue(Cookie::make('cmsgvd', 'true',  time() + (10 * 365 * 24 * 60 * 60)));
+        
+        return view('ilp.menu')->with(compact('show'));
     }
     
     public function principles() 
@@ -157,6 +170,10 @@ class IlpController extends Controller
     
     public function support_officer_application(Request $request, User $user)
     {
+        if ($request->user()->supporting->isNotEmpty()) {
+            return redirect()->back()->withErrors(['You already supporting one petition. Please remove your name before continue.']);
+        }
+        
         $request->user()->supporting()->sync($user->petition->id);
         event(new PetitionSupportersChanged($user->petition, $request->user()));
         

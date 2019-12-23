@@ -30,12 +30,16 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <a class="btn btn-black btn-sm col-md-2" href="{{ route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button type="submit" class="btn btn-secondary btn-sm col-md-2 offset-1">
-                                        {{ __('Save') }}
-                                    </button>
-                                </div>      
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>          
                             </form>
                         </div>
                     </div>
@@ -74,16 +78,20 @@
                                 
                                 <div class="form-group row">
                                     <div class="col-md-12">
-                                        <label for="password_confirmation" class="col-form-label">{{ __('Current') }}</label>
+                                        <label for="password_confirmation" class="col-form-label">{{ __('Confirm New') }}</label>
                                         <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <a class="btn btn-black btn-sm col-md-2" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button type="submit" class="btn btn-secondary btn-sm col-md-2 offset-1">
-                                        {{ __('Save') }}
-                                    </button>
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
                                 </div>      
                             </form>
                         </div>
@@ -108,12 +116,16 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <a class="btn btn-black btn-sm col-md-2" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button type="submit" class="btn btn-secondary btn-sm col-md-2 offset-1">
-                                        {{ __('Save') }}
-                                    </button>
-                                </div>      
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>        
                             </form>
                         </div>
                     </div>
@@ -145,12 +157,16 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <a class="btn btn-black btn-sm col-md-2" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button type="submit" class="btn btn-secondary btn-sm col-md-2 offset-1">
-                                        {{ __('Save') }}
-                                    </button>
-                                </div>      
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>           
                             </form>
                         </div>
                     </div>
@@ -161,7 +177,7 @@
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
                             <h4>@lang('Delete Account')</h4>
-                            <form method="POST" action="{{ route('users.delete', $user->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('users.delete_by_user', $user->id) }}" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="DELETE"/>
                                 @csrf
 
@@ -177,12 +193,16 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <a class="btn btn-black btn-sm col-md-2" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
-                                    <button disabled="" type="submit" class="btn btn-secondary btn-sm col-md-2 offset-1">
-                                        {{ __('Save') }}
-                                    </button>
-                                </div>      
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>           
                             </form>
                         </div>
                     </div>

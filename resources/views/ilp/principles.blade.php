@@ -13,7 +13,7 @@
                         <div class="col-md-10 offset-1">
                         @include('blocks.principles')
                         </div>
-                        <div class="text-center">
+                        <div class="text-center mt-5">
                             <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                         </div>
                         <div class="row mt-5">

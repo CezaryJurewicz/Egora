@@ -8,7 +8,7 @@
                                     @elseif ($user->can('submit_application', $user))
                                     <a class="btn btn-sm btn-primary btn-block btn-ilp" href="{{ route('ilp.index') }}">ILP</a>
                                     @endif
-                                @elseif ($user->user_type->class !== 'user')
+                                @elseif ($user->user_type->class !== 'user' && !$user->user_type->former)
                                     <div class="text-center">
                                         <img  width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                                     </div>

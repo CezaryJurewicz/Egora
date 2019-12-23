@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Member Declaration') }}</h4>
                 <div class="card">
-                    <div class="card-body text-justify">
+                    <div class="card-body text-justify col-md-10 offset-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         <p>Through this function you are able to declare yourself as a member of the
                         International Logic Party (ILP). To be a member of this political party, you
@@ -46,12 +46,12 @@
                         until you are ready to meet these conditions.</p>
                     </div>
                 </div>
-                <h3 class="mt-3">International Logic Party Principles</h3>
-                <div class="text-justify">
+                <h3 class="mt-5">International Logic Party Principles</h3>
+                <div class="text-justify col-md-10 offset-1">
                     @include('blocks.principles')
                 </div>
                 
-                <div class="text-center">
+                <div class="text-center mt-5">
                     <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                 </div>
                 
@@ -62,7 +62,7 @@
                 @else
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="text-justify mt-5 mb-5">
+                    <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
                         I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a member of the International Logic Party.                    
                     </div>
                     <div class="row">

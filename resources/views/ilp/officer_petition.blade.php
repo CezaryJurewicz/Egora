@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Officer Petition') }}</h4>
                 <div class="card">
-                    <div class="card-body text-justify">
+                    <div class="card-body text-justify col-md-10 offset-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         
                         <p>Through this function you are able to open a petition to become a basic
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 
-                <div class="text-center">
+                <div class="text-center mt-5">
                     <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                 </div>
                 
@@ -55,7 +55,7 @@
                 @else
                 <form action="{{ route('ilp.submit_officer_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="text-justify mt-5 mb-5">
+                    <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
                         I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, am opening 
                         my petition to become Filosofos tou Dromou of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch's
                         of International Logic Party for the Polis of <input class="line" value="{{ old('polis') ?: '' }}" placeholder=" (your polis)" name="polis">.
