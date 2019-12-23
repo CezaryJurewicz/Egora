@@ -18,12 +18,7 @@ class HomeController extends Controller
 //        $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    private function _data()
     {
         $total_verified_users = User::whereHas('user_type',function($q){
                 $q->where('verified', 1);
@@ -34,7 +29,10 @@ class HomeController extends Controller
                 $q->where('verified', 1);
             })->get()->count();
             
-        $group_by_nation = Nation::whereHas('users')
+        $group_by_nation = Nation::whereHas('users.user_type', function($q){
+                $q->where('verified', 1);
+                $q->where('former', 0);
+            })
             ->with(['users' => function($q){
                 $q->whereHas('user_type', function($q){
                     $q->where('verified', 1);
@@ -42,12 +40,26 @@ class HomeController extends Controller
                 });
             }])->get();
             
+        return [$total_verified_users, $total_verified_ipl_users, $group_by_nation];
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        list($total_verified_users, $total_verified_ipl_users, $group_by_nation) = $this->_data();
+            
         return view('home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
     }
     
     public function indexAdmin()
     {
-        return view('admin.home');
+        list($total_verified_users, $total_verified_ipl_users, $group_by_nation) = $this->_data();
+        
+        return view('admin.home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
     }
     
     public function welcome()

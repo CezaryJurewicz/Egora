@@ -10,7 +10,7 @@
                         <div class="col-md-3">
                             @include('blocks.user_image')                 
                             
-                            <div class="mt-2">{{ $user->user_type->subtitle }}</div>
+                            <div class="mt-3"><h5><i>{{ $user->user_type->subtitle }}</i></h5></div>
                             <!--<div class="mt-2">{{ $user->user_type->title }}</div>-->
                             
                             <div class="mt-2"><h3>{{ $user->name }}</h3></div>

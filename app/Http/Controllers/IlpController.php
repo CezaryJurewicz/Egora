@@ -171,7 +171,7 @@ class IlpController extends Controller
     public function support_officer_application(Request $request, User $user)
     {
         if ($request->user()->supporting->isNotEmpty()) {
-            return redirect()->back()->withErrors(['You already supporting one petition. Please remove your name before continue.']);
+            return redirect()->back()->withErrors(['You already supporting one petition.']);
         }
         
         $request->user()->supporting()->sync($user->petition->id);

@@ -9,6 +9,8 @@
                     
                 </div>
             </div>
+            
+            @include('blocks.stats')
         </div>
     </div>
 </div>

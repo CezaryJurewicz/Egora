@@ -65,6 +65,7 @@ class Search extends Component {
                 value={this.state.query} 
                 onChange={this.handleInputChange} 
                 id={this.state.type} type="text" className={this.state.cssClass} name={this.state.type} 
+                autoComplete="off"
             />
 
             <Suggestions results={this.state.results} onClickValue={this.onClickValueHandler}/>

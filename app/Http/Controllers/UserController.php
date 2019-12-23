@@ -101,10 +101,6 @@ class UserController extends Controller
                 });
             } else  if ($search_name) {
                 $model->where(function($q) use ($request) {
-                    $q->whereHas('user_type', function($q) {
-                        $q->where('class','user');
-                        $q->orWhere('class','member');
-                    });
                     $q->whereHas('search_names', function($q) use ($request){
                         $q->where(function($q) use ($request){
                             $q->where('name','like', $request->input('search_name').'%');
@@ -205,7 +201,13 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'contacts' => ['nullable', 'string', 'max:255'],
-            'nation' => ['required', 'string', 'max:255'],
+            'nation' => ['required', 'string', 'max:255',
+                function ($attribute, $value, $fail) use ($request, $user) {
+                    if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner))
+                    {
+                        $fail('You are not allowed to change '.$attribute.' currently.');
+                    }
+                }],
         ]);
          
         if ($validator->fails()) {

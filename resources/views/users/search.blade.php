@@ -9,13 +9,13 @@
                 <div class="text-center"> 
                 <h3>{{ __('views.User Search') }}</h3>
                 </div>
-                <form action="{{ route('users.search') }}" method="POST">
+                <form action="{{ route('users.search') }}" method="POST" autocomplete="off">
                     <div class="form-group row mt-4">
                         <label for="search_name" class="col-md-3 col-form-label">@lang('"Search Name"') <br>@lang('(complete or partial)')</label>
 
                         @csrf
                         <div class="col-md-7">
-                            <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name') ?: $search_name }}" autofocus>
+                            <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name') ?: $search_name }}" autofocus autocomplete="off">
 
                             @error('search_name')
                                 <span class="invalid-feedback" role="alert">

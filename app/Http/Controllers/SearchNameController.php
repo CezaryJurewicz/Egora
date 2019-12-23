@@ -92,7 +92,7 @@ class SearchNameController extends Controller
     public function update(Request $request, SearchName $searchName)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|min:3|string',
+            'name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,
             'seachable' => 'boolean',
             'active' => 'boolean',
         ]);

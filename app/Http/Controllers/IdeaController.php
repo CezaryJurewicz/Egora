@@ -168,16 +168,15 @@ class IdeaController extends Controller
     
     private function _user_nation(Request $request)
     {
-        $n = ['Universal'];
+        $sorted = collect();
+        $sorted->push( Nation::where('title', 'Universal')->first() );
+        $sorted->push($request->user()->nation);
         
         if ($request->user()->user_type->class !== 'user') {
-            $n[] = 'Egora';
+            $sorted->push( Nation::where('title', 'Egora')->first() );
         }
-        
-        $nations = Nation::whereIn('title', $n)->get();
-        $nations->push($request->user()->nation);
 
-        return $nations;
+        return $sorted;
     }
     
     private function _nation_select(Request $request, $view)
@@ -211,12 +210,7 @@ class IdeaController extends Controller
         foreach($ideas as $i) 
         {
             $position = ($i->pivot) ? $i->pivot->order: $i->position;
-//            print $position . '<hr/>';
-//            if($position>0) {
             $numbered[] = $position;
-//            } else {
-//                $zeros[] = count($zeros)+1;
-//            }
             
             if($idea && $i->id == $idea->id) {
                 $current_idea_position = $i->pivot->order;

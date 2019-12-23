@@ -68,7 +68,7 @@
                 <div class="text-center mt-5">
                 <h4>Schedule a meeting</h4>
                 </div>
-                <form action="{{ route('meetings.store') }}" method="POST">
+                <form autocomplete="off" action="{{ route('meetings.store') }}" method="POST">
                     @csrf
                     
                     <div class="form-group row">

@@ -169,7 +169,7 @@ class UserPolicy
 
     public function disqualify_membership(User $user, User $model) 
     {
-        if (($user->isAdmin() || $user->user_type->isOfficer) && $user->guardianship && $model->user_type->class !== 'user' && !$model->user_type->former) {
+        if ($user->isAdmin() && $user->guardianship && $model->user_type->class !== 'user' && !$model->user_type->former) {
             return $this->allow();
         }
 
@@ -178,7 +178,7 @@ class UserPolicy
     
     public function cancel_guardianship(User $user, User $model) 
     {
-        if (($user->isAdmin() || $user->user_type->isOfficer) && $user->guardianship && $model->user_type->isIlp && $model->guardianship) {
+        if ($user->isAdmin() && $user->guardianship && $model->user_type->isIlp && $model->guardianship) {
             return $this->allow();
         }
 
@@ -187,7 +187,7 @@ class UserPolicy
     
     public function allow_guardianship(User $user, User $model) 
     {
-        if (($user->isAdmin() || $user->user_type->isOfficer) && $user->guardianship && $model->user_type->isIlp && !$model->guardianship) {
+        if ($user->isAdmin() && $user->guardianship && $model->user_type->isIlp && !$model->guardianship) {
             return $this->allow();
         }
 

@@ -1,4 +1,4 @@
-                <form action="{{ route(Route::current()->getName()) }}" method="GET">
+                <form autocomplete="off" action="{{ route(Route::current()->getName()) }}" method="GET">
 
                     <div class="form-group row">
                         <label for="relevance" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
