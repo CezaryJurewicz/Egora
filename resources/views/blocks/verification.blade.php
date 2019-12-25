@@ -1,6 +1,4 @@
-                                @if($user->verification_id)
-                                
-                                    @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
+                                    @if (((auth('web')->user() ?: auth('admin')->user())->can('update', $user) || (auth('web')->user() ?: auth('admin')->user())->can('verify', $user) ) && $user->verification_id)
                                     <h5 class="mb-1">{{ __('media.Verification ID')}}</h5>
                                     <div class="img-wrap">
                                         @if ((auth('web')->user() ?: auth('admin')->user())->can('update', $user) )
@@ -31,7 +29,7 @@
                                     </div>
                                     @endif
 
-                                    @if ((auth('web')->user() ?: auth('admin')->user())->can('verify', $user) && $user->user_type->verified)
+                                    @if ((auth('web')->user() ?: auth('admin')->user())->can('unverify', $user) && $user->user_type->verified)
                                     <div class="mt-3">
                                         <form action="{{ route('users.unverify',$user->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -42,7 +40,8 @@
                                         </form>
                                     </div>
                                     @endif
-                                @else
+                                    
+                                @if(is_null($user->verification_id))
                                     @if (auth('web')->check() && auth('web')->user()->can('update', $user) && !$user->user_type->verified)
                                     <div class="card mt-3">
                                         <div class="card-body">

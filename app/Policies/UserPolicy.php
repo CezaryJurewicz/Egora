@@ -11,7 +11,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        if (!in_array($ability, ['disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
+        if (!in_array($ability, ['update', 'disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
             if ($user->isAdmin()) {
                 return $this->allow();
             }
@@ -137,10 +137,15 @@ class UserPolicy
     
     public function verify(User $user, User $model)
     {
-        if ((($user->isAdmin() || $user->user_type->isOfficer) && $user->guardianship)) {
+        if ((($user->isAdmin() || ($user->user_type->isOfficer && $model->verification_id)) && $user->guardianship)) {
             return $this->allow();
         }
 
+        return $this->deny();
+    }
+    
+    public function unverify(User $user, User $model)
+    {
         return $this->deny();
     }
 

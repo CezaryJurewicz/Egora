@@ -193,8 +193,21 @@ class IlpController extends Controller
         return view('ilp.withdraw_from_ilp');
     }
     
-    public function withdraw_from_ilp_process(Request $request, User $user) 
+    public function withdraw_from_ilp_process(Request $request, User $usr) 
     {
+        $user = $request->user();
+        $name = $user->name;
+        
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|in:'.$name,
+        ]);
+        
+        if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+        
+        
         $type = UserType::where('class', 'member')
             ->where('verified', $user->user_type->verified)
             ->where('former', 1)

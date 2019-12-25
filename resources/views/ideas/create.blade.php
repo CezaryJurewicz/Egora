@@ -60,7 +60,7 @@
                                         value="{{$i+23}}">{{$i}}</option>
                                 @endfor
                                 </optgroup>
-                                <optgroup label="Non-Point positions">
+                                <optgroup label="0-Point Positions">
                                 @for($i=23; $i>0; $i--)                                        
                                 <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
                                         @if(old('position1') && old('position1')== $i) selected @endif

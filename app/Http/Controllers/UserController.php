@@ -13,6 +13,8 @@ use App\Events\UserNameChanged;
 use App\Notifications\UserEmailChange;
 use App\Notifications\UserEmailChanged;
 use App\Events\BeforeUserNationChanged;
+use App\Events\SearchNameChanged;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -186,7 +188,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit')->with(compact('user'));        
+        $searchName = $user->active_search_names->first();
+        
+        return view('users.edit')->with(compact('user','searchName'));        
     }
 
     /**
@@ -198,12 +202,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $searchName = $user->active_search_names->first();
+        
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
+            'current_password' => ['required', 'password'],
+            'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,
             'contacts' => ['nullable', 'string', 'max:255'],
             'nation' => ['required', 'string', 'max:255',
                 function ($attribute, $value, $fail) use ($request, $user) {
-                    if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner))
+                    if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))
                     {
                         $fail('You are not allowed to change '.$attribute.' currently.');
                     }
@@ -213,6 +221,12 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()
                     ->withInput()->withErrors($validator);
+        }
+        
+        if ($searchName->name != $request->input('search_name')) {
+            $searchName->name = $request->input('search_name');
+            $searchName->save();
+            event(new SearchNameChanged($searchName->user));
         }
         
         if ($user->name != $request->name) {
@@ -373,6 +387,17 @@ class UserController extends Controller
         
         $user->user_type()->associate($type);
         $user->save();
+        
+        if ($user->verification_id) {
+            $media = $user->verification_id->image;
+            if (Storage::disk($media->disk)->exists($media->filename)) {
+                Storage::disk($media->disk)->delete($media->filename);
+            }
+
+            $media->delete();
+            $user->verification_id->delete();
+        }
+        
         return redirect()->back()->with('success', 'User verification updated!');  
     }
     

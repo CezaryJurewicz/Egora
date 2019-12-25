@@ -38,6 +38,10 @@ a[aria-expanded=false] .fa-chevron-down {
     @include button-variant( #000,  #000);
 }
 
+.btn-dark-red {
+    @include button-variant( #8a0000,  #8a0000);
+}
+
 input.line {
     width: 200px; 
     border: none; 
@@ -109,3 +113,4 @@ ol.bold {
   }
 }
  
+
