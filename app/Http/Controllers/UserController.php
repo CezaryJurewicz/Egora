@@ -404,11 +404,19 @@ class UserController extends Controller
     public function unverify(User $user)
     {
         $type = UserType::where('class', $user->user_type->class)
+            ->where('candidate', $user->user_type->candidate)
+            ->where('former', $user->user_type->former)
+            ->where('verified', 0)
+            ->first();
+        
+        if (is_null($type)) {
+            $type = UserType::where('class', 'member')
                 ->where('candidate', $user->user_type->candidate)
                 ->where('former', $user->user_type->former)
                 ->where('verified', 0)
                 ->first();
-        
+        }
+            
         $user->user_type()->associate($type);
         $user->save();
         return redirect()->back()->with('success', 'User verification updated!');  
