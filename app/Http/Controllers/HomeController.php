@@ -33,12 +33,16 @@ class HomeController extends Controller
                 $q->where('class', '<>' ,'user');
                 $q->where('verified', 1);
             })
+            ->withCount('users')
             ->with(['users' => function($q){
                 $q->whereHas('user_type', function($q){
                     $q->where('class', '<>' ,'user');
                     $q->where('verified', 1);
                 });
-            }])->get();
+            }])
+            ->orderBy('users_count', 'desc')
+            ->orderBy('title', 'asc')
+            ->get();
             
         return [$total_verified_users, $total_verified_ipl_users, $group_by_nation];
     }

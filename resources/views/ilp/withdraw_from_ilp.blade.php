@@ -43,7 +43,7 @@
                             <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('some.Cancel and Close')}}</a>
                         </div>
                         <div class="col-md-3 offset-6">
-                            <button type='submit' class='btn btn-dark-red btn-block'>{{__('some.Save and Close')}}</button>                            
+                            <button type='submit' class='btn btn-danger btn-block'>{{__('some.Save and Close')}}</button>                            
                         </div>
                     </div>
                 </form>

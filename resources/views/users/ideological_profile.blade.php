@@ -13,7 +13,7 @@
                             <div class="mt-3"><h4><i>{{ $user->user_type->subtitle }}</i></h4></div>
                             <!--<div class="mt-2">{{ $user->user_type->title }}</div>-->
                             
-                            <div class="mt-2"><h4>{{ $user->name }}</h4></div>
+                            <div class="mt-2"><h4>@if (auth('admin')->check()) #{{ $user->id }}: @endif {{ $user->name }}</h4></div>
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_name', $user->id) }}" method="POST" style="display: none;">
                                 @csrf

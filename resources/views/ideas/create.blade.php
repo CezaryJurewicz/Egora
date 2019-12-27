@@ -53,7 +53,7 @@
 
                             <select id="position1" type="text" class="col-md-2 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                 <option></option>
-                                <optgroup label="Point positions">
+                                <optgroup label="Point Positions">
                                 @for($i=23; $i>0; $i--)
                                 <option @if(in_array($i+23, $numbered)) style="background-color: lightgray;" disabled @endif 
                                         @if(old('position1') && old('position1')== $i+23) selected @endif

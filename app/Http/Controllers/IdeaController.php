@@ -161,7 +161,7 @@ class IdeaController extends Controller
         }
         
         $search = $request->input('search');
-        $ideas = Idea::where('content','like', '%'.$search.'%')->get();
+        $ideas = Idea::where('content','like', '%'.$search.'%')->paginate(100);
         
         return view('ideas.index')->with(compact('ideas'));
     }
@@ -302,7 +302,7 @@ class IdeaController extends Controller
         if (auth()->guard('web')->check()) {
             list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
-            list($numbered, $current_idea_position) = [[],[], null];
+            list($numbered, $current_idea_position) = [null, null];
         }
         
         $current_idea_point_position = $current_idea_position;

@@ -46,12 +46,6 @@
                             </li>
                             @endif
 
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Nation::class))
-                            <li>
-                                <a class="nav-link" href="{{ route('nations.index')}}">{{ __('Nations') }}</a>
-                            </li>
-                            @endif
-                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index')}}">{{ __('All users') }}</a>
@@ -70,12 +64,6 @@
                             </li>
                             @endif
 
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Petition::class))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('petitions.index')}}">{{ __('Petitions') }}</a>
-                            </li>
-                            @endif
-                            
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Meeting::class))
                             <li class="nav-item">
                                 <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>

@@ -23,11 +23,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::withTrashed()->paginate(10);
+        $search = null;
         
-        return view('users.index')->with(compact('users'));
+        $model = User::withTrashed();
+        
+        if ($request->has('search')) {
+            $model->where(function($q) use($request){
+                $q->where('id', (int) $request->search);
+                $q->orWhere('name', 'like', $request->search.'%');
+                $q->orWhere('email', 'like', '%'.$request->search.'%');
+            });
+            
+            $search = $request->search;
+        }
+
+        if ($request->has('awaiting')) {
+            $model->where(function($q) use($request){
+                $q->whereHas('verification_id');
+                $q->whereHas('user_type', function($q){
+                    $q->where('verified',0);
+                });
+            });
+        }
+        
+        $users = $model->paginate(10);
+        return view('users.index')->with(compact('users', 'search'));
     }
 
     public function search(Request $request)

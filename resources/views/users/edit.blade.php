@@ -7,7 +7,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="text-center">
-                    <h3>{{ __('Edit Personal Information') }}</h3>
+                    <h3>{{ __('Personal Information') }}</h3>
                 </div>
                 <div class="col-centered col-md-6">
                     <form autocomplete="off" method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nation" class="col-form-label">{{ __('Nationality') }}</label>
+                            <label for="nation" class="col-form-label">{{ __('Nation') }}</label>
 
                             <div>
                                 <div id="NationSearch" value="{{ old('nation') ?: $user->nation->title }}"></div>
@@ -56,10 +56,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="contacts" class="col-form-label">{{ __('Your Contact Info') }}</label>
+                            <label for="contacts" class="col-form-label">{{ __('Your Public Contact Information') }}</label>
 
                             <div>
-                                <input id="contacts" type="text" class="form-control @error('contacts') is-invalid @enderror" name="contacts" value="{{ old('contacts') ?: $user->contacts  }}">
+                                <textarea id="contacts" type="text" class="form-control @error('contacts') is-invalid @enderror" name="contacts">{{ old('contacts') ?: $user->contacts  }}</textarea>
 
                                 @error('contacts')
                                     <span class="invalid-feedback" role="alert">

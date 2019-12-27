@@ -7,7 +7,34 @@
         <div class="panel ">
             <div class="panel-body">
                 <h3>{{ __('views.Users') }}</h3>
-                <div>
+                
+                <form action="{{ route('users.index') }}" method="POST">
+                <div class="form-group row">
+                    <label for="search" class="col-md-2 col-form-label">{{ __('Search') }} <br/> (id, name, email)</label>
+
+                        @csrf
+                        <div class="col-md-6">
+                            <input id="search" type="text" class="form-control @error('search') is-invalid @enderror" name="search" value="{{ old('search') ?: $search }}" autofocus required>
+
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-1">
+                            <div class="input-group">
+                                <button type='submit' class='btn btn-sm btn-primary'>{{__('some.Search')}}</button>
+                            </div>
+                        </div>
+                </div>
+                </form>
+                
+                <div>   
+                    <a href="{{ route('users.index',['awaiting']) }}">List Awaiting Verification Users</a>                
+                </div>
+                
+                <div class="mt-3">
                     @if($users->isNotEmpty())
                         <table class="table table-striped">
                             <thead>
@@ -80,7 +107,7 @@
                             </tbody>
                         </table>
                     
-                        {{ $users->links() }}
+                        {{ $users->appends(request()->except('_token'))->links() }}
                     @endif
                 </div>
             </div>

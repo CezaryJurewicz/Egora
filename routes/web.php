@@ -125,6 +125,7 @@ Route::middleware(['auth:admin'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
+        Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
     });

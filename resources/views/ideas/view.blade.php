@@ -8,24 +8,27 @@
             <div class="panel-body">
                 <div class="text-center">
                     
-                    @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.indexes')
-                        <h3>{{ __('views.Idea Dominance Index') }}</h3>
-                    @elseif (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.popularity_indexes')
-                        <h3>{{ __('views.Idea Popularity Index') }}</h3>
-                    @elseif ( auth('web')->check()
-                        && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'users.ideological_profile'
-                        && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] == auth('web')->user()->id )
-                        <h3>{{ __('views.Ideological Profile') }}</h3>
-                    @else 
-                        <h3>{{ App\User::findOrFail(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] ?? $idea->user->id)->active_search_names->first()->name ?? '' }}
-                    @endif 
-                    
+                    @if (auth('web')->check())
+                        @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.indexes')
+                            <h3>{{ __('views.Idea Dominance Index') }}</h3>
+                        @elseif (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.popularity_indexes')
+                            <h3>{{ __('views.Idea Popularity Index') }}</h3>
+                        @elseif ( auth('web')->check()
+                            && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'users.ideological_profile'
+                            && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] == auth('web')->user()->id )
+                            <h3>{{ __('views.Ideological Profile') }}</h3>
+                        @else 
+                            <h3>{{ App\User::findOrFail(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] ?? $idea->user->id)->active_search_names->first()->name ?? '' }}
+                        @endif 
+                    @endif
                     <h3>Idea: Open</h3>
                 </div>
                 
+                @if (auth('web')->check())
                 <div class="row col-md-3 mb-3">
                     <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                 </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -52,9 +55,11 @@
                 
                 </div>
                 
+                @if (auth('web')->check())
                 <div class="row col-md-3 mt-3">
                     <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>

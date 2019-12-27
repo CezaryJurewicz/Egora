@@ -7,12 +7,9 @@
         <div class="panel ">
             <div class="panel-body">
                 <h3>{{ __('views.Ideas') }}</h3>
-                    <form action="{{ route('ideas.search') }}" method="POST">
+                <form action="{{ route('ideas.search') }}" method="POST">
                 <div class="form-group row">
-                    <div class="col-md-2">
-                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create Idea</a>
-                    </div>
-                    <label for="search" class="col-md-1 col-form-label text-md-right">{{ __('Search') }}</label>
+                    <label for="search" class="col-md-2 col-form-label">{{ __('Search') }}</label>
 
                         @csrf
                         <div class="col-md-6">
@@ -30,7 +27,7 @@
                             </div>
                         </div>
                 </div>
-                    </form>
+                </form>
                 
                 <div>
                     @if($ideas->isNotEmpty())
