@@ -15,6 +15,7 @@ use App\Notifications\UserEmailChanged;
 use App\Events\BeforeUserNationChanged;
 use App\Events\SearchNameChanged;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -399,7 +400,7 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User restored');  
     }
     
-    public function verify(User $user)
+    public function verify(Request $request, User $user)
     {
         $type = UserType::where('class', $user->user_type->class)
                 ->where('candidate', $user->user_type->candidate)
@@ -410,6 +411,8 @@ class UserController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
+        $request->user()->verified_users()->syncWithoutDetaching([$user->id => ['created_at' => new Carbon()]]);
+   
         if ($user->verification_id) {
             $media = $user->verification_id->image;
             if (Storage::disk($media->disk)->exists($media->filename)) {
@@ -419,7 +422,6 @@ class UserController extends Controller
             $media->delete();
             $user->verification_id->delete();
         }
-        
         return redirect()->back()->with('success', 'User verification updated!');  
     }
     

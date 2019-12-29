@@ -137,7 +137,7 @@ class UserPolicy
     
     public function verify(User $user, User $model)
     {
-        if ((($user->isAdmin() || ($user->user_type->isOfficer && $model->verification_id)) && $user->guardianship)) {
+        if ((($user->isAdmin() || ($user->user_type->isOfficer && $model->verification_id && $user->verified_users_aday->count() < 5 )) && $user->guardianship)) {
             return $this->allow();
         }
 

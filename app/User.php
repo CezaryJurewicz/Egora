@@ -97,6 +97,17 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
     
+    public function verified_users()
+    {
+        return $this->belongsToMany(User::class, 'users_verified_log', 'officer_id', 'user_id');
+    }
+    
+    public function verified_users_aday()
+    {
+        return $this->verified_users()
+                ->whereBetween('users_verified_log.created_at', [(new Carbon())->subDays(1), (new Carbon())]);   
+    }
+    
     public function active_search_names()
     {
         return $this->search_names()->active();
