@@ -20,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserNameChanged' => [
             'App\Listeners\RemoveUserVerification',
+            'App\Listeners\RemoveUserPetition',
         ],
         'App\Events\PetitionSupportersChanged' => [
             'App\Listeners\UpdatePetitionStatus',
