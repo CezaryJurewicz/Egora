@@ -31,7 +31,7 @@
                         become searchable, regardless of your previous privacy setting.</p>
 
                         <div class="text-center">
-                        <a href="{{ route('ilp.guide') }}">Provisinal Administrative Structure<br/>
+                        <a href="{{ route('ilp.guide') }}">Provisinal Administrative Leadership<br/>
                         of the International Logic Party</a>
                         </div>
 

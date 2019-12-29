@@ -18,7 +18,7 @@
 <body>
     <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 800px;">
         <a href="{{ route('register') }}">
-            <img src='{{ asset('img/Egora_E-Image_L.jpg') }}'>
+            <img src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
         </a>
     </div>
     <div id="app">
@@ -46,6 +46,26 @@
                                 <p>Lastly, Egora is free to use and protected by Copyleft. If you are dissatisfied
                                 with this Egora, you can create your own version of it. Egora welcomes all
                                 competition. May the best ideas win!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Idea Dominance Index</h5>
+                                <a href="{{ asset('docs/NewIDI.pdf') }}" target="_blank" rel="noopener">
+                                    <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mb-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>User Ideological Profile</h5>
+                                <a href="{{ asset('docs/NewIP.pdf') }}" target="_blank" rel="noopener">
+                                    <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
+                                </a>
                             </div>
                         </div>
                     </div>
