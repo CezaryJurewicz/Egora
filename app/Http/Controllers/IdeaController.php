@@ -33,7 +33,7 @@ class IdeaController extends Controller
         $all_nations = Nation::get();
         
         // if creator is not deactivated
-        $model = Idea::whereHas('user');
+        $model = Idea::query();
         if (!empty($request->all()))
         {
             $validator = Validator::make($request->all(),[
