@@ -26,10 +26,9 @@ class RemoveUserPetition
      */
     public function handle(UserNameChanged $event)
     {
-        if ($event->user->user_type->isPetitioner) 
+        if ($event->user->user_type->isPetitioner && $event->user->petition) 
         {
            $event->user->petition->delete();
-        }
-        
+        }        
     }
 }

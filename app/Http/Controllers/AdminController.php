@@ -24,7 +24,7 @@ class AdminController extends Controller
         $user = $request->user();
         
         $validator = Validator::make($request->all(),[
-            'current' => ['required', 'string', 'min:8'],
+            'current' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
          

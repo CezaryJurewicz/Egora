@@ -53,7 +53,7 @@ class UserPolicy
     
     public function deactivate(User $user, User $model)
     {
-        return $user->id == $model->id;
+        return $this->deny(); // return $user->id == $model->id;
     }
     
     public function follow(User $user, User $model)

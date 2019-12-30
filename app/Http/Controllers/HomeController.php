@@ -35,7 +35,13 @@ class HomeController extends Controller
                 $q->where('former', 0);
                 $q->where('verified', 1);
             })
-            ->withCount('users')
+            ->withCount(['users' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->where('class', '<>' ,'user');
+                    $q->where('former', 0);
+                    $q->where('verified', 1);
+                });
+            }])
             ->with(['users' => function($q){
                 $q->whereHas('user_type', function($q){
                     $q->where('class', '<>' ,'user');

@@ -19,8 +19,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         'App\Events\UserNameChanged' => [
-            'App\Listeners\RemoveUserVerification',
             'App\Listeners\RemoveUserPetition',
+            'App\Listeners\RemoveUserVerification',
         ],
         'App\Events\PetitionSupportersChanged' => [
             'App\Listeners\UpdatePetitionStatus',

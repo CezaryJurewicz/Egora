@@ -27,12 +27,19 @@ class RemoveUserVerification
      */
     public function handle(UserNameChanged $event)
     {
-        if (!$event->user->user_type->isPetitioner) 
+        if (!$event->user->user_type->IsOfficer) 
         {
             $type = UserType::where('class', $event->user->user_type->class)
                     ->where('verified', 0)
                     ->where('former', $event->user->user_type->former)
                     ->first();
+            
+            if (is_null($type)) {
+                $type = UserType::where('class', 'member')
+                        ->where('verified', 0)
+                        ->where('former', $event->user->user_type->former)
+                        ->first();
+            }
             
             if ($type) {
                 $event->user->user_type()->associate($type);
