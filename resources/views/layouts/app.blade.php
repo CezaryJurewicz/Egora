@@ -106,6 +106,13 @@
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     @endif
+
+                                    @if (auth('admin')->check())
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.settings') }}">{{ __('Settings') }}</a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    @endif
                                     
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('logout') }}" 
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

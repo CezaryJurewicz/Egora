@@ -121,7 +121,15 @@ Route::middleware(['auth:web'])->group(function() {
 });
 
 Route::middleware(['auth:admin'])->group(function() {
-    Route::get('/admin', 'HomeController@indexAdmin')->name('homeAdmin');
+    
+    Route::prefix('/admin')->name('admin.')->group(function(){
+        Route::get('/', 'HomeController@indexAdmin')->name('homeAdmin');
+        Route::get('/settings', 'AdminController@settings')->name('settings');
+        Route::put('/email/{token}', 'AdminController@update_email')->name('update_email');
+        Route::get('/email/{token}', 'AdminController@update_email_confirm')->name('update_email_confirm');
+        Route::put('/email', 'AdminController@update_email_send_token')->name('update_email_send_token');
+        Route::put('/password', 'AdminController@update_password')->name('update_password');
+    });
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');

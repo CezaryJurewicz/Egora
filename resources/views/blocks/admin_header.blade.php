@@ -1,1 +1,1 @@
-        <nav class="navbar navbar-expand-md navbar-light bg-info shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
