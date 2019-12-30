@@ -80,8 +80,11 @@ class RegisterController extends Controller
                'title' => $data['nation']
             ]);
         }
-
-        $user_type = UserType::where('title', 'Unverified User')->first();
+        if (env('VALID_AT_REG', false)) {
+            $user_type = UserType::where('title', 'Verified User')->first();
+        } else {
+            $user_type = UserType::where('title', 'Unverified User')->first();
+        }
         
         if (is_null($user_type)) {
             $user_type = UserType::create([
