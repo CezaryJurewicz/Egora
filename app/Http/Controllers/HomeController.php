@@ -26,17 +26,20 @@ class HomeController extends Controller
             
         $total_verified_ipl_users = User::whereHas('user_type',function($q){
                 $q->where('class', '<>' ,'user');
+                $q->where('former', 0);
                 $q->where('verified', 1);
             })->get()->count();
             
         $group_by_nation = Nation::whereHas('users.user_type', function($q){
                 $q->where('class', '<>' ,'user');
+                $q->where('former', 0);
                 $q->where('verified', 1);
             })
             ->withCount('users')
             ->with(['users' => function($q){
                 $q->whereHas('user_type', function($q){
                     $q->where('class', '<>' ,'user');
+                    $q->where('former', 0);
                     $q->where('verified', 1);
                 });
             }])

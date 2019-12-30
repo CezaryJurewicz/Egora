@@ -348,7 +348,9 @@ class IdeaController extends Controller
      */
     public function destroy(Idea $idea)
     {
-        //
+        $idea->forceDelete();
+                
+        return redirect()->back()->with('success', 'Idea removed.'); 
     }
     
     public function like(Request $request, Idea $idea) 
