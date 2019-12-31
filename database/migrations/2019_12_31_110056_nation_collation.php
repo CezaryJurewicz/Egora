@@ -12,7 +12,7 @@ class NationCollation extends Migration
      * @return void
      */
     public function up() {
-        DB::statement("ALTER TABLE nation CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin");
+        DB::statement("ALTER TABLE nations CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin");
     }
 
     /**
