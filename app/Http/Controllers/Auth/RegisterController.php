@@ -73,7 +73,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password'])
         ]);
 
-        $nation = Nation::where('title', $data['nation'])->first();
+        $nation = Nation::where('title', 'LIKE', $data['nation'])->first();
                 
         if (is_null($nation)) {
             $nation = Nation::create([
