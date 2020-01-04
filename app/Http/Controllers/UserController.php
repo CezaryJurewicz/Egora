@@ -232,7 +232,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'current_password' => ['required', 'password'],
             'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,
-            'contacts' => ['nullable', 'string', 'max:190'],
+            'contacts' => ['nullable', 'string', 'max:230'],
             'nation' => ['required', 'string', 'max:255',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))

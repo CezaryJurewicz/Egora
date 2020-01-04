@@ -18,5 +18,12 @@ return [
     'You are not allowed to change nation currently.' => 'You are not able to change your nation while you are a political candidate, an ILP officer, or an officer-petitioner.',
     'The current password field is required.' => 'The current password field is required.',
     'An idea may not be greater than 23,000 characters.' => 'An idea may not be greater than 23,000 characters.',
-    'The position1 field is required when position2 is not present.' => 'The position field is required.'
+    'The position1 field is required when position2 is not present.' => 'The position field is required.',
+    'The country may not be greater than 92 characters.' => 'The country may not be greater than 92 characters.',
+    'The city may not be greater than 92 characters.' => 'The city may not be greater than 92 characters.',
+    'The address field is required.' => 'The address field is required.',
+    'The topic field is required.' => 'The topic field is required.',
+    'The address may not be greater than 192 characters.' => 'The address may not be greater than 192 characters.',
+    'The contacts may not be greater than 230 characters.' => 'The contacts may not be greater than 230 characters.',
+    'The topic may not be greater than 230 characters.' => 'The topic may not be greater than 230 characters.'
 ];

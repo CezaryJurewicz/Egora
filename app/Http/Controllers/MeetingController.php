@@ -69,13 +69,13 @@ class MeetingController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'country' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:92'],
+            'city' => ['required', 'string', 'max:92'],
             'date' => ['required', 'date_format:"d/m/Y"', 'after:yesterday'], //TODO: create custom rule
             'time' => ['required', 'date_format:"H:i"'],
-            'address' => ['required', 'string'],
-            'topic' => ['required', 'string', 'max:255'],
-            'comments' => ['nullable', 'string'],
+            'address' => ['required', 'string', 'max:192'],
+            'topic' => ['required', 'string', 'max:230'],
+            'comments' => ['nullable', 'string', 'max:2300'],
         ]);
          
         if ($validator->fails()) {
