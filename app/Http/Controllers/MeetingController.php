@@ -73,7 +73,7 @@ class MeetingController extends Controller
             'city' => ['required', 'string', 'max:92'],
             'date' => ['required', 'date_format:"d/m/Y"', 'after:yesterday'], //TODO: create custom rule
             'time' => ['required', 'date_format:"H:i"'],
-            'address' => ['required', 'string', 'max:192'],
+            'address' => ['required', 'string', 'max:230'],
             'topic' => ['required', 'string', 'max:230'],
             'comments' => ['nullable', 'string', 'max:2300'],
         ]);
