@@ -175,7 +175,7 @@ class IlpController extends Controller
         }
         
         $request->user()->supporting()->sync($user->petition->id);
-        event(new PetitionSupportersChanged($user->petition, $request->user()));
+        event(new PetitionSupportersChanged($user->petition));
         
         return redirect()->back()->with('success', 'Added to petition');
     }
@@ -183,7 +183,7 @@ class IlpController extends Controller
     public function unsupport_officer_application(Request $request, User $user)
     {
         $request->user()->supporting()->detach($user->petition->id);
-        event(new PetitionSupportersChanged($user->petition, $request->user()));
+        event(new PetitionSupportersChanged($user->petition));
         
         return redirect()->back()->with('success', 'Removed from petition');
     }

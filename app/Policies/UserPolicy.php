@@ -156,7 +156,7 @@ class UserPolicy
     
     public function cancel_officer_application(User $user, User $model)
     {
-        return $user->id == $model->id && $model->user_type->isIlp && $model->user_type->isVerified && $model->petition && !$model->petition->finished;
+        return $user->id == $model->id && $model->user_type->isIlp && $model->user_type->isVerified && $model->petition;
     }
     
     public function support_officer_application(User $user, User $model)

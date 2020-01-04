@@ -70,7 +70,6 @@ Route::middleware(['auth:admin,web'])->group(function() {
         Route::put('/{user}/email', 'UserController@update_email_send_token')->name('update_email_send_token')->middleware('can:update,user');
         Route::put('/{user}/password', 'UserController@update_password')->name('update_password')->middleware('can:update,user');
         Route::put('/{user}/privacy', 'UserController@update_privacy')->name('update_privacy')->middleware('can:update,user');
-        Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:update,user');
         Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
         Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
@@ -136,6 +135,7 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
+        Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:deactivate,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

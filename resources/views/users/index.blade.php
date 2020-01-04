@@ -89,6 +89,14 @@
                                             </div>
                                         </form>
                                         @else
+                                        <form action="{{ route('users.deactivate',[$user->id]) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="PUT"/>
+                                            <div class="input-group">
+                                                <button type='submit' class='btn btn-sm btn-secondary'>{{__('Deactivate')}}</button>
+                                            </div>
+                                        </form>
+                                        @endif
                                         <form action="{{ route('users.delete',[$user->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE"/>
@@ -96,11 +104,10 @@
                                                 <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
                                             </div>
                                         </form>
-                                        @endif
                                     </td>
                                 </tr>
                     @empty
-                        <p>@lang('users.No users')</p>
+                        <p>@lang('user.No users')</p>
                     @endforelse
                     
                     @if($users->isNotEmpty())                 

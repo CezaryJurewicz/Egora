@@ -9,24 +9,22 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Petition;
 use App\User;
 
-class PetitionSupportersChanged
+class UserLostVerification
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
-    public $petition;
     
+    public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Petition $petition)
+    public function __construct(User $user)
     {
-        $this->petition = $petition;
+        $this->user = $user;
     }
 
     /**

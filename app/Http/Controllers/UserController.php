@@ -16,6 +16,8 @@ use App\Events\BeforeUserNationChanged;
 use App\Events\SearchNameChanged;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Events\UserLostVerification;
+use App\Events\UserLeftIlp;
 
 class UserController extends Controller
 {
@@ -49,7 +51,7 @@ class UserController extends Controller
             });
         }
         
-        $users = $model->paginate(10);
+        $users = $model->orderBy('created_at', 'desc')->paginate(10);
         return view('users.index')->with(compact('users', 'search'));
     }
 
@@ -320,27 +322,10 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Privacy updated.');       
     }
 
-    public function deactivate(Request $request, User $user)
+    public function deactivate(User $user)
     {
-        $validator = Validator::make($request->all(),[
-            'deactivate' => ['required', 'boolean'],
-        ]);
-         
-        if ($validator->fails()) {
-            return redirect()->back()
-                    ->withInput()->withErrors($validator);
-        }
-
-        
-        if ($request->input('deactivate')) 
-        {
-            Auth::logout();
-            
-            $user->delete();
-            return redirect()->back()->with('success', 'User deactivated.');  
-        }            
-        
-        return redirect()->back()->withErrors(['Deactivate field is missing']);
+        $user->delete();
+        return redirect()->back()->with('success', 'User deactivated.');  
     }
     
     /**
@@ -351,19 +336,8 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        if (!($request->user() instanceof \App\Admin)) {        
-            Auth::logout();
-        }
-        
-        if (!$user->user_type->verified) {
-            $user->forceDelete();
-            return redirect()->route('index')->with('success', 'User permanently deleted');  
-        } else {
-            $user->delete();
-            return redirect()->back()->with('success', 'User deleted');  
-        }
-        
-        return redirect()->back()->withErrors(['User deletion error']);
+        $user->forceDelete();
+        return redirect()->back()->with('success', 'User permanently deleted');  
     }
     
     public function delete_by_user(Request $request, User $user)
@@ -377,9 +351,7 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
-        if (!($request->user() instanceof \App\Admin)) {        
-            Auth::logout();
-        }
+        Auth::logout();
         
         if (!$user->user_type->verified) {
             $user->forceDelete();
@@ -410,7 +382,9 @@ class UserController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        $request->user()->verified_users()->syncWithoutDetaching([$user->id => ['created_at' => new Carbon()]]);
+        if (!($request->user() instanceof \App\Admin)) {  
+            $request->user()->verified_users()->syncWithoutDetaching([$user->id => ['created_at' => new Carbon()]]);
+        }
    
         if ($user->verification_id) {
             $media = $user->verification_id->image;
@@ -442,6 +416,9 @@ class UserController extends Controller
             
         $user->user_type()->associate($type);
         $user->save();
+        
+        event(new UserLostVerification($user));
+        
         return redirect()->back()->with('success', 'User verification updated!');  
     }
     
@@ -462,7 +439,7 @@ class UserController extends Controller
         return view('users.settings')->with(compact('user'));
     }
     
-    public function disqualify_membership (Request $request, User $user) 
+    public function disqualify_membership(Request $request, User $user) 
     {
         $type = UserType::where('class', 'member')
                 ->where('verified', $user->user_type->verified)
@@ -471,6 +448,8 @@ class UserController extends Controller
         
         $user->user_type()->associate($type);
         $user->save();
+        
+        event(new UserLeftIlp($user));
         
         return redirect()->back()->with('success', 'Member disqualified.');  
     }

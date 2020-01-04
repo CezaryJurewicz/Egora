@@ -40,7 +40,7 @@
                     
                     @if ((auth('web')->user()?:auth('admin')->user())->can('delete', $user))
                     <div class="col-md-1">
-                        <form action="{{ route('users.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('users.delete_by_user',$user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE"/>
                             <div class="input-group">

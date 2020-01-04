@@ -6,6 +6,7 @@ use App\Events\UserNameChanged;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\UserType;
+use App\Events\UserLostVerification;
 
 class RemoveUserVerification
 {
@@ -44,6 +45,8 @@ class RemoveUserVerification
             if ($type) {
                 $event->user->user_type()->associate($type);
                 $event->user->save();
+                
+                event(new UserLostVerification($event->user));
             }
         }
     }

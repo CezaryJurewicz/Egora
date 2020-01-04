@@ -25,13 +25,13 @@ class RemoveOfficerPetitionSupport
      * @param  BeforeUserNationChanged  $event
      * @return void
      */
-    public function handle(BeforeUserNationChanged $event)
+    public function handle($event)
     {
         $user = $event->user;
         $petition = $user->supporting->first();
         if ($petition) {
             $user->supporting()->sync([]);
-            event(new PetitionSupportersChanged($petition, $user));
+            event(new PetitionSupportersChanged($petition));
         }
 
     }
