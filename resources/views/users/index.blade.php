@@ -64,7 +64,7 @@
                                         <br>
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                         <br>
-                                        {{ __('user.User Class')}}: {{$user->user_type->fake_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
+                                        {{ __('user.User Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
                                             ({{$user->user_type->verified_text}})
                                     </td>
                                     <td>

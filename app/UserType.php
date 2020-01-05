@@ -26,6 +26,11 @@ class UserType extends Model
         return $this->attributes['fake']? 'verified' : '';
     }
     
+    public function getFormerTextAttribute()
+    {
+        return $this->attributes['former']? 'former' : '';
+    }
+    
     public function scopeVerified($query)
     {
         return $query->where('verified', 1);
