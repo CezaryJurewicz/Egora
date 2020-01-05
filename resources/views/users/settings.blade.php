@@ -210,13 +210,14 @@
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
                             <h4>@lang('Delete Account')</h4>
-                                <p class="col-md-12 row">Account deletion is not available to ILP Members nor former ILP Members in order 
-                                to protect interests of current ILP Members. However, if you wish to minimize your presence in the Egora, 
-                                you can do so by changing your name, deleting all personal information and deactivating your account.
-                                Nevertheless, a minimal history of your identity and your ILP status will be maintained externally as a secure
-                                record for the benefit of the public.</p>
-                                <p class="col-md-12 row">If you decide to return to using Egora, you will be able to reactivate your account and
-                                rebuild your public presence</p>
+                                <p class="col-md-12 row">Account deletion is not available to ILP Members nor former ILP members in
+                                order to protect the interests of the current ILP Members.</p>
+                                <p class="col-md-12 row">However, if you wish to minimize your presence in Egora, you can do so by
+                                changing your registered name, changing your Search Name, changing your
+                                email address, deleting your public contact information, and removing all of
+                                your ideas. Nevertheless, if you verified your Egora account using a
+                                government ID, your ID number––associated to your Egora Account
+                                Number––will be maintained externally as a secure record.</p>
                         </div>
                     </div>
                     @endif

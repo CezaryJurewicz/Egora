@@ -11,7 +11,7 @@
                 --------------------------------------------<br/>
                 Cezary Jurewicz, Filosofos Vasileus, International Logic Party<br/>
                 <br/>
-                (July 31?)
+                3-023
             </div>
             
             <div class="card">
@@ -99,9 +99,9 @@
                             <div class="text-center">
                                 <h4>Egora User Agreement</h4>
                             </div>
-                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u> - hence forth referred to as the "user" 
-                            - and the International Logic Party - the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
-                            administration of Egora - enter into and agreement on the following terms.</p>
+                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u> - hence forth referred to as the “user”
+                            - and the <i>International Logic Party</i> - the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
+                            administration of Egora - enter into an agreement on the following terms.</p>
                         </div>
                         <div class="offset-1 col-md-10 pl-5 pr-5">
                         <ol>
@@ -115,14 +115,17 @@
                                 </span>
                                 <div class="collapse" id="collapse1">
                                     <div class="card card-body">
-                                        <p>A person gains great political power by using Egora, and this power may not be abused. Therefore, everyone must use their real identity in Egora, represented by only one user profile. That being the case, the user consents to Egora collecting and storing their intentionally provided personal information for the purposes of authenticating their identity now and in the future.</p>
-                                        <p>However, in non-critical/non-integral instances, use of user aliases will be possible, allowed, and sometimes even recommended.</p>
+                                        <p>A person gains real political power by using Egora, and this power may not be abused. Therefore,
+                                        everyone must use their real identity in Egora, represented by only one user profile. That being the
+                                        case, the user consents to the administration of Egora collecting and storing the user’s intentionally
+                                        provided personal information for the purposes of authenticating the user’s identity now and in the
+                                        future.</p>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <span class="summary">
-                                    Egora will respect the user's privacy.
+                                    Egora will respect the user’s privacy.
                                     <a data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
                                         <i class="fa fa-chevron-down pull-right"></i>
                                         <i class="fa fa-chevron-right pull-right"></i>
@@ -130,7 +133,10 @@
                                 </span>
                                 <div class="collapse" id="collapse2">
                                     <div class="card card-body">
-                                        <p>The Egora administration will never investigate or track any of the user’s personal activity for any of our own purposes or to share that data with others. Furthermore, to protect your private activity, we will not cooperate with anyone seeking to violate it, including national governments and their agencies.</p>
+                                        <p>The Egora administration will never investigate or track any of the user’s personal activity in Egora to
+                                        exploit the user in any way nor to share that data with others. Furthermore, to protect your private
+                                        personal activity, we will not cooperate with anyone seeking to violate it, including other governments
+                                        and their agencies.</p>
                                     </div>
                                 </div>
                             </li>
@@ -144,8 +150,12 @@
                                 </span>
                                 <div class="collapse" id="collapse3">
                                     <div class="card card-body">
-                                        <p>If the user is dissatisfied with the operations of Egora, they are welcome to try to change them through the established democratic processes of Egora. If the user finds those processes inadequate, the user is welcome to launch their own competing alternative to Egora.</p>
-                                        <p>Never will the user work to compromise the security of Egora from within or from outside. Never will the user sabotage the efficiency of Egora by taking any action against it, such as legal action through any external justice system.</p>
+                                        <p>If the user is dissatisfied with the operations of Egora, they are welcome to try to change them through
+                                        the established democratic processes of Egora. If the user finds those processes inadequate, the user is
+                                        welcome to publish their own competing alternative to Egora.</p>
+                                        <p>Never will the user work to compromise the security of Egora from within or from outside.
+                                        Never will the user sabotage the efficiency of Egora by taking any action against it––including the
+                                        administration of Egora––such as legal action through any external justice system.</p>
                                     </div>
                                 </div>
                             </li>
@@ -159,8 +169,15 @@
                                 </span>
                                 <div class="collapse" id="collapse4">
                                     <div class="card card-body">
-                                        <p>The user accepts personal responsibility for their own actions while using Egora and pertaining to using Egora. For example, a user will not hold Egora responsible for the happenings of a real-life meeting event that was planned through Egora. Of course, this is not to say that a user cannot hold other users responsible, as specified by the relevant local laws.</p>
-                                        <p>Furthermore, the user agrees to abide by fair local laws in using Egora. If the user is suspected of being in violation of such laws, all public information within Egora will be available for the prosecution of the user, and the Egora administration reserves the right to aid external agencies in collecting that information. However, if the International Logic Party agrees that certain laws are unfair, the International Logic Party may assist the user in resisting and changing those laws.</p>
+                                        <p>The user accepts personal responsibility for their own actions while using Egora and pertaining to using
+                                        Egora. For example, a user will not hold Egora responsible for the happenings of a real-life meeting
+                                        event that was planned through Egora. Of course, this is not to say that a user cannot hold other users/
+                                        attendees responsible, as specified by the relevant local laws.</p>
+                                        <p>Furthermore, the user agrees to abide by fair, local laws in using Egora. If the user is suspected
+                                        of being in violation of such laws, all public information within Egora will be available for the
+                                        prosecution of the user, and the Egora administration reserves the right to aid external agencies in
+                                        collecting that information. However, if the International Logic Party agrees that certain laws are
+                                        unfair, the International Logic Party may assist the user in resisting those laws.</p>
                                     </div>
                                 </div>
                             </li>
@@ -174,8 +191,14 @@
                                 </span>
                                 <div class="collapse" id="collapse5">
                                     <div class="card card-body">
-                                        <p>The textual “ideas” of a user’s Ideological Profile in the Egora are subject to copyleft, thus available to be restated and developed by anyone.  Expressing even an original idea in one’s Ideological Profile does not imply taking credit for the origination of that idea nor claiming ownership of that idea.</p>
-                                        <p>However, any specific concepts/plans/expressions/names included within the text of an “idea” that are externally protected by copyrights will remain as such. The user must always abide by the “fair use” doctrine protecting copyrighted works, despite an otherwise absolute freedom of speech within their Ideological Profile.</p>
+                                        <p>The ideas of a user’s Ideological Profile in Egora are subject to copyleft, thus available to be restated
+                                        and developed by anyone. Expressing even an original idea in one’s Ideological Profile does not imply
+                                        taking credit for the origination of that idea nor claiming ownership of that idea.</p>
+                                        <p>However, any specific concepts/plans/expressions/names included within the text of an idea that
+                                        are externally protected by copyrights will remain as such. The user must always abide by the “fair
+                                        use” doctrine protecting copyrighted works, despite an otherwise absolute freedom of speech within
+                                        their Ideological Profile. The administration of Egora reserves the right to delete ideas from Egora if
+                                        and only if they are in violation of the “fair use” doctrine.</p>
                                     </div>
                                 </div>
                             </li>
@@ -189,7 +212,11 @@
                                 </span>
                                 <div class="collapse" id="collapse6">
                                     <div class="card card-body">
-                                        <p>The text “ideas” of users’ Ideological Profiles will be compiled by Egora, according to its specific algorithm, into the Idea Dominance Index, demonstrating which ideas are supported most strongly by the users of Egora. The International Logic Party will then nominate candidates for government offices based on the ideas in the Idea Dominance Index.</p>
+                                        <p>The ideas of users’ Ideological Profiles will be compiled by Egora into the Idea Dominance Index,
+                                        thereby demonstrating which ideas are supported most strongly by the users of Egora. The
+                                        <i>International Logic Party</i> will then nominate candidates for government offices around the world based
+                                        on the ideas in the Idea Dominance Index. By using Egora you consent to participating in this political
+                                        process, directly or indirectly.</p>
                                     </div>
                                 </div>
                             </li>
@@ -203,8 +230,12 @@
                                 </span>
                                 <div class="collapse" id="collapse7">
                                     <div class="card card-body">
-                                        <p>If the user is found to be in violation of this agreement, they will be prosecuted according to the specific procedures set by the administration of Egora, in accordance with this document.</p>
-                                        <p>The most severe penalty for the violation of this agreement is being publicly exposed to the Egora community for the violation, and this penalty may be selected by the user in lieu of any other penalty imposed. In any case, a user will never be banned from using Egora nor be restricted in any functionality.</p>
+                                        <p>If the user is found to be in violation of this agreement, they will be prosecuted according to the
+                                        specific procedures set by the administration of Egora, in accordance with this document.</p>
+                                        <p>The most severe penalty that can be imposed upon the user by the administration of Egora for
+                                        the violation of this agreement is being publicly exposed to the Egora community, and this penalty may
+                                        be selected by the user in lieu of any other penalty imposed. In any case, no user will ever be banned
+                                        from using Egora nor be restricted in any basic (non-ILP) functionality.</p>
                                     </div>
                                 </div>
                             </li>                        
@@ -224,7 +255,7 @@
                             <div class="row text-center">
                                 <div class="col-md-5"><u>&nbsp; &nbsp; <span id="regName2">(your name)</span> &nbsp; &nbsp;</u></div>
                                 <div class="col-md-2">and</div>
-                                <div class="col-md-5 "><u>&nbsp; &nbsp; International Logic Party &nbsp; &nbsp;</u></div>
+                                <div class="col-md-5 "><u>&nbsp; &nbsp; <i><b>International Logic Party</b></i> &nbsp; &nbsp;</u></div>
                             </div>
                         </div>
                     </div>

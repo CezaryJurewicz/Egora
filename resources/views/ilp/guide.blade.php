@@ -11,125 +11,91 @@
                 <div class="card">
                     <div class="card-body col-md-10 offset-1 text-justify">
                         <p class="text-center">                        
-                            <b>Guide to the Structure<br/>
-                            of the Provisional Administrative Leadership<br/>
+                            <b>Provisional Administrative Leadership<br/>
                             of the International Logic Party</b><br/>
-                                <i>Filosofos Vasileus</i> Cezary Jurewicz<br/>
-                            Edited: September 8, 2019</p>
+                            <i>Filosofos Vasileus</i> Cezary Jurewicz<br/>
+                        </p>
 
-                        <p><b>Introduction:</b> Like any other political party, the International Logic Party must have an
-                        effective leadership structure: a) to promote the Party to the electorate and the population at
-                        large, b) to ensure that the Party candidates have a support network during the time of
-                        elections, and c) to ensure that the Party is able to operate within the legal constraints of any
-                        jurisdiction. The proper procedures for the ILP to establish its official administrative
-                        leadership are described on <a href='https://gofundme.com/Egora-ILP23'>gofundme.com/Egora-ILP23</a>. However, prior to the completion of
-                        the construction of the Egora—which will enable the implementation of these procedures—this
-                        document provides the procedures for enacting a provisional leadership structure. Here are
-                        described the purpose, nature, establishment, management, and operation of the Provisional
-                        Administrative Leadership (PAL) of the International Logic Party (ILP).</p>
-<p><b>Purpose of PAL:</b>
-<ul>
-<li>The primary purpose of the PAL is to expedite the construction of the Egora by
-    facilitating the networking and fundraising efforts to complete the Egora.</li>
-<li>The secondary purpose of the PAL is to grow the Party ranks, so the ILP will already
-    have a member/user base for Egora upon it’s completion.</li>
-</ul>
-</p>
-<p><b>Nature of PAL:</b> The PAL of the ILP consists of four levels of officers, each with a different
-scope of authority and responsibility. These officer levels all fall under the highest rank of
-Filosofos Vasileus/Vasileessa (translating to Philosopher King/Queen, abbreviated FV ), which
-is currently the only ILP administrative leadership position that is officially and properly
-established (per the June 18, 2018 ILP Principles).</p>
-<ol>
-<li>The first-–i.e. lowest––PAL officer rank is Filosofos tou Dromou (Philosopher of the
-Street, FD). The FD serves as an organizer for the ILP in their local area and is the main link
-between the Party leadership and its members.</li>
-<li>The next PAL officer rank up is Filosofos tis Polis (Philosopher of the City, FP). FP
-serves as an organizer for the ILP in their municipality or grouping of towns and villages, i.e.
-“Polis”.</li>
-<li>The next PAL officer rank up is Filosofos tis Gis (Philosopher of the Land, FG). FG
-serves as an organizer for the ILP in their regional subdivision. This rank may be omitted in
-nations without regional subdivisions.</li>
-<li>The highest PAL officer rank and the highest officer rank for any nation is Filosofos
-Ethnikos (Ethnic Philosopher, FE). FE serves as the main organizer for their national branch of
-the ILP.</li>
-</ol>
-
-<p><b>Establishment of PAL:</b> All PAL officers will serve a term of up to one year and one day. The
-annual term cycle for holding an office will begin and expire on February 23rd, inclusive of
-both days. Office terms may begin after February 23rd, in case of any delay or need of
-replacement, but will always end on February 23rd.</p>
-<ol>
-<li>The Filosofos tou Dromou (FD) is the only PAL officer that is appointed, rather than
-elected. The FD is appointed by the FV after the officer candidate––an ILP member with an
-Ideological Profile on Egora-ILP.org––has submitted a petition to the FV for becoming an FD
-and the petition is accepted and verified by the FV. The FV will maintain a published list of
-FD’s to facilitate their further organization at higher levels.<br/>
-The petition to become an FD will consist of a certain number of unique names of ILP
-members from the applicant’s nation, members who support that person becoming an FD for
-the specified term (to clarify, each ILP member may sponsor only one FD at a time). The
-number of names in the petition will be 23 at minimum, but that number may be raised by the
-FE at a latter time. Additionally, the petition will specify into which Polis the FD will
-subordinate. The petition may be submitted as early as January 26th prior to that term cycle
-and must be submitted by January 26th to ensure appointment by February 23rd.</li>
-<li>The Filosofos tis Polis (FP) is elected from and by the FD-s who are subordinates for
-that specific Polis (including the current FP, in case of reelection). The voting body for the FP
-must number at least 23 FD-s. The election of the Filosofos tis Polis will be held on February
-23rd, with the exception of refilling the position in case of early vacancy. To qualify as a
-candidate for FP, one must have served as an FD in the previous term.</li>
-<li>The Filosofos tis Gis (FG) is an optional position that exists in a nation that requires an
-additional administrative level. It will be left to the discretion of each FP whether to self-
-organize into regions of at least 5 Polises per region (lead by an FG).<br/>
-The FG is elected from any of the FP-s who have served in the previous term (or is
-reelected). The voting body will consist of the current FG, all FP-s and all FD-s of that region.
-The election of the FG will be held on February 23rd, with the exception of refilling the
-position in case of early vacancy.</li>
-<li>The Filosofos Ethnikos (FE) is elected from any of the FG-s, FP-s, or FD-s who have
-served in the previous term (or is reelected). FP-s and FD-s will be equally eligible to become
-FE; however, they will be lacking the additional experience of recently holding a higher office.
-The voting body will consist of the current FE, all FG-s, all FP-s, and all FD-s of that nation;
-also, the voting body must number at least 46 FD-s. The election of the FE will be held on
-February 23rd, with the exception of refilling the position in case of early vacancy.</li>
-</ol>
-
-<p>Lastly, at the end of their term, any officer who does not become elected to the same or higher
-rank will have to repetition, if they wish to again become an FD.</p>
-
-<p><b>Management of PAL:</b> The management of the PAL is designed to be as decentralized as
-possible. Each officer holds their position or advances to a higher one based on how
-effectively they organize the ILP membership and support the operations of those below them.
-The higher ranking officers do not have the authority to reprimand the lower ranking officers,
-but they do hold successively more respectable positions and consequently have progressively
-more influence in organizing their national branch of the ILP. Ultimately, it is up to the FE to
-reach an agreement with the FV on the specific terms according to which the FE will organize
-their branch of the ILP in the FV’s Egora.</p>
-
-<p><b>Operation of PAL:</b> The operation of the PAL is also designed to be as decentralized as
-possible. The higher ranking officers never give any orders to the lower ranking officers, but
-they all collaborate on growing and developing the ILP. Thus, this process allows all officers to
-exercise their maximum creativity in achieving our common objectives.</p>
-<p>Following is a list of some of the various ways in which the PAL officers can engage
-themselves:</p>
-<ul>
-<li>Post original Facebook statuses about the ILP and repost those of others.</li>
-<li>Reach out to Facebook users in various groups that may pertain to philosophy, politics,
-etc.; share with them the “Blueprints for Intelligent Democracy”; ask for their feedback and
-discuss it; and invite them to join the “ILP Members: Egora Discussions” group.</li>
-<li>Facilitate the development of an “intelligent democracy” culture among the users of
-“Egora: Version Sigma” by engaging with the users, guiding them in the Ideological Profile
-creation process, and participating in the various discussions held within the “ILP Members:
-Egora Discussions” group.</li>
-<li>Communicate with one another in the “ILP Leadership Only” Facebook group to share
-experiences, teach strategies, distribute useful materials, organize joint efforts to resonate our
-message, and develop our leadership skills.</li>
-<li>Visit college campuses to host an information table and to organize an ILP student club.</li>
-<li>Establish partnerships with small local businesses, particularly ‘intellectual cafes’ and
-‘progressive restaurants’, to promote the ILP through the business.</li>
-<li>Distribute leaflets promoting ILP meetings, such as in person or on car windshields.</li>
-<li>Organize a Meetup.com group for the ILP.</li>
-<li>Develop other ways in which the officers can engage themselves.</li>
-</ul>
+                        <p><b>Introduction</b><br/> Like any other political party, the International Logic Party (ILP) must have an effective leadership
+                        structure: </p>
+                        <p class="ml-5">
+                            a) to promote the Party to the electorate and to the population at large,<br/>
+                            b) to ensure that the Party candidates have a support network during the time of elections, and<br/>
+                            c) to ensure that the Party is able to operate within the legal constraints of every jurisdiction.<br/>
+                        </p>
+                        <p>The official ILP leadership structure for each nation will be established by an elected
+                        representative of that nation and the <i>Filosofos Vasileus</i> of the ILP, both of whom will work closely
+                        together to arrive at mutually agreeable terms. The elected representative of a nation will be called the
+                        <i>Filosofos Ethnikos</i>, or National Philosopher, and they will be elected using the protocol laid out in this
+                        document.</p>
                         
+                        <p>However, until the official administrative leadership of the ILP is created, the protocol in this
+                        document will serve to create the Provisional Administrative Leadership (PAL) of the ILP. The PAL
+                        will have two goals:</p>
+                        <p class="ml-5">
+                            a) to promote the Party to the electorate and to the population at large, and <br/>
+                            b) to progress the Party toward official operations.
+                        </p>
+                        
+                        <p><b>Structure of PAL</b><br/>
+                        The PAL of the ILP consists of four levels of officers, each with a different scope of authority and
+                        responsibility. These officer levels all fall under the highest rank of <i>Filosofos Vasileus/Vasileessa</i>
+                        (Philosopher King/Queen, abbreviated <i>FV</i>), which was officially established by the June 18, 2018 ILP
+                        Principles.</p>
+
+                        <ol>
+                        <li>The lowest PAL officer rank is <i>Filosofos tou Dromou</i> (Philosopher of the Street, <i>FD</i>). The <i>FD</i>
+                        serves as an administrator of the ILP in their local area and is the main link between the Party
+                        Membership and the Party leadership.</li>
+                        <li>The next PAL officer rank is <i>Filosofos tis Polis</i> (Philosopher of the City, <i>FP</i>). The <i>FP</i> serves as
+                        an administrator of the ILP in their municipality (or grouping of small municipalities), called Polis.</li>
+                        <li>The next PAL officer rank is <i>Filosofos tis Gis</i> (Philosopher of the Land, <i>FG</i>). The <i>FG</i> serves as
+                        an administrator of the ILP in their regional subdivision. This rank is absent in nations without regional
+                        subdivisions.</li>
+                        <li>The highest PAL officer rank––the highest rank for any nation––is <i>Filosofos Ethnikos</i> (National
+                        Philosopher, <i>FE</i>). The <i>FE</i> serves as the main administrator for their national branch of the ILP.</li>
+                        </ol>
+
+                        <p><b>Establishment of PAL officers</b><br/> The <i>Filosofoi tou Dromou</i> are the only officers who are appointed by the <i>FV</i>, with the support of ILP
+                        Members, and they will maintain their position as long as they maintain their support from the
+                        Members. All other PAL officers will be elected, and they will serve a term of up to one year and one
+                        day. The term for elected officers will begin and expire on February 23rd, inclusive of both days;
+                        however, office terms may begin after February 23rd in case of delay or replacement.</p>
+                        <ol>
+                        <li>The <i>Filosofos tou Dromou</i> (<i>FD</i>) is automatically appointed by the <i>FV</i> through the Egora as soon
+                        as an ILP Member officer-petitioner has completed an officer petition. A petition is complete when the
+                        officer-petitioner has received the support of at least 23 ILP Members from their own nation (each ILP
+                        Member can support only one <i>FD</i> at a time, from any Polis). If an <i>FD</i>’s support falls below 23 people
+                        on their petition, they will lose their officer status.<br/>
+                        Additionally, when an officer-petitioner first opens their petition, they will specify their Polis.
+                        An officer’s Polis is a self-determined category that enables subordination into higher levels of
+                        leadership, once appointed.</li>
+
+                        <li>The <i>Filosofos tis Polis</i> (<i>FP</i>) is elected from and by the <i>FD</i>s who are subordinates for that
+                        specific Polis. The voting body must number at least 23 <i>FD</i>s. The election of the <i>Filosofos tis Polis</i> will
+                        be held on January 26th, with the exception of refilling the position in case of early vacancy.</li>
+
+                        <li>The <i>Filosofos tis Gis</i> (<i>FG</i>) is an optional position that exists in nations that require an additional
+                        administrative level. It will be left to the discretion of each <i>FP</i> whether to self-organize into regions of
+                        at least 5 Polities per region, which will then be lead by an <i>FG</i>.<br/>
+                        The <i>FG</i> is elected from any of the <i>FP</i>s or <i>FG</i>s who have served in the previous term. The
+                        voting body will consist of any <i>FD</i>s and <i>FP</i>s subordinated to that region, and must number at least 115
+                        <i>FD</i>s and 5 <i>FP</i>s. The election of the <i>FG</i> will be held between January 26th and February 23rd, with the
+                        exception of refilling the position in case of early vacancy.</li>
+
+                        <li>The <i>Filosofos Ethnikos</i> (<i>FE</i>) is elected from and by the <i>FD</i>s, <i>FP</i>s, and <i>FG</i>s of the nation. The
+                        voting body must number of at least 23 <i>FD</i>s and at least one <i>FP</i>. The election of the <i>FE</i> will be held on
+                        February 23rd, with the exception of refilling the position in case of early vacancy.</li>
+                        </ol>
+
+                        <p><b>Operations and Management of PAL</b><br/> The operations and management of the PAL are designed to be as decentralized as possible. Each
+                        officer holds their position or advances to a higher one based on how effectively they organize the ILP
+                        Membership and support the operations of those below them. The higher ranking officers never give
+                        any orders to the lower ranking officers, but they all collaborate on growing and developing the ILP.
+                        Thus, this process allows all officers to exercise their maximum creativity in achieving our common
+                        objectives. Furthermore, the higher ranking officers do not have the authority to reprimand the lower
+                        ranking officers, but they do hold progressively more influential positions in their national branch of
+                        the ILP.</p>                        
                         
                         <div class="text-center">
                             <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>

@@ -12,23 +12,17 @@
                     <div class="card-body text-justify col-md-10 offset-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         
-                        <p>Through this function you are able to open a petition to become a basic
-                        officer of your national branch of the International Logic Party (ILP). ILP
-                        Members from your nation, including yourself, will be able to give you their
-                        support by visiting your user profile and clicking the “Add My Signature”
-                        button in your user information section. If you succeed in attaining the
-                        support of at least 23 ILP Members, you will attain the first officer rank of
-                        Filosofos tou Dromou (Philosopher of the Street). If your support falls
-                        below 23 signatures for more than 23 hours, you will lose your officer status.</p>
-                        <p>To attain the higher officer ranks of Filosofos tis Polis, Filosofos tis Gis, and
-                        Filosofos Ethnikos, you will have to follow the election processes of your
-                        national ILP branch. If those have not yet been officially established by your
-                        nation, follow the provisional protocol in the document linked below. And,
-                        of course, to attain the highest rank of Filosofos Vasileus/Vasileesa, simply
-                        follow the Fourth Principle of the International Logic Party.</p>
-                        <p>However, be aware that by serving as an ILP officer you become a public
-                        figure and your privacy will be reduced. Most notably, your profile will
-                        become searchable, regardless of your previous privacy setting.</p>
+                        <p>Through this function you are able to open a petition to become an officer of
+                        your provisional national branch of the ILP. ILP Members from your nation,
+                        including yourself, will be able to give you their support by clicking the “Add
+                        My Name” button under your petition. If you receive the support of at least
+                        23 ILP Members, you will attain the first officer rank of <b><i>Filosofos tou
+                        Dromou</i></b>, meaning Philosopher of the Street. If your support falls below 23
+                        names, you will lose your officer status.</p>
+                        <p>To learn more about the structure of the Provisional Administrative
+                        Leadership of the ILP, including how to attain the higher officer ranks of
+                        <i>Filosofos tis Polis</i>, <i>Filosofos tis Gis</i>, and <i>Filosofos Ethnikos</i>, familiarize
+                        yourself with the protocol in this document:</p>
 
                         <div class="text-center">
                         <a href="{{ route('ilp.guide') }}">Provisinal Administrative Leadership<br/>
@@ -36,8 +30,8 @@
                         </div>
 
                         <p>Cezary Jurewicz<br/>
-                        Filosofos Vasileus<br/>
-                        International Logic Party<br/>
+                        <i>Filosofos Vasileus</i><br/>
+                        <b>International Logic Party</b><br/>
                         “Transparency is the price of power”</p>
 
                     </div>

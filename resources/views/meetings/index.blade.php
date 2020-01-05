@@ -24,36 +24,34 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
-                            <p>This scheduling function is only minimally operational – eventually
-                            it will have other important and helpful features. But for now, here
-                            are the key points about how our meetings work and how the
-                            Meeting Organizer tool serves them:</p>
+                            <p>The Meeting Organizer function is only minimally operational –
+                            many important and helpful features are still to be developed. But
+                            for now, here are the key points about how ILP meetings work and
+                            how this tool serves them:</p>
                             <ul>
                                 <li>Meetings can be scheduled only by ILP Members.</li>
-                                <li>A Member can schedule up to 2 meetings, each up to 46 days in advance.</li>
-                                <li>Up to 22 guest Members may attend to participate (maximum
-                                total of 23). Anyone else may attended only as audience, space
-                                permitting. Attendees should communicate with the organizer to
-                                ensure accommodations.</li>
-                                <li>Meetings must be free to attend. Suggested places are public
+                                <li>A Member can schedule up to 2 meetings, up to 46 days in advance.</li>
+                                <li>Up to 22 guest Members may attend to participate (up to total of
+                                23). Anyone else may attended only as audience, space permitting.
+                                Attendees should communicate with the organizer to ensure
+                                accommodations.</li>
+                                <li><u>Meetings must be free to attend</u>. Suggested places are public
                                 spaces, such as library or university meeting rooms. If a meetings
                                 takes place in a business location, such as a cafe, no minimum
                                 purchase should be required. Food and drink must not be a
                                 distraction.</li>
-                                <li>This is the official ILP meeting format (attendance roll-call
-                                    currently not maintained):
+                                <li>This is the official ILP meeting format (attendance currently not
+                                    maintained):
                                     <ul>
-                                        <li>Greetings</li>
                                         <li>Organizer introduction/presentation (up to 23 minutes)</li>
-                                        <li>Discussion (presided by the organizer or organizer
-                                            appointed Member (until majority calls for adjournment)</li>
+                                        <li>Discussion, presided by the organizer or another Member
+                                            (until majority calls for adjournment)</li>
                                         <li>Recess (23 minutes)</li>
-                                        <li>Closing statements by each guest (up to 2-3 minutes each)</li>
-                                        <li>Organizer’s closing statement (up to 2-3 minutes)</li>
+                                        <li>Closing statements by guest participants (2-3 minutes each)</li>
+                                        <li>Organizer’s closing statement (2-3 minutes)</li>
                                     </ul>
                                 </li>
-                                <li>Be safe, and have fun! If you’re not having fun in politics,
-                                    you’re doing it wrong!</li>
+                                <li>Be safe, and have fun!</li>
                             </ul>
                             <center>
                                 <p>Please support our work in making Egora everything it can be: <br>

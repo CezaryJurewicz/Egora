@@ -15,12 +15,12 @@
                         the International Logic Party (ILP). This is a very serious decision because
                         you will not be able to declare yourself as a member again. As an ILP
                         Member, you are a citizen of the Republic of Egora, and Egora only wants
-                        citizens who are loyal to their fellow citizens, i.e. other members of the ILP.</p>
+                        citizens who are loyal to their fellow citizens, i.e. other Members of the ILP.</p>
                         <p>We want you to remain our equal. Please choose wisely.</p>
                         
                         <p>Cezary Jurewicz<br/>
-                        Filosofos Vasileus<br/>
-                        International Logic Party<br/>
+                        <i>Filosofos Vasileus</i><br/>
+                        <b>International Logic Party</b><br/>
                         “Transparency is the price of power”</p>
                     </div>
                 </div>

@@ -13,37 +13,36 @@
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         <p>Through this function you are able to declare yourself as a member of the
                         International Logic Party (ILP). To be a member of this political party, you
-                        simply have to proclaim that you agree with the five Party Principles, below.</p>
+                        simply have to agree with the Five Party Principles (given below) and
+                        publicly announce that you are a member.</p>
                         <p>As a member of the ILP, you will gain access to the full functionality of
-                        Egora, especially being able to organize Party meetings, to vote for Party
-                        candidates for government offices, and to support Party candidates’
-                        campaigns financially using Egora’s revenue. You will also become a citizen
-                        and proprietor of Egora, participating in the election of the Filosofos
-                        Vasileus/Vasileesa, who is both the chief administrator of Egora and the
-                        highest leader of the International Logic Party.</p>
-                        <p>However, becoming a member of the ILP does have a cost, which is
-                        transparency. This means that your membership in the ILP is public
-                        knowledge. Furthermore, you can declare yourself a member of the ILP only
-                        once; if you later decide that you want to withdraw yourself from ILP
-                        membership, you will not be able to declare yourself as a member again.*
-                        The reason for this measure is that the ILP wants only members who will
-                        remain loyal to their fellow members. Be certain that you are ready for this
-                        responsibility.</p>
+                        Egora, especially being able to organize ILP meetings and to vote for ILP
+                        candidates. You will also become a citizen and proprietor of Egora,
+                        participating in the election of the Filosofos Vasileus/Vasileesa, who is both
+                        the administrator of Egora and the highest leader of the ILP.</p>
+                        <p>However, becoming a member does have a cost, which is transparency. This
+                        means that your membership in the ILP is public knowledge. Furthermore,
+                        you can declare yourself a member only once; if you later decide that you
+                        want to withdraw yourself from ILP membership, you will not be able to
+                        declare yourself as a member again.* The reason for this measure is that the
+                        ILP wants only those members who remain loyal to their fellow members. <u>Be
+                        certain that you are ready for this responsibility.</u></p>
+                        
                         <p>Cezary Jurewicz<br/>
-                        Filosofos Vasileus<br/>
-                        International Logic Party<br/>
+                        <i>Filosofos Vasileus</i><br/>
+                        <b>International Logic Party</b><br/>
                         “Transparency is the price of power”</p>
 
                         <p>* By declaring yourself as a member of the ILP you permit the ILP to
-                        forever maintain the record of your membership. This includes any public
-                        and willfully provided identifying information necessary for the maintenance
-                        of this record. The ILP will continue to maintain this record, even in the event
-                        of your latter withdrawal of membership.</p>
-                        <p>To ensure the highest accuracy of this record and for the convenience of
-                        everyone, the Egora account of ILP Members and former ILP members will
-                        be undeletable (it will only be capable of deactivation). If these terms are not
-                        acceptable to you, DO NOT declare yourself as an ILP member in the Egora
-                        until you are ready to meet these conditions.</p>
+                        forever maintain the record of your membership. This includes a minimal
+                        amount of willfully provided identifying information necessary for the
+                        maintenance of this record. The ILP will continue to maintain this record,
+                        even in the event of your latter withdrawal from membership.</p>
+                        <p>Furthermore, to ensure the highest accuracy of this record and for the
+                        convenience of everyone, the Egora account of ILP Members and former ILP
+                        members will be undeletable. If these terms are not acceptable to you, DO
+                        NOT declare yourself as a member until you are ready to meet these
+                        conditions.</p>
                     </div>
                 </div>
                 <h3 class="mt-5">International Logic Party Principles</h3>

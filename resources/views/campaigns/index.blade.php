@@ -26,18 +26,16 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
-                            <p>This campaign organizing function is only minimally operational –
+                            <p>This campaign organizing function is only <u>minimally</u> operational –
                             there are many critical filters and other essential features that are not
-                            yet available.</p>
-                            <p>The purpose of this function at this stage of development is to
-                            demonstrate the potential of Egora’s algorithm to highlight citizens
-                            who most closely represent the public will. However, we are not yet
-                            able to implement mechanisms that will allow us to test for their
-                            genuineness and reliability, nor to service all of the extensive
-                            administrative subdivisions of the world.</p>
+                            yet available. For now, the purpose of this function is only to
+                            demonstrate the potential of Egora’s algorithm to highlight persons
+                            who most closely represent the will of the people.</p>
+                            <p>The Candidate Score algorithm is very simple: of all of the ideas that
+                            a candidate supports (up to 46), we total the IDI Points of the 23
+                            ideas with the most IDI Points.</p>
                             <center>
-                                <p>Please support our work in completing the Egora to make it
-                                    everything that it can be: <br>
+                                <p>Please support our work in making Egora everything it can be: <br>
                                 <a href="https://GoFundMe.com/Egora-ILP23">GoFundMe.com/Egora-ILP23</a></p>                                
                             </center>
                             

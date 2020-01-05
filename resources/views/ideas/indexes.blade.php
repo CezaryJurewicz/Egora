@@ -27,9 +27,14 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
-                            <p>The Idea Dominance Index (IDI) shows us what are the most strongly supported ideas within the Universe and within any nation. The more points the people give to a particilar idea in their Ideological Profiles, the higher the idea rises on the IDI.</p>
-                            <p>If you think there is an idea that deserves to be higher on the IDI, come to International Logic Party meetings (for ILP Members) or “Egora Society” meetings (for non Members) to explain to the people why they should support this idea. If you think there is an
-                                idea that does not deserve to be so high on the IDI, come to ILP or “Egora Society” meetings to offer the people some better ideas to support. Through Egora the people have the power, and The Idea Dominance Index is the true measurement of that power.</p>
+                            <p>The Idea Dominance Index (IDI) shows what are the most <u>strongly</u>
+                            supported ideas universally and within any nation. As the people
+                            give more points to a particular idea within their Ideological Profiles,
+                            the idea rises higher on the IDI.</p>
+                            <p>If you think there is an idea that should be higher on the IDI, explain
+                            to other people why they should support this idea. If you think there
+                            is an idea that should not be so high on the IDI, give other people
+                            better ideas for them to support instead.</p>
                         </div>
                       </div>
                     </div>
