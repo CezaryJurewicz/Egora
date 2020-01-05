@@ -137,7 +137,7 @@ class UserPolicy
     
     public function verify(User $user, User $model)
     {
-        if ((($user->isAdmin() || ($user->user_type->isOfficer && $model->verification_id && $user->verified_users_aday->count() < 5 )) && $user->guardianship)) {
+        if ($user->isAdmin() && $user->guardianship) {
             return $this->allow();
         }
 
@@ -183,19 +183,11 @@ class UserPolicy
     
     public function cancel_guardianship(User $user, User $model) 
     {
-        if ($user->isAdmin() && $user->guardianship && $model->user_type->isIlp && $model->guardianship) {
-            return $this->allow();
-        }
-
         return $this->deny();
     }
     
     public function allow_guardianship(User $user, User $model) 
     {
-        if ($user->isAdmin() && $user->guardianship && $model->user_type->isIlp && !$model->guardianship) {
-            return $this->allow();
-        }
-
         return $this->deny();
     }
     
