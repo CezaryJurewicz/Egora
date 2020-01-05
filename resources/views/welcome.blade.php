@@ -49,7 +49,19 @@
                             </div>
                         </div>
                     </div>
+                    
+                    
                     <div class="col-md-12 text-center mt-5 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Egora's Code</h5>
+                                <a href="https://github.com/CezaryJurewicz/Egora" target="_blank" rel="noopener">
+                                    <img src="{{ asset('img/GitHub_Logo.png') }}" alt="" height="32">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mb-2">
                         <div class="card">
                             <div class="card-body">
                                 <h5>Idea Dominance Index</h5>
