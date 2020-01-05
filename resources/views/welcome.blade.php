@@ -33,6 +33,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
+                                <p><b>Quick introduction for new visitors</b></p>
                                 <p>“Egora” is a contraction of “electronic” and “agora”. Agora is an ancient Greek
                                 word meaning “public space”. For ancient Greeks the agora served as an open
                                 place for people to do business, to socialize, and to hold discussions. The
@@ -44,35 +45,25 @@
                                 Egora, but be aware that your input has a direct impact on the proceedings of
                                 the ILP. Here, your voice has real power, and we want to hear it!</p>
                                 <p>Lastly, Egora is free to use and protected by Copyleft. If you are dissatisfied
-                                with this Egora, you can create your own version of it, and you can use <u>the code
-                                of this Egora</u> to start. Egora welcomes all competition. May the best ideas win!</p>
+                                with this Egora, you can create your own version of it, and you can use <a href="https://github.com/CezaryJurewicz/Egora" target="_blank" rel="noopener">the code
+                                of this Egora</a> to start. Egora welcomes all competition. May the best ideas win!</p>
                             </div>
                         </div>
                     </div>
                     
                     
-                    <div class="col-md-12 text-center mt-5 mb-2">
+                    <div class="col-md-12 text-center mt-5">
                         <div class="card">
-                            <div class="card-body">
-                                <h5>Egora's Code</h5>
-                                <a href="https://github.com/CezaryJurewicz/Egora" target="_blank" rel="noopener">
-                                    <img src="{{ asset('img/GitHub_Logo.png') }}" alt="" height="32">
-                                </a>
+                            <div class="card-body mb-3">
+                                <h3><b>Egora: Version &Sigma;</b><br/>
+                                (archived)</h3>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 text-center mb-2">
-                        <div class="card">
-                            <div class="card-body">
+                            <div class="card-body mb-3">
                                 <h5>Idea Dominance Index</h5>
                                 <a href="{{ asset('docs/NewIDI.pdf') }}" target="_blank" rel="noopener">
                                     <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 text-center mb-5">
-                        <div class="card">
                             <div class="card-body">
                                 <h5>User Ideological Profile</h5>
                                 <a href="{{ asset('docs/NewIP.pdf') }}" target="_blank" rel="noopener">

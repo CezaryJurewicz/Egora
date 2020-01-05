@@ -45,8 +45,8 @@
                                     @if (auth('web')->check() && auth('web')->user()->can('update', $user) && !$user->user_type->verified)
                                     <div class="card mt-3">
                                         <div class="card-body">
-                                            <b>Your account is currently unverified</b>
-                                            <p>Please upload your ID here</p>
+                                            <b>Your account is currently unvalidated – your Ideological Profile is not being counted in the Indexes.</b>
+                                            <p>To validate your account, upload an image of your government ID (JPEG, JPG, or PNG format).  The ID number will be maintained in a secure record to prevent fraudulent activity. Your information will not be shared with anyone.</p>
                                             
                                             <form action="{{ route('media.verification') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
