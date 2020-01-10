@@ -87,7 +87,7 @@ class AdminController extends Controller
 
             $user->notify(new AdminEmailChanged());
             
-            return redirect()->route('admin.settings', $user->id)->with('success', 'Email changed.');
+            return redirect()->route('admin.settings', $user->active_search_names->first()->hash)->with('success', 'Email changed.');
         }
         
         return redirect()->back()->withErrors('Incorrect signed user and email token.');

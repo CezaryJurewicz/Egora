@@ -152,7 +152,7 @@ class IlpController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        return redirect()->route('users.ideological_profile', $user->id)->with('success', __('Member declaration has been signed.'));           
+        return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', __('Member declaration has been signed.'));           
     }
     
     public function accept_application(User $user)
@@ -218,6 +218,6 @@ class IlpController extends Controller
         
         event(new UserLeftIlp($user));
         
-        return redirect()->route('users.ideological_profile', $user->id)->with('success', 'Withdrawn from ILP.');           
+        return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', 'Withdrawn from ILP.');           
     }
 }
