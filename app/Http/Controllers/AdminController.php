@@ -38,10 +38,10 @@ class AdminController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('admin.settings', $request->user()->id)->with('success', 'Password updated!');   
+            return redirect()->route('admin.settings', $request->user()->active_search_names->first()->hash)->with('success', 'Password updated!');   
         }
         
-        return redirect()->route('admin.settings', $request->user()->id)->withErrors('Current password doesn\'t match!');
+        return redirect()->route('admin.settings', $request->user()->active_search_names->first()->hash)->withErrors('Current password doesn\'t match!');
     }
     
     public function update_email_send_token(Request $request)

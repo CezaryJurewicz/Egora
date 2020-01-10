@@ -291,7 +291,7 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
 
-        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'New Idea created');   
+        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'New Idea created');   
     }
 
     /**
@@ -379,7 +379,7 @@ class IdeaController extends Controller
         
         event(new IdeaSupportHasChanged($idea));
         
-        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea added to your IP');   
+        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Idea added to your IP');   
     }
     
     public function unlike(Request $request, Idea $idea) 
@@ -388,7 +388,7 @@ class IdeaController extends Controller
         
         event(new IdeaSupportHasChanged($idea));
         
-        return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'Idea removed from your IP');   
+        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Idea removed from your IP');   
     }
     
 }

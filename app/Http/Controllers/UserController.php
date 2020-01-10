@@ -266,6 +266,7 @@ class UserController extends Controller
         
         if ($searchName->name != $request->input('search_name')) {
             $searchName->name = $request->input('search_name');
+            $searchName->hash = base64_encode(Hash::make($request->input('search_name')));
             $searchName->save();
             event(new SearchNameChanged($searchName->user));
         }
@@ -291,10 +292,10 @@ class UserController extends Controller
         $user->nation()->associate($nation);
         
         if($user->save()){
-            return redirect()->route('users.ideological_profile', $request->user()->id)->with('success', 'User information updated!');   
+            return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'User information updated!');   
         }
         
-        return redirect()->route('users.ideological_profile', $request->user()->id)->withErrors('User information update failed!');   
+        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->withErrors('User information update failed!');   
     }
 
     public function update_password(Request $request, User $user)
@@ -314,10 +315,10 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('users.settings', $request->user()->id)->with('success', 'Password updated!');   
+            return redirect()->route('users.settings', $request->user()->active_search_names->first()->hash)->with('success', 'Password updated!');   
         }
         
-        return redirect()->route('users.settings', $request->user()->id)->withErrors('Current password doesn\'t match!');
+        return redirect()->route('users.settings', $request->user()->active_search_names->first()->hash)->withErrors('Current password doesn\'t match!');
     }
     
     public function update_privacy(Request $request, User $user)
