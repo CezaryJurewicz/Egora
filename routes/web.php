@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::prefix('/ideas')->name('ideas.')->group(function(){
     Route::post('/search', 'IdeaController@search')->name('search');
