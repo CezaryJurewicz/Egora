@@ -58,6 +58,7 @@ class CampaignController extends Controller
                     $user_points->push([
                         'user_id' => $user->id,
                         'search_name' => $user->active_search_names->first()->name ?? '-',
+                        'hash' => $user->active_search_names->first()->hash,
                         'points' =>$result[0]->points
                     ]);
                 }

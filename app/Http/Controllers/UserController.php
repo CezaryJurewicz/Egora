@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Events\UserLostVerification;
 use App\Events\UserLeftIlp;
+use App\SearchName;
 
 class UserController extends Controller
 {
@@ -191,7 +192,23 @@ class UserController extends Controller
         return view('users.view')->with(compact('user'));
     }
     
-    public function ideological_profile(User $user)
+    public function ideological_profile($hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        $user->load(['liked_ideas' => function($q){
+            $q->with(['nation', 'liked_users' => function($q){
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
+        }]);
+
+        return view('users.ideological_profile')->with(compact('user'));
+    }
+    
+    public function profile(User $user)
     {
         $user->load(['liked_ideas' => function($q){
             $q->with(['nation', 'liked_users' => function($q){

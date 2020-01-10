@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\SearchName;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -71,9 +72,17 @@ class UserPolicy
         //
     }
     
-    public function ideological_profile(User $user, User $model)
+    public function ideological_profile(User $user, $hash)
     {
-        return (!$model->trashed())? $this->allow() : $this->deny() ;
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+
+            return (!$model->trashed())? $this->allow() : $this->deny() ;
+        }
+        
+        return $this->deny();
     }
 
     /**

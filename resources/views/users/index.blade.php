@@ -78,7 +78,7 @@
                                     <td>{{ $user->updatedDate() }}</td>
                                     <td>
                                         @if (!$user->trashed())
-                                        <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->id) }}">@lang('some.View')</a>
+                                        <a class="btn btn-sm btn-primary" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
                                         @endif
                                         @if ($user->trashed())
                                         <form action="{{ route('users.restore',[$user->id]) }}" method="POST">

@@ -34,9 +34,9 @@
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'home') ? ' active' : '' }}" href="{{ route('home')}}">{{ __('Egora') }}</a>
                             </li>
-                            @if (auth('web')->check() && auth('web')->user()->can('ideological_profile',auth('web')->user()) )
+                            @if (auth('web')->check() && auth('web')->user()->can('ideological_profile', [App\User::class, auth('web')->user()->active_search_names->first()->hash]) )
                             <li>
-                                <a class="nav-link{{ (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) == auth('web')->user()->id) ? ' active' : '' }}" href="{{ route('users.ideological_profile',  auth('web')->user()->id)}}">{{ __('Home') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) == auth('web')->user()->active_search_names->first()->hash) ? ' active' : '' }}" href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash)}}">{{ __('Home') }}</a>
                             </li>
                             @endif                        
 

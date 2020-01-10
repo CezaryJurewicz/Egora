@@ -79,7 +79,7 @@
                                         {{$user->user_type->title}}
                                     </td>
                                     <td>
-                                        <a href="{{ route('users.ideological_profile', $user->id) }}">
+                                        <a href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">
                                         {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
                                         </a>
                                     </td>

@@ -118,7 +118,7 @@
                             <div class="col-md-6">
                                 @foreach($row as $names)
                                 <div>
-                                    <a href="{{ route('users.ideological_profile', $names['user_id']) }}">
+                                    <a href="{{ route('users.ideological_profile', $names['hash']) }}">
                                     {{ $names['search_name'] }}
                                     </a>
                                 </div>

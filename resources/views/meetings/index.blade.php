@@ -204,7 +204,7 @@
                                                 <div class="row mt-2">
                                                     <div class="col-md-4">@lang('Organizer:')</div>
                                                     <div class="col-md-6">
-                                                        <a href="{{ route('users.ideological_profile', $meeting->user->id)}}">
+                                                        <a href="{{ route('users.ideological_profile', $meeting->user->active_search_names->first()->hash)}}">
                                                         {{ $meeting->user->active_search_names->first() ? $meeting->user->active_search_names->first()->name : '-'}} 
                                                         </a>
                                                     </div>

@@ -49,8 +49,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
     
     Route::prefix('/users')->name('users.')->group(function(){
         Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
-        Route::get('/{user}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,user');
-        Route::get('/{user}/profile', 'UserController@show')->name('view')->middleware('can:view,user');
+        Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::post('/{user}/name', 'UserController@update_name')->name('update_name')->middleware('can:update,user');
         Route::post('/{user}/nation', 'UserController@update_nation')->name('update_nation')->middleware('can:update,user');
@@ -133,6 +132,7 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
+        Route::get('/{user}/profile', 'UserController@profile')->name('profile')->where('user', '[0-9]+');
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
         Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:deactivate,user');
