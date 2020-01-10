@@ -15,7 +15,7 @@
                             <h3>{{ __('views.Idea Popularity Index') }}</h3>
                         @elseif ( auth('web')->check()
                             && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'users.ideological_profile'
-                            && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] == auth('web')->user()->id )
+                            && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'] == auth('web')->user()->active_search_names->first()->hash )
                             <h3>{{ __('views.Ideological Profile') }}</h3>
                         @else 
                             <h3>{{ App\User::findOrFail(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['user'] ?? $idea->user->id)->active_search_names->first()->name ?? '' }}
