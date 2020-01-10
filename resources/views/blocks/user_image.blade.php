@@ -17,7 +17,7 @@
                                 <form action="{{ route('media.store', $user) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="input-group">
-                                        <input type="file" name="file" id="file"/>
+                                        <input type="file" name="file" id="file" style="overflow: hidden;"/>
                                         <input type="hidden" name="type" value="image"/>
                                     </div>
                                     <button type='submit' class='btn btn-sm btn-primary mt-2'>{{__('some.Upload')}}</button>
