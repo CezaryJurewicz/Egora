@@ -99,6 +99,7 @@ class RegisterController extends Controller
 
         $search_name = new SearchName();        
         $search_name->name = $this->gen_search_name($data['name']);
+        $search_name->hash = base64_encode(Hash::make($search_name->name));
         $search_name->seachable = 1;
         $search_name->active = 1;
         
