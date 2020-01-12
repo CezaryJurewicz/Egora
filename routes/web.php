@@ -21,7 +21,7 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
     Route::post('/search', 'IdeaController@search')->name('search');
 });
 
-Route::middleware(['auth:admin,web'])->group(function() {
+Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
     });
@@ -114,7 +114,7 @@ Route::middleware(['auth:admin,web'])->group(function() {
 
 });
 
-Route::middleware(['auth:web'])->group(function() {
+Route::middleware(['verified','auth:web'])->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
