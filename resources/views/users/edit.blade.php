@@ -15,7 +15,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">{{ __('Your Name') }}</label>
+                            <label for="name" class="col-form-label">{{ __('Your Name') }} <small>({{ __('Changing your name will require re-verification with a government ID') }})</small> </label>
 
                             <div>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') ?: $user->name  }}" required autocomplete="name" autofocus>
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="title" class="col-form-label">{{ __('Search Name') }}</label>
+                            <label for="title" class="col-form-label">{{ __('Search Name') }} <small>({{ __('Changing your Search Name allows you to lose all of your followers') }})</small></label>
                             <div>
                                 <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name')?: $searchName->name }}" required>
 

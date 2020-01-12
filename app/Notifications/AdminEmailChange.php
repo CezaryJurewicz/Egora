@@ -43,10 +43,10 @@ class AdminEmailChange extends Notification
         $url = route('admin.update_email_confirm',$notifiable->email_token);
         
         return (new MailMessage)
+                    ->subject('Egora Email Address Change')
                     ->greeting('Hello!')
-                    ->line('You requested change your current email to '. $notifiable->another_email)
-                    ->action('Please confirm email change', $url)
-                    ->line('Thank you for using Egora!');
+                    ->line('You requested to change your email address to '. $notifiable->another_email)
+                    ->action('Please confirm email change', $url);
     }
 
     /**

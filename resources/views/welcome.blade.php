@@ -65,7 +65,7 @@
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h5>User Ideological Profile</h5>
+                                <h5>User Ideological Profiles</h5>
                                 <a href="{{ asset('docs/NewIP.pdf') }}" target="_blank" rel="noopener">
                                     <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
                                 </a>
