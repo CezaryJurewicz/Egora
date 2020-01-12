@@ -38,10 +38,10 @@ class AdminController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('admin.settings', $request->user()->active_search_names->first()->hash)->with('success', 'Password updated!');   
+            return redirect()->route('admin.settings')->with('success', 'Password updated!');   
         }
         
-        return redirect()->route('admin.settings', $request->user()->active_search_names->first()->hash)->withErrors('Current password doesn\'t match!');
+        return redirect()->route('admin.settings')->withErrors('Current password doesn\'t match!');
     }
     
     public function update_email_send_token(Request $request)
@@ -49,6 +49,7 @@ class AdminController extends Controller
         $user = $request->user();
 
         $validator = Validator::make($request->all(),[
+            'password' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
         ]);
          
@@ -57,21 +58,31 @@ class AdminController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
-        if ($request->email !== $user->email) {
-            $user->another_email = $request->email;
-            $user->email_token = \Illuminate\Support\Str::random(60);
+        if ( Hash::check($request->password, $user->password) ) {
+            if ($request->email !== $user->email) {
+                $user->another_email = $request->email;
+                $user->email_token = \Illuminate\Support\Str::random(60);
 
-            if ($user->save()) {
-                $user->notify(new AdminEmailChange());
+                if ($user->save()) {
+                    // Fake User (send notification to new email)
+                    (new Admin)->forceFill([
+                        'name' => $user->name,
+                        'email' => $user->another_email,
+                        'another_email' => $user->another_email,
+                        'email_token' => $user->email_token
+                    ])->notify(new AdminEmailChange());
+                    
+                    return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+                }
 
-                return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+            } else {
+                return redirect()->back()->withErrors('Write new email in a box');   
             }
-            
-        } else {
-            return redirect()->back()->withErrors('Write new email in a box');   
+
+            return redirect()->back()->withErrors('Email update failed!');        
         }
         
-        return redirect()->back()->withErrors('Email update failed!');        
+        return redirect()->route('admin.settings')->withErrors('Password doesn\'t match!');
     }
 
     public function update_email(Request $request, string $token) 

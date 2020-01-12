@@ -29,6 +29,18 @@
                                         <label for="email" class="col-form-label">{{ __('A confirmation email will be sent after you click "Save".') }}</label>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="password" class="col-form-label">{{ __('Provide Your Current Password') }}</label>
+                                        <input id="password" type="password" class="form-control @error('current') is-invalid @enderror" name="password" value="" required>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <div class="col-md-2">

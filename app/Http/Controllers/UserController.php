@@ -515,7 +515,7 @@ class UserController extends Controller
                         'email_token' => $user->email_token
                     ])->notify(new UserEmailChange());
 
-                    return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+                    return redirect()->back()->with('success', 'Message sent. Please check your new email inbox.');   
                 }
 
             } else {
