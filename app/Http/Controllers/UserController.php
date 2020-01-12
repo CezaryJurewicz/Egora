@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use App\Events\UserLostVerification;
 use App\Events\UserLeftIlp;
 use App\SearchName;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -315,10 +316,10 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('users.settings', $request->user()->active_search_names->first()->hash)->with('success', 'Password updated!');   
+            return redirect()->route('users.settings', $request->user()->id)->with('success', 'Password updated!');   
         }
         
-        return redirect()->route('users.settings', $request->user()->active_search_names->first()->hash)->withErrors('Current password doesn\'t match!');
+        return redirect()->route('users.settings', $request->user()->id)->withErrors('Current password doesn\'t match!');
     }
     
     public function update_privacy(Request $request, User $user)
@@ -491,6 +492,7 @@ class UserController extends Controller
     public function update_email_send_token(Request $request, User $user)
     {
         $validator = Validator::make($request->all(),[
+            'password' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
         ]);
          
@@ -499,21 +501,31 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
-        if ($request->email !== $user->email) {
-            $user->another_email = $request->email;
-            $user->email_token = \Illuminate\Support\Str::random(60);
+        if ( Hash::check($request->password, $user->password) ) {
+            if ($request->email !== $user->email) {
+                $user->another_email = $request->email;
+                $user->email_token = \Illuminate\Support\Str::random(60);
 
-            if ($user->save()) {
-                $user->notify(new UserEmailChange());
+                if ($user->save()) {
+                    // Fake User (send notification to new email)
+                    (new User)->forceFill([
+                        'name' => $user->name,
+                        'email' => $user->another_email,
+                        'another_email' => $user->another_email,
+                        'email_token' => $user->email_token
+                    ])->notify(new UserEmailChange());
 
-                return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+                    return redirect()->back()->with('success', 'Message sent, please check your current email.');   
+                }
+
+            } else {
+                return redirect()->back()->withErrors('Write new email in a box');   
             }
-            
-        } else {
-            return redirect()->back()->withErrors('Write new email in a box');   
+
+            return redirect()->back()->withErrors('Email update failed!');        
         }
         
-        return redirect()->back()->withErrors('Email update failed!');        
+        return redirect()->route('users.settings', $request->user()->id)->withErrors('Password doesn\'t match!');
     }
 
     public function update_email(Request $request, string $token) 

@@ -68,7 +68,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a class='btn btn-ilp col-md-2 btn-sm' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('Close')}}</a>
+                                <a class='btn btn-ilp col-md-2 btn-sm' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('Close')}}</a>
                             </div>
                         </div>
                     </div>

@@ -66,7 +66,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <a class='btn btn-primary btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->id) }}">{{__('some.Cancel and Close')}}</a>
+                            <a class='btn btn-primary btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('some.Cancel and Close')}}</a>
                         </div>
                         <div class="col-md-3 offset-6">
                             <button type='submit' class='btn btn-ilp btn-block'>{{__('some.Save and Close')}}</button>                            

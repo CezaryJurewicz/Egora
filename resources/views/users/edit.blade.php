@@ -87,7 +87,7 @@
                         
                         <div class="form-group row mt-4">
                             <div class="col-md-2">
-                                <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->id) }}">Back</a>
+                                <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                             </div>
                             <div class="col-md-8 text-center">
                                 <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
