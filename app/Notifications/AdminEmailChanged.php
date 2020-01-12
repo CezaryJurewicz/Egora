@@ -41,9 +41,9 @@ class AdminEmailChanged extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Your email was changed.')
+                    ->line('Please use new email as the login name.')
+                    ->line('Thank you for using Egora!');
     }
 
     /**
