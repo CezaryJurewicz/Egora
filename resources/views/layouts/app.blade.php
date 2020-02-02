@@ -63,16 +63,22 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes')}}">{{ __('Indexes') }}</a>
                             </li>
                             @endif
-
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Meeting::class))
+                            
+                            @if (auth('web')->user() && auth('web')->user()->can('viewAny', App\Meeting::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="/meetings">{{ __('Meetings') }}</a>
                             </li>
+                            @else
+                                @if (auth('admin')->user()->can('viewAny', App\Meeting::class))
+                                <li class="nav-item">
+                                    <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="/meetings/all">{{ __('Meetings') }}</a>
+                                </li>
+                                @endif
                             @endif
                             
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Campaign::class))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'campaigns.index') ? ' active' : '' }}"" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
                             </li>
                             @endif                            
                             

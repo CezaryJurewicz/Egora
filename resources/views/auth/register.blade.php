@@ -9,7 +9,7 @@
                 here all tyrants drown<br/>
                 in the ocean of your collective wisdom.<br/>
                 --------------------------------------------<br/>
-                Cezary Jurewicz, Filosofos Vasileus, International Logic Party<br/>
+                INTERNATIONAL LOGIC PARTY<br/>
                 <br/>
                 3-023
             </div>
