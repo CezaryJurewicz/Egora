@@ -32,7 +32,7 @@
                         <p>Cezary Jurewicz<br/>
                         <i>Filosofos Vasileus</i><br/>
                         <b>International Logic Party</b><br/>
-                        “Transparency is the price of power”</p>
+                        “Transparency is the price of power.”</p>
 
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     @csrf
                     <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
                         I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, am opening 
-                        my petition to become Filosofos tou Dromou of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch's
+                        my petition to become <i>Filosofos tou Dromou</i> of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch's
                         of International Logic Party for the Polis of <input class="line" value="{{ old('polis') ?: '' }}" placeholder=" (your polis)" name="polis">.
                     </div>
                     <div class="row">

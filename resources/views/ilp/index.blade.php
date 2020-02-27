@@ -31,7 +31,7 @@
                         <p>Cezary Jurewicz<br/>
                         <i>Filosofos Vasileus</i><br/>
                         <b>International Logic Party</b><br/>
-                        “Transparency is the price of power”</p>
+                        “Transparency is the price of power.”</p>
 
                         <p>* By declaring yourself as a member of the ILP you permit the ILP to
                         forever maintain the record of your membership. This includes a minimal

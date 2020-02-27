@@ -17,8 +17,8 @@
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body col-md-10 offset-1">
                         <p>Philosopher {{ (auth('web')->user()?:auth('admin')->user())->name }} –</p>
-                        <p>Whether or not you were a philosopher before, now that you are here
-                        ––now that you have an Ideological Profile––you are a philosopher.
+                        <p>Whether or not you were a philosopher before, now that you are here––now 
+                        that you have an Ideological Profile––you are a philosopher.
                         Egora turns everyone who uses it into a philosopher, and we’re all
                         better off for it. Thank you for joining us so that we can make the
                         world a better place by learning from one another.</p>
@@ -43,8 +43,8 @@
                         <i>International Logic Party</i> (ILP). Anyone is able declare themself as
                         a member of the ILP in the Egora if they agree with the Five Party
                         Principles (Home screen, "ILP" button).</li>
-                        <li>Using a simple algorithm, Egora then enables us to cross-
-                        reference the IPs of ILP Members who want to be political
+                        <li>Using a simple algorithm, Egora then enables us to cross-reference 
+                        the IPs of ILP Members who want to be political
                         candidates to the most strongly supported ideas on the IDI. By doing
                         so, we can find political candidates who actually represent what the
                         people want. These candidates then go on to campaign for

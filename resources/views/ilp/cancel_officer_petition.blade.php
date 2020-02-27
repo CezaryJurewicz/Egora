@@ -17,7 +17,7 @@
                     @csrf
                     <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
                         I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, am withdrawing my petition to be 
-                        Filosofos tou Dromou of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch
+                        <i>Filosofos tou Dromou</i> of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch
                         of International Logic Party for the Polis of <input class="line" value="{{ old('polis') ?: auth('web')->user()->petition->polis }}" placeholder=" (your polis)" name="polis">.
                     </div>
                     <div class="row">

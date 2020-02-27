@@ -99,9 +99,9 @@
                             <div class="text-center">
                                 <h4>Egora User Agreement</h4>
                             </div>
-                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u> - hence forth referred to as the “user”
-                            - and the <i>International Logic Party</i> - the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
-                            administration of Egora - enter into an agreement on the following terms.</p>
+                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u>––hence forth referred to as the “user”––and 
+                            the <i>International Logic Party</i>––the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
+                            administration of Egora––enter into an agreement on the following terms.</p>
                         </div>
                         <div class="offset-1 col-md-10 pl-5 pr-5">
                         <ol>
@@ -134,8 +134,8 @@
                                 <div class="collapse" id="collapse2">
                                     <div class="card card-body">
                                         <p>The Egora administration will never investigate or track any of the user’s personal activity in Egora to
-                                        exploit the user in any way nor to share that data with others. Furthermore, to protect your private
-                                        personal activity, we will not cooperate with anyone seeking to violate it, including other governments
+                                        exploit the user in any way nor to share that data with others. Furthermore, to protect the user's private personal 
+                                        activity, we will not cooperate with anyone seeking to violate it, including other governments
                                         and their agencies.</p>
                                     </div>
                                 </div>
@@ -171,8 +171,8 @@
                                     <div class="card card-body">
                                         <p>The user accepts personal responsibility for their own actions while using Egora and pertaining to using
                                         Egora. For example, a user will not hold Egora responsible for the happenings of a real-life meeting
-                                        event that was planned through Egora. Of course, this is not to say that a user cannot hold other users/
-                                        attendees responsible, as specified by the relevant local laws.</p>
+                                        event that was planned through Egora. Of course, this is not to say that a user cannot hold other 
+                                        users/attendees responsible, as specified by the relevant local laws.</p>
                                         <p>Furthermore, the user agrees to abide by fair, local laws in using Egora. If the user is suspected
                                         of being in violation of such laws, all public information within Egora will be available for the
                                         prosecution of the user, and the Egora administration reserves the right to aid external agencies in

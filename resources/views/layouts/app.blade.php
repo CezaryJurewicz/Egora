@@ -48,13 +48,13 @@
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.index')}}">{{ __('All users') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'users.index') ? ' active' : '' }}" href="{{ route('users.index')}}">{{ __('All users') }}</a>
                             </li>
                             @endif
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('administrate', App\Idea::class))
                             <li>
-                                <a class="nav-link" href="{{ route('ideas.index')}}">{{ __('All Ideas') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.index') ? ' active' : '' }}" href="{{ route('ideas.index')}}">{{ __('All Ideas') }}</a>
                             </li>
                             @endif
                             
@@ -66,19 +66,19 @@
                             
                             @if (auth('web')->user() && auth('web')->user()->can('viewAny', App\Meeting::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="/meetings">{{ __('Meetings') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>
                             </li>
                             @else
                                 @if (auth('admin')->user()->can('viewAny', App\Meeting::class))
                                 <li class="nav-item">
-                                    <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="/meetings/all">{{ __('Meetings') }}</a>
+                                    <a class="nav-link{{ (Route::current()->getName() == 'meetings.all') ? ' active' : '' }}" href="{{ route('meetings.all')}}">{{ __('Meetings') }}</a>
                                 </li>
                                 @endif
                             @endif
                             
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Campaign::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ (Route::current()->getName() == 'campaigns.index') ? ' active' : '' }}"" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'campaigns.index' || Route::current()->getName() == 'campaigns.search' ) ? ' active' : '' }}"" href="{{ route('campaigns.index')}}">{{ __('Campaigns') }}</a>
                             </li>
                             @endif                            
                             

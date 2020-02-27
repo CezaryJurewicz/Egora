@@ -98,7 +98,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     
     Route::prefix('/meetings')->name('meetings.')->group(function(){
         Route::get('/', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
-        Route::get('/all', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
+        Route::get('/all', 'MeetingController@index')->name('all')->middleware('can:viewAny,App\Meeting');
         Route::post('/', 'MeetingController@store')->name('store')->middleware('can:create,App\Meeting');
         Route::get('/{meeting}', 'MeetingController@show')->name('view')->middleware('can:view,meeting');
         Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
@@ -151,9 +151,7 @@ Route::middleware(['auth:admin'])->group(function() {
     });
     
     Route::prefix('/meetings')->name('meetings.')->group(function(){
-        Route::get('/all', 'MeetingController@index')->name('index')->middleware('can:viewAny,App\Meeting');
-        Route::delete('/{meeting}', 'MeetingController@destroy')->name('delete')->middleware('can:delete,meeting');
-        Route::put('/{meeting}', 'MeetingController@restore')->name('restore')->middleware('can:restore,App\Meeting');
+        Route::get('/all', 'MeetingController@index')->name('all')->middleware('can:viewAny,App\Meeting');
     });
     
     Route::prefix('/user_types')->name('user_types.')->group(function(){

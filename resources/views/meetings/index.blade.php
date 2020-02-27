@@ -36,7 +36,7 @@
                                 Attendees should communicate with the organizer to ensure
                                 accommodations.</li>
                                 <li><u>Meetings must be free to attend</u>. Suggested places are public
-                                spaces, such as library or university meeting rooms. If a meetings
+                                spaces, such as library or university meeting rooms. If a meeting
                                 takes place in a business location, such as a cafe, no minimum
                                 purchase should be required. Food and drink must not be a
                                 distraction.</li>

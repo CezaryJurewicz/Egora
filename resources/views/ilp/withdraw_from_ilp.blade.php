@@ -21,7 +21,7 @@
                         <p>Cezary Jurewicz<br/>
                         <i>Filosofos Vasileus</i><br/>
                         <b>International Logic Party</b><br/>
-                        “Transparency is the price of power”</p>
+                        “Transparency is the price of power.”</p>
                     </div>
                 </div>
                 <h3 class="mt-5">International Logic Party Principles</h3>
