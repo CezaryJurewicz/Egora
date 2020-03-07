@@ -27,8 +27,10 @@ class ChangeUserType
      */
     public function handle(PetitionSupportersChanged $event)
     {
-        $event->petition->load('supporters');
-
+        $event->petition->load(['supporters'=> function($q) {
+            $q->recent();
+        }]);
+        
         if ($event->petition->supporters->count() >= 23) {
             $type = UserType::where('class', 'officer')
                 ->where('candidate', 0)

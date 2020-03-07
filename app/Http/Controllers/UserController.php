@@ -200,10 +200,13 @@ class UserController extends Controller
         
         $user->load(['liked_ideas' => function($q){
             $q->with(['nation', 'liked_users' => function($q){
+                $q->recent();
                 $q->whereHas('user_type',function($q){
                     $q->where('verified', 1);
                 });
             }]);
+        }, 'petition.supporters' => function($q) {
+            $q->recent();
         }]);
 
         return view('users.ideological_profile')->with(compact('user'));

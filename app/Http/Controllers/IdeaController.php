@@ -99,6 +99,7 @@ class IdeaController extends Controller
                         $q->where('verified', 1);                
                     });
                 }
+                $q->recent();
             }]);
 
             $subSql = 'select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
@@ -109,6 +110,7 @@ class IdeaController extends Controller
             }
 
             $subSql .= ') and `users`.`deleted_at` is null';
+            $subSql .= ' and DATEDIFF(now(), `users`.`last_online_at`) < 23';
 
             $model->selectSub($subSql, 'liked_users_sum');
             

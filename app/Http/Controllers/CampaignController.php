@@ -33,7 +33,7 @@ class CampaignController extends Controller
                         ->withInput()->withErrors($validator);
             }
             
-            $users = User::whereHas('campaign')
+            $users = User::recent()->whereHas('campaign')
                 ->whereHas('nation', function($q) use ($request) {
                     $q->where('title', $request->input('nation'));
                 })->get();
@@ -48,6 +48,7 @@ class CampaignController extends Controller
                             select * from `users` where `idea_user`.`user_id` = `users`.`id` and exists (
                                 select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1
                             ) and `users`.`deleted_at` is null
+                            and DATEDIFF(now(), `users`.`last_online_at`) < 23
                         )
                         group by `idea_user`.`idea_id`
                         order by `position` desc

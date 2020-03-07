@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_online_at' => 'datetime'
     ];
     
     public function isAdmin() 
@@ -128,6 +129,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return (new Carbon($this->updated_at))->diffForHumans();
     }
     
+    public function lastOnlineAtDate()
+    {
+        return (new Carbon($this->last_online_at))->diffForHumans();
+    }
+    
     public function image()
     {
         return $this->morphOne(Media::class, 'mediable');
@@ -142,5 +148,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Idea::class)->withPivot('position', 'order')
                 ->orderBy('pivot_order', 'desc');
+    }
+    
+    public function scopeRecent($query)
+    {
+        return $query->where(\DB::raw('DATEDIFF(now(), `users`.`last_online_at`)'), '<', 23);
     }
 }

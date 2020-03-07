@@ -26,6 +26,10 @@ class UpdatePetitionStatus
      */
     public function handle(PetitionSupportersChanged $event)
     {
+        $event->petition->load(['supporters'=> function($q) {
+            $q->recent();
+        }]);
+        
         if ($event->petition->supporters->count() >= 23) {
             $event->petition->finished = true;
         } else {

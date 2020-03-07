@@ -45,7 +45,8 @@
                                     <!--<th scope="col">{{ __('tables.Email')}}</th>-->
                                     <th scope="col">{{ __('tables.Ideas')}}</th>
                                     <th scope="col">{{ __('tables.Created')}}</th>
-                                    <th scope="col">{{ __('tables.Updated')}}</th>
+                                    <!--<th scope="col">{{ __('tables.Updated')}}</th>-->
+                                    <th scope="col">{{ __('tables.Last Online At')}}</th>
                                     <th scope="col">{{ __('tables.Actions')}}</th>
                                 </tr>
                             </thead>
@@ -75,7 +76,8 @@
                                         @endif
                                     </td>
                                     <td>{{ $user->createdDate() }}</td>
-                                    <td>{{ $user->updatedDate() }}</td>
+                                    <!--<td>{{ $user->updatedDate() }}</td>-->
+                                    <td>{{ $user->lastOnlineAtDate() }}</td>
                                     <td>
                                         @if (!$user->trashed())
                                         <a class="btn btn-sm btn-primary" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>

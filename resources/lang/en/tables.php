@@ -32,5 +32,6 @@ return [
     'Points' => 'Points',
     'Search Name' => 'Search Name',
     'User Category' => 'User Category',
+    'Last Online At' => 'Last Online At'
 
 ];
