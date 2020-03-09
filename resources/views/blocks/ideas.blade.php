@@ -40,6 +40,7 @@
                                     @endif
                                 </div>
                             </div>
+                            @include('blocks.debug.users',['users' => $idea->liked_users])
                         </div>
                         <div class="card">
                             <div class="card-body">

@@ -193,7 +193,7 @@ class UserController extends Controller
         return view('users.view')->with(compact('user'));
     }
     
-    public function ideological_profile($hash)
+    public function ideological_profile(Request $request, $hash)
     {
         $searchname = SearchName::where('hash', $hash)->get()->first();
         $user = $searchname->user;
@@ -212,14 +212,17 @@ class UserController extends Controller
         return view('users.ideological_profile')->with(compact('user'));
     }
     
-    public function profile(User $user)
+    public function profile(Request $request, User $user)
     {
         $user->load(['liked_ideas' => function($q){
             $q->with(['nation', 'liked_users' => function($q){
+                $q->recent();
                 $q->whereHas('user_type',function($q){
                     $q->where('verified', 1);
                 });
             }]);
+        }, 'petition.supporters' => function($q) {
+            $q->recent();
         }]);
 
         return view('users.ideological_profile')->with(compact('user'));

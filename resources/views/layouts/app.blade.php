@@ -58,7 +58,7 @@
                             </li>
                             @endif
                             
-                            @if (auth('web')->user() && auth('web')->user()->can('viewAny', App\Idea::class))
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes')}}">{{ __('Indexes') }}</a>
                             </li>

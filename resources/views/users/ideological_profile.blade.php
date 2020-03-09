@@ -134,6 +134,7 @@
                                                 </div>
                                                 <div class="offset-1 col-md-4">
                                                 IDI Points: {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                @include('blocks.debug.users',['users' => $idea->liked_users])
                                                 </div>
                                             </div>
                                         </div>

@@ -123,10 +123,21 @@ class IdeaController extends Controller
                 $model->orderBy('liked_users_count', 'desc');
             }
 
+            $model->with(['liked_users' => function($q) use ($request) {
+                if (!$request->input('unverified')) {
+                    $q->whereHas('user_type', function($q){
+                        $q->where('verified', 1);                
+                    });
+                }
+                $q->recent();
+            }]);
+            
             $ideas = $model->paginate(100);
-        
+
         } else {
-            $relevance = $request->user()->nation->id;
+            if (isset($request->user()->nation)) {
+                $relevance = $request->user()->nation->id;
+            }
         }
         
         return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
@@ -191,8 +202,10 @@ class IdeaController extends Controller
         if ($nation) {
             $result[$nation->title] = $nation->id;
         }
-
-        $result[$request->user()->nation->title] = $request->user()->nation->id;
+        
+        if (isset($request->user()->nation)) {
+            $result[$request->user()->nation->title] = $request->user()->nation->id;
+        }
         $result['-'] = 0;
         
         if ($view == 'ideas.popularity_indexes') {
