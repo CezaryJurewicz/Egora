@@ -26,5 +26,6 @@ return [
     'The address may not be greater than 192 characters.' => 'The address may not be greater than 192 characters.',
     'The contacts may not be greater than 230 characters.' => 'The contacts may not be greater than 230 characters.',
     'The topic may not be greater than 230 characters.' => 'The topic may not be greater than 230 characters.',
-    'Password doesn\'t match!' => 'Password doesn\'t match!'
+    'Password doesn\'t match!' => 'Password doesn\'t match!',
+    'validation.unique_position' => 'Selected position is used already.'
 ];

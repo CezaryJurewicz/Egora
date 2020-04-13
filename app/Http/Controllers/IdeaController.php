@@ -7,6 +7,7 @@ use App\Nation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\IdeaSupportHasChanged;
+use Illuminate\Validation\Rule;
 
 class IdeaController extends Controller
 {
@@ -275,7 +276,8 @@ class IdeaController extends Controller
         $validator = Validator::make($request->all(),[
             'content' => 'required|string|max:23000',
             'nation' => 'required|integer|in:'.implode(',',$nations->toArray()),
-            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46'],
+            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
+                        'unique_position:'.$request->user()->id ],
         ], [
             'content.max' => 'An idea may not be greater than 23,000 characters.'
         ]);
@@ -291,7 +293,6 @@ class IdeaController extends Controller
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
-//                dd(strlen($request->content));
 
         $idea = new Idea([
             'content' => $this->_starting_space($request, 'content').$request->input('content'),

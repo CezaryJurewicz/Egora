@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        
+        Validator::extend('unique_position', function($attribute, $value, $parameters)
+        {
+            return DB::table('idea_user')
+                ->where('order', $value)
+                ->where('user_id', $parameters[0])
+                ->count()<1;
+        });
     }
 }
