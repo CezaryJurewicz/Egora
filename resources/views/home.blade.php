@@ -71,7 +71,7 @@
                         whatever you can to help us finish Egora. Every donation counts, no
                         matter how small.</p>
 
-                        <center><a href="https://GoFundMe.com/Egora-ILP23">GoFundMe.com/Egora-ILP23</a></center>
+                        <center><a href="https://GoFundMe.com/EgoraILP">GoFundMe.com/EgoraILP</a></center>
                         <br/>
                         
                         <p>In any case, we appreciate all else you do for our cause, whether
