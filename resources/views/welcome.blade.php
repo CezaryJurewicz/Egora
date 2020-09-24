@@ -18,7 +18,7 @@
 <body>
     <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 800px;">
         <a href="{{ route('register') }}">
-            <img src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
+            <img class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
         </a>
     </div>
     <div id="app">
