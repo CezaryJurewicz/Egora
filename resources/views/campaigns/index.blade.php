@@ -36,7 +36,7 @@
                             ideas with the most IDI Points.</p>
                             <center>
                                 <p>Please support our work in making Egora everything it can be: <br>
-                                <a href="https://GoFundMe.com/EgoraILP">GoFundMe.com/EgoraILP</a></p>                                
+                                <a href="https://GoFundMe.com/EgoraILP23">GoFundMe.com/EgoraILP23</a></p>                                
                             </center>
                             
                         </div>
