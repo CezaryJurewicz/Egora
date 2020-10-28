@@ -49,6 +49,9 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/users')->name('users.')->group(function(){
         Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
         Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
+        Route::get('/{hash}/about', 'UserController@about')->name('about')->middleware('can:ideological_profile,App\User,hash');
+        Route::get('/{hash}/about_edit', 'UserController@about_edit')->name('about_edit')->middleware('can:about_edit,App\User,hash');
+        Route::post('/{hash}/about', 'UserController@about_store')->name('about_store')->middleware('can:about_edit,App\User,hash');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:update,user');
         Route::post('/{user}/name', 'UserController@update_name')->name('update_name')->middleware('can:update,user');
         Route::post('/{user}/nation', 'UserController@update_nation')->name('update_nation')->middleware('can:update,user');

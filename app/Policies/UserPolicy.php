@@ -84,6 +84,19 @@ class UserPolicy
         
         return $this->deny();
     }
+    
+    public function about_edit(User $user, $hash)
+    {
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+
+            return $model->id == $user->id;
+        }
+        
+        return $this->deny();
+    }
 
     /**
      * Determine whether the user can create models.

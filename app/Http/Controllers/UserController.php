@@ -212,6 +212,57 @@ class UserController extends Controller
         return view('users.ideological_profile')->with(compact('user'));
     }
     
+    
+    public function about(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        $user->load(['petition.supporters' => function($q) {
+            $q->recent();
+        }]);
+        
+        return view('users.about')->with(compact('user','hash'));
+    }
+
+    public function about_edit(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        $user->load(['petition.supporters' => function($q) {
+            $q->recent();
+        }]);
+        
+        $content = $user->about_me;
+        
+        return view('users.about_edit')->with(compact('user','hash', 'content'));
+    }
+    
+    public function about_store(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        $validator = Validator::make($request->all(),[
+            'content' => ['required', 'string']
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        if ( $request->has('content') ) {
+            $user->about_me = $request->content;
+            $user->save();
+
+            return redirect()->route('users.about', $hash)->with('success', 'Information updated!');   
+        }
+        
+        return redirect()->route('users.about', $hash)->withErrors('Information update failed!');
+    }
+    
     public function profile(Request $request, User $user)
     {
         $user->load(['liked_ideas' => function($q){

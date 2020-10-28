@@ -2,6 +2,7 @@
 
 return [
 
+    'About Me' => 'About Me',
     'Settings' => 'Settings',
     'Users' => 'Users',
     'User Search' => 'User Search',
