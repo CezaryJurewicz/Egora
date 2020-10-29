@@ -36,8 +36,25 @@
                 <form action="{{ route('users.withdraw_from_ilp_process', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
-                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, withdraw and forever forfeit my membership in the International Logic Party.
+                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name" autocomplete="off">, withdraw and forever forfeit my membership in the International Logic Party.
                     </div>
+                    
+                    <div class="col-md-10 offset-1 mt-5 mb-5">
+                        <div class="form-group row">
+                            <label for="password" class="col-md-2 col-form-label text-md-left">{{ __('Confirm Password:') }}</label>
+
+                            <div class="col-md-8">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required>
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-md-3">
                             <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('some.Cancel and Close')}}</a>

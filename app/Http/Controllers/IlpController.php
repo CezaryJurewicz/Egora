@@ -10,6 +10,7 @@ use App\Petition;
 use App\Events\PetitionSupportersChanged;
 use App\Events\UserLeftIlp;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class IlpController extends Controller
 {
@@ -200,6 +201,7 @@ class IlpController extends Controller
         
         $validator = Validator::make($request->all(),[
             'name' => 'required|in:'.$name,
+            'password' => ['required', 'string'],
         ]);
         
         if ($validator->fails()) {
@@ -207,17 +209,20 @@ class IlpController extends Controller
                         ->withInput()->withErrors($validator);
             }
         
+        if ( Hash::check($request->password, $user->password) ) {
+            $type = UserType::where('class', 'member')
+                ->where('verified', $user->user_type->verified)
+                ->where('former', 1)
+                ->first();
+
+            $user->user_type()->associate($type);
+            $user->save();
+
+            event(new UserLeftIlp($user));
+
+            return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', 'Withdrawn from ILP.');           
+        }
         
-        $type = UserType::where('class', 'member')
-            ->where('verified', $user->user_type->verified)
-            ->where('former', 1)
-            ->first();
-        
-        $user->user_type()->associate($type);
-        $user->save();
-        
-        event(new UserLeftIlp($user));
-        
-        return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', 'Withdrawn from ILP.');           
+        return redirect()->back()->withErrors('Password doesn\'t match!');
     }
 }
