@@ -27,5 +27,6 @@ return [
     'The contacts may not be greater than 230 characters.' => 'The contacts may not be greater than 230 characters.',
     'The topic may not be greater than 230 characters.' => 'The topic may not be greater than 230 characters.',
     'Password doesn\'t match!' => 'Password doesn\'t match!',
-    'validation.unique_position' => 'Selected position is used already.'
+    'validation.unique_position' => 'Selected position is used already.',
+    'As a candidate, you are not allowed to change name currently.' => 'You are not able to change your name as a candidate, unless you  are an ILP officer. To change your name, either become an ILP officer or withdraw your nomination  campaign.'
 ];

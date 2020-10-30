@@ -304,7 +304,14 @@ class UserController extends Controller
         $searchName = $user->active_search_names->first();
         
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 
+                function ($attribute, $value, $fail) use ($request, $user) {                    
+                    if ($request->user()->id == $user->id && !$user->user_type->isOfficer 
+                            && !is_null($user->campaign) && $user->name !== $value )
+                    {
+                        $fail('As a candidate, you are not allowed to change '.$attribute.' currently.');
+                    }
+                }],
             'current_password' => ['required', 'password'],
             'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,
             'contacts' => ['nullable', 'string', 'max:230'],
