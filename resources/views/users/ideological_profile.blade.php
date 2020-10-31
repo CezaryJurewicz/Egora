@@ -64,9 +64,15 @@
                                                 <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
-                                                <div class="offset-1 col-md-4">
-                                                IDI Points: {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                <div class="offset-1 col-md-2">
+                                                IDI Points: <br/>
+                                                Supporters:
                                                 @include('blocks.debug.users',['users' => $idea->liked_users])
+                                                </div>
+                                                <div class="col-md-2">
+                                                {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                <br/>
+                                                {{ number_format($idea->liked_users->count()) }}
                                                 </div>
                                             </div>
                                         </div>
