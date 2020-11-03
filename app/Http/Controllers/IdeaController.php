@@ -250,6 +250,17 @@ class IdeaController extends Controller
         
         return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position'));
     }
+    
+    public function copy(Request $request, Idea $idea)
+    {        
+        $nations = $this->_user_nation($request);
+        
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        
+        $text = $idea->content;
+        
+        return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position', 'text'));
+    }
 
     /**
      * Return leading space to content

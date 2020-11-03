@@ -8,7 +8,7 @@
                 <h3>@lang('Create New Idea')</h3>
             </div>
             <div class="row col-md-3 mb-3">
-                <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                <a class='btn btn-primary btn-sm btn-block' href="javascript:history.back()">{{__('some.Cancel and Close')}}</a>
             </div>
             
             <form id="register" method="POST" action="{{ route('ideas.store') }}">
@@ -39,7 +39,7 @@
                 <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="10" required autocomplete="content" autofocus>{{ old('content') }}</textarea>
+                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="10" required autocomplete="content" autofocus>{{ old('content') ?: $text ?? '' }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -74,12 +74,12 @@
                                     {{ __('Save & Close') }}
                                 </button>
                             </div>
-                        </div>
+                        </div>  
                 </div>
             </div>                
             </form>
             <div class="row col-md-3 mb-3 mt-3">
-                <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                <a class='btn btn-primary btn-sm btn-block' href="javascript:history.back()">{{__('some.Cancel and Close')}}</a>
             </div>
             
         </div>

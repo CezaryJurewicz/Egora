@@ -25,8 +25,19 @@
                 </div>
                 
                 @if (auth('web')->check())
-                <div class="row col-md-3 mb-3">
-                    <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                    </div>
+                    <div class="offset-6 col-md-3 mb-3">
+                        <form id="copy" method="POST" action="{{ route('ideas.copy', $idea) }}">
+                        @csrf
+
+
+                        
+                        <button class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</button>
+                        </form>
+                    </div>
                 </div>
                 @endif
                 <div class="card">

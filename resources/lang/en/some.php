@@ -20,6 +20,7 @@ return [
     'Save and Close' => 'Save and Close',
     'Remove and Close' => 'Remove and Close',
     'Cancel and Close' => 'Cancel and Close',
+    'Copy and Edit' => 'Copy and Edit',
     'Generate' => 'Generate',
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
