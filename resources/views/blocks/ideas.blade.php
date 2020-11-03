@@ -44,7 +44,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! shorten_text($idea->content) !!}
+                                {!! make_clickable_links(shorten_text($idea->content)) !!}
                             </div>
                         </div>
                     </div>

@@ -77,7 +77,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            {!! shorten_text($idea->content) !!}
+                                            {!! make_clickable_links(shorten_text($idea->content)) !!}
                                         </div>
                                     </div>
                                     @endforeach
