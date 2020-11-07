@@ -221,21 +221,8 @@ class IdeaController extends Controller
     
     private function _numbers_zeros(Request $request, $ideas, $idea=null)
     {
-        $numbered = [];
-        $current_idea_position = null;
-        foreach($ideas as $i) 
-        {
-            $position = ($i->pivot) ? $i->pivot->order: $i->position;
-            $numbered[] = $position;
-            
-            if($idea && $i->id == $idea->id) {
-                $current_idea_position = $i->pivot->order;
-            }
-        }
-        
-        return [$numbered, $current_idea_position];
+        return ip_used_places($ideas, $idea);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -262,6 +249,53 @@ class IdeaController extends Controller
         return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position', 'text'));
     }
 
+    public function move(Request $request, Idea $idea)
+    {
+        $validator = Validator::make($request->all(),[
+                'd' => ['required', Rule::in([1, -1]),],
+            ]);
+
+        
+        $all = ip_places();
+        list($used, $current) = ip_used_places($request->user()->liked_ideas,$idea);
+        $unused = array_diff($all, $used);
+        
+        $order = false;
+        if ($request->input('d') == 1) {
+            foreach($unused as $place) {
+                $order = $place > $current ? $place: $order;
+            }
+        }
+        
+        if ($request->input('d') == -1) {
+            foreach($unused as $place) {
+                if (!$order) {
+                    $order = $place < $current ? $place: $order;
+                }
+            }
+        }
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        if ($order) {
+            if ($order>23) {
+                $position = $order-23;
+            } else {
+                $position = 0;
+            }
+
+            $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
+
+            return redirect()->back()->with('success', 'Idea position updated.');
+        }
+        
+        return redirect()->back()->withError('Please check input.');
+    }
+    
+    
     /**
      * Return leading space to content
      */

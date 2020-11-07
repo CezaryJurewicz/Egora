@@ -59,8 +59,23 @@
                                     <div class="card mb-3">
                                         <div class="card-header">
                                             <div class="row">
-                                                <div class="col-md-1 pr-0"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
-                                                <div class="col-md-4">{{$idea->nation->title}} </div>
+                                                <div class="col-md-1">
+                                                    @php
+                                                        list($up, $down) = ip_has_place($user->liked_ideas, $idea)
+                                                    @endphp
+                                                    @if ($up)
+                                                    <a href="{{ route('ideas.move', [$idea->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
+                                                    <i class="fa fa-chevron-up pt-1"></i>
+                                                    </a>
+                                                    @endif
+                                                    @if ($down)
+                                                    <a href="{{ route('ideas.move', [$idea->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
+                                                    <i class="fa fa-chevron-down pt-1"></i>
+                                                    </a>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-1"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
+                                                <div class="col-md-3">{{$idea->nation->title}} </div>
                                                 <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>

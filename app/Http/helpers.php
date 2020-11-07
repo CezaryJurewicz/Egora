@@ -33,5 +33,47 @@ function shorten_text($text, $limit = 92)
 }
 
 function make_clickable_links($text) {
-  return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
+    return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
+}
+
+function ip_used_places($ideas, $idea=null) {
+    $numbered = [];
+    $current_idea_position = null;
+    foreach($ideas as $i) 
+    {
+        $position = ($i->pivot) ? $i->pivot->order: $i->position;
+        $numbered[] = $position;
+
+        if($idea && $i->id == $idea->id) {
+            $current_idea_position = $position;
+        }
+    }
+
+    return [$numbered, $current_idea_position];
+}
+
+function ip_places() {
+    $places = [];
+    
+    for($i=46;$i>=1;$i--){
+        $places[] = $i;
+    }
+    
+    return $places;
+}
+
+function ip_has_place($ideas, $idea) {
+    $all = ip_places();
+    list($used, $current) = ip_used_places($ideas,$idea);
+    $unused = array_diff($all, $used);
+    
+    $up = false;
+    $down = false;
+    
+    foreach($unused as $place) {
+        $up = $place > $current ?: $up;
+        $down = $place < $current ?: $down;
+    }
+    
+    return [$up, $down];
 }

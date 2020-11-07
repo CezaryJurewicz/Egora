@@ -41,6 +41,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::match(['get', 'post'],'/indexes/popularity', 'IdeaController@popularity_indexes')->name('popularity_indexes')->middleware('can:viewAny,App\Idea');
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
         Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
+        Route::get('/{idea}/move', 'IdeaController@move')->name('move')->middleware('can:create,App\Idea');
         Route::post('/{idea}/copy', 'IdeaController@copy')->name('copy')->middleware('can:create,App\Idea');
         Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
         Route::post('/{idea}/like', 'IdeaController@like')->name('like')->middleware('can:like,idea')->where('idea', '[0-9]+');
