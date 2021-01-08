@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->following->pluck('pivot.user_id')->contains($user->id);
     }
-    
+        
     public function following()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
@@ -153,5 +153,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeRecent($query)
     {
         return $query->where(\DB::raw('DATEDIFF(now(), `users`.`last_online_at`)'), '<', 23);
+    }
+    
+    public function user_notifications()
+    {
+        return $this->belongsToMany(User::class, 'notifications', 'sender_id', 'receiver_id')
+                ->withPivot( 'idea_id', 'notification_id', 'viewed', 'notification_preset_id', 'created_at')
+                ->orderBy('pivot_created_at', 'desc');
+
+    }
+    
+    public function user_received_notifications()
+    {
+        return $this->belongsToMany(User::class, 'notifications', 'receiver_id', 'sender_id')
+                ->withPivot( 'idea_id', 'notification_id', 'viewed', 'notification_preset_id', 'created_at')
+                ->orderBy('pivot_created_at', 'desc');
+
     }
 }

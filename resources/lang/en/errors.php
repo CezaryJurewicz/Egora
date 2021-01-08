@@ -28,5 +28,13 @@ return [
     'The topic may not be greater than 230 characters.' => 'The topic may not be greater than 230 characters.',
     'Password doesn\'t match!' => 'Password doesn\'t match!',
     'validation.unique_position' => 'Selected position is used already.',
-    'As a candidate, you are not allowed to change name currently.' => 'You are not able to change your name as a candidate, unless you  are an ILP officer. To change your name, either become an ILP officer or withdraw your nomination  campaign.'
+    'As a candidate, you are not allowed to change name currently.' => 'You are not able to change your name as a candidate, unless you  are an ILP officer. To change your name, either become an ILP officer or withdraw your nomination  campaign.',
+    'You don\'t have such idea in your Ideological Profile.' => 'You don\'t have such idea in your Ideological Profile.',
+    'You not following the user.' =>'You not following the user.',
+    'The selected idea id is invalid.' => 'The selected idea id is invalid.',
+    'Invitation sent.' => 'Invitation sent.',
+    'Notification already exists.' => 'Notification already exists.',
+    'The user is already supporting the idea.' => 'The user is already supporting the idea.',
+    'The preset id field is required.' => 'The preset id field is required.',
+    'The notification id field is required.' => 'The notification id field is required.'
 ];

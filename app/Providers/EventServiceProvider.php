@@ -42,6 +42,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserLostVerification' => [
             'App\Listeners\RemoveOfficerPetitionSupport',            
+        ],
+        'App\Events\UserInvitedToIdea' => [
+            'App\Listeners\SendUserNotificationEmail',
+        ],
+        'App\Events\UserRespondedToInvitation' => [
+            'App\Listeners\SendResponseNotificationEmail',
         ]
     ];
 

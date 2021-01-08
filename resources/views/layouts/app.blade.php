@@ -39,6 +39,12 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) == auth('web')->user()->active_search_names->first()->hash) ? ' active' : '' }}" href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash)}}">{{ __('Home') }}</a>
                             </li>
                             @endif                        
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Notification::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Notifications') }}</a>
+                            </li>
+                            @endif                        
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
                             <li class="nav-item">

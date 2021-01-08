@@ -17,3 +17,4 @@ require('./components/Suggestions');
 require('./components/Search');
 require('./components/Date');
 require('./components/Time');
+require('./components/CopyLink');

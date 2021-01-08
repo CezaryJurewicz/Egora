@@ -55,6 +55,19 @@ class IdeaPolicy
         return $this->allow();
     }
     
+    public function invite_examine(User $user, Idea $idea, $notification) 
+    {
+        return (!isset($notification));
+        
+        // only allow invite for ideas in IP
+        // return $user->liked_ideas->contains($idea) && (!isset($notification));
+    }
+    
+    public function invite_response(User $user, Idea $idea) 
+    {
+        return $user->user_received_notifications->pluck('pivot.idea_id')->contains($idea->id);
+    }
+    
     public function unlike(User $user, Idea $idea)
     {
         return $this->allow();

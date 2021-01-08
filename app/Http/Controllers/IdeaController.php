@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\IdeaSupportHasChanged;
 use Illuminate\Validation\Rule;
+use App\NotificationPreset;
 
 class IdeaController extends Controller
 {
@@ -363,6 +364,15 @@ class IdeaController extends Controller
      */
     public function show(Request $request, Idea $idea)
     {
+        $validator = Validator::make($request->all(),[
+            'notification_id' => ['exists:notifications,id'],
+            ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
         if (auth()->guard('web')->check()) {
             list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
         } else {
@@ -378,7 +388,14 @@ class IdeaController extends Controller
             }
         }
         
-        return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position'));
+        $presets = NotificationPreset::all();
+        
+        $notification = null;
+        if($request->has('notification_id')) {
+            $notification = \App\Notification::findOrFail($request->input('notification_id'));
+        }
+        
+        return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
     }
 
     /**

@@ -19,7 +19,9 @@ use Carbon\Carbon;
 use App\Events\UserLostVerification;
 use App\Events\UserLeftIlp;
 use App\SearchName;
-use Illuminate\Support\Facades\Notification;
+use App\Idea;
+use App\Notification as NotificationModel;
+use App\Events\UserInvitedToIdea;
 
 class UserController extends Controller
 {
@@ -626,5 +628,57 @@ class UserController extends Controller
     public function verification_id_image(Request $request, User $user)
     {
         return view('users.verification_id_image')->with(compact('user'));
+    }
+    
+    public function invite(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'idea_id' => ['required', 'exists:ideas,id',
+                function ($attribute, $value, $fail) use ($request, $user) {
+                    $idea = Idea::findOrFail($value);
+            
+                    if ( !$request->user()->following->contains($user))
+                    {
+                        $fail('You not following the user.');
+                    }
+                    // Idea in IP                 
+                    //if ( !$request->user()->liked_ideas->contains($idea))
+                    //{
+                    //    $fail('You don\'t have such idea in your Ideological Profile.');
+                    //}
+                    
+                    if ( $user->liked_ideas->contains($idea))
+                    {
+                        $fail('The user is already supporting the idea.');
+                    }
+                    
+                    if ($request->user()->user_notifications->contains(function ($value, $key) use ($user, $idea){
+                            return $value->pivot->receiver_id == $user->id && 
+                                $value->pivot->idea_id == $idea->id;
+                    }))
+                    {
+                        $fail('Notification already exists.');
+                    }
+                    
+                }],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $idea = Idea::findOrFail($request->idea_id);
+        
+        $notification = new NotificationModel();
+        $notification->sender()->associate($request->user());
+        $notification->receiver()->associate($user);
+        $notification->idea()->associate($idea);
+        $notification->save();
+        
+        event(new UserInvitedToIdea($notification));
+        
+        return redirect()->back()->with('success', 'Invitation sent.');
+        
     }
 }

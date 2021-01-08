@@ -216,5 +216,11 @@ class UserPolicy
     public function withdraw_from_ilp(User $user, User $model) 
     {
         return $user->id == $model->id && $model->user_type->isIlp;
-    }
+    }    
+    
+    public function invite(User $user, User $model) 
+    {
+        // TODO: add logic
+        return $this->allow();
+    }    
 }

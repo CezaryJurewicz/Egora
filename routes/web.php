@@ -26,6 +26,12 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
     });
     
+    Route::prefix('/notification')->name('notifications.')->group(function(){
+        Route::get('/', 'NotificationController@index')->name('index');
+        Route::post('/', 'NotificationController@store')->name('store')->middleware('can:create,App\Notification');
+        Route::delete('/{notification}', 'NotificationController@destroy')->name('delete')->middleware('can:delete,notification');
+    });
+    
     Route::prefix('/media')->name('media.')->group(function(){
         Route::post('/store/{user}', 'MediaController@store')->name('store')->middleware('can:create,App\Media,user');
         Route::post('/verification', 'MediaController@verification')->name('verification')->middleware('can:verification,App\Media');
@@ -76,6 +82,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
         Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
+        Route::post('/{user}/invite', 'UserController@invite')->name('invite')->middleware('can:invite,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){

@@ -32,9 +32,6 @@
                     <div class="offset-6 col-md-3 mb-3">
                         <form id="copy" method="POST" action="{{ route('ideas.copy', $idea) }}">
                         @csrf
-
-
-                        
                         <button class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</button>
                         </form>
                     </div>
@@ -64,6 +61,12 @@
                         @include('blocks.like')
                     </div>
                 
+                    <div class="card-body">
+                        @include('blocks.invite_examine')
+                    </div>
+                    <div class="card-body">
+                        @include('blocks.invite_response')
+                    </div>
                 </div>
                 
                 @if (auth('web')->check())
