@@ -64,7 +64,7 @@
                         <!--<p>@lang('ideas.No ideas found')</p>-->
                     @endforelse
                     
-                    {{  $rows->appends(compact('search', 'relevance', 'unverified', 'nation'))->render() }}
+                    {{  $rows->render() }}
                 </div>
             </div>
         </div>
