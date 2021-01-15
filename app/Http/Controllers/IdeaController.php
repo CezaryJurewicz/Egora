@@ -29,6 +29,7 @@ class IdeaController extends Controller
         $ideas = collect();
         $search = null;
         $relevance = null;
+        $community = null;
         $nation = null;
         $unverified = null;
         $nations = $this->_nation_select($request, $view);
@@ -38,13 +39,21 @@ class IdeaController extends Controller
         $model = Idea::query();
         if (!empty($request->all()))
         {
-            $validator = Validator::make($request->all(),[
-                'search' => 'nullable|min:3|string',
-                'relevance' => ['nullable', 'numeric', 'required_without:nation'],
-                'nation' => 'nullable|exists:nations,title|required_without:relevance',
-                'unverified' => 'nullable|boolean',
-            ]);
-
+            if (is_egora()) {
+                $validator = Validator::make($request->all(),[
+                    'search' => 'nullable|min:3|string',
+                    'relevance' => ['nullable', 'numeric', 'required_without:nation'],
+                    'nation' => 'nullable|exists:nations,title|required_without:relevance',
+                    'unverified' => 'nullable|boolean',
+                ]);
+            } else if (is_egora('community')) {
+                $validator = Validator::make($request->all(),[
+                    'search' => 'nullable|min:3|string',
+                    'community' => ['nullable', 'numeric'],
+                    'unverified' => 'nullable|boolean',
+                ]);
+            }
+            
             if ($validator->fails()) {
                 return redirect()->back()
                         ->withInput()->withErrors($validator);
@@ -65,27 +74,40 @@ class IdeaController extends Controller
             $search = $request->input('search');
             $relevance = $request->input('relevance');
             $nation = $request->input('nation');
+            $community = $request->input('community');
             
-            $model->where(function($q) use ($search, $relevance, $nation){
+            $model->where(function($q) use ($request, $community, $search, $relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
                 }
                 
-                $q->where(function($q) use ($relevance, $nation){
-                    if($relevance && $relevance != -1) {
-                        $q->where('nation_id', $relevance);
-                    } else if ($relevance && $relevance == -1) {
-                        $egora = Nation::where('title', 'Egora')->first();
-                        $q->where('nation_id', '<>', $egora->id);
-                    }
+                if (is_egora()) {
+                    $q->where(function($q) use ($relevance, $nation){
+                        if($relevance && $relevance != -1) {
+                            $q->where('nation_id', $relevance);
+                        } else if ($relevance && $relevance == -1) {
+                            $egora = Nation::where('title', 'Egora')->first();
+                            $q->where('nation_id', '<>', $egora->id);
+                        }
+
+                        if($nation) {
+                            $q->orWhereHas('nation', function($q) use ($nation) {
+                                $q->where('title', 'like', $nation.'%');
+                            });
+                        }
+                    });
+                } elseif (is_egora('community')) {
+                    $q->where(function($q) use ($community, $request){
+                        if($community && $community != 0) {
+                            $q->where('community_id', $community);
+                        } else {
+                            $q->whereIn('community_id', $request->user()->communities->pluck('id'));                
+                        }
+                    });
                     
-                    if($nation) {
-                        $q->orWhereHas('nation', function($q) use ($nation) {
-                            $q->where('title', 'like', $nation.'%');
-                        });
-                    }
-                });
+                }
                 
+                $q->where('egora_id', current_egora_id());                
             });
             
             if (!$request->input('unverified')) {
@@ -137,12 +159,14 @@ class IdeaController extends Controller
             $ideas = $model->paginate(100);
 
         } else {
-            if (isset($request->user()->nation)) {
+            if (is_egora() && isset($request->user()->nation)) {
                 $relevance = $request->user()->nation->id;
             }
         }
         
-        return view($view)->with(compact('ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation'));
+        $user = $request->user();
+        
+        return view($view)->with(compact('user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community'));
     }
     
     public function indexes(Request $request)
@@ -233,21 +257,39 @@ class IdeaController extends Controller
     public function create(Request $request)
     {        
         $nations = $this->_user_nation($request);
+        $community_id = null;
         
-        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        if(is_egora()) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+        } else if(is_egora('community')) {
+            $community_id = $request->community_id;
+            $ideas = $request->user()->liked_ideas->where('community_id', $request->community_id);
+        }
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
         
-        return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position'));
+        $user = $request->user();
+        
+        return view('ideas.create')->with(compact('community_id', 'user', 'nations', 'numbered', 'current_idea_position'));
     }
     
     public function copy(Request $request, Idea $idea)
     {        
         $nations = $this->_user_nation($request);
+        $community_id = null;
         
-        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas);
+        if(is_egora()) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+        } else if(is_egora('community')) {
+            $community_id = $request->community_id;
+            $ideas = $request->user()->liked_ideas->where('community_id', $request->community_id);
+        }
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
         
         $text = $idea->content;
-        
-        return view('ideas.create')->with(compact('nations', 'numbered', 'current_idea_position', 'text'));
+
+        $user = $request->user();
+
+        return view('ideas.create')->with(compact('community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
     }
 
     public function move(Request $request, Idea $idea)
@@ -321,9 +363,12 @@ class IdeaController extends Controller
         
         $validator = Validator::make($request->all(),[
             'content' => 'required|string|max:23000',
-            'nation' => 'required|integer|in:'.implode(',',$nations->toArray()),
+            'nation' => 'required_without:community|integer|in:'.implode(',',$nations->toArray()),
+            'community' => 'required_without:nation|integer|in:'.implode(',',$request->user()->communities->pluck('id')->toArray()),
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
-                        'unique_position:'.$request->user()->id ],
+                        // fix this for communities
+                //        'unique_position:'.$request->user()->id 
+                ],
         ], [
             'content.max' => 'An idea may not be greater than 23,000 characters.'
         ]);
@@ -342,18 +387,28 @@ class IdeaController extends Controller
 
         $idea = new Idea([
             'content' => $this->_starting_space($request, 'content').$request->input('content'),
-//            'position' => $position,
+            'egora_id' => current_egora_id(),
         ]);
                 
         $idea->user()->associate($request->user()->id);
-        $idea->nation()->associate($request->input('nation'));
+        
+        if(is_egora()) {
+            $idea->nation()->associate($request->input('nation'));
+        } else if (is_egora('community')) {
+            $idea->community()->associate($request->input('community'));
+        }
         
         $idea->save();
         
-        $request->user()->liked_ideas()->syncWithoutDetaching($idea);
-        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
+        $arr =  ['position'=>$position, 'order' => $order];
+        if (is_egora('community')) {
+            $arr['community_id'] = $request->input('community');
+        }
+        
+        $request->user()->liked_ideas()->syncWithoutDetaching($idea);        
+        $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
 
-        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'New Idea created');   
+        return redirect()->route('users.ideological_profile', array_merge([$request->user()->active_search_names->first()->hash], $arr))->with('success', 'New Idea created');   
     }
 
     /**

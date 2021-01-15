@@ -8,13 +8,21 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 offset-1 text-center">
+                        @if(is_egora())
                         <h3>{{ __('views.Idea Popularity Index') }}</h3>
+                        @elseif (is_egora('community'))
+                        <h3>{{ __('Community Idea Popularity Index') }}</h3>
+                        @endif
                     </div>
+                    @if (is_egora())
                     <div class="col-md-1 text-md-right">
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('IDI') }}</a>
                     </div>
+                    @endif
                 </div>
                 <div class="clearfix">&nbsp;</div>
+                
+                @if (is_egora())
                 <div class="accordion mb-3" id="accordion">
                     <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
                       <div class="card-header" id="headingOne">
@@ -44,6 +52,7 @@
                       </div>
                     </div>
                 </div>
+                @endif
                 
                 @include('blocks.search')
                 

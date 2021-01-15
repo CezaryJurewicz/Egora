@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,5 +39,11 @@ class AppServiceProvider extends ServiceProvider
                 ->where('user_id', $parameters[0])
                 ->count()<1;
         });
+        
+        View::composer('*', function ($view)
+        {
+            $view->with('current_egora', session('current_egora', 'default'));
+        });
+        
     }
 }

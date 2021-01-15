@@ -20,7 +20,17 @@ class IdeaPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->allow();
+        return is_egora() || is_egora('community');
+    }
+    
+    public function viewIdi(User $user)
+    {
+        return is_egora();
+    }
+    
+    public function viewIpi(User $user)
+    {
+        return is_egora('community');
     }
     
     public function administrate(User $user)
@@ -37,21 +47,30 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
-        return $this->allow();
+        if (is_egora('community')) {
+            return $user->communities->contains($idea->community);
+        }  
+        
+        return $idea->egora_id == current_egora_id();
     }
     
     public function like(User $user, Idea $idea)
     {
-        if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
-            return $this->deny();
+        if (is_egora()) {        
+            if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
+                return $this->deny();
+            }
+
+            $nations = Nation::whereIn('title', ['Egora', 'Universal', $user->nation->title])->get()->pluck('id');
+
+            if (!$nations->contains($idea->nation->id)) {
+                return $this->deny();
+            }
         }
         
-        $nations = Nation::whereIn('title', ['Egora', 'Universal', $user->nation->title])->get()->pluck('id');
-        
-        if (!$nations->contains($idea->nation->id)) {
-            return $this->deny();
-        }
-        
+        if (is_egora('community')) {
+            
+        }        
         return $this->allow();
     }
     

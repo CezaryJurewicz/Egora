@@ -15,7 +15,11 @@
                             <div class="row">
                                 <div class="col col-md-8 offset-2">
                                     <div class="text-center">
+                                        @if (is_egora())
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
+                                        @elseif (is_egora('community'))
+                                        <h3>{{ __('Community Matters') }}</h3>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col col-md-2 text-right">
@@ -23,6 +27,7 @@
                                 </div>
                             </div>
                             <div>
+                                @if (is_egora())
                                 <div class="accordion mb-3" id="accordion">
                                     <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
                                       <div class="card-header" id="headingOne">
@@ -47,10 +52,15 @@
                                       </div>
                                     </div>
                                 </div>
+                                @endif
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                 <div class="mb-1 text-right"> 
+                                    @if (is_egora())
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                    @elseif (is_egora('community'))
+                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                    @endif
                                 </div>
                                 @endif
                                 @if($user->liked_ideas->isNotEmpty())
@@ -75,7 +85,11 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-1"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
-                                                <div class="col-md-3">{{$idea->nation->title}} </div>
+                                                @if (is_egora())
+                                                    <div class="col-md-3">{{$idea->nation->title}} </div>
+                                                @elseif (is_egora('community'))
+                                                    <div class="col-md-3">{{$idea->community->title}} </div>
+                                                @endif
                                                 <div class="col-md-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>

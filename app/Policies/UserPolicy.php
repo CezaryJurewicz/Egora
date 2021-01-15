@@ -32,7 +32,7 @@ class UserPolicy
     
     public function searchAny(User $user)
     {
-        return $this->allow();
+        return is_egora();
     }
 
     /**
@@ -218,9 +218,29 @@ class UserPolicy
         return $user->id == $model->id && $model->user_type->isIlp;
     }    
     
+    public function home(User $user) 
+    {
+        return is_egora();
+    }    
+    
+    public function municipal(User $user) 
+    {
+        return is_egora('municipal');
+    }    
+    
+    public function community(User $user) 
+    {
+        return is_egora('community');
+    }    
+    
     public function invite(User $user, User $model) 
     {
         // TODO: add logic
+        return $this->allow();
+    }    
+    
+    public function switch(User $user, $key) 
+    {
         return $this->allow();
     }    
 }

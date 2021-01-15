@@ -197,11 +197,20 @@ class UserController extends Controller
     
     public function ideological_profile(Request $request, $hash)
     {
+        // Change;
+        $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+        
         $searchname = SearchName::where('hash', $hash)->get()->first();
         $user = $searchname->user;
         
-        $user->load(['liked_ideas' => function($q){
-            $q->with(['nation', 'liked_users' => function($q){
+        $user->load(['liked_ideas' => function($q) use ($community_id) {
+            if (is_egora('community') && $community_id) {
+                $q->where('ideas.community_id', $community_id);
+            } else {
+                $q->whereNull('ideas.community_id');
+            }
+            
+            $q->with(['nation', 'liked_users' => function($q) {
                 $q->recent();
                 $q->whereHas('user_type',function($q){
                     $q->where('verified', 1);
@@ -211,7 +220,7 @@ class UserController extends Controller
             $q->recent();
         }]);
 
-        return view('users.ideological_profile')->with(compact('user'));
+        return view('users.ideological_profile')->with(compact('user', 'community_id'));
     }
     
     
@@ -681,4 +690,17 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Invitation sent.');
         
     }
+    
+    public function switch(Request $request, $key)
+    {
+        if (!in_array($key, array_keys(config('egoras')))) {
+            return redirect()->back()
+                    ->withInput()->withErrors(['key'=>'Incorrect switch parameter.']);
+        }
+        
+        $request->session()->put('current_egora', $key);      
+
+        return redirect()->back()->with('success', 'Egora switched.');
+    }
+    
 }

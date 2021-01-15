@@ -22,6 +22,8 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
 });
 
 Route::middleware(['verified', 'auth:admin,web'])->group(function() {
+    Route::get('/switch/{key}', 'UserController@switch')->name('switch')->middleware('can:switch, App\User, key');
+    
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
     });
@@ -43,7 +45,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     });
     
     Route::prefix('/ideas')->name('ideas.')->group(function(){
-        Route::match(['get', 'post'],'/indexes', 'IdeaController@indexes')->name('indexes')->middleware('can:viewAny,App\Idea');
+        Route::match(['get', 'post'],'/indexes', 'IdeaController@indexes')->name('indexes')->middleware('can:viewIdi,App\Idea');
         Route::match(['get', 'post'],'/indexes/popularity', 'IdeaController@popularity_indexes')->name('popularity_indexes')->middleware('can:viewAny,App\Idea');
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
         Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
@@ -127,7 +129,9 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
 });
 
 Route::middleware(['verified','auth:web'])->group(function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home')->middleware('can:home,App\User');
+    Route::get('/community', 'HomeController@community')->name('community')->middleware('can:community,App\User');
+    Route::get('/municipal', 'HomeController@municipal')->name('municipal')->middleware('can:municipal,App\User');
 });
 
 Route::middleware(['auth:admin'])->group(function() {

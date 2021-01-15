@@ -146,8 +146,13 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function liked_ideas()
     {
-        return $this->belongsToMany(Idea::class)->withPivot('position', 'order')
+        return $this->belongsToMany(Idea::class)->withPivot('position', 'order', 'community_id')
                 ->orderBy('pivot_order', 'desc');
+    }
+    
+    public function communities()
+    {
+        return $this->belongsToMany(Community::class);
     }
     
     public function scopeRecent($query)

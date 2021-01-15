@@ -31,15 +31,30 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (auth('web')->check() || auth('admin')->check())
+                            @if (auth('web')->check() && auth('web')->user()->can('home', App\User::class) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'home') ? ' active' : '' }}" href="{{ route('home')}}">{{ __('Egora') }}</a>
                             </li>
+                            @endif                                                    
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('municipal', App\User::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'municipal') ? ' active' : '' }}" href="{{ route('municipal')}}">{{ __('Egora') }}</a>
+                            </li>
+                            @endif                                                    
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('community', App\User::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'community') ? ' active' : '' }}" href="{{ route('community')}}">{{ __('Egora') }}</a>
+                            </li>
+                            @endif                                                    
+                            
                             @if (auth('web')->check() && auth('web')->user()->can('ideological_profile', [App\User::class, auth('web')->user()->active_search_names->first()->hash]) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'users.ideological_profile' && Request::segment(2) == auth('web')->user()->active_search_names->first()->hash) ? ' active' : '' }}" href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash)}}">{{ __('Home') }}</a>
                             </li>
-                            @endif                        
-                            
+                            @endif
+
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Notification::class) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Notifications') }}</a>
@@ -64,9 +79,15 @@
                             </li>
                             @endif
                             
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\Idea::class))
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewIdi', App\Idea::class))
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes')}}">{{ __('Indexes') }}</a>
+                            </li>
+                            @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewIPI', App\Idea::class))
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.popularity_indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.popularity_indexes')}}">{{ __('Indexes') }}</a>
                             </li>
                             @endif
                             
@@ -75,7 +96,7 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'meetings.index') ? ' active' : '' }}" href="{{ route('meetings.index')}}">{{ __('Meetings') }}</a>
                             </li>
                             @else
-                                @if (auth('admin')->user()->can('viewAny', App\Meeting::class))
+                                @if (auth('admin')->user() &&auth('admin')->user()->can('viewAny', App\Meeting::class))
                                 <li class="nav-item">
                                     <a class="nav-link{{ (Route::current()->getName() == 'meetings.all') ? ' active' : '' }}" href="{{ route('meetings.all')}}">{{ __('Meetings') }}</a>
                                 </li>
@@ -101,7 +122,7 @@
                             @endif
                             
                     </ul>
-
+                    
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">                        
                             <li class="nav-item dropdown">
@@ -110,8 +131,17 @@
                                     @if (auth('web')->check()) {{  auth('web')->user()->name  }} @endif
                                     <span class="caret"></span>
                                 </a>
-
+                                
                                 <ul class="dropdown-menu dropdown-menu-right">
+                                    @foreach( config('egoras') as $key => $item)
+                                        @if (auth('web')->check() && auth('web')->user()->can('switch', [App\User::class, $key]) )
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('switch', $key ) }}">{{ __(config(implode('.',['egoras',$key,'title']))) }}</a>
+                                        </li>
+                                        @endif
+                                    @endforeach
+                                    <li class="dropdown-divider"></li>
+                                    
                                     @if (auth('web')->check() && auth('web')->user()->can('settings',auth('web')->user()) )
                                     <li>
                                         <a class="dropdown-item" href="{{ route('users.settings',  auth('web')->user()->id)}}">{{ __('Settings') }}</a>

@@ -77,3 +77,19 @@ function ip_has_place($ideas, $idea) {
     
     return [$up, $down];
 }
+
+function current_egora_id() {
+    return config(implode('.', ['egoras', session('current_egora', 'default'), 'id']));
+}
+
+function redirect_to_egora_home() {
+    return redirect()->guest(config(implode('.', ['egoras', session('current_egora', 'default'), 'redirect'])));
+}
+
+function is_egora($egora = 'default') {
+    return config('egoras.'.$egora.'.id') == current_egora_id();
+}
+
+function previous_route() {
+    return app('router')->getRoutes()->match(app('request')->create(url()->previous()));
+}

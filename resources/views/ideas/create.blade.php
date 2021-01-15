@@ -20,18 +20,39 @@
                         <label for="nation" class="col-md-2 col-form-label text-md-middle">{{ __('Relevance:') }}</label>
 
                         <div class="col-md-10">
-                            <select id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" required autocomplete="nation" >
-                            <option></option>
-                            @foreach($nations as $nation)
-                            <option @if(old('nation') && old('nation')== $nation->id) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
-                            @endforeach
-                            </select>
+                            @if (is_egora())
+                                <select id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" required autocomplete="nation" >
+                                <option></option>
+                                @foreach($nations as $nation)
+                                <option @if(old('nation') && old('nation')== $nation->id) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
+                                @endforeach
+                                </select>
 
-                            @error('nation')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                @error('nation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            @elseif (is_egora('community'))
+                                <select @if (isset($community_id)) disabled='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
+                                <option></option>
+                                @foreach($user->communities as $c)
+                                <option @if(old('community') && old('community')== $c->id || $community_id == $c->id) selected @endif value="{{$c->id}}">{{$c->title}}</option>
+                                @endforeach
+                                </select>
+                            
+                                @if (isset($community_id))
+                                <input type="hidden" id="community" name="community" value="{{$community_id}}">
+                                @endif
+                                
+                                @error('community')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            
+                            
+                            @endif
                         </div>
                     </div>
                 </div>

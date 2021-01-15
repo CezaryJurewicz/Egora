@@ -5,7 +5,11 @@
                         <div class="p-2">
                             <div class="row">
                                 <div class="col-md-1">#{{$i + $ideas->firstItem()}} </div>
-                                <div class="col-md-4">{{$idea->nation->title}} </div>
+                                @if (is_egora())
+                                    <div class="col-md-4">{{$idea->nation->title}} </div>
+                                @elseif (is_egora('community'))
+                                    <div class="col-md-4">{{$idea->community->title}} </div>
+                                @endif
                                 <div class="col-md-1 text-center">
                                     @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>

@@ -20,6 +20,9 @@ class NotificationController extends Controller
         $rows = NotificationModel::whereHas('receiver', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 })
+                ->whereHas('idea', function($q) use ($request) {
+                    $q->where('egora_id', current_egora_id());
+                })
                 ->paginate(100);
         
         return view('notifications.index')->with(compact('rows'));

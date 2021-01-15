@@ -10,4 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
+    protected $current_egora;
+
+    public function __construct() 
+    {
+        $this->current_egora = session('current_egora', 'default');
+    }
 }

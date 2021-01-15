@@ -19,6 +19,19 @@
                                 @endif
                             </div>
 
+                            @if (is_egora('community'))
+                            <div class="mt-2">
+                                @foreach($user->communities as $c)
+                                @if($community_id == $c->id)
+                                {{$c->title}}<br/>
+                                @else
+                                <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
+                                @endif
+                                @endforeach
+                            </div>
+                            @endif
+                                
+                            @if (is_egora())
                             <div class="mt-2">{{ $user->nation->title }}</div>
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_nation', $user->id) }}" method="POST" style="display: none;">
@@ -74,3 +87,4 @@
                                 <a class="btn btn-black btn-sm btn-block" href="{{ route('users.allow_guardianship', $user->id ) }}">Allow Guardianship</a>
                                 @endif
                             </div>
+                            @endif

@@ -19,7 +19,7 @@ class CampaignPolicy
      */
     public function viewAny(User $user)
     {
-        return $this->allow();
+        return is_egora();
     }
 
     /**

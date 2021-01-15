@@ -10,7 +10,7 @@ class Idea extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = array('content', 'position', 'order');
+    protected $fillable = array('content', 'position', 'order', 'egora_id');
     
     public function user()
     {
@@ -20,6 +20,11 @@ class Idea extends Model
     public function nation()
     {
         return $this->belongsTo(Nation::class);
+    }
+    
+    public function community()
+    {
+        return $this->belongsTo(Community::class);
     }
     
     public function createdDate()

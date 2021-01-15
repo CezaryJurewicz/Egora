@@ -81,7 +81,7 @@
 
                     <div class="form-group row">
                         <div class="offset-1 col-md-12 row">
-                            <label for="city" class="col-md-2 col-form-label text-md-right">{{ __('City') }}</label>
+                            <label for="city" class="col-md-2 col-form-label text-md-right">{{ __('Town') }}</label>
 
                             <div class="col-md-6">
                                 <div id="CitySearch" value="{{ old('city') }}" cssClass="form-control @error('city') is-invalid @enderror"></div>

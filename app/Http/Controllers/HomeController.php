@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Nation;
+use App\Community;
 
 class HomeController extends Controller
 {
@@ -65,7 +66,20 @@ class HomeController extends Controller
     {
         list($total_verified_users, $total_verified_ipl_users, $group_by_nation) = $this->_data();
             
-        return view('home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
+        return view('egoras.home')->with(compact('total_verified_users', 'total_verified_ipl_users',  'group_by_nation'));
+    }
+    
+    public function community(Request $request)
+    {
+        $user = $request->user();
+        $user->load('communities');
+        
+        return view('egoras.community')->with(compact('user'));
+    }
+    
+    public function municipal()
+    {
+        return view('egoras.municipal');
     }
     
     public function indexAdmin()
