@@ -57,7 +57,7 @@
 
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Notification::class) )
                             <li>
-                                <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Notifications') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Inbox') }}</a>
                             </li>
                             @endif                        
 

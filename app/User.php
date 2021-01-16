@@ -42,6 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_online_at' => 'datetime'
     ];
     
+    protected $appends = array('active_search_name');
+    
     public function isAdmin() 
     {
         return false;
@@ -107,6 +109,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->verified_users()
                 ->whereBetween('users_verified_log.created_at', [(new Carbon())->subDays(1), (new Carbon())]);   
+    }
+    
+    public function getActiveSearchNameAttribute()
+    {
+        return $this->active_search_names->isNotEmpty()?$this->active_search_names->first()->name:$this->id;
+    }
+    
+    public function getActiveSearchNameHashAttribute()
+    {
+        return $this->active_search_names->isNotEmpty()?$this->active_search_names->first()->hash:$this->id;
     }
     
     public function active_search_names()
