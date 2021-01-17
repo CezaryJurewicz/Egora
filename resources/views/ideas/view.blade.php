@@ -77,6 +77,25 @@
                         @include('blocks.like')
                     </div>
                     @endif                
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mt-2">Recent supporters</h5>
+                    </div>                
+                    <div class="card-body">
+                        @foreach($idea->liked_users->sortByDesc('created_at')->take(92) as $user)
+                        <a class="mr-2" href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
+                            {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                    </div>                
+                
                     <div class="card-body">
                         @include('blocks.invite_examine')
                     </div>

@@ -129,7 +129,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
 });
 
 Route::middleware(['verified','auth:web'])->group(function() {
-    Route::get('/home', 'HomeController@index')->name('home')->middleware('can:home,App\User');
+    Route::get('/main', 'HomeController@index')->name('home')->middleware('can:home,App\User');
     Route::get('/community', 'HomeController@community')->name('community')->middleware('can:community,App\User');
     Route::get('/municipal', 'HomeController@municipal')->name('municipal')->middleware('can:municipal,App\User');
 });

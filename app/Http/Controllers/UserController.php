@@ -65,6 +65,7 @@ class UserController extends Controller
         $nation = null;
         $officer = null;
         $officer_petitioner = null;
+        $recent = false;
         
         $nations = Nation::get();
         
@@ -157,10 +158,15 @@ class UserController extends Controller
             $users = $model->paginate(10);
             
         } else {
-            $users = collect();
+            $recent = true;
+            $users = User::whereHas('search_names', function($q) use ($request){
+                    $q->where(function($q) use ($request){
+                        $q->where('seachable','1');
+                    });
+                })->orderBy('created_at', 'desc')->paginate(10);
         }
         
-        return view('users.search')->with(compact('users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
+        return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
 
     /**

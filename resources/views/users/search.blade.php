@@ -62,6 +62,11 @@
                     
                 <div class="mt-5">
                     @if($users->isNotEmpty())
+                        @if ($recent)
+                        <center>
+                        <h5>Recent public accounts</h5>
+                        </center>
+                        @endif
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -79,7 +84,7 @@
                                         {{$user->user_type->title}}
                                     </td>
                                     <td>
-                                        <a href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">
+                                        <a href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
                                         {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
                                         </a>
                                     </td>

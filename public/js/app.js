@@ -77984,7 +77984,8 @@ var CopyBtn = /*#__PURE__*/function (_React$Component) {
       copySuccess: false
     };
     return _this;
-  }
+  } // Credits: https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+
 
   _createClass(CopyBtn, [{
     key: "render",

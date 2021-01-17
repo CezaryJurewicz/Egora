@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
         }
         
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect('/main');
         }
 
         return $next($request);

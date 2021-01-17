@@ -18,10 +18,10 @@
                         </div>
                     
                         @foreach(Auth::guard('web')->user()->following as $u)
+                        <div class="row-striped ">
                             @if (is_egora('community') && !$u->communities->contains($idea->community))
-                                <div class="row pt-2 pl-5">
+                                <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-
                                     {{ $u->active_search_names->first()->name ?? $u->id }}
                                     </div>
 
@@ -30,9 +30,8 @@
                                     </div>
                                 </div>
                             @elseif ($u->liked_ideas->contains($idea))
-                                <div class="row pt-2 pl-5">
+                                <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-
                                     {{ $u->active_search_names->first()->name ?? $u->id }}
                                     </div>
 
@@ -47,9 +46,8 @@
                             @elseif (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
                                     return $v->id == $u->id && $v->pivot->idea_id == $idea->id;
                                 }))
-                                <div class="row pt-2 pl-5">
+                                <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-
                                     {{ $u->active_search_names->first()->name ?? $u->id }}
                                     </div>
 
@@ -60,17 +58,19 @@
                             @else
                             <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
                                 @csrf
-                                <div class="row pt-2 pl-5">
+                                <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-
                                     {{ $u->active_search_names->first()->name ?? $u->id }}
                                     </div>
 
-                                    <button type="submit" class="btn btn-sm btn-primary col-md-2">
+                                    <div class="col-md-2 text-center">
+                                    <button type="submit" class="btn btn-sm btn-primary col-md-12">
                                         {{ __('Invite') }}
                                     </button>
+                                    </div>
                                 </div>
                             </form>
                             @endif
+                        </div>
                         @endforeach
                     @endif
