@@ -1,7 +1,11 @@
                     @if(Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_examine', [$idea, $notification]) )
                         <div class="row">
                             <div class="col-md-12">
+                            @if(is_egora())
                             <b>Invite other philosophers to examine this idea:</b>
+                            @elseif(is_egora('community'))
+                            Invite other community members to examine this idea:
+                            @endif
                             </div>
                         </div>
                     
@@ -14,7 +18,7 @@
                         </div>
                     
                         @foreach(Auth::guard('web')->user()->following as $u)
-                            @if ($u->liked_ideas->contains($idea))
+                            @if (is_egora('community') && !$u->communities->contains($idea->community))
                                 <div class="row pt-2 pl-5">
                                     <div class="col-md-6">
 
@@ -22,7 +26,22 @@
                                     </div>
 
                                     <div class="col-md-2 text-center">
-                                        {{ __('Supporter') }}
+                                        {{ __('Not in this Community') }} 
+                                    </div>
+                                </div>
+                            @elseif ($u->liked_ideas->contains($idea))
+                                <div class="row pt-2 pl-5">
+                                    <div class="col-md-6">
+
+                                    {{ $u->active_search_names->first()->name ?? $u->id }}
+                                    </div>
+
+                                    <div class="col-md-2 text-center">
+                                        @if(is_egora())
+                                        {{ __('Supporter') }} 
+                                        @elseif(is_egora('community'))
+                                        {{ __('Involved') }} 
+                                        @endif
                                     </div>
                                 </div>
                             @elseif (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
@@ -39,7 +58,7 @@
                                     </div>
                                 </div>
                             @else
-                            <form action="{{ route('users.invite',[$u->id]) }}" method="POST">
+                            <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
                                 @csrf
                                 <div class="row pt-2 pl-5">
                                     <div class="col-md-6">
@@ -47,7 +66,6 @@
                                     {{ $u->active_search_names->first()->name ?? $u->id }}
                                     </div>
 
-                                    <input type="hidden" name="idea_id" value="{{ $idea->id }}"/>
                                     <button type="submit" class="btn btn-sm btn-primary col-md-2">
                                         {{ __('Invite') }}
                                     </button>

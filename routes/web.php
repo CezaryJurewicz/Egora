@@ -84,7 +84,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
         Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
-        Route::post('/{user}/invite', 'UserController@invite')->name('invite')->middleware('can:invite,user');
+        Route::post('/{user}/invite/{idea}', 'UserController@invite')->name('invite')->middleware('can:invite,user,idea');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){

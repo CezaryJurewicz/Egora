@@ -15,7 +15,11 @@
                             <h3>{{ __('views.Idea Popularity Index') }}</h3>
                         @elseif ( auth('web')->check() && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'users.ideological_profile')
                             @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'] == auth('web')->user()->active_search_names->first()->hash )
+                                @if (is_egora())
                                 <h3>{{ __('views.Ideological Profile') }}</h3>
+                                @elseif (is_egora('community'))
+                                <h3>{{ __('Community Matters') }}</h3>
+                                @endif
                             @else 
                                 <h3>{{ (App\SearchName::where('hash', app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'])->firstOrFail() ?? App\User::findOrFail($idea->user->id)->active_search_names->first())->name ?? '' }} </h3>
                             @endif
@@ -72,11 +76,11 @@
                     <div class="card-body">
                         @include('blocks.like')
                     </div>
-                
+                    @endif                
                     <div class="card-body">
                         @include('blocks.invite_examine')
                     </div>
-                    @endif
+                    
                     <div class="card-body">
                         @include('blocks.invite_response')
                     </div>

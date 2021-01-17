@@ -639,9 +639,13 @@ class UserController extends Controller
         return view('users.verification_id_image')->with(compact('user'));
     }
     
-    public function invite(Request $request, User $user)
+    public function invite(Request $request, User $user, Idea $idea)
     {
-        $validator = Validator::make($request->all(),[
+        $data = [
+            'idea_id' => $idea->id
+        ];
+        
+        $validator = Validator::make($data,[
             'idea_id' => ['required', 'exists:ideas,id',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     $idea = Idea::findOrFail($value);
@@ -676,8 +680,6 @@ class UserController extends Controller
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
-        
-        $idea = Idea::findOrFail($request->idea_id);
         
         $notification = new NotificationModel();
         $notification->sender()->associate($request->user());
