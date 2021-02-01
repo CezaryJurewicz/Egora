@@ -332,7 +332,8 @@ class IdeaController extends Controller
 
             $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
 
-            return redirect()->back()->with('success', 'Idea position updated.');
+            return redirect()->to(route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash).'#idea'.$idea->id)
+                    ->with('success', 'Idea position updated.');
         }
         
         return redirect()->back()->withError('Please check input.');

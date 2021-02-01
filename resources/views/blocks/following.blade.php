@@ -1,7 +1,7 @@
         @if (auth('web')->check() && auth('web')->user()->following->isNotEmpty())
         <div class="card">
             <div class="card-header">
-                <h5>@lang('Following')</h5>
+                <h5>@lang('Leads')</h5>
             </div>
             <div class="card-body">
                 @foreach(auth('web')->user()->following->sortBy('active_search_name') as $u)

@@ -91,7 +91,11 @@ class IdeaPolicy
     {
         return $this->allow();
     }
-    
+
+    public function move(User $user, Idea $idea, User $model)
+    {
+        return $user->liked_ideas->contains($idea) && $model->id == $user->id;
+    }
     
     /**
      * Determine whether the user can create ideas.

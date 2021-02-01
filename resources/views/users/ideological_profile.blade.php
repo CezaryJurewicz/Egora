@@ -66,42 +66,60 @@
                                 @if($user->liked_ideas->isNotEmpty())
                                 <div class="card p-2">
                                     @foreach($user->liked_ideas as $idea)
-                                    <div class="card mb-3">
+                                    <div id="idea{{$idea->id}}" class="card mb-3">
                                         <div class="card-header">
                                             <div class="row">
-                                                <div class="col-md-1">
+                                                @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
+                                                <div class="col-1">
                                                     @php
                                                         list($up, $down) = ip_has_place($user->liked_ideas, $idea)
                                                     @endphp
                                                     @if ($up)
-                                                    <a href="{{ route('ideas.move', [$idea->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
+                                                    <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
                                                     <i class="fa fa-chevron-up pt-1"></i>
-                                                    </a>
+                                                    </a><br/>
+                                                    @else
+                                                    &nbsp;<br/>
                                                     @endif
                                                     @if ($down)
-                                                    <a href="{{ route('ideas.move', [$idea->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
+                                                    <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
                                                     <i class="fa fa-chevron-down pt-1"></i>
                                                     </a>
                                                     @endif
                                                 </div>
-                                                <div class="col-md-1"><b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b></div>
-                                                @if (is_egora())
-                                                    <div class="col-md-3">{{$idea->nation->title}} </div>
-                                                @elseif (is_egora('community'))
-                                                    <div class="col-md-3">{{$idea->community->title}} </div>
+                                                <div class="col-8 col-sm-4">
+                                                @else
+                                                <div class="col-9 col-sm-5">
                                                 @endif
-                                                <div class="col-md-2 text-center">
+                                                    <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b>
+                                                    <br/>
+                                                @if (is_egora())
+                                                    {{$idea->nation->title}}
+                                                @elseif (is_egora('community'))
+                                                    {{$idea->community->title}}
+                                                @endif
+                                                </div>
+                                                <div class="col-2 text-center">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
-                                                <div class="offset-1 col-md-2">
-                                                IDI Points: <br/>
-                                                Supporters:
-                                                @include('blocks.debug.users',['users' => $idea->liked_users])
+                                                <div class="offset-sm-1 col-12 col-sm-4">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        IDI Points:
+                                                    </div>
+                                                    <div class="col-6">
+                                                    {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-2">
-                                                {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
-                                                <br/>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                Supporters:
+                                                    </div>
+                                                    <div class="col-6">
                                                 {{ number_format($idea->liked_users->count()) }}
+                                                @include('blocks.debug.users',['users' => $idea->liked_users])
+                                                    </div>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

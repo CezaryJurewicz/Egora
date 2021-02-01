@@ -163,7 +163,7 @@ class UserController extends Controller
                     $q->where(function($q) use ($request){
                         $q->where('seachable','1');
                     });
-                })->orderBy('created_at', 'desc')->paginate(10);
+                })->orderBy('created_at', 'desc')->limit(92)->get();
         }
         
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
@@ -525,13 +525,13 @@ class UserController extends Controller
     public function follow(Request $request, User $user)
     {
         $user->followers()->syncWithoutDetaching($request->user());
-        return redirect()->back()->with('success', 'Added follower');  
+        return redirect()->back()->with('success', 'Lead added.');  
     }
     
     public function unfollow(Request $request, User $user)
     {
         $user->followers()->detach($request->user()->id);
-        return redirect()->back()->with('success', 'Removed follower');  
+        return redirect()->back()->with('success', 'Lead  removed.');  
     }
     
     public function settings(User $user)

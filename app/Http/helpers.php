@@ -93,3 +93,15 @@ function is_egora($egora = 'default') {
 function previous_route() {
     return app('router')->getRoutes()->match(app('request')->create(url()->previous()));
 }
+
+function header_bg_color() {
+    if (session('current_egora', 'default') == 'default' 
+        &&  auth('web')->check() 
+        && auth('web')->user() 
+        && (auth('web')->user()->user_type->class == 'user' || auth('web')->user()->user_type->former)
+        ) {
+        return "#636363";
+    }
+    
+    return config(implode('.',['egoras',session('current_egora', 'default'),'bgcolor']));
+}

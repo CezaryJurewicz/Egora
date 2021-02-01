@@ -17,7 +17,7 @@
                             <div id="copyLink" class="col-md-2"></div>
                         </div>
                     
-                        @foreach(Auth::guard('web')->user()->following as $u)
+                        @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
                         <div class="row-striped ">
                             @if (is_egora('community') && !$u->communities->contains($idea->community))
                                 <div class="row pt-1 pb-1 pl-5">

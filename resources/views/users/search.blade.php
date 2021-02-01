@@ -99,8 +99,9 @@
                     @if($users->isNotEmpty())                 
                             </tbody>
                         </table>
-                    
+                        @if(!$recent)
                         {{ $users->appends(request()->except('_token'))->links() }}
+                        @endif
                     @endif
                 </div>
             </div>
