@@ -11,7 +11,7 @@
                     
                         <div class="row pt-2 pl-5 pb-4">
                             <div class="col-md-6">
-                            Invitation link to share outside of Egora
+                            External invitation link
                             </div>
 
                             <div id="copyLink" class="col-md-2"></div>

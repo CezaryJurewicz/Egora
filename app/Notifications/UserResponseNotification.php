@@ -43,7 +43,7 @@ class UserResponseNotification extends Notification
     {
         return (new MailMessage)
                     ->line('You received response to the Idea.')
-                    ->action('Idea', route('ideas.view',[$this->notification->idea->id]))
+                    ->action('Response', route('notifications.index').'#nid'.$this->notification->id)
                     ->line($this->notification->notification_preset->title);
     }
 

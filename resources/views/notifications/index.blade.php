@@ -15,11 +15,10 @@
 
                 <div class="card p-2">
                     @forelse($rows as $row)
-                    <div class="mb-3">
+                    <div id="nid{{$row->id}}" class="mb-3">
                         <div class="pb-2">
                             <div class="row">
-                                <div class="col-md-9">
-                                    <!-- {{ $row->id }} -->
+                                <div class="col-9">
                                     <b>
                                     {{ $row->sender->active_search_names->first()->name ??  $row->sender->id }}                                    
                                     </b>
@@ -31,7 +30,7 @@
                                         : {{ $row->notification_preset->title }}
                                     @endif
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-3 text-right">
                                     @if ($row->invite)
                                     <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', [$row->idea->id,'notification_id'=>$row->id]) }}">{{ __('Open') }}</a>
                                     @endif
@@ -47,7 +46,7 @@
                         @endif
                         <div class="pt-2">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="offset-9 col-3 text-right">
                                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('delete', $row) )
                                     <form action="{{ route('notifications.delete', $row->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf

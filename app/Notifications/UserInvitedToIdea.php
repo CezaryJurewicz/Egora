@@ -43,7 +43,7 @@ class UserInvitedToIdea extends Notification
     {
         return (new MailMessage)
                     ->line('I support this idea in Egora, "The Worldwide Stock-Market of Ideas".')
-                    ->action('Idea', route('ideas.view',[$this->notification->idea->id]))
+                    ->action('Idea', route('ideas.view',[$this->notification->idea->id, 'notification_id' => $this->notification->id]))
                     ->line('What do you think about it? Will you support it?');
     }
 

@@ -76,6 +76,12 @@ class IdeaController extends Controller
             $nation = $request->input('nation');
             $community = $request->input('community');
             
+        } else {
+            if (is_egora()) {
+                $relevance = -1;
+            }
+        }
+            
             $model->where(function($q) use ($request, $community, $search, $relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
@@ -158,11 +164,11 @@ class IdeaController extends Controller
             
             $ideas = $model->paginate(100);
 
-        } else {
-            if (is_egora() && isset($request->user()->nation)) {
-                $relevance = $request->user()->nation->id;
-            }
-        }
+//        } else {
+//            if (is_egora() && isset($request->user()->nation)) {
+//                $relevance = $request->user()->nation->id;
+//            }
+//        }
         
         $user = $request->user();
         
