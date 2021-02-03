@@ -710,5 +710,19 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Egora switched.');
     }
+
+    public function reset(User $user)
+    {
+        $type = UserType::where('class', $user->user_type->class)
+            ->where('candidate', $user->user_type->candidate)
+            ->where('former', 0)
+            ->where('verified', $user->user_type->verified)
+            ->first();
+        
+        $user->user_type()->associate($type);
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Former user set to '. $type->title);  
+    }
     
 }

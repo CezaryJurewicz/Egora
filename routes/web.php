@@ -152,6 +152,7 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::delete('/{user}', 'UserController@destroy')->name('delete')->middleware('can:delete,user');
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
         Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:deactivate,user');
+        Route::post('/{user}/reset', 'UserController@reset')->name('reset')->middleware('can:reset,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){

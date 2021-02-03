@@ -12,7 +12,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        if (!in_array($ability, ['update', 'disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
+        if (!in_array($ability, ['reset', 'update', 'disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
             if ($user->isAdmin()) {
                 return $this->allow();
             }
@@ -246,4 +246,11 @@ class UserPolicy
     {
         return $this->allow();
     }    
+
+    public function reset(User $user, User $model)
+    {
+        return $user->isAdmin() && $model->user_type->former;
+    }
+    
+    
 }

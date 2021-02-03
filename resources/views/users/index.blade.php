@@ -106,6 +106,16 @@
                                                 <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
                                             </div>
                                         </form>
+
+                                        @if (auth('admin')->check() && auth('admin')->user()->can('reset', $user) )
+                                        <form action="{{ route('users.reset',[$user->id]) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="POST"/>
+                                            <div class="input-group">
+                                                <button type='submit' class='btn btn-sm btn-warning '>{{__('Reset former')}}</button>
+                                            </div>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                     @empty

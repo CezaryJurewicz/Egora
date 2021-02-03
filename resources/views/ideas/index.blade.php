@@ -36,7 +36,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('tables.Content')}}</th>
-                                    <th scope="col">{{ __('tables.Nation')}}</th>
+                                    <th scope="col">{{ __('Relevance')}}</th>
                                     <th scope="col">{{ __('tables.Created')}}</th>
                                     <th scope="col">{{ __('tables.Updated')}}</th>                                    
                                     <th scope="col">{{ __('tables.Actions')}}</th>
@@ -57,7 +57,7 @@
                                             </a>
                                         @endif
                                     </td>
-                                    <td>{{ $idea->nation->title }}</td>
+                                    <td>{{ $idea->nation ? $idea->nation->title : $idea->community->title}}</td>
                                     <td>{{ $idea->createdDate() }}</td>
                                     <td>{{ $idea->updatedDate() }}</td>
                                     
