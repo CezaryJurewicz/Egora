@@ -453,15 +453,8 @@ class UserController extends Controller
         
         Auth::logout();
         
-        if (!$user->user_type->verified) {
-            $user->forceDelete();
-            return redirect()->route('index')->with('success', 'User permanently deleted');  
-        } else {
-            $user->delete();
-            return redirect()->back()->with('success', 'User deleted');  
-        }
-        
-        return redirect()->back()->withErrors(['User deletion error']);
+        $user->forceDelete();
+        return redirect()->route('index')->with('success', 'User permanently deleted');  
     }
     
     public function restore(User $user) 
