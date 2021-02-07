@@ -48,6 +48,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserRespondedToInvitation' => [
             'App\Listeners\SendResponseNotificationEmail',
+        ],
+        'App\Events\UserLikedIdeaFromNotification' => [
+            'App\Listeners\SendLikedIdeaNotificationEmail',
         ]
     ];
 

@@ -80,7 +80,7 @@
                                     <td>{{ $user->lastOnlineAtDate() }}</td>
                                     <td>
                                         @if (!$user->trashed())
-                                        <a class="btn btn-sm btn-primary" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
+                                        <a class="btn btn-sm btn-primary p-1" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
                                         @endif
                                         @if ($user->trashed())
                                         <form action="{{ route('users.restore',[$user->id]) }}" method="POST">
@@ -98,26 +98,9 @@
                                                 <button type='submit' class='btn btn-sm btn-secondary'>{{__('Deactivate')}}</button>
                                             </div>
                                         </form>
-                                        @endif
-                                        <form action="{{ route('users.delete',[$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="DELETE"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-danger'>{{__('some.Delete')}}</button>
-                                            </div>
-                                        </form>
-
-                                        @if (auth('admin')->check() && auth('admin')->user()->can('reset', $user) )
-                                        <form action="{{ route('users.reset',[$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="POST"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-warning '>{{__('Reset former')}}</button>
-                                            </div>
-                                        </form>
-                                        @endif
+                                        @endif                                        
                                     </td>
-                                </tr>
+                                </tr>   
                     @empty
                         <p>@lang('user.No users')</p>
                     @endforelse

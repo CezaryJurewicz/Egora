@@ -17,6 +17,11 @@ class Notification extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function parent()
+    {
+        return $this->belongsTo(Notification::class, 'notification_id');
+    }
+    
     public function notification_preset()
     {
         return $this->belongsTo(NotificationPreset::class);

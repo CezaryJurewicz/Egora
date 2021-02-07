@@ -203,11 +203,15 @@ class UserController extends Controller
     
     public function ideological_profile(Request $request, $hash)
     {
-        // Change;
-        $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
-        
         $searchname = SearchName::where('hash', $hash)->get()->first();
         $user = $searchname->user;
+        
+        // Change;
+        if ($request->user()->isAdmin()) {
+            $community_id = $user->communities->first()->id;
+        } else {
+            $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+        }
         
         $user->load(['liked_ideas' => function($q) use ($community_id) {
             if (is_egora('community') && $community_id) {

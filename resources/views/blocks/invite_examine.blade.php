@@ -22,7 +22,9 @@
                             @if (is_egora('community') && !$u->communities->contains($idea->community))
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-                                    {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                        {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        </a>
                                     </div>
 
                                     <div class="col-md-2 text-center">
@@ -32,7 +34,9 @@
                             @elseif ($u->liked_ideas->contains($idea))
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-                                    {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                        {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        </a>
                                     </div>
 
                                     <div class="col-md-2 text-center">
@@ -48,7 +52,9 @@
                                 }))
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-                                    {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                            {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        </a>
                                     </div>
 
                                     <div class="col-md-2 text-center">
@@ -60,7 +66,9 @@
                                 @csrf
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6">
-                                    {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                            {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        </a>
                                     </div>
 
                                     <div class="col-md-2 text-center">

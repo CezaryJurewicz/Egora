@@ -81,7 +81,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mt-2">Recent supporters</h5>
+                        <h5 class="mt-2">Supporters</h5>
                     </div>                
                     <div class="card-body">
                         @foreach($idea->liked_users->sortByDesc('created_at')->take(92) as $user)

@@ -75,6 +75,18 @@
                                 <a class="btn btn-black btn-sm btn-block" href="{{ route('users.disqualify_membership', $user->id ) }}">Disqualify Membership</a>
                                 @endif
                             </div>
+
+                            <div class="mt-2">
+                                @if ((auth('admin')->user() ?: auth('web')->user())->can('reset', $user) )
+                                <form action="{{ route('users.reset',[$user->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="POST"/>
+                                    <div class="input-group">
+                                        <button type='submit' class='btn btn-sm btn-ilp btn-block'>{{__('Restore Member')}}</button>
+                                    </div>
+                                </form>
+                                @endif
+                            </div>
                             
                             <div class="mt-2">
                                 @if ( (auth('admin')->user() ?: auth('web')->user())->can('cancel_guardianship', $user) )
@@ -88,3 +100,15 @@
                                 @endif
                             </div>
                             @endif
+
+                            <div class="mt-2">
+                                @if ( auth('admin')->check() && auth('admin')->user()->can('delete', $user) )
+                                <form action="{{ route('users.delete',[$user->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE"/>
+                                    <div class="input-group pt-5">
+                                        <button type='submit' class='btn btn-sm btn-block' style="background-color: #ff00ff; color: #ffffff;">{{__('some.Delete')}}</button>
+                                    </div>
+                                </form>
+                                @endif
+                            </div>

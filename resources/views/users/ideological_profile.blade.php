@@ -93,9 +93,9 @@
                                                 @endif
                                                     <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b>
                                                     <br/>
-                                                @if (is_egora())
+                                                @if ($idea->nation)
                                                     {{$idea->nation->title}}
-                                                @elseif (is_egora('community'))
+                                                @elseif ($idea->community)
                                                     {{$idea->community->title}}
                                                 @endif
                                                 </div>

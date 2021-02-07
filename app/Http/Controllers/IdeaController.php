@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Events\IdeaSupportHasChanged;
 use Illuminate\Validation\Rule;
 use App\NotificationPreset;
+use App\Notification as NotificationModel;
+use App\Events\UserLikedIdeaFromNotification;
 
 class IdeaController extends Controller
 {
@@ -500,6 +502,7 @@ class IdeaController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46'],
+            'notification_id' => ['exists:notifications,id'],
         ]);
          
         if ($validator->fails()) {
@@ -512,6 +515,20 @@ class IdeaController extends Controller
             $position = $request->input('position1')-23;
         } else {
             $position = '0';
+        }
+        
+        if ($request->exists('notification_id')) {
+            $prev_notification = NotificationModel::findOrFail($request->notification_id);
+
+            $notification = new NotificationModel();
+            $notification->sender()->associate($request->user());
+            $notification->receiver()->associate($prev_notification->sender);
+            $notification->idea()->associate($idea);
+            $notification->notification_id = $request->notification_id;
+//            $notification->notification_preset_id = 0;
+            $notification->save();
+
+            event(new UserLikedIdeaFromNotification($notification));
         }
         
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);

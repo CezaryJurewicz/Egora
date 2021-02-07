@@ -21,7 +21,11 @@
                                     @endfor
                                 </optgroup>
                             </select>
-
+                            
+                            @if (isset($notification))
+                            <input type="hidden" name="notification_id" value="{{ $notification->id }}"/>
+                            @endif
+                            
                             <div class="col-md-4 text-center">
                                 <button type="submit" class="btn btn-primary col-md-6">
                                     {{ __('Save & Close') }}

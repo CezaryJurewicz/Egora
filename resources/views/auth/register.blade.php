@@ -281,41 +281,41 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row pt-3">
                             <div class="form-group offset-1 col-md-10 row">
-                            <label for="nation" class="col-md-3 col-form-label">{{ __('Nation') }}</label>
-
-                            <div class="col-md-8 pt-3">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <a class="btn btn-primary col-md-12" data-toggle="collapse" href="#collapseg" role="button" aria-expanded="false" aria-controls="collapseg"> 
-                                            {{ __('Guide') }}   
-                                            <i class="fa fa-chevron-down pull-right"></i>
-                                            <i class="fa fa-chevron-right pull-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div id="NationSearch" value="{{ old('nation') }}"></div>
-
-                                        @error('nation')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <label for="nation" class="col-md-1 col-form-label">{{ __('Nation') }}</label>
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary col-12" data-toggle="collapse" href="#collapseg" role="button" aria-expanded="false" aria-controls="collapseg"> 
+                                        {{ __('Guide') }}   
+                                        <i class="fa fa-chevron-down pull-right"></i>
+                                        <i class="fa fa-chevron-right pull-right"></i>
+                                    </a>
                                 </div>
-                                <div class="row">
-                                    <div class="mt-1 col-md-12 collapse" id="collapseg">
-                                        <div class="card card-body">
-                                            <p>Out of regard for people whose nations do not yet have their own countries, Egora asks for the 
-                                                user’s nation,  not country. This is a free-type field, and it is up to each nation to coalesce 
-                                                around the name that best suits  them. If you are not sure what to enter, simply put whatever 
-                                                feels right, and you can change it later if you  prefer.</p>
+
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div id="NationSearch" value="{{ old('nation') }}"></div>
+
+                                            @error('nation')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="mt-1 col-md-12 collapse" id="collapseg">
+                                            <div class="card card-body">
+                                                <p>Out of regard for people whose nations do not yet have their own countries, Egora asks for the 
+                                                    user’s nation,  not country. This is a free-type field, and it is up to each nation to coalesce 
+                                                    around the name that best suits  them. If you are not sure what to enter, simply put whatever 
+                                                    feels right, and you can change it later if you  prefer.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                
-                            </div>
                             </div>
                         </div>
 

@@ -13,22 +13,33 @@
                 </div>
                 <div class="clearfix">&nbsp;</div>
 
-                <div class="card p-2">
+                <div class="card p-5">
                     @forelse($rows as $row)
                     <div id="nid{{$row->id}}" class="mb-3">
                         <div class="pb-2">
                             <div class="row">
                                 <div class="col-9">
-                                    <b>
-                                    {{ $row->sender->active_search_names->first()->name ??  $row->sender->id }}                                    
-                                    </b>
-                                    @if ($row->invite)
-                                        {{ __('invited you to examine their idea.') }}
-                                    @elseif ($row->sender->liked_ideas->contains($row->idea))
-                                        {{ __('supported your idea!') }}
-                                    @elseif ($row->response)
-                                        : {{ $row->notification_preset->title }}
-                                    @endif
+                                    <div class="row">
+                                        <div class="col-12">
+                                        <b>
+                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $row->sender->active_search_name_hash) }}">
+                                            {{ $row->sender->active_search_names->first()->name ??  $row->sender->id }} 
+                                            </a>
+                                        </b>
+                                        @if ($row->invite)
+                                            {{ __('invited you to examine their idea.') }}
+                                        @elseif ($row->sender->liked_ideas->contains($row->idea))
+                                            {{ __('supported your idea!') }}
+                                        @elseif ($row->response)
+                                            : {{ $row->notification_preset->title }}
+                                        @endif
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {{ $row->created_at->diffForHumans() }}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-3 text-right">
                                     @if ($row->invite)
@@ -46,7 +57,7 @@
                         @endif
                         <div class="pt-2">
                             <div class="row">
-                                <div class="offset-9 col-3 text-right">
+                                <div class="col-3 text-left">
                                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('delete', $row) )
                                     <form action="{{ route('notifications.delete', $row->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
