@@ -66,6 +66,12 @@
                                 <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->active_search_names->first()->hash) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Users') }}</a>
                             </li>
                             @endif
+                            
+                            @if ( auth('web')->check() && auth('web')->user()->can('leads', App\User::class))
+                            <li class="nav-item">
+                                <a class="nav-link{{ ( (Route::current()->getName() == 'users.leads') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->active_search_names->first()->hash) ) ? ' active' : '' }}" href="{{ route('users.leads')}}">{{ __('Users') }}</a>
+                            </li>
+                            @endif
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">

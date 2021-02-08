@@ -168,6 +168,11 @@ class UserController extends Controller
         
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
+    
+    public function leads()
+    {
+        return view('users.leads');
+    }
 
     /**
      * Show the form for creating a new resource.

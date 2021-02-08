@@ -34,6 +34,11 @@ class UserPolicy
     {
         return is_egora();
     }
+    
+    public function leads(User $user)
+    {
+        return is_egora('community');
+    }
 
     /**
      * Determine whether the user can view the model.
