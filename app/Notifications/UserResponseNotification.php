@@ -42,9 +42,11 @@ class UserResponseNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('You received response to the Idea.')
+                    ->subject(($this->notification->sender->active_search_names->first()->name ?? $this->notification->sender->id).' responded to your idea invitation!')
+                    ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
+                    ->line($this->notification->notification_preset->title)
                     ->action('Response', route('notifications.index').'#nid'.$this->notification->id)
-                    ->line($this->notification->notification_preset->title);
+                    ->line('Egora, "The Worldwide Stock-Market of Ideas"');
     }
 
     /**

@@ -42,9 +42,12 @@ class UserInvitedToIdea extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('I support this idea in Egora, "The Worldwide Stock-Market of Ideas".')
+                    ->subject(($this->notification->sender->active_search_names->first()->name ?? $this->notification->sender->id).' invited you to examine an idea!')
+                    ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
+                    ->line('What do you think about this idea?')
                     ->action('Idea', route('ideas.view',[$this->notification->idea->id, 'notification_id' => $this->notification->id]))
-                    ->line('What do you think about it? Will you support it?');
+                    ->line('Your voice can make this idea rise or fall in Egora,')
+                    ->line('"The Worldwide Stock-Market of Ideas".');
     }
 
     /**
