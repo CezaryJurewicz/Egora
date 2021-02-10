@@ -48,7 +48,7 @@ class IdeaPolicy
     public function view(User $user, Idea $idea)
     {
         if (is_egora('community')) {
-            return $user->communities->contains($idea->community);
+            return request()->has('notification_id') || $user->communities->contains($idea->community);
         }  
         
         return $idea->egora_id == current_egora_id();

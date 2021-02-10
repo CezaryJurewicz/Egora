@@ -40,5 +40,6 @@ return [
     'Incorrect switch parameter.' => 'Incorrect switch parameter.',
     'This action is unauthorized.' => 'This action is unauthorized.',
     'The nation field is required.' => 'The nation field is required.',
-    'The delete field is required.' => 'The delete field is required.'
+    'The delete field is required.' => 'The delete field is required.',
+    'The selected notification id is invalid.' => 'The selected notification id is invalid.'
 ];
