@@ -18,18 +18,47 @@
                                         <h3>{{ __('Leads') }}</h3>
                                     </div>
                                 </div>
+                                <div class="col col-md-2 text-right">
+                                    <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">IP</a>
+                                </div>
                             </div>
                             <div class="card">
                                 <div class="card-body">
-                                    @foreach($leads as $u)
-                                    @if($u->active_search_names->first())
-                                    <div class="row col-md-12">
-                                    <a href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                    {{ $u->active_search_name ?? $u->id }}
-                                    </a>
-                                    </div>
+                                    @if($leads->isNotEmpty())
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr style="border-top: hidden;">
+                                                    <th scope="col">{{ __('tables.User Category')}}</th>
+                                                    <th scope="col">{{ __('tables.Search Name')}}</th>
+                                                    <th scope="col">{{ __('tables.Nation')}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                     @endif
-                                    @endforeach
+
+                                    @forelse ($leads as $i=>$user)
+                                                <tr>
+                                                    <td>
+                                                        {{$user->user_type->title}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
+                                                        {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {{ $user->nation->title }}                                        
+                                                    </td>
+                                                </tr>
+                                    @empty
+                                        <!--<p>@lang('user.No users found')</p>-->
+                                    @endforelse
+
+                                    @if($leads->isNotEmpty())                 
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

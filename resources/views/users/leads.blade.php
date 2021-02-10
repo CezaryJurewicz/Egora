@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         
-    <div class="col-12">
+    <div class="offset-9 col-3">
         @include('blocks.following')
     </div>
         
