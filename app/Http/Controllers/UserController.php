@@ -174,6 +174,23 @@ class UserController extends Controller
         return view('users.leads');
     }
 
+    public function leadsbyid(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        // Change;
+        if ($request->user()->isAdmin()) {
+            $community_id = $user->communities->first()->id;
+        } else {
+            $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+        }
+
+        $leads = $user->following->sortBy('active_search_name');
+        
+        return view('users.leadsbyid')->with(compact('leads', 'user', 'community_id'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

@@ -61,14 +61,21 @@
                             <div class="mt-2">
                             @include('blocks.petition')
                             </div>
+                            @endif
                             
                             <div class="mt-2">
                             @include('blocks.follow')
                             </div>
-
+                            
+                            <div class="mt-2">
+                            @include('blocks.leads')
+                            </div>
+                            
+                            @if (is_egora())
                             <div class="mt-3">
                             @include('blocks.verification')
                             </div>
+                            @endif
                             
                             <div class="mt-2">
                                 @if ( (auth('admin')->user() ?: auth('web')->user())->can('disqualify_membership', $user) )
@@ -99,7 +106,6 @@
                                 <a class="btn btn-black btn-sm btn-block" href="{{ route('users.allow_guardianship', $user->id ) }}">Allow Guardianship</a>
                                 @endif
                             </div>
-                            @endif
 
                             <div class="mt-2">
                                 @if ( auth('admin')->check() && auth('admin')->user()->can('delete', $user) )

@@ -39,6 +39,19 @@ class UserPolicy
     {
         return is_egora('community');
     }
+    
+    public function leadsbyid(User $user, $hash)
+    {
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+
+            return $user->id !== $model->id;
+        }
+
+        return $this->deny();
+    }
 
     /**
      * Determine whether the user can view the model.
