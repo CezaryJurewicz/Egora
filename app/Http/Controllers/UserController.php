@@ -163,7 +163,7 @@ class UserController extends Controller
                     $q->where(function($q) use ($request){
                         $q->where('seachable','1');
                     });
-                })->orderBy('created_at', 'desc')->limit(92)->get();
+                })->visible()->orderBy('created_at', 'desc')->limit(92)->get();
         }
         
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
@@ -433,6 +433,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'seachable' => ['required', 'boolean'],
+            'visible' => ['required', 'boolean'],
         ]);
          
         if ($validator->fails()) {
@@ -445,6 +446,11 @@ class UserController extends Controller
         $searchName->seachable = $request->input('seachable')?:0;
         $searchName->save();
 
+        $user = $request->user();
+        $user->visible = $request->input('visible')?:0;
+        
+        $user->save();
+        
         return redirect()->back()->with('success', 'Privacy updated.');       
     }
 

@@ -113,11 +113,12 @@
 
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
-                            <h4>@lang('Privacy')</h4>
+                            <h4 class="pb-1">@lang('Privacy')</h4>
                             <form method="POST" action="{{ route('users.update_privacy', $user->id) }}" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="PUT"/>
                                 @csrf
 
+                                <h5 class="pt-1">@lang('Profile Searchability:')</h5>
                                 <div class="form-group">
                                     <div class="row">
                                         <label for="seachable" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search Name match)') }}</label>
@@ -128,6 +129,19 @@
                                         <input id="seachable" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
+                                
+                                <h5 class="pt-1">@lang('Profile Visibility (Main Egora only):')</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="visible" class="col-form-lable col-md-10">{{ __('Public Profile (your support for ideas is public)') }}</label>
+                                        <input  id="visible" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
+                                    </div>
+                                    <div class="row">
+                                        <label for="visible" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is hidden from "New Users" list)') }}</label>
+                                        <input id="visible" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
+                                    </div>
+                                </div>
+                                
                                 
                                 <div class="form-group row">
                                     <div class="col-md-2">

@@ -172,6 +172,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where(\DB::raw('DATEDIFF(now(), `users`.`last_online_at`)'), '<', 23);
     }
     
+    public function scopeVisible($query)
+    {
+        return is_egora() ? $query->where('visible', 1) : $query;
+    }
+    
     public function user_notifications()
     {
         return $this->belongsToMany(User::class, 'notifications', 'sender_id', 'receiver_id')

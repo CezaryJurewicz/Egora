@@ -39,7 +39,8 @@ class Idea extends Model
     
     public function liked_users()
     {
-        return $this->belongsToMany(User::class)->withPivot('position');
+        return $this->belongsToMany(User::class)->withPivot('position')
+                ->visible();
     }
     
     public function getPositionSumAttribute($value)
