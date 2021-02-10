@@ -187,13 +187,15 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @include('blocks.alerts')
-            
-            @yield('content')
-        </main>
+        <div class="py-5">
+            <main role="main" class="container py-5                 ">
+                @include('blocks.alerts')
+
+                @yield('content')
+            </main>
+        </div>
         
-        <div class="mt-3 text-center">
+        <div class="text-center">
             Egora - Copyleft 2018
         </div>
     </div>

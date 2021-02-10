@@ -31,7 +31,7 @@
                 @if (auth('web')->check())
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                        <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
                     </div>
                     <div class="offset-6 col-md-3 mb-3">
                         @if (is_egora())
@@ -107,7 +107,7 @@
                 
                 @if (auth('web')->check())
                 <div class="row col-md-3 mt-3">
-                    <a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>
+                    <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
                 </div>
                 @endif
             </div>
