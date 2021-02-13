@@ -64,7 +64,7 @@
                     @if($users->isNotEmpty())
                         @if ($recent)
                         <center>
-                        <h5>Recent public accounts</h5>
+                        <h5>New Users</h5>
                         </center>
                         @endif
                         <table class="table table-striped">
