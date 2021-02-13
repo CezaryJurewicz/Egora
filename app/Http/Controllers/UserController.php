@@ -191,6 +191,60 @@ class UserController extends Controller
         return view('users.leadsbyid')->with(compact('leads', 'user', 'community_id'));
     }
     
+    public function communities(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        $communities=[];
+        
+        $dec = count($user->communities_not_allowed_to_leave);
+        
+        foreach( $user->communities_allowed_to_leave as $i=>$community) {
+            $communities[$community->pivot->order-$dec-1] = $community;
+        }
+
+        return view('users.communities')->with(compact('user', 'communities'));
+    }
+
+    public function communities_update(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'communities' => 'required|array|min:10|max:10',
+            'communities.*' => 'nullable|string|min:3|max:190'
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+            
+        $sync_ids =[];
+        foreach( $request->user()->communities_not_allowed_to_leave as $i=>$community) {
+            $sync_ids[$community->id] = ['order'=>$community->pivot->order];
+        }
+        
+        $inc = count($sync_ids)+1   ;
+        foreach(array_filter($request->communities) as $i=>$community) 
+        {
+            if ($row = \App\Community::where('title', $community)->first()) {
+                $sync_ids[$row->id] = ['order'=>$i+$inc];    
+            } else {
+                $row = new \App\Community();
+                $row->title = $community;
+                $row->save();
+                $sync_ids[$row->id] = ['order'=>$i+$inc];
+            }
+        }
+//        dd($sync_ids);
+
+        $request->user()->communities()->sync($sync_ids);
+        
+        return redirect()->back()->with('success', 'Communities Updated');
+    }
+    
+    
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -469,7 +523,11 @@ class UserController extends Controller
     public function destroy(Request $request, User $user)
     {
         $user->forceDelete();
-        return redirect()->back()->with('success', 'User permanently deleted');  
+        
+        if($request->user()->isAdmin()) {
+            return redirect()->route('users.index')->with('success', 'User permanently deleted');
+        }
+        return redirect()->route('home')->with('success', 'User permanently deleted');
     }
     
     public function delete_by_user(Request $request, User $user)

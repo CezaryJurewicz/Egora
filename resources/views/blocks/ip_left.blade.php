@@ -29,6 +29,12 @@
                                 @endif
                                 @endforeach
                             </div>
+                            
+                            @if ( (auth('admin')->user() ?: auth('web')->user())->can('communities', [App\User::class, $user->active_search_name_hash]) )
+                            <div class="mt-2">
+                                <a class="btn btn-primary btn-sm btn-block" href="{{ route('users.communities', $user->active_search_name_hash) }}">Edit</a>
+                            </div>                            
+                            @endif
                             @endif
                                 
                             @if (is_egora())

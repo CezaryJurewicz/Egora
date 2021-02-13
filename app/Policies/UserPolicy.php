@@ -270,5 +270,16 @@ class UserPolicy
         return $user->isAdmin() && $model->user_type->former;
     }
     
-    
+    public function communities(User $user, $hash)
+    {
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+            
+            return is_egora('community') && $user->id == $model->id;
+        }
+        
+        return $this->deny();
+    }
 }

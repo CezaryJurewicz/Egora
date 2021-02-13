@@ -107,7 +107,7 @@ class RegisterController extends Controller
         $search_name->save();
 
         $ids = \DB::table('communities')->where('on_registration', true)->get()->pluck('id');
-        $user->communities()->toggle($ids);
+        $user->communities()->sync($ids);
         
         return $user;
     }

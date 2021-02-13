@@ -164,7 +164,17 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function communities()
     {
-        return $this->belongsToMany(Community::class);
+        return $this->belongsToMany(Community::class)->withPivot('order')->orderBy('order');
+    }
+    
+    public function communities_not_allowed_to_leave()
+    {
+        return $this->communities()->not_allowed_to_leave();
+    }
+    
+    public function communities_allowed_to_leave()
+    {
+        return $this->communities()->allowed_to_leave();
     }
     
     public function scopeRecent($query)

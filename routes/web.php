@@ -43,7 +43,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/passports')->name('passports.')->group(function(){
         Route::delete('/{passport}', 'PassportController@destroy')->name('delete')->middleware('can:delete,passport');
     });
-    
+        
     Route::prefix('/ideas')->name('ideas.')->group(function(){
         Route::match(['get', 'post'],'/indexes', 'IdeaController@indexes')->name('indexes')->middleware('can:viewIdi,App\Idea');
         Route::match(['get', 'post'],'/indexes/popularity', 'IdeaController@popularity_indexes')->name('popularity_indexes')->middleware('can:viewAny,App\Idea');
@@ -59,6 +59,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/leads', 'UserController@leads')->name('leads')->middleware('can:leads,App\User');        
         Route::get('/{hash}/leads', 'UserController@leadsbyid')->name('leadsbyid')->middleware('can:leadsbyid,App\User,hash');        
+        Route::get('/{hash}/communities', 'UserController@communities')->name('communities')->middleware('can:communities,App\User,hash');        
+        Route::put('/{hash}/communities', 'UserController@communities_update')->name('communities_update')->middleware('can:communities,App\User,hash');        
         Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
         Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about', 'UserController@about')->name('about')->middleware('can:ideological_profile,App\User,hash');
