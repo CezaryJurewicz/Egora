@@ -186,7 +186,7 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
 
-        $leads = $user->following->sortBy('active_search_name');
+        $leads = $user->following()->where('visible',1)->get()->sortBy('active_search_name');
         
         return view('users.leadsbyid')->with(compact('leads', 'user', 'community_id'));
     }
