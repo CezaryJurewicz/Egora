@@ -1,1 +1,1 @@
-        <nav class="navbar navbar-expand-md fixed-top navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md fixed-top navbar-light shadow-sm" style="padding: .1rem 1rem;">
