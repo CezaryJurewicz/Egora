@@ -61,7 +61,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{hash}/leads', 'UserController@leadsbyid')->name('leadsbyid')->middleware('can:leadsbyid,App\User,hash');        
         Route::get('/{hash}/communities', 'UserController@communities')->name('communities')->middleware('can:communities,App\User,hash');        
         Route::put('/{hash}/communities', 'UserController@communities_update')->name('communities_update')->middleware('can:communities,App\User,hash');        
-        Route::match(['get', 'post'], '/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
+        Route::get('/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
+        Route::post('/search', 'UserController@search')->name('search')->middleware(['can:searchAny,App\User', 'throttle:46,1440']);        
         Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about', 'UserController@about')->name('about')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about_edit', 'UserController@about_edit')->name('about_edit')->middleware('can:about_edit,App\User,hash');
