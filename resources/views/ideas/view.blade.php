@@ -72,11 +72,9 @@
                     </div>
                     
                     <!-- temp -->
-                    @if(is_egora())
                     <div class="card-body">
                         @include('blocks.like')
                     </div>
-                    @endif                
                 </div>
 
                 <div class="card">

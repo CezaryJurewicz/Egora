@@ -306,9 +306,14 @@ class IdeaController extends Controller
                 'd' => ['required', Rule::in([1, -1]),],
             ]);
 
+        if(is_egora('community')) {
+            $liked = $request->user()->liked_ideas()->where('idea_user.community_id', $idea->community->id)->get();
+        } else {
+            $liked = $request->user()->liked_ideas;
+        }
         
         $all = ip_places();
-        list($used, $current) = ip_used_places($request->user()->liked_ideas,$idea);
+        list($used, $current) = ip_used_places($liked,$idea);
         $unused = array_diff($all, $used);
         
         $order = false;
@@ -340,7 +345,12 @@ class IdeaController extends Controller
 
             $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
 
-            return redirect()->to(route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash).'#idea'.$idea->id)
+            $route = [$request->user()->active_search_names->first()->hash];
+            if (isset($idea->community)) {
+                $route['community_id'] = $idea->community->id;
+            }
+        
+            return redirect()->to(route('users.ideological_profile', $route).'#idea'.$idea->id)
                     ->with('success', 'Idea position updated.');
         }
         
@@ -437,8 +447,14 @@ class IdeaController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
+        if(is_egora('community')) {
+            $liked = $request->user()->liked_ideas()->where('idea_user.community_id', $idea->community->id)->get();
+        } else {
+            $liked = $request->user()->liked_ideas;
+        }
+        
         if (auth()->guard('web')->check()) {
-            list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $request->user()->liked_ideas, $idea);
+            list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $liked, $idea);
         } else {
             list($numbered, $current_idea_position) = [null, null];
         }
@@ -536,7 +552,12 @@ class IdeaController extends Controller
         
         event(new IdeaSupportHasChanged($idea));
         
-        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Idea added to your IP');   
+        $route = [$request->user()->active_search_names->first()->hash];
+        if (isset($idea->community)) {
+            $route['community_id'] = $idea->community->id;
+        }
+        
+        return redirect()->route('users.ideological_profile', $route)->with('success', 'Order updated');
     }
     
     public function unlike(Request $request, Idea $idea) 
