@@ -253,9 +253,9 @@ class UserPolicy
     
     public function invite(User $user, User $model, \App\Idea $idea) 
     {
-        if (is_egora('community') && !$model->communities->contains($idea->community)) {
-            return $this->deny();
-        }
+//        if (is_egora('community') && !$model->communities->contains($idea->community)) {
+//            return $this->deny();
+//        }
         
         return $this->allow();
     }    

@@ -19,21 +19,45 @@
                     
                         @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
                         <div class="row-striped ">
-                            @if (is_egora('community') && !$u->communities->contains($idea->community))
+                            @if (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
+                                    return $v->id == $u->id && $v->pivot->idea_id == $idea->id;
+                                }))
                                 <div class="row pt-1 pb-1 pl-5">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 align-self-center">
+                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                            {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-2 text-center">
+                                        {{ __('Invited') }}
+                                    </div>
+                                </div>
+                            @elseif (is_egora('community') && !$u->communities->contains($idea->community))
+                            <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
+                                @csrf
+
+                                <div class="row pt-1 pb-1 pl-5">
+                                    <div class="col-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                         {{ $u->active_search_names->first()->name ?? $u->id }}
                                         </a>
                                     </div>
 
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-2  align-self-center text-center">
+                                        <button type="submit" class="btn btn-sm btn-primary col-md-12">
+                                            {{ __('Invite') }}
+                                        </button>
+                                    </div>
+
+                                    <div class="col-4 text-center">
                                         {{ __('Not in this Community') }} 
                                     </div>
                                 </div>
+                            </form>
                             @elseif ($u->liked_ideas->contains($idea))
                                 <div class="row pt-1 pb-1 pl-5">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                         {{ $u->active_search_names->first()->name ?? $u->id }}
                                         </a>
@@ -47,25 +71,11 @@
                                         @endif
                                     </div>
                                 </div>
-                            @elseif (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
-                                    return $v->id == $u->id && $v->pivot->idea_id == $idea->id;
-                                }))
-                                <div class="row pt-1 pb-1 pl-5">
-                                    <div class="col-md-6">
-                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                            {{ $u->active_search_names->first()->name ?? $u->id }}
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-2 text-center">
-                                        {{ __('Invited') }}
-                                    </div>
-                                </div>
                             @else
                             <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
                                 @csrf
                                 <div class="row pt-1 pb-1 pl-5">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_names->first()->name ?? $u->id }}
                                         </a>

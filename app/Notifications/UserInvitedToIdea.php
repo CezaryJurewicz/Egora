@@ -42,7 +42,7 @@ class UserInvitedToIdea extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(($this->notification->sender->active_search_names->first()->name ?? $this->notification->sender->id).' invited you to examine an idea!')
+                    ->subject( $this->notification->sender->name.' invited you to examine an idea!')
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
                     ->line('What do you think about this idea?')
                     ->action('Idea', route('ideas.view',[$this->notification->idea->id, 'notification_id' => $this->notification->id]))

@@ -120,3 +120,8 @@ ol.bold {
 .row-striped:nth-of-type(even){
   background-color: #ffffff;
 }
+
+.navbar-dark .navbar-nav .nav-link {
+    font-weight: 800;
+    color: hsla(0,0%,100%,.7);
+}

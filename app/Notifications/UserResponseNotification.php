@@ -42,7 +42,7 @@ class UserResponseNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(($this->notification->sender->active_search_names->first()->name ?? $this->notification->sender->id).' responded to your idea invitation!')
+                    ->subject($this->notification->sender->name.' responded to your idea invitation!')
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
                     ->line($this->notification->notification_preset->title)
                     ->action('Response', route('notifications.index').'#nid'.$this->notification->id)

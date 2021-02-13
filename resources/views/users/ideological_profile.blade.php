@@ -22,9 +22,11 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (is_egora())
                                 <div class="col col-md-2 text-right">
                                     <a class="btn btn-sm btn-primary" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
                                 </div>
+                                @endif
                             </div>
                             <div>
                                 @if (is_egora())
