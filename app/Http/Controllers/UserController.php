@@ -22,6 +22,7 @@ use App\SearchName;
 use App\Idea;
 use App\Notification as NotificationModel;
 use App\Events\UserInvitedToIdea;
+use App\Events\UserLeftComminity;
 
 class UserController extends Controller
 {
@@ -219,12 +220,14 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
             
+        $before = $request->user()->communities()->get();
+        
         $sync_ids =[];
         foreach( $request->user()->communities_not_allowed_to_leave as $i=>$community) {
             $sync_ids[$community->id] = ['order'=>$community->pivot->order];
         }
         
-        $inc = count($sync_ids)+1   ;
+        $inc = count($sync_ids)+1;
         foreach(array_filter($request->communities) as $i=>$community) 
         {
             if ($row = \App\Community::where('title', $community)->first()) {
@@ -236,9 +239,13 @@ class UserController extends Controller
                 $sync_ids[$row->id] = ['order'=>$i+$inc];
             }
         }
-//        dd($sync_ids);
 
         $request->user()->communities()->sync($sync_ids);
+        
+        $communities_left = $before->diff($request->user()->communities()->get());
+        foreach($communities_left as $community) {
+            event(new UserLeftComminity($request->user(), $community));
+        }
         
         return redirect()->back()->with('success', 'Communities Updated');
     }

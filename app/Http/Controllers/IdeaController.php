@@ -546,9 +546,14 @@ class IdeaController extends Controller
 
             event(new UserLikedIdeaFromNotification($notification));
         }
+
+        $arr =  ['position'=>$position, 'order' => $order];
+        if (is_egora('community')) {
+            $arr['community_id'] = $idea->community->id;
+        }
         
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
-        $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
+        $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
         
         event(new IdeaSupportHasChanged($idea));
         

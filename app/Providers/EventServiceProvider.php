@@ -51,6 +51,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserLikedIdeaFromNotification' => [
             'App\Listeners\SendLikedIdeaNotificationEmail',
+        ],
+        'App\Events\UserLeftComminity' => [
+            'App\Listeners\DetachComminityIdeasFromUser',
         ]
     ];
 
