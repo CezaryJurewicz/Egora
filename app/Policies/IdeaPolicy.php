@@ -47,8 +47,20 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
+        if (app('request')->has('notification_id')) {
+            $notification = \App\Notification::findOrFail(app('request')->input('notification_id'));
+
+            if ($user->id == $notification->receiver->id && $notification->idea_id == $idea->id) {
+                $egora = collect(config('egoras'))->first(function($value, $key) use ($notification) {
+                    return $value['id'] == $notification->idea->egora_id;
+                });
+
+                request()->session()->put('current_egora', $egora['name']);
+            }
+        }
+        
         if (is_egora('community')) {
-            return request()->has('notification_id') || $user->communities->contains($idea->community);
+            return request()->has('notification_id') || $user->communities->contains($idea->community); // TODO: add checks
         }  
         
         return $idea->egora_id == current_egora_id();
