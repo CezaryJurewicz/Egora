@@ -14,7 +14,7 @@
                             External invitation link
                             </div>
 
-                            <div id="copyLink" class="col-md-2"></div>
+                            <div id="copyLink" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-2"></div>
                         </div>
                     
                         @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)

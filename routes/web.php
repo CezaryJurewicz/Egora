@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::prefix('/ideas')->name('ideas.')->group(function(){
-    Route::post('/search', 'IdeaController@search')->name('search');
+    Route::get('/{hash}/preview', 'IdeaController@preview')->name('preview');
 });
 
 Route::middleware(['verified', 'auth:admin,web'])->group(function() {
@@ -167,6 +167,7 @@ Route::middleware(['auth:admin'])->group(function() {
     });
     
     Route::prefix('/ideas')->name('ideas.')->group(function(){
+        Route::post('/search', 'IdeaController@search')->name('search');
         Route::get('/', 'IdeaController@index')->name('index')->middleware('can:administrate,App\Idea');
         Route::delete('/{idea}', 'IdeaController@destroy')->name('delete')->middleware('can:delete,idea')->where('idea', '[0-9]+');
         Route::put('/{idea}', 'IdeaController@restore')->name('restore')->middleware('can:restore,App\Idea')->where('idea', '[0-9]+');

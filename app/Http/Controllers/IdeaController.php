@@ -465,9 +465,9 @@ class IdeaController extends Controller
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
                 if (is_egora()) {
-                $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
+                    $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
                 } else if (is_egora('community')) {
-                $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
+                    $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
                 }
             }
         }
@@ -578,4 +578,18 @@ class IdeaController extends Controller
         return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Idea removed from your IP');   
     }
     
+    public function preview(Request $request, $hash)
+    {
+        $idea_id = intval($hash, 36); // base64_encode / base64_decode
+        
+        $idea = Idea::findOrFail($idea_id);
+        
+        $egora = collect(config('egoras'))->first(function($value, $key) use ($idea) {
+            return $value['id'] == $idea->egora_id;
+        });
+
+        request()->session()->put('current_egora', $egora['name']);
+        
+        return view('ideas.preview')->with(compact('idea'));
+    }
 }

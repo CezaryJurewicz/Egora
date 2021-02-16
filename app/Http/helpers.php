@@ -33,7 +33,7 @@ function shorten_text($text, $limit = 92)
 }
 
 function make_clickable_links($text) {
-    return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?[^"<>\.\s]+)?[^"<>\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
+    return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?[^"<>\.\s]+)?[^"<>\.\s])?)?)@', '<a href="$1" rel="nofollow" target="_blank">$1</a>', $text);
 }
 
 function ip_used_places($ideas, $idea=null) {

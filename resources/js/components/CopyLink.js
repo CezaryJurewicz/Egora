@@ -6,7 +6,9 @@ class CopyBtn extends React.Component {
         super(props)
 
         this.state = {
-          copySuccess: false
+            value: props.value ? props.value : '',
+//            value: this.props.value ? this.props.value : '',
+            copySuccess: false
         }
     }
     
@@ -58,7 +60,7 @@ class CopyBtn extends React.Component {
     }
 
     copyCodeToClipboard = () => {
-        var text = "I support this idea in Egora: " + window.location.href + "\n"
+        var text = "I support this idea in Egora: " + this.state.value + "\n"
                 + "What do you think about it?\n"
                 + "Will you support it?\n\n"
                 + "***********************\n"
@@ -90,6 +92,8 @@ class CopyBtn extends React.Component {
 
 export default CopyBtn;
 
-if (document.getElementById('copyLink')) {
-    ReactDOM.render(<CopyBtn />, document.getElementById('copyLink'));
+var elem = document.getElementById('copyLink');
+if (elem) {
+    var value = elem.getAttribute('value');
+    ReactDOM.render(<CopyBtn value={ value } />, elem);
 }
