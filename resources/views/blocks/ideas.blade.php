@@ -36,14 +36,14 @@
                                         <div class="col-6">
                                         @if($index == 'dominance')
                                         Supporters:
-                                        @else
+                                        @elseif (is_egora())
                                         IDI Points: 
                                         @endif
                                         </div>
                                         <div class="col-6">
                                         @if($index == 'dominance')
                                         {{ number_format($idea->liked_users_count) }}
-                                        @else
+                                        @elseif (is_egora())
                                         {{ number_format($idea->liked_users_sum) }}
                                         @endif
                                         </div>

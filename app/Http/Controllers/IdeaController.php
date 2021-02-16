@@ -464,7 +464,11 @@ class IdeaController extends Controller
             if($current_idea_position>23) {
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
+                if (is_egora()) {
                 $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
+                } else if (is_egora('community')) {
+                $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
+                }
             }
         }
         

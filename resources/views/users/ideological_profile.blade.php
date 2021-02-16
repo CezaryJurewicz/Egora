@@ -94,7 +94,11 @@
                                                 @else
                                                 <div class="col-9 col-sm-5">
                                                 @endif
-                                                    <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} @else 0 ({{$idea->pivot->order}}) @endif</b>
+                                                    <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
+                                                       @else 
+                                                            @if (is_egora()) 0 @endif 
+                                                            ({{$idea->pivot->order}}) 
+                                                       @endif</b>
                                                     <br/>
                                                 @if ($idea->nation)
                                                     {{$idea->nation->title}}
@@ -106,6 +110,7 @@
                                                     <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                 </div>
                                                 <div class="offset-sm-1 col-12 col-sm-4">
+                                                @if (is_egora())
                                                 <div class="row">
                                                     <div class="col-6">
                                                         IDI Points:
@@ -114,6 +119,7 @@
                                                     {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <div class="row">
                                                     <div class="col-6">
                                                 Supporters:
