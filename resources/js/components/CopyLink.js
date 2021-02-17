@@ -7,7 +7,6 @@ class CopyBtn extends React.Component {
 
         this.state = {
             value: props.value ? props.value : '',
-//            value: this.props.value ? this.props.value : '',
             copySuccess: false
         }
     }
@@ -60,14 +59,14 @@ class CopyBtn extends React.Component {
     }
 
     copyCodeToClipboard = () => {
-        var text = "I support this idea in Egora: " + this.state.value + "\n"
-                + "What do you think about it?\n"
+        var text = "I support this idea in Egora, “The Worldwide Stock-Market of Ideas”: \n" + this.state.value + "\n\n"
+                + "What do you think about it?\n\n"
                 + "Will you support it?\n\n"
                 + "***********************\n"
-                + "Egora, “The Worldwide Stock-Market of Ideas”, enables everyone to\n"
+                + "Egora enables everyone to\n"
                 + "– develop their own political philosophy out of various ideas,\n"
                 + "– determine which ideas are most strongly supported by the people, and\n"
-                + "– find the true representatives of the public will to elect them into public office."
+                + "– find the true representatives of the public will, to elect them into public office."
         
         this.copyText(text);
     }

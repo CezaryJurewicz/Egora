@@ -57,7 +57,7 @@
                         Egora, “The Worldwide Stock-Market of Ideas”, enables everyone to<br/>
                         – develop their own political philosophy out of various ideas,<br/>
                         – determine which ideas are most strongly supported by the people, and<br/>
-                        – find the true representatives of the public will to elect them into public office.
+                        – find the true representatives of the public will, to elect them into public office.
                         </div>
                     </div>
                     <div class="card-body text-center">

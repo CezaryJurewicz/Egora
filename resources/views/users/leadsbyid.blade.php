@@ -19,7 +19,9 @@
                                     </div>
                                 </div>
                                 <div class="col col-md-2 text-right">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">IP</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">
+                                    @if(is_egora()) IP @elseif(is_egora('community')) CM @endif
+                                    </a>
                                 </div>
                             </div>
                             <div class="card">

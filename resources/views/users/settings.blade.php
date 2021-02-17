@@ -137,7 +137,7 @@
                                         <input  id="visible" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="visible" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is hidden from "New Users"; profile is hidden from other users\' "Leads".)') }}</label>
+                                        <label for="visible" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is hidden from "New Users"; profile is hidden from published "Leads".)') }}</label>
                                         <input id="visible" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
