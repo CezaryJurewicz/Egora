@@ -34,12 +34,10 @@
                         <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
                     </div>
                     <div class="offset-6 col-md-3 mb-3">
-                        @if (is_egora())
-                        <form id="copy" method="POST" action="{{ route('ideas.copy', $idea) }}">
+                        <form id="copy" method="GET" action="{{ route('ideas.copy', $idea) }}">
                         @csrf
                         <button class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</button>
                         </form>
-                        @endif
                     </div>
                 </div>
                 @endif
@@ -67,14 +65,8 @@
                     <div class="card-body">
                     {!! make_clickable_links(strip_tags(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $idea->content)), '<br><p><b><i><li><ul><ol>')) !!}
                     </div>
-                    <div class="card-footer pt-4 pb-4">
-                        @if(!is_null($current_idea_point_position))Current Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span> @endif
-                    </div>
                     
-                    <!-- temp -->
-                    <div class="card-body">
-                        @include('blocks.like')
-                    </div>
+                    @include('blocks.like')
                 </div>
 
                 <div class="card">

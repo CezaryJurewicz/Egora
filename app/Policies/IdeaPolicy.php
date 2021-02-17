@@ -81,8 +81,10 @@ class IdeaPolicy
         }
         
         if (is_egora('community')) {
-            
-        }        
+            if (!$user->communities->contains($idea->community)) {
+                return $this->deny();
+            }
+        }
         return $this->allow();
     }
     
