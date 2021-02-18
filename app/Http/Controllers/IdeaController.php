@@ -590,6 +590,10 @@ class IdeaController extends Controller
 
         request()->session()->put('current_egora', $egora['name']);
         
-        return view('ideas.preview')->with(compact('idea'));
+        if($request->user()) {
+            return redirect()->route('ideas.view', [$idea->id, 'preview']);  
+        }
+        
+        return view('ideas.view')->with(compact('idea'));
     }
 }

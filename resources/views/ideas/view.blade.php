@@ -23,9 +23,24 @@
                             @else 
                                 <h3>{{ (App\SearchName::where('hash', app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'])->firstOrFail() ?? App\User::findOrFail($idea->user->id)->active_search_names->first())->name ?? '' }} </h3>
                             @endif
+                        @else
+                            @if (is_egora())
+                            <h3>{{ __('views.Ideological Profile') }}</h3>
+                            @elseif (is_egora('community'))
+                            <h3>{{ __('Community Matters') }}</h3>
+                            @endif
                         @endif 
+                        <h3>Idea: Open</h3>
+                    @else 
+                        @if( \Route::currentRouteName() == 'ideas.preview' )
+                            @if (is_egora())
+                            <h3>{{ __('views.Ideological Profile') }}</h3>
+                            @elseif (is_egora('community'))
+                            <h3>{{ __('Community Matters') }}</h3>
+                            @endif
+                            <h3>Idea: Preview</h3>
+                        @endif
                     @endif
-                    <h3>Idea: Open</h3>
                 </div>
                 
                 @if (auth('web')->check())
@@ -54,11 +69,13 @@
                                 {{ $idea->community->title }}                             
                             @endif
                             </div>
-
-                            @if(!is_null($current_idea_position))
+                            
+                            @if (auth('web')->check())
+                            @if(isset($current_idea_position) && !is_null($current_idea_position))
                             <div class="col-md-2">
                                 <a class='btn btn-primary btn-sm ml-2' href="{{ route('ideas.unlike', $idea->id) }}">{{__('some.Remove and Close')}}</a>
                             </div>
+                            @endif
                             @endif
                         </div>
                     </div>
@@ -86,6 +103,7 @@
                     <div class="card-header">
                     </div>                
                 
+                    @if (auth('web')->check())
                     <div class="card-body">
                         @include('blocks.invite_examine')
                     </div>
@@ -93,6 +111,22 @@
                     <div class="card-body">
                         @include('blocks.invite_response')
                     </div>
+                    @endif
+
+                    @if( \Route::currentRouteName() == 'ideas.preview' )
+                    <div class="card-body text-center">
+                        <div class="col-10 offset-1">
+                        Egora, “The Worldwide Stock-Market of Ideas”, enables everyone to<br/>
+                        – develop their own political philosophy out of various ideas,<br/>
+                        – determine which ideas are most strongly supported by the people, and<br/>
+                        – find the true representatives of the public will, to elect them into public office.
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <a class='btn btn-primary btn-xl ml-2' href="{{ route('index') }}">{{__('Register Now')}}</a>
+                    </div>
+                    @endif
+                    
                 </div>
                 
                 @if (auth('web')->check())

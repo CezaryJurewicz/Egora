@@ -47,6 +47,11 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
+        // is not secure for private communities, but priview is also
+        if (app('request')->has('preview')) {
+            return $this->allow();
+        }
+        
         if (app('request')->has('notification_id')) {
             $notification = \App\Notification::findOrFail(app('request')->input('notification_id'));
 
