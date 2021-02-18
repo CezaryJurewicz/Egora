@@ -54,8 +54,10 @@ function ip_used_places($ideas, $idea=null) {
 
 function ip_places() {
     $places = [];
+
+    $from = is_egora('community') ? 23 : 46;
     
-    for($i=46;$i>=1;$i--){
+    for($i=$from;$i>=1;$i--){
         $places[] = $i;
     }
     
