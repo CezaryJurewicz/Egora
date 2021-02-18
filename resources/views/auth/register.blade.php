@@ -265,34 +265,33 @@
                     <div class="card-body">
                         @csrf
 
-                        <div class="row">
-                            <div class="form-group offset-1 col-md-10 row">
-                            <label for="name" class="col-md-3 col-form-label">{{ __('Your Name') }}</label>
+                        <div class="form-group row">
+                                <div class="offset-md-1 col-md-3 row">
+                                    <label for="name" class="col-12 col-form-label">{{ __('Your Name') }}</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
 
-                            <div class="col-md-8">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            </div>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                         </div>
 
                         <div class="form-group row pt-3">
-                            <div class="form-group offset-1 col-md-10 row">
-                                <label for="nation" class="col-md-1 col-form-label">{{ __('Nation') }}</label>
-                                <div class="col-md-2">
-                                    <a class="btn btn-primary col-12" data-toggle="collapse" href="#collapseg" role="button" aria-expanded="false" aria-controls="collapseg"> 
-                                        {{ __('Guide') }}   
-                                        <i class="fa fa-chevron-down pull-right"></i>
-                                        <i class="fa fa-chevron-right pull-right"></i>
-                                    </a>
+                                <div class="offset-md-1 col-md-3 row">
+                                    <label for="nation" class="col-7 col-form-label">{{ __('Nation') }}</label>
+                                    <div class="col-5">
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseg" role="button" aria-expanded="false" aria-controls="collapseg"> 
+                                            {{ __('?') }}   
+                                            <i class="fa fa-chevron-down pull-right"></i>
+                                            <i class="fa fa-chevron-right pull-right"></i>
+                                        </a>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="row">
                                         <div class="col-12">
                                             <div id="NationSearch" value="{{ old('nation') }}"></div>
@@ -316,14 +315,13 @@
                                     </div>
 
                                 </div>
-                            </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="form-group offset-1 col-md-10 row">
-                            <label for="email" class="col-md-3 col-form-label">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-8">
+                            <div class="offset-md-1 col-md-3 row">
+                                <label for="email" class="col-12 col-form-label">{{ __('E-Mail Address') }}</label>
+                            </div>
+                            <div class="col-md-7">
                                 <input id="email" type="email" class="form-control @error('reg_email') is-invalid @enderror" name="reg_email" value="{{ old('reg_email') }}" required autocomplete="email">
 
                                 @error('reg_email')
@@ -332,14 +330,13 @@
                                     </span>
                                 @enderror
                             </div>
-                            </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="form-group offset-1 col-md-10 row">
-                            <label for="password" class="col-md-3 col-form-label">{{ __('Create Password') }}</label>
-
-                            <div class="col-md-8">
+                            <div class="offset-md-1 col-md-3 row">
+                                <label for="password" class="col-12 col-form-label">{{ __('Create Password') }}</label>
+                            </div>
+                            <div class="col-md-7">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
@@ -348,16 +345,15 @@
                                     </span>
                                 @enderror
                             </div>
-                            </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="form-group offset-1 col-md-10 row">
-                            <label for="password-confirm" class="col-md-3 col-form-label">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-8">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="offset-md-1 col-md-3 row">
+                                <label for="password-confirm" class="col-12 col-form-label">{{ __('Confirm Password') }}</label>
                             </div>
+
+                            <div class="col-md-7">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
