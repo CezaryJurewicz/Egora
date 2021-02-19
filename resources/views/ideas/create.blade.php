@@ -34,7 +34,7 @@
                                     </span>
                                 @enderror
                             @elseif (is_egora('community'))
-                                <select @if (isset($community_id)) disabled='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
+                                <select @if (isset($community_id)) disabled1='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
                                 <option></option>
                                 @foreach($user->communities as $c)
                                 <option @if(old('community') && old('community')== $c->id || $community_id == $c->id) selected @endif value="{{$c->id}}">{{$c->title}}</option>
@@ -120,12 +120,27 @@
     </div>
 </div>
 <script type="text/javascript">
-    document.getElementById('content').onkeydown = function(e){
+    document.getElementById('content').onkeydown = function(e){ // TODO: change to React?
         if(e.keyCode==9 || e.which==9){
             e.preventDefault();
             var s = this.selectionStart;
             this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
             this.selectionEnd = s+1; 
+        }
+    }
+    
+    document.getElementById('community').onchange = function(e){ // TODO: change to React
+        try {
+            const url = new URL(window.location.href)
+            
+            if (url.searchParams.get('community_id') == null) {
+                window.location.href = url.href + "?community_id="+this.value;
+            } else {
+                const regex = /community_id=[0-9]*/;
+                window.location.href = url.href.replace(regex, 'community_id='+this.value);
+            }
+        } catch (error) {
+            console.log(error); // TypeError, "Failed to construct URL: Invalid URL"
         }
     }
 </script>

@@ -49,10 +49,7 @@
                         <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
                     </div>
                     <div class="offset-6 col-md-3 mb-3">
-                        <form id="copy" method="GET" action="{{ route('ideas.copy', $idea) }}">
-                        @csrf
-                        <button class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</button>
-                        </form>
+                        <a href="{{ route('ideas.copy', $idea) }}" class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</a>
                     </div>
                 </div>
                 @endif
