@@ -381,7 +381,7 @@ class IdeaController extends Controller
         $nations = $this->_user_nation($request)->pluck('id');
         
         $validator = Validator::make($request->all(),[
-            'content' => 'required|string|max:63000',
+            'content' => 'required|string|max:64000',
             'nation' => 'required_without:community|integer|in:'.implode(',',$nations->toArray()),
             'community' => 'required_without:nation|integer|in:'.implode(',',$request->user()->communities->pluck('id')->toArray()),
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
@@ -389,7 +389,7 @@ class IdeaController extends Controller
                 //        'unique_position:'.$request->user()->id 
                 ],
         ], [
-            'content.max' => 'An idea may not be greater than 23,000 characters.'
+            'content.max' => 'An idea may not be greater than 64,000 characters.'
         ]);
          
         $order = $request->input('position1');
