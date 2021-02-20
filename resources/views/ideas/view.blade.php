@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    {!! make_clickable_links(strip_tags(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $idea->content)), '<br><p><b><i><li><ul><ol>')) !!}
+                    {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($idea->content)))) !!}
                     </div>
                     
                     @include('blocks.like')

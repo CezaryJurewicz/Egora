@@ -25,7 +25,7 @@
                             <div>
                                 <div class="card">
                                     <div class="card-body" style="min-height: 300px;">
-                                            {!! strip_tags(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), $user->about_me)), '<br><p><b><i><li><ul><ol>') !!}
+                                            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($user->about_me))) !!}                                                                    
                                     </div>
                                 </div>
                             </div>

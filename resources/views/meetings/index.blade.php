@@ -198,7 +198,7 @@
                                                 <div class="row mt-2">
                                                     <div class="col-md-4">@lang('Comments:')</div>
                                                     <div class="col-md-8">
-                                                    {!! strip_tags(nl2br(str_replace('  ', '&nbsp;&nbsp;', $meeting->comments)), '<br><p><b><i><li><ul><ol>') !!}
+                                                    {!! nl2br(str_replace('  ', '&nbsp;&nbsp;', htmlspecialchars($meeting->comments))) !!}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">

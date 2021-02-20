@@ -381,7 +381,7 @@ class IdeaController extends Controller
         $nations = $this->_user_nation($request)->pluck('id');
         
         $validator = Validator::make($request->all(),[
-            'content' => 'required|string|max:23000',
+            'content' => 'required|string|max:63000',
             'nation' => 'required_without:community|integer|in:'.implode(',',$nations->toArray()),
             'community' => 'required_without:nation|integer|in:'.implode(',',$request->user()->communities->pluck('id')->toArray()),
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
