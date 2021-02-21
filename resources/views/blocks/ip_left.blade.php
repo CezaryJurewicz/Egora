@@ -36,7 +36,19 @@
                             </div>                            
                             @endif
                             @endif
-                                
+                            
+                            @if (is_egora('municipal'))
+                            <div class="mt-2">
+                                <b>{{ $user->municipality ? $user->municipality->title : '' }} </b>
+                            </div>
+                            @endif 
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('municipality_update', [App\User::class, $user->active_search_name_hash]) )
+                            <div class="mt-2">
+                                <a class="btn btn-primary btn-sm btn-block" href="{{ route('users.municipality_update', $user->active_search_name_hash) }}">Municipality</a>
+                            </div>                            
+                            @endif
+                            
                             @if (is_egora())
                             <div class="mt-2">{{ $user->nation->title }}</div>
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))

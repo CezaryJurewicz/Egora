@@ -19,6 +19,8 @@
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
                                         @elseif (is_egora('community'))
                                         <h3>{{ __('Community Matters') }}</h3>
+                                        @elseif (is_egora('municipal'))
+                                        <h3>{{ __('Municipal Matters') }}</h3>
                                         @endif
                                     </div>
                                 </div>
@@ -58,10 +60,12 @@
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                 <div class="mb-1 text-right"> 
-                                    @if (is_egora())
-                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
-                                    @elseif (is_egora('community'))
-                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                    @if (is_egora('community'))
+                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                    @else
+                                        @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
+                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                        @endif
                                     @endif
                                 </div>
                                 @endif

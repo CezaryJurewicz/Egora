@@ -77,9 +77,10 @@ class HomeController extends Controller
         return view('egoras.community')->with(compact('user'));
     }
     
-    public function municipal()
+    public function municipal(Request $request)
     {
-        return view('egoras.municipal');
+        $user = $request->user();
+        return view('egoras.municipal')->with(compact('user'));
     }
     
     public function indexAdmin()

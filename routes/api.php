@@ -25,3 +25,7 @@ use Illuminate\Http\Request;
         Route::get('/', 'CityController@indexApi')->name('indexapi');
     });
     
+    Route::prefix('/municipalities')->name('municipalities.')->group(function(){
+        Route::get('/', 'MunicipalityController@indexApi')->name('indexapi');
+    });
+    

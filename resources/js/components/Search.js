@@ -6,7 +6,8 @@ import Suggestions from './Suggestions'
 const API_URL = {
        'nation': '/api/nations',
        'country': '/api/countries',
-       'city': '/api/cities'
+       'city': '/api/cities',
+       'municipality': '/api/municipalities'
     };
 
 function Store(initialState = {}) {
@@ -97,4 +98,10 @@ if (document.getElementById('CitySearch')) {
     var value = document.getElementById('CitySearch').getAttribute('value');
     var cssClass = document.getElementById('CitySearch').getAttribute('cssClass');
     ReactDOM.render(<Search type="city"  query={ value } myStore = {myStore} cssClass={cssClass} />, document.getElementById('CitySearch'));
+}
+
+if (document.getElementById('MunicipalitySearch')) {
+    var value = document.getElementById('MunicipalitySearch').getAttribute('value');
+    var cssClass = document.getElementById('MunicipalitySearch').getAttribute('cssClass');
+    ReactDOM.render(<Search type="municipality"  query={ value } myStore = {myStore} cssClass={cssClass} />, document.getElementById('MunicipalitySearch'));
 }

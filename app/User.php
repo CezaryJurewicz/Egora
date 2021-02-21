@@ -64,7 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Petition::class, 'petition_users');
     }
 
-    
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
     public function nation()
     {
         return $this->belongsTo(Nation::class);

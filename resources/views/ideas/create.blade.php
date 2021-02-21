@@ -49,9 +49,11 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            
-                            
+                                @enderror                            
+                            @elseif (is_egora('municipal'))
+                                <div class="mt-2">
+                                    {{ $user->municipality->title }}
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -90,7 +92,7 @@
                                 @endfor
                                     </optgroup>
                                     
-                                @elseif (is_egora('community'))
+                                @elseif (is_egora('community') || is_egora('municipal'))
                                 <optgroup label="Supporting [+]">
                                     @for($i=23; $i>0; $i--)                                        
                                     <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 

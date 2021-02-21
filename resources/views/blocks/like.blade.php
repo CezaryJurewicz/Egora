@@ -27,7 +27,7 @@
                                              value="{{$i}}">0 ({{$i}})</option>
                                     @endfor
                                 </optgroup>
-                                @elseif (is_egora('community'))
+                                @elseif (is_egora('community') || is_egora('municipal'))
                                 <optgroup label="Supporting [+]">
                                     @for($i=23; $i>0; $i--)                                        
                                     <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 

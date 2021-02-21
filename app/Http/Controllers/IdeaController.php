@@ -266,12 +266,15 @@ class IdeaController extends Controller
     {        
         $nations = $this->_user_nation($request);
         $community_id = null;
-        
+        $ideas = [];
+
         if(is_egora()) {
             $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
         } else if(is_egora('community')) {
             $community_id = $request->community_id;
             $ideas = $request->user()->liked_ideas->where('community_id', $request->community_id);
+        } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
         }
         list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
         
@@ -284,12 +287,15 @@ class IdeaController extends Controller
     {        
         $nations = $this->_user_nation($request);
         $community_id = null;
+        $ideas=[];
         
         if(is_egora()) {
             $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
         } else if(is_egora('community')) {
             $community_id = $request->community_id;
             $ideas = $request->user()->liked_ideas->where('community_id', $request->community_id);
+        } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
         }
         list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
         
@@ -308,8 +314,10 @@ class IdeaController extends Controller
 
         if(is_egora('community')) {
             $liked = $request->user()->liked_ideas()->where('idea_user.community_id', $idea->community->id)->get();
+        } elseif(is_egora('municipal')) {
+            $liked = $request->user()->liked_ideas()->whereNotNull('municipality_id')->get();
         } else {
-            $liked = $request->user()->liked_ideas;
+            $liked = $request->user()->liked_ideas->whereNotNull('nation_id');
         }
         
         $all = ip_places();
@@ -380,18 +388,23 @@ class IdeaController extends Controller
     {
         $nations = $this->_user_nation($request)->pluck('id');
         
-        $validator = Validator::make($request->all(),[
+        $rules = [
             'content' => 'required|string|max:64000',
-            'nation' => 'required_without:community|integer|in:'.implode(',',$nations->toArray()),
-            'community' => 'required_without:nation|integer|in:'.implode(',',$request->user()->communities->pluck('id')->toArray()),
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
                         // fix this for communities
                 //        'unique_position:'.$request->user()->id 
                 ],
-        ], [
+        ];
+        
+        if (is_egora() || is_egora('community')) {
+            $rules['nation'] = 'required_without:community|integer|in:'.implode(',',$nations->toArray());
+            $rules['community'] = 'required_without:nation|integer|in:'.implode(',',$request->user()->communities->pluck('id')->toArray());            
+        } 
+
+        $validator = Validator::make($request->all(), $rules, [
             'content.max' => 'An idea may not be greater than 64,000 characters.'
         ]);
-         
+                
         $order = $request->input('position1');
         if ($request->exists('position1') && $request->input('position1')>23) {
             $position = $request->input('position1')-23;
@@ -415,6 +428,8 @@ class IdeaController extends Controller
             $idea->nation()->associate($request->input('nation'));
         } else if (is_egora('community')) {
             $idea->community()->associate($request->input('community'));
+        } else if (is_egora('municipal')) {
+            $idea->municipality()->associate($request->user()->municipality->id);
         }
         
         $idea->save();
@@ -447,14 +462,18 @@ class IdeaController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
-        if(is_egora('community')) {
-            $liked = $request->user()->liked_ideas()->where('idea_user.community_id', $idea->community->id)->get();
-        } else {
-            $liked = $request->user()->liked_ideas;
+        $ideas = [];
+
+        if(is_egora()) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+        } else if(is_egora('community')) {
+            $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
+        } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
         }
         
         if (auth()->guard('web')->check()) {
-            list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $liked, $idea);
+            list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas, $idea);
         } else {
             list($numbered, $current_idea_position) = [null, null];
         }

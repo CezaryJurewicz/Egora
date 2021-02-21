@@ -124,6 +124,10 @@ class IdeaPolicy
      */
     public function create(User $user)
     {
+        if(is_egora('municipal') && is_null($user->municipality_id)) {
+            return $this->deny();
+        }
+        
         return $this->allow();
     }
 

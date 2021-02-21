@@ -22,6 +22,11 @@ class Idea extends Model
         return $this->belongsTo(Nation::class);
     }
     
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+    
     public function community()
     {
         return $this->belongsTo(Community::class);

@@ -282,4 +282,17 @@ class UserPolicy
         
         return $this->deny();
     }
+
+    public function municipality_update(User $user, $hash)
+    {
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+            
+            return is_egora('municipal') && $user->id == $model->id;
+        }
+        
+        return $this->deny();
+    }
 }

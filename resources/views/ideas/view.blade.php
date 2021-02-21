@@ -63,7 +63,9 @@
                                 {{ $idea->nation->title }} 
                                 @endif
                             @elseif (is_egora('community'))
-                                {{ $idea->community->title }}                             
+                                {{ $idea->community->title }}                                                        
+                            @elseif (is_egora('municipal'))
+                                {{ $idea->municipality->title }}                             
                             @endif
                             </div>
                             

@@ -8,7 +8,11 @@
             <div class="card mb-3">
                 <div class="card-header">Denizens</div>
                 <div class="card-body text-center">
+                    @if (isset($user->municipality))
+                        {{ $user->municipality->title}} - {{ $user->municipality->users->count()}} <br/>
+                    @else
                     none
+                    @endif
                 </div>
             </div>
             

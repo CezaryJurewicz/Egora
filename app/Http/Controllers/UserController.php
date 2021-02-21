@@ -23,6 +23,7 @@ use App\Idea;
 use App\Notification as NotificationModel;
 use App\Events\UserInvitedToIdea;
 use App\Events\UserLeftComminity;
+use App\Municipality;
 
 class UserController extends Controller
 {
@@ -207,7 +208,45 @@ class UserController extends Controller
 
         return view('users.communities')->with(compact('user', 'communities'));
     }
+    
+    public function municipality(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        return view('users.municipality')->with(compact('user'));
+    }
 
+    
+    public function municipality_update(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'municipality' => ['required', 'string', 'max:255'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $municipality = Municipality::where('title', $request->municipality)->first();
+                
+        if (is_null($municipality)) {
+            $municipality = Municipality::create([
+               'title' => $request->municipality
+            ]);
+        }
+        
+        $user = $request->user();
+        $user->municipality()->associate($municipality);
+        
+        if($user->save()){
+            return redirect()->route('users.ideological_profile', $request->user()->active_search_name_hash)->with('success', 'Municipality updated!');   
+        }
+        
+        return redirect()->back()->withErrors('Municipality update failed!');   
+    }
+    
     public function communities_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -296,11 +335,18 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
         
-        $user->load(['liked_ideas' => function($q) use ($community_id) {
+        $user->load(['liked_ideas' => function($q) use ($community_id, $user) {
             if (is_egora('community') && $community_id) {
                 $q->where('ideas.community_id', $community_id);
             } else {
                 $q->whereNull('ideas.community_id');
+            }
+            
+            if (is_egora('municipal')) {
+                $q->where('ideas.municipality_id', $user->municipality_id);
+                $q->whereNotNull('ideas.municipality_id');
+            } else {
+                $q->whereNull('ideas.municipality_id');
             }
             
             $q->with(['nation', 'liked_users' => function($q) {
