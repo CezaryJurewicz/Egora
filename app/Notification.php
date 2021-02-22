@@ -34,6 +34,11 @@ class Notification extends Model
         return $this->belongsTo(Idea::class);
     }
     
+    public function scopeNew($query)
+    {
+        return $query->whereDate('created_at', '>=', now()->subDays(23));
+    }
+    
     public function getInviteAttribute() {
         return is_null($this->notification_preset_id) && is_null($this->notification_id);
     }

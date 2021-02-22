@@ -21,7 +21,7 @@
                                 @continue
                             @endif
                         <div class="row-striped ">
-                            @if (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
+                            @if (Auth::guard('web')->user()->user_notifications_new()->first(function ($v, $k) use ($u, $idea) {
                                     return $v->id == $u->id && $v->pivot->idea_id == $idea->id;
                                 }) && !$u->liked_ideas->contains($idea))
                                 <div class="row pt-1 pb-1 pl-5">

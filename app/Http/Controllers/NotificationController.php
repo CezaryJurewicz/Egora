@@ -23,7 +23,7 @@ class NotificationController extends Controller
                 ->whereHas('idea', function($q) use ($request) {
                     $q->where('egora_id', current_egora_id());
                 })
-                ->paginate(100);
+                ->new()->paginate(100);
                 
         return view('notifications.index')->with(compact('rows'));
     }

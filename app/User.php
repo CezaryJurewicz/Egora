@@ -203,6 +203,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return is_egora() ? $query->where('visible', 1) : $query;
     }
     
+    public function user_notifications_new()
+    {
+        return $this->user_notifications()
+                ->whereDate('notifications.created_at', '>=', now()->subDays(23))->get();
+    }
+    
     public function user_notifications()
     {
         return $this->belongsToMany(User::class, 'notifications', 'sender_id', 'receiver_id')

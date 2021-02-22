@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
                     ->whereHas('idea', function($q) {
                         $q->where('egora_id', current_egora_id());
                     });
-                })->get();
+                })->new()->get();
 
                 $notification_ids = $notifications->pluck('id');
                 $responses = NotificationModel::where(function($q) use ($notifications) {
@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
                     $q->where(function($q) use ($notifications){
                         $q->whereIn('notification_id', $notifications->pluck('id'));
                     });
-                })->get();
+                })->withTrashed()->new()->get();
                 
                 $inbox_notifications = $notification_ids->diff($responses->pluck('notification_id'));
 
