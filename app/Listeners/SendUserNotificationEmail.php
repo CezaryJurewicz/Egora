@@ -27,9 +27,11 @@ class SendUserNotificationEmail
      */
     public function handle(UserInvitedToIdea $event)
     {
-        // send email
-        $event->notification
-            ->receiver
-            ->notify(new UserInvitedToIdeaNotification($event->notification));
+        if ($event->notification->receiver->notifications) {
+            // send email
+            $event->notification
+                ->receiver
+                ->notify(new UserInvitedToIdeaNotification($event->notification));
+        }
     }
 }

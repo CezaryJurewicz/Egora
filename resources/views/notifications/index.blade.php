@@ -28,7 +28,7 @@
                                         </b>
                                         @if ($row->invite)
                                             {{ __('invited you to examine their idea.') }}
-                                        @elseif ($row->sender->liked_ideas->contains($row->idea))
+                                        @elseif ($row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('supported your idea!') }}
                                         @elseif ($row->response)
                                             : {{ $row->notification_preset->title }}

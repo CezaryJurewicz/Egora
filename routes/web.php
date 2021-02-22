@@ -32,6 +32,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/', 'NotificationController@index')->name('index');
         Route::post('/', 'NotificationController@store')->name('store')->middleware('can:create,App\Notification');
         Route::delete('/{notification}', 'NotificationController@destroy')->name('delete')->middleware('can:delete,notification');
+        Route::delete('/{user}/disable', 'NotificationController@disable')->name('disable');
+        Route::post('/{user}/enable', 'NotificationController@enable')->name('enable');
     });
     
     Route::prefix('/media')->name('media.')->group(function(){
@@ -63,7 +65,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/{hash}/communities', 'UserController@communities_update')->name('communities_update')->middleware('can:communities,App\User,hash');        
         Route::get('/{hash}/municipality', 'UserController@municipality')->name('municipality')->middleware('can:municipality_update,App\User,hash');        
         Route::put('/{hash}/municipality', 'UserController@municipality_update')->name('municipality_update')->middleware('can:municipality_update,App\User,hash');        
-        Route::get('/search', 'UserController@search')->name('search')->middleware('can:searchAny,App\User');        
+        Route::get('/search', 'UserController@search')->name('search')->middleware('can:search,App\User');        
         Route::post('/search', 'UserController@search')->name('search')->middleware(['can:searchAny,App\User', 'throttle:46,1440']);        
         Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about', 'UserController@about')->name('about')->middleware('can:ideological_profile,App\User,hash');
@@ -87,6 +89,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/email/{token}', 'UserController@update_email_confirm')->name('update_email_confirm');
         Route::put('/{user}/email', 'UserController@update_email_send_token')->name('update_email_send_token')->middleware('can:update,user');
         Route::put('/{user}/password', 'UserController@update_password')->name('update_password')->middleware('can:update,user');
+        Route::put('/{user}/notifications', 'UserController@update_notifications')->name('update_notifications')->middleware('can:update,user');
         Route::put('/{user}/privacy', 'UserController@update_privacy')->name('update_privacy')->middleware('can:update,user');
         Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');

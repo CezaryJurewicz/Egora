@@ -160,8 +160,33 @@
                     
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
-                            <h4>@lang('Notifications')</h4>
-                            <p>Egora does not currently send any automated notifications.</p>
+                            <h4>@lang('Email Notifications')</h4>
+                            <form method="POST" action="{{ route('users.update_notifications', $user->id) }}" enctype="multipart/form-data">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                @csrf
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="notifications" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <input  id="notifications" name="notifications" value=1 type="radio" {{ (old('notifications')?: $user->notifications) ? ' checked' : '' }} >
+                                    </div>
+                                    <div class="row">
+                                        <label for="notifications" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <input id="notifications" name="notifications" value=0 type="radio" {{ (old('notifications')?: ($user->notifications==0)) ? ' checked' : '' }} >
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_name_hash) }}">Back</a>
+                                    </div>
+                                    <div class="col-md-8 text-center">
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>        
+                            </form>
                         </div>
                     </div>
                     <hr/>

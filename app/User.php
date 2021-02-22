@@ -160,6 +160,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Passport::class);
     }
     
+    // I muted
+    public function notifications_disabled()
+    {
+        return $this->belongsToMany(User::class, 'disabled_notifications', 'user_id', 'disabled_user_id', 'id');
+    }
+    
+    // I was muted by
+    public function notifications_disabled_by()
+    {
+        return $this->belongsToMany(User::class, 'disabled_notifications', 'disabled_user_id', 'user_id', 'id');
+    }
+    
     public function liked_ideas()
     {
         return $this->belongsToMany(Idea::class)->withPivot('position', 'order', 'community_id')
@@ -168,7 +180,7 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function communities()
     {
-        return $this->belongsToMany(Community::class)->withPivot('order')->orderBy('order');
+        return $this->belongsToMany(Community::class)->withPivot('order')->orderBy('on_registration', 'desc')->orderBy('order')->orderBy('title');
     }
     
     public function communities_not_allowed_to_leave()

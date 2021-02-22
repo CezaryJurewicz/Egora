@@ -85,6 +85,27 @@
                             @include('blocks.follow')
                             </div>
                             
+                            @if (Auth::guard('web')->user()->id !== $user->id)
+                            <div class="mt-2">
+                                @if (Auth::guard('web')->user()->notifications_disabled->contains($user))
+                                    <form action="{{ route('notifications.enable', $user->id) }}" method="POST">
+                                        @csrf
+                                        <div class="input-group">
+                                            <button type='submit' class='btn btn-sm btn-primary btn-block'>{{__('Enable Notifications')}}</button>
+                                        </div>
+                                    </form>                                    
+                                @else
+                                    <form action="{{ route('notifications.disable', $user->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE"/>
+                                        <div class="input-group">
+                                            <button type='submit' class='btn btn-sm btn-primary btn-block'>{{__('Disable Notifications')}}</button>
+                                        </div>
+                                    </form>    
+                                @endif
+                            </div>
+                            @endif
+                            
                             <div class="mt-2">
                             @include('blocks.leads')
                             </div>

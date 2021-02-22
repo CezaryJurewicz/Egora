@@ -16,8 +16,10 @@
 
                             <div id="copyLink" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-2"></div>
                         </div>
-                    
                         @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
+                            @if (Auth::guard('web')->user()->notifications_disabled_by->contains($u))
+                                @continue
+                            @endif
                         <div class="row-striped ">
                             @if (Auth::guard('web')->user()->user_notifications->first(function ($v, $k) use ($u, $idea) {
                                     return $v->id == $u->id && $v->pivot->idea_id == $idea->id;

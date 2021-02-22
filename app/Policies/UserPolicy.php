@@ -30,6 +30,11 @@ class UserPolicy
         //
     }
     
+    public function search(User $user)
+    {
+        return $this->allow();
+    }
+    
     public function searchAny(User $user)
     {
         return is_egora();
@@ -256,6 +261,10 @@ class UserPolicy
 //        if (is_egora('community') && !$model->communities->contains($idea->community)) {
 //            return $this->deny();
 //        }
+        
+        if ($user->notifications_disabled_by->contains($model)) {
+            return $this->deny();
+        }
         
         return $this->allow();
     }    

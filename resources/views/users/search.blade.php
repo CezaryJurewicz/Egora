@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
     <div class="col-md-9">
+        @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
         <div class="panel">
             <div class="panel-body">
                 <div class="text-center"> 
@@ -57,8 +58,6 @@
                         </div>
                     </div>
                 </form>
-                <script>
-                    </script>
                     
                 <div class="mt-5">
                     @if($users->isNotEmpty())
@@ -106,6 +105,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
         
     <div class="col-md-3">

@@ -250,7 +250,7 @@ class UserController extends Controller
     public function communities_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'communities' => 'required|array|min:10|max:10',
+            'communities' => 'required|array|min:20|max:20',
             'communities.*' => 'nullable|string|min:3|max:190'
         ]); 
 
@@ -534,6 +534,23 @@ class UserController extends Controller
         }
         
         return redirect()->route('users.settings', $request->user()->id)->withErrors('Current password doesn\'t match!');
+    }
+    
+    public function update_notifications(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'notifications' => ['required', 'boolean']
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        $user->notifications = $request->input('notifications')?:0;
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Notifications settings updated.');               
     }
     
     public function update_privacy(Request $request, User $user)

@@ -23,7 +23,7 @@
                     <input type="hidden" name="_method" value="PUT"/>
                     @csrf
                     
-                    @for($i=0; $i<10; $i++)
+                    @for($i=0; $i<20; $i++)
                         <div class="form-group row">
                             <div class="col-11">
                                 <input id="ci{{$i}}" type="text" class="form-control @error('communities.$i') is-invalid @enderror" name="communities[{{$i}}]" value="{{ old('communities.$i')?: (isset($communities[$i]) ? $communities[$i]->title : '') }}">

@@ -24,7 +24,7 @@ class NotificationController extends Controller
                     $q->where('egora_id', current_egora_id());
                 })
                 ->paginate(100);
-        
+                
         return view('notifications.index')->with(compact('rows'));
     }
     
@@ -66,6 +66,19 @@ class NotificationController extends Controller
         return redirect()->back()->with('success', 'Response sent.');
     }
     
+    public function disable(Request $request, \App\User $user)
+    {
+        $request->user()->notifications_disabled()->attach($user);
+        
+        return redirect()->back()->with('success', 'Notifications disabled.');        
+    }
+    
+    public function enable(Request $request, \App\User $user)
+    {
+        $request->user()->notifications_disabled()->detach($user);
+        
+        return redirect()->back()->with('success', 'Notifications enabled.');        
+    }
     
     /**
      * Remove the specified resource from storage.
