@@ -80,15 +80,15 @@
                     @forelse ($users as $i=>$user)
                                 <tr>
                                     <td>
-                                        {{$user->user_type->title}}
+                                        {{$user['user_type']['title']}}
                                     </td>
                                     <td>
-                                        <a href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
-                                        {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                                        <a href="{{ route('users.ideological_profile', $user['active_search_names'][0]['hash']) }}">
+                                        {{ isset($user['active_search_names'][0]) ? $user['active_search_names'][0]['name'] : '-'}} 
                                         </a>
                                     </td>
                                     <td>
-                                        {{ $user->nation->title }}                                        
+                                        {{ $user['nation']['title'] }}                                        
                                     </td>
                                 </tr>
                     @empty
@@ -98,9 +98,7 @@
                     @if($users->isNotEmpty())                 
                             </tbody>
                         </table>
-                        @if(!$recent)
                         {{ $users->appends(request()->except('_token'))->links() }}
-                        @endif
                     @endif
                 </div>
             </div>

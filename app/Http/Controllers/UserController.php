@@ -24,6 +24,7 @@ use App\Notification as NotificationModel;
 use App\Events\UserInvitedToIdea;
 use App\Events\UserLeftComminity;
 use App\Municipality;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
@@ -68,6 +69,7 @@ class UserController extends Controller
         $officer = null;
         $officer_petitioner = null;
         $recent = false;
+        $perPage = 100;
         
         $nations = Nation::get();
         
@@ -157,15 +159,26 @@ class UserController extends Controller
             }
             
             
-            $users = $model->paginate(10);
+            $users = $model->paginate($perPage);
             
         } else {
             $recent = true;
-            $users = User::whereHas('search_names', function($q) use ($request){
+            $users = User::with(['user_type','nation'])
+                ->whereHas('search_names', function($q) use ($request){
                     $q->where(function($q) use ($request){
                         $q->where('seachable','1');
                     });
-                })->visible()->orderBy('created_at', 'desc')->limit(92)->get();
+                })->visible()->orderBy('created_at', 'desc')->paginate($perPage);
+
+            $total = 4600;
+            
+            $users = new LengthAwarePaginator(
+                $users->toArray()['data'], 
+                $users->total() < $total ? $users->total() : $total, 
+                $perPage, 
+                LengthAwarePaginator::resolveCurrentPage(), 
+                ['path' => LengthAwarePaginator::resolveCurrentPath()]
+            );
         }
         
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));

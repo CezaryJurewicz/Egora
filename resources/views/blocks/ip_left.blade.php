@@ -85,6 +85,10 @@
                             @include('blocks.follow')
                             </div>
                             
+                            <div class="mt-2">
+                            @include('blocks.leads')
+                            </div>
+                            
                             @if (Auth::guard('web')->user()->id !== $user->id)
                             <div class="mt-2">
                                 @if (Auth::guard('web')->user()->notifications_disabled->contains($user))
@@ -105,10 +109,6 @@
                                 @endif
                             </div>
                             @endif
-                            
-                            <div class="mt-2">
-                            @include('blocks.leads')
-                            </div>
                             
                             @if (is_egora())
                             <div class="mt-3">
