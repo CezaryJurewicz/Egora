@@ -354,7 +354,7 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
         
-        $user->load(['liked_ideas' => function($q) use ($community_id, $user) {
+        $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
             if (is_egora('community') && $community_id) {
                 $q->where('ideas.community_id', $community_id);
             } else {
@@ -376,6 +376,8 @@ class UserController extends Controller
             }]);
         }, 'petition.supporters' => function($q) {
             $q->recent();
+        }, 'communities' => function($q) use ($request) {
+            $q->whereIn('id', $request->user()->communities->pluck('id'));
         }]);
 
         return view('users.ideological_profile')->with(compact('user', 'community_id'));
