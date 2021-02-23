@@ -7,7 +7,7 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="text-center">
-                    <h3>Mesage</h3>
+                    <h3>Information</h3>
                 </div>
                 
                 <div class="card">
