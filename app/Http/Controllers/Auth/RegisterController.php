@@ -81,7 +81,7 @@ class RegisterController extends Controller
             ]);
         }
         
-        $value = \App\Setting::where('name', 'verified_at_registration')->first()->value;        
+        $value = \App\Setting::where('name', 'auto_validation')->first()->value;        
         if ($value == 1) {
             $user_type = UserType::where('title', 'Verified User')->first();
         } else {

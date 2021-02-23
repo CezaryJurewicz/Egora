@@ -129,7 +129,7 @@
                             
                             @if (auth('admin')->check())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('settings.index')}}">{{ __('Settings') }}</a>
+                                <a class="nav-link" href="{{ route('settings.index')}}">{{ __('Control') }}</a>
                             </li>
                             @endif
                             

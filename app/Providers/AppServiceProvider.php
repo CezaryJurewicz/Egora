@@ -73,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
 
                 $view->with('inbox_notifications_cnt', $inbox_notifications->count());
                 
-                $value = \App\Setting::where('name', 'message')->first()->value; 
+                $value = \App\Setting::where('name', 'information')->first()->value; 
                 $view->with('admin_message_text', $value);
             }
         });

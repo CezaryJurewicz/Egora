@@ -32,7 +32,7 @@
                             
                             @if ( (auth('admin')->user() ?: auth('web')->user())->can('communities', [App\User::class, $user->active_search_name_hash]) )
                             <div class="mt-2">
-                                <a class="btn btn-primary btn-sm btn-block" href="{{ route('users.communities', $user->active_search_name_hash) }}">Edit</a>
+                                <a class="btn btn-secondary btn-sm btn-block" href="{{ route('users.communities', $user->active_search_name_hash) }}">Edit Communities</a>
                             </div>                            
                             @endif
                             @endif
@@ -45,7 +45,7 @@
                             
                             @if (auth('web')->check() && auth('web')->user()->can('municipality_update', [App\User::class, $user->active_search_name_hash]) )
                             <div class="mt-2">
-                                <a class="btn btn-primary btn-sm btn-block" href="{{ route('users.municipality_update', $user->active_search_name_hash) }}">Municipality</a>
+                                <a class="btn btn-secondary btn-sm btn-block" href="{{ route('users.municipality_update', $user->active_search_name_hash) }}">Edit Municipality</a>
                             </div>                            
                             @endif
                             

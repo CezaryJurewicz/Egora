@@ -28,9 +28,9 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
     });
     
+    Route::get('/information', 'SettingController@message')->name('settings.message');    
     Route::prefix('/settings')->name('settings.')->group(function(){
         Route::get('/', 'SettingController@index')->name('index');
-        Route::get('/message', 'SettingController@message')->name('message');
         Route::get('/{setting}', 'SettingController@edit')->name('edit');
         Route::post('/{setting}', 'SettingController@update')->name('update');
     });

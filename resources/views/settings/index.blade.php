@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
-                <h3>{{ __('Settings') }}</h3>
+                <h3>{{ __('Control') }}</h3>
                 
                 <div>
                     @if($settings->isNotEmpty())                  
@@ -36,7 +36,7 @@
                                     </td>
                                 </tr>
                     @empty
-                        <p>@lang('No settings')</p>
+                        <p>@lang('Empty')</p>
                     @endforelse
                     
                     @if($settings->isNotEmpty())                  

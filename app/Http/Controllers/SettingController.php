@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -70,6 +71,21 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
+        $validator = Validator::make($request->all(),[
+            'value' => ['string', 
+                function ($attribute, $value, $fail) use ($request, $setting) {
+                    if ($setting->type == 'boolean' && !in_array($value, [0,1]))
+                    {
+                        $fail('Incorrect '.$attribute.' for '.$setting->type);
+                    }
+                }]
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
         if ($request->has('value')) {
             $setting->value = $request->input('value');
             $setting->save();
