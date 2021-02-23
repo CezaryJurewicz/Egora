@@ -464,12 +464,14 @@ class IdeaController extends Controller
 
         $ideas = [];
 
-        if(is_egora()) {
-            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
-        } else if(is_egora('community')) {
-            $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
-        } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
-            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
+        if (auth()->guard('web')->check()) {
+            if(is_egora()) {
+                $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+            } else if(is_egora('community')) {
+                $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
+            } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
+                $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
+            }
         }
         
         if (auth()->guard('web')->check()) {

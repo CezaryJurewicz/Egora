@@ -85,7 +85,7 @@
                             </li>
                             @endif
                             
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewIPI', App\Idea::class))
+                            @if (auth('web')->check() && auth('web')->user()->can('viewIPI', App\Idea::class))
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'ideas.popularity_indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.popularity_indexes')}}">{{ __('Indexes') }}</a>
                             </li>
@@ -121,9 +121,9 @@
                             </li>
                             @endif
                             
-                            @if (auth('web')->check() && !empty($admin_message_text))
+                            @if (auth('web')->check() && is_egora() && !empty($admin_message_text))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('settings.message')}}">{{ __('Message') }}</a>
+                                <a class="nav-link" href="{{ route('settings.message')}}">{{ __('Information') }}</a>
                             </li>
                             @endif
                             

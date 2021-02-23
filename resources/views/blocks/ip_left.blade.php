@@ -89,7 +89,7 @@
                             @include('blocks.leads')
                             </div>
                             
-                            @if (Auth::guard('web')->user()->id !== $user->id)
+                            @if (Auth::guard('web')->check() && Auth::guard('web')->user()->id !== $user->id)
                             <div class="mt-2">
                                 @if (Auth::guard('web')->user()->notifications_disabled->contains($user))
                                     <form action="{{ route('notifications.enable', $user->id) }}" method="POST">
