@@ -26,7 +26,13 @@
                                 <tr>
                                     <th scope="row">{{$setting->id}}</th>
                                     <td>{{ $setting->name}}</td>
-                                    <td>{{ $setting->value }}</td>
+                                    <td>
+                                        @if ($setting->type == 'text')
+                                        <div style="overflow-y: scroll; height:200px;">{{ Markdown::parse($setting->value) }}</div> 
+                                        @else
+                                            {{$setting->value}}
+                                        @endif
+                                    </td>
                                     
                                     
                                     <td>
