@@ -54,6 +54,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserLeftComminity' => [
             'App\Listeners\DetachComminityIdeasFromUser',
+        ],
+        'App\Events\UserLeftingMunicipality' => [
+            'App\Listeners\DetachMunicipalityIdeasFromUser',
         ]
     ];
 

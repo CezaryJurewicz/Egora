@@ -28,6 +28,8 @@
                                         </b>
                                         @if ($row->invite)
                                             {{ __('invited you to examine their idea.') }}
+                                        @elseif (!$row->sender->liked_ideas->contains($row->idea) && !$row->response)
+                                            {{ __('removed their support from this idea.') }}
                                         @elseif ($row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('supported your idea!') }}
                                         @elseif ($row->response)

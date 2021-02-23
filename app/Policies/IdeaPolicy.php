@@ -90,6 +90,12 @@ class IdeaPolicy
                 return $this->deny();
             }
         }
+        
+        if (is_egora('municipal')) {
+            if ($idea->municipality && $user->municipality->id != $idea->municipality->id) {
+                return $this->deny();
+            }
+        }
         return $this->allow();
     }
     

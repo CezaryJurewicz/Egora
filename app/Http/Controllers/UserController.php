@@ -25,6 +25,7 @@ use App\Events\UserInvitedToIdea;
 use App\Events\UserLeftComminity;
 use App\Municipality;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Events\UserLeftingMunicipality;
 
 class UserController extends Controller
 {
@@ -251,6 +252,11 @@ class UserController extends Controller
         }
         
         $user = $request->user();
+        
+        if ($user->municipality->id !== $municipality->id) {
+            event(new UserLeftingMunicipality($user));
+        }
+        
         $user->municipality()->associate($municipality);
         
         if($user->save()){
