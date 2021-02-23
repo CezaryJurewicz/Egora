@@ -29,6 +29,7 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
+                                                        <div><a href="http://en.wikipedia.com/wiki/Markdown" target="_blank">Markdown help</a></div>
                                                     </div>
                                                 </div>
                                                 @elseif ($setting->type == 'string')

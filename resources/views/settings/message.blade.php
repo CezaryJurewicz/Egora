@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-10 offset-1">
-                        {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($admin_message_text)))) !!}
+                            {{ Markdown::parse($admin_message_text) }}
                         </div>
                     </div>
                 </div>
