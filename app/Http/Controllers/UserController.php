@@ -180,7 +180,7 @@ class UserController extends Controller
                 ['path' => LengthAwarePaginator::resolveCurrentPath()]
             );
         }
-        
+
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
     

@@ -72,6 +72,9 @@ class AppServiceProvider extends ServiceProvider
                 $inbox_notifications = $notification_ids->diff($responses->pluck('notification_id'));
 
                 $view->with('inbox_notifications_cnt', $inbox_notifications->count());
+                
+                $value = \App\Setting::where('name', 'message')->first()->value; 
+                $view->with('admin_message_text', $value);
             }
         });
         

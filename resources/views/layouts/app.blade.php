@@ -121,6 +121,18 @@
                             </li>
                             @endif
                             
+                            @if (auth('web')->check() && !empty($admin_message_text))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('settings.message')}}">{{ __('Message') }}</a>
+                            </li>
+                            @endif
+                            
+                            @if (auth('admin')->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('settings.index')}}">{{ __('Settings') }}</a>
+                            </li>
+                            @endif
+                            
                     </ul>
                     
                     <!-- Right Side Of Navbar -->

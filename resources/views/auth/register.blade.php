@@ -285,7 +285,6 @@
                                     <label for="nation" class="col-7 col-form-label">{{ __('Nation') }}</label>
                                     <div class="col-5">
                                         <a class="btn btn-primary" data-toggle="collapse" href="#collapseg" role="button" aria-expanded="false" aria-controls="collapseg"> 
-                                            {{ __('?') }}   
                                             <i class="fa fa-chevron-down pull-right"></i>
                                             <i class="fa fa-chevron-right pull-right"></i>
                                         </a>

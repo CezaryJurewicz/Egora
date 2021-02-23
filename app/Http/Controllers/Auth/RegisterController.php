@@ -80,7 +80,9 @@ class RegisterController extends Controller
                'title' => $data['nation']
             ]);
         }
-        if (env('VALID_AT_REG', false)) {
+        
+        $value = \App\Setting::where('name', 'verified_at_registration')->first()->value;        
+        if ($value == 1) {
             $user_type = UserType::where('title', 'Verified User')->first();
         } else {
             $user_type = UserType::where('title', 'Unverified User')->first();

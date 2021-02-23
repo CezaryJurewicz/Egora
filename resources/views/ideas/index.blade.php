@@ -57,7 +57,7 @@
                                             </a>
                                         @endif
                                     </td>
-                                    <td>{{ $idea->nation ? $idea->nation->title : $idea->community->title}}</td>
+                                    <td>{{ $idea->nation ? $idea->nation->title :  ($idea->community ? $idea->community->title :  $idea->municipality->title ) }}</td>
                                     <td>{{ $idea->createdDate() }}</td>
                                     <td>{{ $idea->updatedDate() }}</td>
                                     
