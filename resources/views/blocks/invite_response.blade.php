@@ -1,6 +1,6 @@
                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
                     
-                        @if(Auth::guard('web')->check() && Auth::guard('web')->user()->user_notifications_new()->first(function ($v, $k) use ($notification) {
+                        @if(Auth::guard('web')->check() && Auth::guard('web')->user()->user_notifications_new->first(function ($v, $k) use ($notification) {
                             return $v->pivot->sender_id == Auth::guard('web')->user()->id && $v->pivot->notification_id == $notification->id;
                         }))
                             Response sent.                            
