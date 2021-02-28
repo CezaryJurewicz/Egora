@@ -206,7 +206,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function user_notifications_new()
     {
         return $this->user_notifications()
-                ->whereDate('notifications.created_at', '>=', now()->subDays(23))->get();
+                ->whereDate('notifications.created_at', '>=', now()->subDays(23));
     }
     
     public function user_notifications()
