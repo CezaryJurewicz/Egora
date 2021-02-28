@@ -25,7 +25,7 @@ function shorten_text($text, $limit = 92)
     return strip_tags(
                nl2br(
                    str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), 
-                      $result 
+                      htmlspecialchars($result)
                    )
                ), '<br><p><b><i><li><ul><ol>'
         );
@@ -106,4 +106,9 @@ function header_bg_color() {
     }
     
     return config(implode('.',['egoras',session('current_egora', 'default'),'bgcolor']));
+}
+
+function no_html(string $input, string $encoding = 'UTF-8'): string
+{
+    return htmlentities($input, ENT_COMPAT | ENT_QUOTES , $encoding);
 }

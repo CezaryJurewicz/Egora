@@ -25,6 +25,7 @@
                             @enderror
                         </div>
                     </div>
+                    @if (is_egora())
                     <div class="form-group row">
                         <label for="nation" class="col-md-3 col-form-label">@lang('"Nation"')<br> @lang('(optional)')</label>
 
@@ -52,6 +53,7 @@
                             <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" onClick="c = document.getElementById('officer'); c.checked = false;" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <button type='submit' class='btn btn-sm btn-primary btn-static-200'>{{__('some.Search')}}</button>
@@ -83,9 +85,15 @@
                                         {{$user['user_type']['title']}}
                                     </td>
                                     <td>
+                                        @if (auth('admin')->check())
+                                        <a href="{{ route('users.profile', $user['id']) }}">
+                                        {{ isset($user['active_search_names'][0]) ? $user['active_search_names'][0]['name'] : '-'}} 
+                                        </a>
+                                        @else
                                         <a href="{{ route('users.ideological_profile', $user['active_search_names'][0]['hash']) }}">
                                         {{ isset($user['active_search_names'][0]) ? $user['active_search_names'][0]['name'] : '-'}} 
                                         </a>
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $user['nation']['title'] }}                                        

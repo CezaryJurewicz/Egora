@@ -72,7 +72,7 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
         $validator = Validator::make($request->all(),[
-            'value' => ['string', 
+            'value' => ['nullable', 'string', 
                 function ($attribute, $value, $fail) use ($request, $setting) {
                     if ($setting->type == 'boolean' && !in_array($value, [0,1]))
                     {
@@ -87,14 +87,14 @@ class SettingController extends Controller
         }
         
         if ($request->has('value')) {
-            $setting->value = $request->input('value');
+            $setting->value = no_html($request->input('value'));
             $setting->save();
             
             return redirect()->route('settings.index')->with('success', 'Setting updated!');
         }
         return redirect()->back()->withErrors('Setting update failed!');        
     }
-
+   
     /**
      * Remove the specified resource from storage.
      *

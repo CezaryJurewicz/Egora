@@ -37,7 +37,7 @@ class UserPolicy
     
     public function searchAny(User $user)
     {
-        return is_egora();
+        return $this->allow();
     }
     
     public function leads(User $user)
