@@ -90,9 +90,9 @@
                         <h5 class="mt-2">Supporters</h5>
                     </div>                
                     <div class="card-body">
-                        @foreach($idea->liked_users_visible->sortByDesc('created_at')->take(92) as $user)
-                        <a class="mr-2" href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
-                            {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                        @foreach($idea->liked_users_visible->sortByDesc('created_at')->take(92) as $u)
+                        <a class="mr-2" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                            {{ $u->active_search_name }} 
                             </a>
                         @endforeach
                     </div>
@@ -101,7 +101,7 @@
                 <div class="card">
                     <div class="card-header">
                     </div>                
-                
+
                     @if (auth('web')->check())
                     <div class="card-body">
                         @include('blocks.invite_examine')
@@ -110,7 +110,7 @@
                     <div class="card-body">
                         @include('blocks.invite_response')
                     </div>
-                    @endif
+                    @endif 
 
                     @if( \Route::currentRouteName() == 'ideas.preview' )
                     <div class="card-body text-center">

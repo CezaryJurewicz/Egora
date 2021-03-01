@@ -27,7 +27,7 @@
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                            {{ $u->active_search_names->first()->name ?? $u->id }}
+                                            {{ $u->active_search_name }}
                                         </a>
                                     </div>
 
@@ -42,7 +42,7 @@
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                        {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        {{ $u->active_search_name }}
                                         </a>
                                     </div>
 
@@ -61,7 +61,7 @@
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                        {{ $u->active_search_names->first()->name ?? $u->id }}
+                                        {{ $u->active_search_name }}
                                         </a>
                                     </div>
 
@@ -79,7 +79,7 @@
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                            {{ $u->active_search_names->first()->name ?? $u->id }}
+                                            {{ $u->active_search_name }}
                                         </a>
                                     </div>
 

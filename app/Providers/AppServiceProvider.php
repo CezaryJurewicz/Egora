@@ -47,14 +47,15 @@ class AppServiceProvider extends ServiceProvider
             
             // TODO: rewrite..
             if (auth('web')->check()) {
-                $notifications = NotificationModel::where(function($q){
-                    $q->whereHas('receiver', function($q) {
-                        $q->where('id', auth('web')->user()->id);
-                    })
-                    ->whereHas('idea', function($q) {
-                        $q->where('egora_id', current_egora_id());
-                    });
-                })->new()->get();
+                $notifications = NotificationModel::with('idea')
+                    ->where(function($q){
+                        $q->whereHas('receiver', function($q) {
+                            $q->where('id', auth('web')->user()->id);
+                        })
+                        ->whereHas('idea', function($q) {
+                            $q->where('egora_id', current_egora_id());
+                        });
+                    })->new()->get();
 
                 $notification_ids = $notifications->pluck('id');
                 $responses = NotificationModel::where(function($q) use ($notifications) {

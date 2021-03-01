@@ -155,7 +155,7 @@ class IdeaController extends Controller
                 $model->orderBy('liked_users_count', 'desc');
             }
 
-            $model->with(['liked_users' => function($q) use ($request) {
+            $model->with(['nation','community', 'liked_users' => function($q) use ($request) {
                 if (!$request->input('unverified')) {
                     $q->whereHas('user_type', function($q){
                         $q->where('verified', 1);                
@@ -453,7 +453,7 @@ class IdeaController extends Controller
      */
     public function show(Request $request, Idea $idea)
     {
-        $validator = Validator::make($request->all(),[
+       $validator = Validator::make($request->all(),[
             'notification_id' => ['exists:notifications,id'],
             ]);
 
@@ -463,7 +463,7 @@ class IdeaController extends Controller
         }
 
         $ideas = [];
-
+        
         if (auth()->guard('web')->check()) {
             if(is_egora()) {
                 $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
@@ -498,6 +498,12 @@ class IdeaController extends Controller
         $notification = null;
         if($request->has('notification_id')) {
             $notification = \App\Notification::findOrFail($request->input('notification_id'));
+        }
+        
+        $idea->load('liked_users_visible.active_search_names');
+
+        if ($request->user()) {
+            $request->user()->load('following.liked_ideas','following.active_search_names', 'user_notifications_new', 'notifications_disabled_by');
         }
         
         return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
