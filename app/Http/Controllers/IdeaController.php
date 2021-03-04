@@ -465,11 +465,11 @@ class IdeaController extends Controller
         $ideas = [];
         
         if (auth()->guard('web')->check()) {
-            if(is_egora()) {
+            if(is_null($idea->community) && is_null($idea->municipality)) {
                 $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
-            } else if(is_egora('community')) {
+            } else if(!is_null($idea->community)) {
                 $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
-            } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
+            } else if(!is_null($idea->municipality)) {
                 $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
             }
         }
@@ -485,7 +485,7 @@ class IdeaController extends Controller
             if($current_idea_position>23) {
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
-                if (is_egora()) {
+                if (is_null($idea->community) && is_null($idea->municipality)) {
                     $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
                 } else if (is_egora('community')) {
                     $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
@@ -500,7 +500,11 @@ class IdeaController extends Controller
             $notification = \App\Notification::findOrFail($request->input('notification_id'));
         }
         
-        $idea->load('liked_users_visible.active_search_names');
+//        $idea->load('liked_users_visible.active_search_names');
+        $idea->load(['liked_users' => function($q){
+            $q->with('active_search_names');
+            $q->visible()->recent();
+        }]);
 
         if ($request->user()) {
             $request->user()->load('following.liked_ideas','following.active_search_names', 'user_notifications_new', 'notifications_disabled_by');
@@ -610,6 +614,11 @@ class IdeaController extends Controller
         $idea_id = intval($hash, 36); // base64_encode / base64_decode
         
         $idea = Idea::findOrFail($idea_id);
+        
+        $idea->load(['liked_users' => function($q){
+            $q->with('active_search_names');
+            $q->visible()->recent();
+        }]);
         
         $egora = collect(config('egoras'))->first(function($value, $key) use ($idea) {
             return $value['id'] == $idea->egora_id;

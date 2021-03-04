@@ -195,7 +195,7 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function scopeRecent($query)
     {
-        return $query->where(\DB::raw('DATEDIFF(now(), `users`.`last_online_at`)'), '<', 23);
+        return $query->whereDate('users.last_online_at', '>', now()->subDays(23));
     }
     
     public function scopeVisible($query)

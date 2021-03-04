@@ -58,13 +58,13 @@
                         <div class="row">
                             <div class="col-md-10">
                             Relevance: &nbsp;&nbsp;&nbsp;
-                            @if (is_egora())
+                            @if (is_null($idea->community) && is_null($idea->municipality))
                                 @if (isset($idea->nation))
                                 {{ $idea->nation->title }} 
                                 @endif
-                            @elseif (is_egora('community'))
+                            @elseif (!is_null($idea->community))
                                 {{ $idea->community->title }}                                                        
-                            @elseif (is_egora('municipal'))
+                            @elseif (!is_null($idea->municipality))
                                 {{ $idea->municipality->title }}                             
                             @endif
                             </div>
@@ -90,7 +90,7 @@
                         <h5 class="mt-2">Supporters</h5>
                     </div>                
                     <div class="card-body">
-                        @foreach($idea->liked_users_visible->sortByDesc('created_at')->take(92) as $u)
+                        @foreach($idea->liked_users->sortByDesc('created_at')->take(92) as $u)
                         <a class="mr-2" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                             {{ $u->active_search_name }} 
                             </a>

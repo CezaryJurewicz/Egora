@@ -12,7 +12,7 @@
 
                             <select id="position1" type="text" class="col-md-2 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                 <option></option>
-                                @if (is_egora())
+                                @if (is_null($idea->community) && is_null($idea->municipality))
                                 <optgroup label="Point Positions">
                                     @for($i=23; $i>0; $i--)
                                     <option @if(in_array($i+23, $numbered)) style="background-color: lightgray;" disabled @endif 
@@ -27,7 +27,7 @@
                                              value="{{$i}}">0 ({{$i}})</option>
                                     @endfor
                                 </optgroup>
-                                @elseif (is_egora('community') || is_egora('municipal'))
+                                @else
                                 <optgroup label="Supporting [+]">
                                     @for($i=23; $i>0; $i--)                                        
                                     <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 

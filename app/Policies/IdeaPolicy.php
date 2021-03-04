@@ -60,7 +60,8 @@ class IdeaPolicy
                     return $value['id'] == $notification->idea->egora_id;
                 });
 
-                request()->session()->put('current_egora', $egora['name']);
+//                request()->session()->put('current_egora', $egora['name']);
+                return $this->allow();
             }
         }
         
@@ -73,7 +74,7 @@ class IdeaPolicy
     
     public function like(User $user, Idea $idea)
     {
-        if (is_egora()) {        
+        if (is_null($idea->community) && is_null($idea->municipality)) {        
             if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
                 return $this->deny();
             }
@@ -85,13 +86,13 @@ class IdeaPolicy
             }
         }
         
-        if (is_egora('community')) {
+        if (!is_null($idea->community)) {
             if (!$user->communities->contains($idea->community)) {
                 return $this->deny();
             }
         }
         
-        if (is_egora('municipal')) {
+        if (!is_null($idea->municipality)) {
             if ($idea->municipality && $user->municipality->id != $idea->municipality->id) {
                 return $this->deny();
             }
