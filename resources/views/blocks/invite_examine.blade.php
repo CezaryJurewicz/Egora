@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="col-4 text-center">
-                                        {{ __('Not in this Community') }} 
+                                        {{ __('Not in this community') }} 
                                     </div>
                                 </div>
                             </form>

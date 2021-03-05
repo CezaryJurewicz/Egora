@@ -118,12 +118,17 @@ class IdeaController extends Controller
                 $q->where('egora_id', current_egora_id());                
             });
             
-            if (!$request->input('unverified')) {
-                $model->whereHas('liked_users.user_type', function($q){
-                    $q->where('verified', 1);                
-                });
-            }
+            $model->whereHas('liked_users', function($q) use ($request) {
+                $q->recent();
+                
+                if (!$request->input('unverified')) {
+                    $q->whereHas('user_type', function($q){
+                        $q->verified();                
+                    });
+                }
+            });
             
+
             
             $model->withCount(['liked_users' => function($q) use ($request){
                 if (!$request->input('unverified')) {
