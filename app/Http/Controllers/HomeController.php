@@ -72,7 +72,18 @@ class HomeController extends Controller
     public function community(Request $request)
     {
         $user = $request->user();
-        $user->load('communities');
+        $user->load(['communities' => function($q){
+            $q->withCount(['participants' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->verified();
+                });
+            }]);
+            $q->with(['participants' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
+        }]);
         
         return view('egoras.community')->with(compact('user'));
     }
@@ -80,6 +91,19 @@ class HomeController extends Controller
     public function municipal(Request $request)
     {
         $user = $request->user();
+        $user->load(['municipality' => function($q){
+            $q->withCount(['participants' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->verified();
+                });
+            }]);
+            $q->with(['participants' => function($q){
+                $q->whereHas('user_type', function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
+        }]);
+        
         return view('egoras.municipal')->with(compact('user'));
     }
     

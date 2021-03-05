@@ -14,7 +14,7 @@
                 <div class="card-header">ILP Members by Nation</div>
                 <div class="card-body text-center">
                 @foreach($group_by_nation as $nation)
-                {{ $nation->title }} - {{ $nation->users->count() }}<br/>
+                {{ $nation->title }} - {{ $nation->users_count }}<br/>
                 @endforeach
                 </div>
             </div>

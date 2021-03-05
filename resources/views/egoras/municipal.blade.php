@@ -9,7 +9,7 @@
                 <div class="card-header">Denizens</div>
                 <div class="card-body text-center">
                     @if (isset($user->municipality))
-                        {{ $user->municipality->title}} - {{ $user->municipality->users->count()}} <br/>
+                        {{ $user->municipality->title}} - {{ $user->municipality->participants_count }} <br/>
                     @else
                     none
                     @endif

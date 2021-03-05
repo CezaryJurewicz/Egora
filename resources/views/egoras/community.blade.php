@@ -9,7 +9,7 @@
                 <div class="card-header">Communities</div>
                 <div class="card-body text-center">
                 @foreach($user->communities as $community)
-                {{ $community->title }} - {{ $community->participants->count() }}<br/>
+                {{ $community->title }} - {{ $community->participants_count }}<br/>
                 @endforeach
                 </div>
             </div>
