@@ -84,7 +84,7 @@ class IdeaController extends Controller
             }
         }
             
-            $model->where(function($q) use ($request, $community, $search, $relevance, $nation){
+            $model->where(function($q) use ($request, &$community, $search, $relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
                 }
@@ -105,11 +105,14 @@ class IdeaController extends Controller
                         }
                     });
                 } elseif (is_egora('community')) {
-                    $q->where(function($q) use ($community, $request){
+                    $q->where(function($q) use (&$community, $request){
                         if($community && $community != 0) {
                             $q->where('community_id', $community);
                         } else {
-                            $q->whereIn('community_id', $request->user()->communities->pluck('id'));                
+                            if (!$request->user()->communities->pluck('id')->isEmpty()) {
+                                $community = $request->user()->communities->pluck('id')->first();
+                                $q->where('community_id', $community);                
+                            }
                         }
                     });
                     

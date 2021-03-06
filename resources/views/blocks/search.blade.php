@@ -36,8 +36,7 @@
                         <div class="form-group row">
                             <label for="community" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
                             <div class="col-md-6">
-                                <select id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}">
-                                <option value="">All Communities</option>
+                                <select id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') ?: $community }}">
                                 @foreach($user->communities as $c)
                                 <option @if((old('community') && old('community')==$c->id) || ($community && $community==$c->id) || ($community==0 && $community==$c->id)) selected @endif value="{{$c->id}}">{{$c->title}}</option>
                                 @endforeach
