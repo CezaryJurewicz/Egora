@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nation" class="col-form-label">{{ __('Nation') }}</label>
+                            <label for="nation" class="col-form-label">{{ __('Nation') }} <small>({{ __('Changing your nation will remove former nation\'s ideas from your IP') }})</small></label>
 
                             <div>
                                 <div id="NationSearch" value="{{ old('nation') ?: $user->nation->title }}"></div>
@@ -54,14 +54,111 @@
                                 @enderror
                             </div>
                         </div>
-
+                        
+                        <hr class="mt-4">
+                        <div class="text-center">
+                            <h5>{{ __('Contact Information') }}</h5>
+                        </div>
+                        
                         <div class="form-group">
-                            <label for="contacts" class="col-form-label">{{ __('Your Public Contact Information') }}</label>
+                            <label for="email_address" class="col-form-label">{{ __('Email Address') }}</label>
+                            <div>
+                                <input id="email_address" type="text" class="form-control @error('email_address') is-invalid @enderror" name="email_address" value="{{ old('email_address')?: $user->email_address }}">
+
+                                @error('email_address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone_number" class="col-form-label">{{ __('Phone Number') }}</label>
+                            <div>
+                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number')?: $user->phone_number }}">
+
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social_media_1" class="col-form-label">{{ __('Social Media 1') }}</label>
+                            <div>
+                                <input id="social_media_1" type="text" class="form-control @error('social_media_1') is-invalid @enderror" name="social_media_1" value="{{ old('social_media_1')?: $user->social_media_1 }}">
+
+                                @error('social_media_1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social_media_2" class="col-form-label">{{ __('Social Media 2') }}</label>
+                            <div>
+                                <input id="social_media_2" type="text" class="form-control @error('social_media_2') is-invalid @enderror" name="social_media_2" value="{{ old('social_media_2')?: $user->social_media_2 }}">
+
+                                @error('social_media_2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="messenger_1" class="col-form-label">{{ __('Messenger 1') }}</label>
+                            <div>
+                                <input id="messenger_1" type="text" class="form-control @error('messenger_1') is-invalid @enderror" name="messenger_1" value="{{ old('messenger_1')?: $user->messenger_1 }}">
+
+                                @error('messenger_1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="messenger_2" class="col-form-label">{{ __('Messenger 2') }}</label>
+                            <div>
+                                <input id="messenger_2" type="text" class="form-control @error('messenger_2') is-invalid @enderror" name="messenger_2" value="{{ old('messenger_2')?: $user->messenger_2 }}">
+
+                                @error('messenger_2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="other_1" class="col-form-label">{{ __('Other 1') }}</label>
 
                             <div>
-                                <textarea id="contacts" type="text" class="form-control @error('contacts') is-invalid @enderror" name="contacts">{{ old('contacts') ?: $user->contacts  }}</textarea>
+                                <textarea id="other_1" type="text" class="form-control @error('other_1') is-invalid @enderror" name="other_1">{{ old('other_1') ?: $user->other_1 }}</textarea>
 
-                                @error('contacts')
+                                @error('other_1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="other_2" class="col-form-label">{{ __('Other 2') }}</label>
+
+                            <div>
+                                <textarea id="other_2" type="text" class="form-control @error('other_2') is-invalid @enderror" name="other_2">{{ old('other_2') ?: $user->other_2 }}</textarea>
+
+                                @error('other_2')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

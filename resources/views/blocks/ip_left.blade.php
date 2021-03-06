@@ -57,8 +57,17 @@
                                 <button disabled class="btn btn-ssm btn-secondary col-md-3">Edit</button>
                             </form>
                             @endif
+                            @endif
                             
-                            <div class="mt-2">{{ $user->contacts }}</div>
+                            <div class="mt-2">{{ $user->email_address }}</div>
+                            <div class="mt-2">{{ $user->phone_number }}</div>
+                            <div class="mt-2">{{ $user->social_media_1 }}</div>
+                            <div class="mt-2">{{ $user->social_media_2 }}</div>
+                            <div class="mt-2">{{ $user->messenger_1 }}</div>
+                            <div class="mt-2">{{ $user->messenger_2 }}</div>
+                            <div class="mt-2">{{ $user->other_1 }}</div>
+                            <div class="mt-2">{{ $user->other_2 }}</div>
+                            
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_contacts', $user->id) }}" method="POST" style="display: none;">
                                 @csrf
@@ -66,6 +75,7 @@
                             </form>
                             @endif
                             
+                            @if (is_egora())
                             @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
                             <div class="mt-2">
                                 <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>

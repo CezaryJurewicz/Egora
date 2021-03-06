@@ -484,8 +484,15 @@ class UserController extends Controller
                     }
                 }],
             'current_password' => ['required', 'password'],
-            'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,
-            'contacts' => ['nullable', 'string', 'max:230'],
+            'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,                        
+            'email_address' => ['nullable', 'string', 'max:92'],
+            'phone_number' => ['nullable', 'string', 'max:92'],
+            'social_media_1' => ['nullable', 'string', 'max:92'],
+            'social_media_2' => ['nullable', 'string', 'max:92'],
+            'messenger_1' => ['nullable', 'string', 'max:92'],
+            'messenger_2' => ['nullable', 'string', 'max:92'],                        
+            'other_1' => ['nullable', 'string', 'max:230'],
+            'other_2' => ['nullable', 'string', 'max:230'],
             'nation' => ['required', 'string', 'max:255',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))
@@ -510,8 +517,15 @@ class UserController extends Controller
         if ($user->name != $request->name) {
             $user->name = $request->name;
             event(new UserNameChanged($user));
-        }
-        $user->contacts = $request->contacts;
+        }        
+        $user->email_address = $request->email_address;
+        $user->phone_number = $request->phone_number;
+        $user->social_media_1 = $request->social_media_1;
+        $user->social_media_2 = $request->social_media_2;
+        $user->messenger_1 = $request->messenger_1;
+        $user->messenger_2 = $request->messenger_2;
+        $user->other_1 = $request->other_1;
+        $user->other_2 = $request->other_2;
 
         $nation = Nation::where('title', $request->nation)->first();
                 
