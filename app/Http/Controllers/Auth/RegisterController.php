@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Nation;
 use App\UserType;
+use App\Municipality;
 use App\SearchName;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -97,6 +98,10 @@ class RegisterController extends Controller
         $user->nation()->associate($nation);
         $user->user_type()->associate($user_type);
         
+        if ($municipality = Municipality::where('title', 'Name of my town here')->first()) {
+            $user->municipality()->associate($municipality);
+        }
+        
         $user->save();
 
         $search_name = new SearchName();        
@@ -110,7 +115,7 @@ class RegisterController extends Controller
 
         $ids = \DB::table('communities')->where('on_registration', true)->get()->pluck('id');
         $user->communities()->sync($ids);
-        
+                
         return $user;
     }
     

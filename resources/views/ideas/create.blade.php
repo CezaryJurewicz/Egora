@@ -22,9 +22,8 @@
                         <div class="col-md-10">
                             @if (is_egora())
                                 <select id="nation" type="text" class="form-control @error('nation') is-invalid @enderror" name="nation" value="{{ old('nation') }}" required autocomplete="nation" >
-                                <option></option>
                                 @foreach($nations as $nation)
-                                <option @if(old('nation') && old('nation')== $nation->id) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
+                                <option @if(old('nation') && old('nation')== $nation->id || (isset($nation_id) && $nation_id == $nation->id)) selected @endif value="{{$nation->id}}">{{$nation->title}}</option>
                                 @endforeach
                                 </select>
 
@@ -35,7 +34,6 @@
                                 @enderror
                             @elseif (is_egora('community'))
                                 <select @if (isset($community_id)) disabled1='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
-                                <option></option>
                                 @foreach($user->communities as $c)
                                 <option @if(old('community') && old('community')== $c->id || $community_id == $c->id) selected @endif value="{{$c->id}}">{{$c->title}}</option>
                                 @endforeach

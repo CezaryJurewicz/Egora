@@ -20,7 +20,9 @@
                                 </div>
                                 <div class="col col-md-2 text-right">
                                     <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">
-                                    @if(is_egora()) IP @elseif(is_egora('community')) CM @endif
+                                    @if(is_egora('municipal')) MM 
+                                    @elseif(is_egora('community')) CM
+                                    @else IP @endif
                                     </a>
                                 </div>
                             </div>

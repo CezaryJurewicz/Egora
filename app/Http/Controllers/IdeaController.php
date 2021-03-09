@@ -295,13 +295,15 @@ class IdeaController extends Controller
     {        
         $nations = $this->_user_nation($request);
         $community_id = null;
+        $nation_id = null;
         $ideas=[];
         
         if(is_egora()) {
+            $nation_id = $idea->nation ? $idea->nation->id : null ;
             $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
         } else if(is_egora('community')) {
-            $community_id = $request->community_id;
-            $ideas = $request->user()->liked_ideas->where('community_id', $request->community_id);
+            $community_id = $request->community_id ?: ($idea->community ? $idea->community->id : null);
+            $ideas = $request->user()->liked_ideas->where('community_id', $community_id);
         } else if(is_egora('municipal') && !is_null($request->user()->municipality_id)) {
             $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
         }
@@ -311,7 +313,7 @@ class IdeaController extends Controller
 
         $user = $request->user();
 
-        return view('ideas.create')->with(compact('community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
+        return view('ideas.create')->with(compact('nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
     }
 
     public function move(Request $request, Idea $idea)
@@ -600,21 +602,26 @@ class IdeaController extends Controller
         
         event(new IdeaSupportHasChanged($idea));
         
-        $route = [$request->user()->active_search_names->first()->hash];
+        $params = [$request->user()->active_search_name_hash];
         if (isset($idea->community)) {
-            $route['community_id'] = $idea->community->id;
+            $params['community_id'] = $idea->community->id;
         }
         
-        return redirect()->route('users.ideological_profile', $route)->with('success', 'Order updated');
+        return redirect()->route('users.ideological_profile', $params)->with('success', 'Order updated');
     }
     
     public function unlike(Request $request, Idea $idea) 
     {
+        $params = [$request->user()->active_search_name_hash];
+        if (isset($idea->community)) {
+            $params['community_id'] = $idea->community->id;
+        }
+        
         $request->user()->liked_ideas()->detach($idea);
         
         event(new IdeaSupportHasChanged($idea));
         
-        return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Idea removed from your IP');   
+        return redirect()->route('users.ideological_profile', $params)->with('success', 'Idea removed from your IP');   
     }
     
     public function preview(Request $request, $hash)
