@@ -47,11 +47,13 @@
                                             <p>The Ideological Profile (IP) is a person’s existential, political, economic,
                                             social, and personal philosophy. The 23-point idea is the most fundamental
                                             idea or the most practically important idea, depending on which strategy a
-                                            person uses for building their IP. The total number of points [verified] users
-                                            of Egora assign to a particular idea in their IPs is given as “IDI Points”.</p>
+                                            person uses for building their IP. The total number of points Egora users
+                                            assign to a particular idea in their IPs is given as “IDI Points” (only verified
+                                            and active users are counted).</p>
                                             <p>The 0-point ideas are a convenient way to suggest alternative ideas to the
-                                            point-weighted ideas. The 0-point ideas are also used by ILP Members to
-                                            control Egora and to organize of the ILP.</p>
+                                            point-weighted ideas.</p>
+                                            <p>The E, G, O, R, and A ideas are additional ideas for ILP Members to control
+                                            Egora and to organize of the ILP.</p>
                                         </div>
                                       </div>
                                     </div>

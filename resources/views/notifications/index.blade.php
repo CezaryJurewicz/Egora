@@ -4,6 +4,38 @@
 <div class="container">
     <div class="row justify-content-center">
     <div class="col-md-12">
+        <div class="accordion mb-3" id="accordion">
+            <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Guide
+                  </button>
+                </h2>
+              </div>
+
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body col-md-10 offset-1">
+                    <p>Sending ideas to other Egora users for review and support is easy
+                        and convenient.</p>
+                    <ol>
+                        <li>In the Users screen, find any other user and go to their profile.</li>
+                        <li>Click the “Follow” button to add the user as one of your leads.</li>
+                        <li>Open any idea that you want to share with others.</li>
+                        <li>Scroll down to the ‘Invite others’ section.</li>
+                        <li>Send the idea to any of your leads by clicking the “Invite”
+                            button.</li>
+                        <li>The idea will show up in the other user’s Inbox, and they will be
+                            able to respond with one of several helpful responses.</li>
+                    </ol>
+                    <p>If you want other Egora users to be able to contact you to discuss
+                    anything in detail, provide your external contact information in your
+                    profile.</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">

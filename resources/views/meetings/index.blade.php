@@ -24,39 +24,43 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
-                            <p>The Meeting Organizer function is only minimally operational –
-                            many important and helpful features are still to be developed. But
-                            for now, here are the key points about how ILP meetings work and
-                            how this tool serves them:</p>
+                            <p>The Meeting Organizer function is primarily intended for scheduling
+                            ILP meetings, but other democratic events are welcome too,
+                            especially Citizen Assembly meetings. Below are the key points
+                            about how ILP meetings work and how this function serves to
+                            support them. However, please note this function is only minimally
+                            operational, and there are many important features yet to be
+                            developed.</p>
                             <ul>
-                                <li>Meetings can be scheduled only by ILP Members.</li>
-                                <li>A Member can schedule up to 2 meetings, up to 46 days in advance.</li>
-                                <li>Up to 22 guest Members may attend to participate (up to total of
-                                23). Anyone else may attended only as audience, space permitting.
+                                <li>An ILP Member can schedule up to 2 meetings, up to 46 days in
+                                    advance.</li>
+                                <li>Up to 22 guest Members may attend to participate (total of 23).
+                                Anyone else may attended only as audience, space permitting.
                                 Attendees should communicate with the organizer to ensure
                                 accommodations.</li>
                                 <li><u>Meetings must be free to attend</u>. Suggested places are public
-                                spaces, such as library or university meeting rooms. If a meeting
-                                takes place in a business location, such as a cafe, no minimum
-                                purchase should be required. Food and drink must not be a
-                                distraction.</li>
-                                <li>This is the official ILP meeting format (attendance currently not
-                                    maintained):
+                                spaces, such as library or university meeting rooms. If a meetings
+                                takes place in a business location, such as a cafe, there must be no
+                                purchase required of the guest participants.</li>
+                                <li>The official ILP meeting format:
                                     <ul>
-                                        <li>Organizer introduction/presentation (up to 23 minutes)</li>
-                                        <li>Discussion, presided by the organizer or another Member
-                                            (until majority calls for adjournment)</li>
+                                        <li>Attendance</li>
+                                        <li>Organizer introduction and presentation (up to 23
+                                            minutes)</li>
+                                        <li>Discussion, presided by the organizer or another
+                                            Member, until majority calls for adjournment</li>
                                         <li>Recess (23 minutes)</li>
-                                        <li>Closing statements by guest participants (2-3 minutes each)</li>
-                                        <li>Organizer’s closing statement (2-3 minutes)</li>
+                                        <li>Closing remarks by guest participants (2-3 minutes each)</li>
+                                        <li>Organizer’s closing remarks (2-3 minutes)</li>
                                     </ul>
                                 </li>
-                                <li>Be safe, and have fun!</li>
+                                <li>If you’re not having fun in politics, you’re not doing it right!</li>
                             </ul>
-                            <center>
-                                <p>Please support our work in making Egora everything it can be: <br>
-                                    <a href="https://GoFundMe.com/EgoraILP23">GoFundMe.com/EgoraILP23</a></p>
-                            </center>
+                            
+                            <p>We count on your support in making Egora everything it can be. To
+                            contribute your development ideas, please use the “Egora
+                            Development” community. To contribute financially, go to</p>
+                            <center><a href="https://GoFundMe.com/EgoraILP23">GoFundMe.com/EgoraILP23</a></center>
                         </div>
                       </div>
                     </div>

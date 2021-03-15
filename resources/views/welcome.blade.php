@@ -34,16 +34,29 @@
                         <div class="card">
                             <div class="card-body">
                                 <p><b>Quick introduction for new visitors</b></p>
-                                <p>“Egora” is a contraction of “electronic” and “agora”. Agora is an ancient Greek
-                                word meaning “public space”. For ancient Greeks the agora served as an open
-                                place for people to do business, to socialize, and to hold discussions. The
-                                Egora follows in that ancient Greek spirit, except that it is an internet platform
-                                that also enables a rational, efficient, and incorruptible form of political
-                                organization – Intelligent Democracy.</p>
-                                <p>As such, Egora is the home of the International Logic Party (ILP), which utilizes
-                                the Egora to organize itself. You do not have to be a member of the ILP to use
-                                Egora, but be aware that your input has a direct impact on the proceedings of
-                                the ILP. Here, your voice has real power, and we want to hear it!</p>
+                                <p>“Egora” is a contraction of “electronic” and “agora”. “Agora” is an ancient Greek
+                                term meaning “gathering place”. For the ancient Greeks the agora of a town
+                                served as the center of public life, where people could socialize, do business,
+                                and hold discussions. Egora follows in that ancient Greek spirit, but its main
+                                function is to enable a new form of democratic organization, one that is rational,
+                                efficient, and incorruptible – i.e. Intelligent Democracy.</p>
+                                <p>To explain it most briefly, Egora enables everyone to</p>
+                                <ul>
+                                    <li>develop their own political philosophy out of various ideas,</li>
+                                    <li>determine which ideas are most strongly supported by the people,</li>
+                                    <li>organize meetings to examine and deliberate any ideas, and</li>
+                                    <li>use a simple algorithm to find the true representatives of the public will.</li>
+                                </ul>
+                                <p>However, Intelligent Democracy would not be possible without a community that
+                                is dedicated to using reason to make sense out of a chaos. Thus, Egora is
+                                actually the home of the International Logic Party (ILP), and we have built Egora
+                                to organize ourselves. We want philosophers to have the advantage over
+                                demagogues in politics, and Egora makes our mission possible. But you do not
+                                have to be a member of the ILP to use Egora. We want democracy to be
+                                available to everyone, and we invite you to use Egora to develop and express
+                                your philosophy regardless of your affiliations. Furthermore, because Egora
+                                technology is so versatile, it is possible for any other community to use Egora to
+                                democratically organize themselves too.</p>
                                 <p>Lastly, Egora is free to use and protected by Copyleft. If you are dissatisfied
                                 with this Egora, you can create your own version of it, and you can use <a href="https://github.com/CezaryJurewicz/Egora" target="_blank" rel="noopener">the code
                                 of this Egora</a> to start. Egora welcomes all competition. May the best ideas win!</p>
