@@ -12,6 +12,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
+        "laravel/passport": "^9.4",
         "laravel/tinker": "^1.0"
     },
     "require-dev": {

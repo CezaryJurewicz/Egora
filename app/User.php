@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.

@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+    Route::middleware('auth:api')->group(function(){
+        Route::post('/users/{user}/invite/{idea}', 'UserController@invite')->name('api.users.invite')->middleware('can:invite,user,idea');
+    });
+
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@indexApi')->name('indexapi');
     });

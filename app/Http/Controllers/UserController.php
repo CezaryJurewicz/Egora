@@ -70,7 +70,7 @@ class UserController extends Controller
         $officer = null;
         $officer_petitioner = null;
         $recent = false;
-        $perPage = 100;
+        $perPage = 25;
         
         $nations = Nation::get();
         
@@ -834,7 +834,7 @@ class UserController extends Controller
     }
     
     public function invite(Request $request, User $user, Idea $idea)
-    {
+    {        
         $data = [
             'idea_id' => $idea->id
         ];
@@ -882,6 +882,10 @@ class UserController extends Controller
         $notification->save();
         
         event(new UserInvitedToIdea($notification));
+        
+        if($request->ajax() || $request->wantsJson()){
+            return response(['message'=>'Invitation sent.'], 200);
+        }
         
         return redirect()->back()->with('success', 'Invitation sent.');
         
