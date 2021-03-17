@@ -12,6 +12,8 @@
                         <h3>{{ __('views.Idea Popularity Index') }}</h3>
                         @elseif (is_egora('community'))
                         <h3>{{ __('Community Idea Popularity Index') }}</h3>
+                        @elseif (is_egora('municipal'))
+                        <h3>{{ __('Municipal Idea Popularity Index') }}</h3>
                         @endif
                     </div>
                     @if (is_egora())

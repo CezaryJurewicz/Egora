@@ -49,6 +49,38 @@
                                 @enderror
                             </div>
                         </div>                    
+                    @elseif (is_egora('municipal'))
+                        <div class="form-group row">
+                            <label for="relevance" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance:') }}</label>
+                            <div class="col-md-6">
+                                <select id="relevance" type="text" class="form-control @error('relevance') is-invalid @enderror" name="relevance" value="{{ old('relevance') ?: $relevance }}">
+                                <option @if((old('relevance') && old('relevance') == $user->municipality->id) || ($relevance && $relevance == $user->municipality->id)) selected @endif value="{{$user->municipality->id}}">{{$user->municipality->title}}</option>
+                                <option @if((old('relevance') && old('relevance') == -1) || ($relevance && $relevance == -1)) selected @endif value="-1">-</option>
+                                </select>
+
+                                @error('relevance')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                    
+                    
+                    <div class="form-group row">
+                        <label for="municipality" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('And:') }}</label>
+
+                        <div class="col-md-6">
+                            <div id="MunicipalitySearch" value="{{  $municipality }}"></div>
+
+                            @error('municipality')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>          
+                    
+                    
                     @endif
 
                     <div class="form-group row">

@@ -20,7 +20,7 @@ class IdeaPolicy
      */
     public function viewAny(User $user)
     {
-        return is_egora() || is_egora('community');
+        return $this->allow();
     }
     
     public function viewIdi(User $user)
@@ -30,7 +30,7 @@ class IdeaPolicy
     
     public function viewIpi(User $user)
     {
-        return is_egora('community');
+        return (!is_egora());
     }
     
     public function administrate(User $user)

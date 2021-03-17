@@ -32,6 +32,7 @@ class IdeaController extends Controller
         $search = null;
         $relevance = null;
         $community = null;
+        $municipality = null;
         $nation = null;
         $unverified = null;
         $nations = $this->_nation_select($request, $view);
@@ -51,8 +52,14 @@ class IdeaController extends Controller
             } else if (is_egora('community')) {
                 $validator = Validator::make($request->all(),[
                     'search' => 'nullable|min:3|string',
-                    'community' => ['nullable', 'numeric'],
+                    'community' => ['nullable', 'numeric', 'exists:communities,id'],
                     'unverified' => 'nullable|boolean',
+                ]);
+            } else if (is_egora('municipal')) {
+                $validator = Validator::make($request->all(),[
+                    'search' => 'nullable|min:3|string',
+                    'relevance' => ['nullable', 'numeric', 'in:-1,'.$request->user()->municipality->id ],
+                    'municipality' => 'nullable|exists:municipalities,title',
                 ]);
             }
             
@@ -77,6 +84,7 @@ class IdeaController extends Controller
             $relevance = $request->input('relevance');
             $nation = $request->input('nation');
             $community = $request->input('community');
+            $municipality = $request->input('municipality');
             
         } else {
             if (is_egora()) {
@@ -84,7 +92,7 @@ class IdeaController extends Controller
             }
         }
             
-            $model->where(function($q) use ($request, &$community, $search, $relevance, $nation){
+            $model->where(function($q) use ($request, &$community, $municipality, $search, &$relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
                 }
@@ -113,6 +121,19 @@ class IdeaController extends Controller
                                 $community = $request->user()->communities->pluck('id')->first();
                                 $q->where('community_id', $community);                
                             }
+                        }
+                    });
+                } elseif (is_egora('municipal')) {
+                    $q->where(function($q) use (&$relevance, $municipality, $request){
+                        if($relevance != -1) {
+                            $relevance = $request->user()->municipality->id;
+                            $q->where('municipality_id', $relevance);                
+                        }
+                        
+                        if($municipality) {
+                            $q->orWhereHas('municipality', function($q) use ($municipality) {
+                                $q->where('title', 'like', $municipality.'%');
+                            });
                         }
                     });
                     
@@ -182,7 +203,7 @@ class IdeaController extends Controller
         
         $user = $request->user();
         
-        return view($view)->with(compact('user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community'));
+        return view($view)->with(compact('user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
     }
     
     public function indexes(Request $request)
