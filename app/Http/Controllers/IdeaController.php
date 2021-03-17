@@ -128,6 +128,8 @@ class IdeaController extends Controller
                         if($relevance != -1) {
                             $relevance = $request->user()->municipality->id;
                             $q->where('municipality_id', $relevance);                
+                        } else {
+                            $q->whereNull('municipality_id');
                         }
                         
                         if($municipality) {
