@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\CommentableTrait;
 
 class Idea extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CommentableTrait;
     
     protected $fillable = array('content', 'position', 'order', 'egora_id');
     

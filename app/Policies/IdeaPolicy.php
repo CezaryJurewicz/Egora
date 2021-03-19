@@ -100,6 +100,12 @@ class IdeaPolicy
         return $this->allow();
     }
     
+    public function comment(User $user, Idea $idea)
+    {
+        // TODO: new rules
+        return $this->like($user, $idea);
+    }
+    
     public function invite_examine(User $user, Idea $idea, $notification) 
     {
         return (!isset($notification));

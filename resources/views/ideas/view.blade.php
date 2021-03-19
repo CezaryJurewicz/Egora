@@ -110,6 +110,8 @@
                     <div class="card-body">
                         @include('blocks.invite_response')
                     </div>
+                    
+                    @include('blocks.comments', ['item'=>$idea])
                     @endif 
 
                     @if( \Route::currentRouteName() == 'ideas.preview' )

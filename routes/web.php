@@ -61,8 +61,13 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{idea}/{user}/move', 'IdeaController@move')->name('move')->middleware('can:move,idea,user');
         Route::get('/{idea}/copy', 'IdeaController@copy')->name('copy')->middleware('can:create,App\Idea');
         Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
+        Route::post('/{idea}/comment', 'IdeaController@comment')->name('store.comment')->middleware('can:comment,idea');
         Route::post('/{idea}/like', 'IdeaController@like')->name('like')->middleware('can:like,idea')->where('idea', '[0-9]+');
         Route::get('/{idea}/unlike', 'IdeaController@unlike')->name('unlike')->middleware('can:unlike,idea')->where('idea', '[0-9]+');
+    });
+    
+    Route::prefix('/comments')->name('comments.')->group(function(){
+        Route::post('/{comment}/comment', 'CommentController@comment')->name('store.comment')->middleware('can:comment,comment');
     });
     
     Route::prefix('/users')->name('users.')->group(function(){

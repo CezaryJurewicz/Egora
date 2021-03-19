@@ -670,4 +670,20 @@ class IdeaController extends Controller
         
         return view('ideas.view')->with(compact('idea'));
     }
+    
+    public function comment(Request $request, Idea $idea)
+    {
+        $validator = Validator::make($request->all(),[
+            'message' => 'required|min:3|string',
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $comment = $idea->addComment($request->input('message'), $request->user()->id);
+                
+        return redirect()->to(route('ideas.view', $idea).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
+    }
 }
