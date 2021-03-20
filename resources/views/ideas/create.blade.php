@@ -14,6 +14,7 @@
             <form id="create" method="POST" action="{{ route('ideas.store') }}">
                 @csrf
 
+            <input type="hidden" name="egora_id" value="{{ current_egora_id() }}"/>
             <div class="card">
                 <div class="card-header">
                     <div class="form-group row">

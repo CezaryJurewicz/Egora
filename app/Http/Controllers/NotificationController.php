@@ -92,4 +92,10 @@ class NotificationController extends Controller
                 
         return redirect()->back()->with('success', 'Notification removed.'); 
     }
+    
+    public function show(Request $request, NotificationModel $notification)
+    {
+        $row = $notification;
+        return view('notifications.view')->with(compact('row'));
+    }
 }

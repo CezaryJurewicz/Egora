@@ -50,6 +50,11 @@ class Handler extends ExceptionHandler
             return redirect_to_egora_home();
         }
         
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            if (($exception->getModel() == \App\Idea::class) && $request->has('notification_id')) {
+                return redirect()->route('ideas.popularity_indexes')->withErrors(['This idea has lost all support and no longer exists']); 
+            }
+        }
         return parent::render($request, $exception);
     }
 }

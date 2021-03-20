@@ -426,7 +426,8 @@ class IdeaController extends Controller
             'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
                         // fix this for communities
                 //        'unique_position:'.$request->user()->id 
-                ],
+                ],            
+            'egora_id' => ['nullable', 'in:'.collect(\Arr::pluck(config('egoras'), 'id'))->implode(',') ]
         ];
         
         if (is_egora() || is_egora('community')) {
@@ -452,30 +453,30 @@ class IdeaController extends Controller
 
         $idea = new Idea([
             'content' => $this->_starting_space($request, 'content').$request->input('content'),
-            'egora_id' => current_egora_id(),
+            'egora_id' => ($request->has('egora_id') ? $request->input('egora_id') : current_egora_id()),
         ]);
                 
         $idea->user()->associate($request->user()->id);
         
-        if(is_egora()) {
+        if ($idea->egora_id == config('egoras.default.id')) {
             $idea->nation()->associate($request->input('nation'));
-        } else if (is_egora('community')) {
+        } else if ($idea->egora_id == config('egoras.community.id')) {
             $idea->community()->associate($request->input('community'));
-        } else if (is_egora('municipal')) {
+        } else if ($idea->egora_id == config('egoras.municipal.id')) {
             $idea->municipality()->associate($request->user()->municipality->id);
         }
         
         $idea->save();
         
         $arr =  ['position'=>$position, 'order' => $order];
-        if (is_egora('community')) {
+        if ($idea->egora_id == config('egoras.community.id')) {
             $arr['community_id'] = $request->input('community');
         }
         
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);        
         $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
 
-        return redirect()->route('users.ideological_profile', array_merge([$request->user()->active_search_names->first()->hash], $arr))->with('success', 'New Idea created');   
+        return redirect()->route('users.ideological_profile', array_merge([$request->user()->active_search_name_hash], $arr))->with('success', 'New Idea created');   
     }
 
     /**
@@ -603,7 +604,7 @@ class IdeaController extends Controller
         
         if ($request->exists('notification_id')) {
             $prev_notification = NotificationModel::findOrFail($request->notification_id);
-
+                        
             $notification = new NotificationModel();
             $notification->sender()->associate($request->user());
             $notification->receiver()->associate($prev_notification->sender);
@@ -616,7 +617,7 @@ class IdeaController extends Controller
         }
 
         $arr =  ['position'=>$position, 'order' => $order];
-        if (is_egora('community')) {
+        if (isset($idea->community)) {
             $arr['community_id'] = $idea->community->id;
         }
         

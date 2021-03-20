@@ -38,6 +38,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/notification')->name('notifications.')->group(function(){
         Route::get('/', 'NotificationController@index')->name('index');
         Route::post('/', 'NotificationController@store')->name('store')->middleware('can:create,App\Notification');
+        Route::get('/{notification}', 'NotificationController@show')->name('view')->middleware('can:view,notification');
         Route::delete('/{notification}', 'NotificationController@destroy')->name('delete')->middleware('can:delete,notification');
         Route::delete('/{user}/disable', 'NotificationController@disable')->name('disable');
         Route::post('/{user}/enable', 'NotificationController@enable')->name('enable');

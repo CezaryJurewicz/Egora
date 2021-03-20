@@ -31,7 +31,7 @@ class NotificationPolicy
      */
     public function view(User $user, Notification $notification)
     {
-        //
+        return $notification->receiver_id == $user->id;
     }
 
     /**
