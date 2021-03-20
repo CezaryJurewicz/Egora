@@ -90,7 +90,7 @@ class NotificationController extends Controller
     {
         $notification->delete();
                 
-        return redirect()->back()->with('success', 'Notification removed.'); 
+        return redirect()->route('notifications.index')->with('success', 'Notification removed.'); 
     }
     
     public function show(Request $request, NotificationModel $notification)
