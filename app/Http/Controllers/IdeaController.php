@@ -531,7 +531,8 @@ class IdeaController extends Controller
         
         $notification = null;
         if($request->has('notification_id')) {
-            $notification = \App\Notification::findOrFail($request->input('notification_id'));
+            $notification = \App\Notification::findOrFail($request->input('notification_id'));            
+            switch_by_idea($idea);
         }
         
 //        $idea->load('liked_users_visible.active_search_names');
@@ -659,11 +660,7 @@ class IdeaController extends Controller
             $q->visible()->recent();
         }]);
         
-        $egora = collect(config('egoras'))->first(function($value, $key) use ($idea) {
-            return $value['id'] == $idea->egora_id;
-        });
-
-        request()->session()->put('current_egora', $egora['name']);
+        switch_by_idea($idea);
         
         if($request->user()) {
             return redirect()->route('ideas.view', [$idea->id, 'preview']);  

@@ -96,6 +96,10 @@ class NotificationController extends Controller
     public function show(Request $request, NotificationModel $notification)
     {
         $row = $notification;
+        
+        $idea = $notification->idea;        
+        switch_by_idea($idea);
+        
         return view('notifications.view')->with(compact('row'));
     }
 }

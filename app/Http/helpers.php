@@ -92,6 +92,14 @@ function is_egora($egora = 'default') {
     return config('egoras.'.$egora.'.id') == current_egora_id();
 }
 
+function switch_by_idea($idea) {
+    $egora = collect(config('egoras'))->first(function($value, $key) use ($idea) {
+        return $value['id'] == $idea->egora_id;
+    });
+
+    request()->session()->put('current_egora', $egora['name']);
+}
+
 function previous_route() {
     return app('router')->getRoutes()->match(app('request')->create(url()->previous()));
 }
