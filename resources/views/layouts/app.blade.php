@@ -148,11 +148,12 @@
                                     @foreach( config('egoras') as $key => $item)
                                         @if (auth('web')->check() && auth('web')->user()->can('switch', [App\User::class, $key]) )
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('switch', $key ) }}">{{ __(config(implode('.',['egoras',$key,'title']))) }}</a>
+                                            <a class="dropdown-item" href="{{ route('switch', [$key, 'home'] ) }}">{{ __(config(implode('.',['egoras',$key,'title']))) }}</a>
+                                            <a class="dropdown-item" href="{{ route('switch', [$key, 'index'] ) }}">&nbsp;&nbsp;&nbsp; Inbox</a>
                                         </li>
+                                        <li class="dropdown-divider"></li>
                                         @endif
                                     @endforeach
-                                    <li class="dropdown-divider"></li>
                                     
                                     @if (auth('web')->check() && auth('web')->user()->can('settings',auth('web')->user()) )
                                     <li>

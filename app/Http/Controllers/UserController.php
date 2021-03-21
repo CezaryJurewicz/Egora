@@ -891,7 +891,7 @@ class UserController extends Controller
         
     }
     
-    public function switch(Request $request, $key)
+    public function switch(Request $request, $key, $page)
     {
         if (!in_array($key, array_keys(config('egoras')))) {
             return redirect()->back()
@@ -900,9 +900,13 @@ class UserController extends Controller
         
         $request->session()->put('current_egora', $key);      
 
-        return redirect()->back()->with('success', 'Egora switched.');
+        if ($page == 'index') {
+            return redirect()->route('notifications.index')->with('success', 'Egora switched.');
+        }
+        
+        return redirect()->route('users.ideological_profile', $request->user()->active_search_name_hash)->with('success', 'Egora switched.');
     }
-
+    
     public function reset(User $user)
     {
         $type = UserType::where('class', $user->user_type->class)

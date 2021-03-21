@@ -22,7 +22,7 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
 });
 
 Route::middleware(['verified', 'auth:admin,web'])->group(function() {
-    Route::get('/switch/{key}', 'UserController@switch')->name('switch')->middleware('can:switch, App\User, key');
+    Route::get('/switch/{key}/{page}', 'UserController@switch')->name('switch')->middleware('can:switch, App\User, key');
     
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@index')->name('index')->middleware('can:viewAny,App\Nation');
