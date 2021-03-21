@@ -68,6 +68,8 @@
                             <div class="mt-2">{{ $user->other_1 }}</div>
                             <div class="mt-2">{{ $user->other_2 }}</div>
                             
+                            <div class="mt-2">Online: {{ $user->last_online_at->diffForHumans() }}</div>
+                            
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_contacts', $user->id) }}" method="POST" style="display: none;">
                                 @csrf
