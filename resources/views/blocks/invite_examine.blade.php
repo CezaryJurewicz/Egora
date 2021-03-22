@@ -32,6 +32,13 @@
                                     <div class="col-md-2 text-center">
                                         {{ __('Invited') }}
                                     </div>
+                                    <div class="col-md-2 text-center">
+                                        @if (is_egora())
+                                        {{  $u->nation->title }}
+                                        @elseif (is_egora('municipal'))
+                                        {{ $u->municipality->title }} 
+                                        @endif
+                                    </div>
                                 </div>
                             @elseif (is_egora('community') && !$u->communities->contains($idea->community))
                             <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
@@ -70,6 +77,14 @@
                                         {{ __('Involved') }} 
                                         @endif
                                     </div>
+                                    
+                                    <div class="col-md-2 text-center">
+                                        @if (is_egora())
+                                        {{  $u->nation->title }}
+                                        @elseif (is_egora('municipal'))
+                                        {{ $u->municipality->title }} 
+                                        @endif
+                                    </div>
                                 </div>
                             @else
                                 <div class="row pt-1 pb-1 pl-5">
@@ -82,23 +97,32 @@
                                     <div class="col-md-2 text-center">
                                         <div class="user-invite" action="{{ route('api.users.invite',[$u->id, $idea->id]) }}"></div>
                                     </div>
-                                </div>
-                            <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
-                                @csrf
-                                <div class="row pt-1 pb-1 pl-5">
-                                    <div class="col-md-6 align-self-center">
-                                        <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                            {{ $u->active_search_name }}
-                                        </a>
-                                    </div>
-
+                                    
                                     <div class="col-md-2 text-center">
-                                    <button type="submit" class="btn btn-sm btn-primary col-md-12">
-                                        {{ __('Invite') }}
-                                    </button>
+                                        @if (is_egora())
+                                        {{  $u->nation->title }}
+                                        @elseif (is_egora('municipal'))
+                                        {{ $u->municipality->title }} 
+                                        @endif
                                     </div>
                                 </div>
-                            </form>
+                            
+                                <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    <div class="row pt-1 pb-1 pl-5">
+                                        <div class="col-md-6 align-self-center">
+                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                                {{ $u->active_search_name }}
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-2 text-center">
+                                        <button type="submit" class="btn btn-sm btn-primary col-md-12">
+                                            {{ __('Invite') }}
+                                        </button>
+                                        </div>
+                                    </div>
+                                </form>
                             @endif
                         </div>
                         @endforeach
