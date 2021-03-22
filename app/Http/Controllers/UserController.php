@@ -269,7 +269,7 @@ class UserController extends Controller
     public function communities_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'communities' => 'required|array|min:20|max:20',
+            'communities' => 'required|array|min:16|max:16',
             'communities.*' => 'nullable|string|min:3|max:190'
         ]); 
 
