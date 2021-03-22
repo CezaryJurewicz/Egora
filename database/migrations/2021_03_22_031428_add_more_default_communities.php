@@ -21,7 +21,8 @@ class AddMoreDefaultCommunities extends Migration
 
             if (!$community) {
                 $community = new Community();
-            }
+                $community->title = $title;
+            }            
             $community->on_registration = true;
             $community->quit_allowed = false;
             $community->save();
