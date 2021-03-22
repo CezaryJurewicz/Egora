@@ -526,7 +526,7 @@ class IdeaController extends Controller
                 }
             }
         }
-
+        
         $presets = NotificationPreset::all();
         
         $notification = null;
@@ -548,8 +548,7 @@ class IdeaController extends Controller
                     ->whereNull('notification_preset_id')
                     ->get();
             $user_notifications_ids = $user_notifications->pluck('pivot.receiver_id')->toArray();
-            
-            $request->user()->load('following.liked_ideas','following.active_search_names','notifications_disabled_by');
+            $request->user()->load('following.nation','following.municipality','following.liked_ideas','following.active_search_names','notifications_disabled_by');
         }
         
         return view('ideas.view')->with(compact('user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
