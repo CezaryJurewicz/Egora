@@ -526,7 +526,7 @@ class IdeaController extends Controller
                 }
             }
         }
-        
+
         $presets = NotificationPreset::all();
         
         $notification = null;
@@ -541,11 +541,18 @@ class IdeaController extends Controller
             $q->visible()->recent();
         }]);
 
+        $user_notifications = collect();
         if ($request->user()) {
-            $request->user()->load('following.liked_ideas','following.active_search_names', 'user_notifications_new', 'notifications_disabled_by');
+            $user_notifications = $request->user()->user_notifications_new()
+                    ->where('idea_id', $idea->id)
+                    ->whereNull('notification_preset_id')
+                    ->get();
+            $user_notifications_ids = $user_notifications->pluck('pivot.receiver_id')->toArray();
+            
+            $request->user()->load('following.liked_ideas','following.active_search_names','notifications_disabled_by');
         }
         
-        return view('ideas.view')->with(compact('idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
+        return view('ideas.view')->with(compact('time_start', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
     }
 
     /**

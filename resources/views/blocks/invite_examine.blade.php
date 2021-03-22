@@ -21,9 +21,7 @@
                                 @continue
                             @endif
                         <div class="row-striped ">
-                            @if (Auth::guard('web')->user()->user_notifications_new->first(function ($v, $k) use ($u, $idea) {
-                                    return $v->id == $u->id && $v->pivot->idea_id == $idea->id;
-                                }) && !$u->liked_ideas->contains($idea))
+                            @if (in_array($u->id, $user_notifications_ids) && !$u->liked_ideas->contains($idea))
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
