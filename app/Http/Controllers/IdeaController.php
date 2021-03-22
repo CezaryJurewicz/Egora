@@ -552,7 +552,7 @@ class IdeaController extends Controller
             $request->user()->load('following.liked_ideas','following.active_search_names','notifications_disabled_by');
         }
         
-        return view('ideas.view')->with(compact('time_start', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
+        return view('ideas.view')->with(compact('user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
     }
 
     /**
