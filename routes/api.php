@@ -12,11 +12,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+    
+Route::middleware('auth:api')->group(function(){
+    Route::post('/users/{user}/invite/{idea}', 'UserController@invite')->name('api.users.invite')->middleware('throttle:100,1,invite', 'can:invite,user,idea');
+});
 
-    Route::middleware('auth:api')->group(function(){
-        Route::post('/users/{user}/invite/{idea}', 'UserController@invite')->name('api.users.invite')->middleware('can:invite,user,idea');
-    });
-
+// Moved default throttle from Kernel
+Route::middleware('throttle:60,1')->group(function() {
+    
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@indexApi')->name('indexapi');
     });
@@ -33,3 +36,4 @@ use Illuminate\Http\Request;
         Route::get('/', 'MunicipalityController@indexApi')->name('indexapi');
     });
     
+}); 
