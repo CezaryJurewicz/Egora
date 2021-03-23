@@ -116,6 +116,7 @@ class IdeaPolicy
     
     public function invite_response(User $user, Idea $idea) 
     {
+//      $user->user_received_notifications()->where('idea_id',$idea->id)->first();
         return $user->user_received_notifications->pluck('pivot.idea_id')->contains($idea->id);
     }
     

@@ -530,28 +530,38 @@ class IdeaController extends Controller
         $presets = NotificationPreset::all();
         
         $notification = null;
+        $user_notifications = collect();
+        $user_notifications_ids = [];
+        $notification_response_sent = false;
+        
         if($request->has('notification_id')) {
             $notification = \App\Notification::findOrFail($request->input('notification_id'));            
             switch_by_idea($idea);
-        }
-        
-//        $idea->load('liked_users_visible.active_search_names');
-        $idea->load(['liked_users' => function($q){
-            $q->with('active_search_names');
-            $q->visible()->recent();
-        }]);
 
-        $user_notifications = collect();
-        if ($request->user()) {
+            $notification_response_sent = $request->user()->user_notifications_new()
+                        ->where('idea_id', $idea->id)
+                        ->where('sender_id', $request->user()->id)
+                        ->where('notification_id', $notification->id)
+                        ->first();
+            
+        } else {
+//            $idea->load('liked_users_visible.active_search_names');
+            $idea->load(['liked_users' => function($q){
+                $q->with('active_search_names');
+                $q->visible()->recent();
+            }]);
+
+            if ($request->user()) {
             $user_notifications = $request->user()->user_notifications_new()
-                    ->where('idea_id', $idea->id)
-                    ->whereNull('notification_preset_id')
-                    ->get();
-            $user_notifications_ids = $user_notifications->pluck('pivot.receiver_id')->toArray();
-            $request->user()->load('following.nation','following.municipality','following.liked_ideas','following.active_search_names','notifications_disabled_by');
+                        ->where('idea_id', $idea->id)
+                        ->whereNull('notification_preset_id')
+                        ->get();
+                $user_notifications_ids = $user_notifications->pluck('pivot.receiver_id')->toArray();
+                $request->user()->load('following.nation','following.municipality','following.liked_ideas','following.active_search_names','notifications_disabled_by');
+            }
         }
         
-        return view('ideas.view')->with(compact('user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
+        return view('ideas.view')->with(compact('notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
     }
 
     /**
