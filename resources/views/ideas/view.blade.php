@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content')                    
 <div class="container">
     <div class="row justify-content-center">
     <div class="col-md-12">
@@ -42,6 +42,19 @@
                         @endif
                     @endif
                 </div>
+                
+                @if (auth('web')->check() && !isset($notification))
+                <div id="tabs">
+                    <ul id="tabs" class="nav nav-tabs mb-3" data-tabs="tabs">
+                      <li class="nav-item active"><a class="nav-link active" href="#mainTab" data-toggle="tab">Main</a></li>
+                      <li class="nav-item active"><a class="nav-link" href="#inviteTab" data-toggle="tab">Invite</a></li>
+                    </ul>
+                </div>
+                @endif
+                
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="mainTab">
+
                 
                 @if (auth('web')->check())
                 <div class="row">
@@ -103,9 +116,6 @@
                     </div>                
 
                     @if (auth('web')->check())
-                    <div class="card-body">
-                        @include('blocks.invite_examine')
-                    </div>
                     
                     <div class="card-body">
                         @include('blocks.invite_response')
@@ -135,6 +145,20 @@
                     <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
                 </div>
                 @endif
+                
+                    </div>
+                    <div class="tab-pane" id="inviteTab">
+                        <div class="card">
+
+                            @if (auth('web')->check())
+                            <div class="card-body">
+                                @include('blocks.invite_examine')
+                            </div>
+                            @endif
+                        </div>                        
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
