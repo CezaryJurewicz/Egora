@@ -149,7 +149,7 @@
                                         @if (auth('web')->check() && auth('web')->user()->can('switch', [App\User::class, $key]) )
                                         <li>
                                             <a class="dropdown-item" href="{{ route('switch', [$key, 'home'] ) }}">{{ __(config(implode('.',['egoras',$key,'title']))) }}</a>
-                                            <a class="dropdown-item" href="{{ route('switch', [$key, 'index'] ) }}">&nbsp;&nbsp;&nbsp; Inbox</a>
+                                            <a class="dropdown-item" href="{{ route('switch', [$key, 'index'] ) }}">- Inbox</a>
                                         </li>
                                         <li class="dropdown-divider"></li>
                                         @endif

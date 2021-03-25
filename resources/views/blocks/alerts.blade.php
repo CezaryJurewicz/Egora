@@ -22,7 +22,7 @@
         <div role="alert" class="alert alert-info alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span> </button>
-            <strong><i class="fa fa-info-circle"></i> {{__('some.Note')}}</strong> @lang(session('message'))
+            <strong><i class="fa fa-info-circle"></i> </strong> @lang(session('message'))
         </div>
     @endif    
     </div>

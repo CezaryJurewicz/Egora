@@ -552,12 +552,23 @@ class IdeaController extends Controller
             }]);
 
             if ($request->user()) {
-            $user_notifications = $request->user()->user_notifications_new()
+                $user_notifications = $request->user()->user_notifications_new()
                         ->where('idea_id', $idea->id)
                         ->whereNull('notification_preset_id')
                         ->get();
                 $user_notifications_ids = $user_notifications->pluck('pivot.receiver_id')->toArray();
-                $request->user()->load('following.nation','following.municipality','following.liked_ideas','following.active_search_names','notifications_disabled_by');
+                
+                $load = ['following.liked_ideas','following.active_search_names','notifications_disabled_by'];
+                
+                if (is_egora()) {
+                    $load[] = 'following.nation';
+                }elseif (is_egora('municipal')) {
+                    $load[] = 'following.municipality';
+                }elseif (is_egora('community')) {
+                    $load[] = 'following.communities';
+                }
+                
+                $request->user()->load($load);
             }
         }
         

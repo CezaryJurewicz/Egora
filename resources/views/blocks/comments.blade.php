@@ -1,12 +1,9 @@
                     @if ($item->comments->isNotEmpty() || (auth('web')->check() && auth('web')->user()->can('comment', $item)))
-                    <div class="card-header">
-                        <h5 class="mt-2">Comments</h5>
-                    </div>
                     
                     @if (auth('web')->check() && auth('web')->user()->can('comment', $item))
-                    <div class="card-body">
+                    <div class="card-body1 pl-1 pt-3 pb-3">
                     <a href="#" onclick="$('#storecomment').toggle(); return false;" >
-                    <h5 class="pt-2">Add comment</h5>
+                    <h5 class="pt-0">Add comment</h5>
                     </a>
                     <form id="storecomment" method="POST" action="{{ route('ideas.store.comment', $item) }}" style="display:none">
                         @csrf
@@ -26,7 +23,7 @@
                     </div>
                     @endif
 
-                    <div class="card-body comments">
+                    <div class="card-body1 comments">
                     @foreach($item->comments as $comment)
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments)

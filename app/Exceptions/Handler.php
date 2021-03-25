@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             if (($exception->getModel() == \App\Idea::class) && $request->has('notification_id')) {
-                return redirect()->route('ideas.popularity_indexes')->withErrors(['This idea has lost all support and no longer exists']); 
+                return redirect()->route('ideas.popularity_indexes')->with(['message' => 'This idea has lost all support and no longer exists.']); 
             }
         }
         return parent::render($request, $exception);

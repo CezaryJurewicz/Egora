@@ -32,7 +32,7 @@
                                     <div class="col-md-2 text-center">
                                         {{ __('Invited') }}
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         @if (is_egora())
                                         {{  $u->nation->title }}
                                         @elseif (is_egora('municipal'))
@@ -78,7 +78,7 @@
                                         @endif
                                     </div>
                                     
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         @if (is_egora())
                                         {{  $u->nation->title }}
                                         @elseif (is_egora('municipal'))
@@ -98,7 +98,7 @@
                                         <div class="user-invite" action="{{ route('api.users.invite',[$u->id, $idea->id]) }}"></div>
                                     </div>
                                     
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         @if (is_egora())
                                         {{  $u->nation->title }}
                                         @elseif (is_egora('municipal'))

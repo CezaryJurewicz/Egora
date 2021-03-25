@@ -43,19 +43,6 @@
                     @endif
                 </div>
                 
-                @if (auth('web')->check() && !isset($notification))
-                <div id="tabs">
-                    <ul id="tabs" class="nav nav-tabs mb-3" data-tabs="tabs">
-                      <li class="nav-item active"><a class="nav-link active" href="#mainTab" data-toggle="tab">Main</a></li>
-                      <li class="nav-item active"><a class="nav-link" href="#inviteTab" data-toggle="tab">Invite</a></li>
-                    </ul>
-                </div>
-                @endif
-                
-                <div id="my-tab-content" class="tab-content">
-                    <div class="tab-pane active" id="mainTab">
-
-                
                 @if (auth('web')->check())
                 <div class="row">
                     <div class="col-md-3 mb-3">
@@ -121,7 +108,34 @@
                         @include('blocks.invite_response')
                     </div>
                     
-                    @include('blocks.comments', ['item'=>$idea])
+                    @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
+                    <div class="card-header">
+                        <h5 class="mt-2">Comments</h5>
+                    </div>
+                    
+                    @else
+                    <div class="card-header">
+                        <div id="tabs">
+                            <ul id="tabs" class="nav nav-pills pb-0" data-tabs="tabs">
+                                <li class="nav-item active"><a style="font-size: large;" class="nav-link active" href="#mainTab" data-toggle="tab">Comments</a></li>
+                                <li class="nav-item active"><a style="font-size: large;" class="nav-link" href="#inviteTab" data-toggle="tab">Invitations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="card-body">
+                    <div id="my-tab-content" class="tab-content">
+                        <div class="tab-pane active" id="mainTab">
+                        @include('blocks.comments', ['item'=>$idea])
+                        </div>
+                        <div class="tab-pane" id="inviteTab">
+                        @include('blocks.invite_examine')
+                        </div>
+                    </div>
+
+                    </div>                    
+                    
                     @endif 
 
                     @if( \Route::currentRouteName() == 'ideas.preview' )
@@ -146,19 +160,6 @@
                 </div>
                 @endif
                 
-                    </div>
-                    <div class="tab-pane" id="inviteTab">
-                        <div class="card">
-
-                            @if (auth('web')->check())
-                            <div class="card-body">
-                                @include('blocks.invite_examine')
-                            </div>
-                            @endif
-                        </div>                        
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
