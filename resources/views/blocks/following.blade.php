@@ -7,7 +7,7 @@
                 @foreach(auth('web')->user()->following->sortBy('active_search_name') as $u)
                 @if($u->active_search_names->first())
                 <div class="row col-md-12">
-                <a @if ($u->last_online_at->diffInDays(now()) > 23) style="color: #cbcbcb;" @endif href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                <a @if ($u->last_online_at->diffInDays(now()) > 23) style="color: #838383;" @endif href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                 {{ $u->active_search_name ?? $u->id }}
                 </a>
                 </div>
