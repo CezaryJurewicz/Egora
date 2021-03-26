@@ -527,7 +527,7 @@ class IdeaController extends Controller
             }
         }
         
-        $presets = NotificationPreset::all();
+        $presets = NotificationPreset::orderBy('order')->get();
         
         $notification = null;
         $user_notifications = collect();
