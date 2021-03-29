@@ -102,8 +102,7 @@ class IdeaPolicy
     
     public function comment(User $user, Idea $idea)
     {
-        // TODO: new rules
-        return $this->like($user, $idea);
+        return $idea->comments()->withTrashed()->where('user_id',$user->id)->get()->count() < 2;
     }
     
     public function invite_examine(User $user, Idea $idea, $notification) 

@@ -19,7 +19,7 @@
     @endif
 
     @if (session('message'))
-        <div role="alert" class="alert alert-info alert-dismissible">
+        <div role="alert" class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span> </button>
             <strong><i class="fa fa-info-circle"></i> </strong> @lang(session('message'))

@@ -1,7 +1,7 @@
                     @if ($item->comments->isNotEmpty() || (auth('web')->check() && auth('web')->user()->can('comment', $item)))
                     
                     @if (auth('web')->check() && auth('web')->user()->can('comment', $item))
-                    <div class="card-body1 pl-1 pt-3 pb-3">
+                    <div class="pl-1 pt-3 pb-3">
                     <a href="#" onclick="$('#storecomment').toggle(); return false;" >
                     <h5 class="pt-0">Add comment</h5>
                     </a>
@@ -22,9 +22,18 @@
                     </form>
                     </div>
                     @endif
-
-                    <div class="card-body1 comments">
-                    @foreach($item->comments as $comment)
+                    
+                    <div class="mb-2">
+                    Order:                    
+                    @if ($order == 'asc')
+                    &#x25B2; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'desc'], compact('notification_id'))).'#my-tab-content' }}">new-old</a> 
+                    @elseif ($order == 'desc')
+                    &#x25BC; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'asc'], compact('notification_id'))).'#my-tab-content' }}">old-new</a> 
+                    @endif
+                    </div>
+                    
+                    <div class="comments">
+                    @foreach($comments as $comment)
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments)
                             @foreach($comment->comments as $child)
@@ -34,5 +43,7 @@
                             @endforeach
                         @endif
                     @endforeach
+                    
+                    {{ $comments->appends(compact('notification_id', 'order'))->fragment('my-tab-content')->links() }}
                     </div>
                     @endif

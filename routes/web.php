@@ -69,6 +69,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     
     Route::prefix('/comments')->name('comments.')->group(function(){
         Route::post('/{comment}/comment', 'CommentController@comment')->name('store.comment')->middleware('can:comment,comment');
+        Route::delete('/{comment}', 'CommentController@destroy')->name('delete')->middleware('can:delete,comment');
     });
     
     Route::prefix('/users')->name('users.')->group(function(){

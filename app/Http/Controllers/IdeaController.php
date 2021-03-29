@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Idea;
 use App\Nation;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\IdeaSupportHasChanged;
@@ -202,7 +203,7 @@ class IdeaController extends Controller
 //                $relevance = $request->user()->nation->id;
 //            }
 //        }
-        
+                    
         $user = $request->user();
         
         return view($view)->with(compact('user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
@@ -530,12 +531,14 @@ class IdeaController extends Controller
         $presets = NotificationPreset::orderBy('order')->get();
         
         $notification = null;
+        $notification_id = null;
         $user_notifications = collect();
         $user_notifications_ids = [];
         $notification_response_sent = false;
         
         if($request->has('notification_id')) {
-            $notification = \App\Notification::findOrFail($request->input('notification_id'));            
+            $notification = \App\Notification::findOrFail($request->input('notification_id'));
+            $notification_id = $notification->id;            
             switch_by_idea($idea);
 
             $notification_response_sent = $request->user()->user_notifications_new()
@@ -571,8 +574,11 @@ class IdeaController extends Controller
                 $request->user()->load($load);
             }
         }
+       
+        $order = $request->input('order') ?? 'desc';
+        $comments = $idea->comments()->orderBy('created_at', $order)->paginate(2);
         
-        return view('ideas.view')->with(compact('notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification'));
+        return view('ideas.view')->with(compact('order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }
 
     /**
@@ -699,7 +705,7 @@ class IdeaController extends Controller
     public function comment(Request $request, Idea $idea)
     {
         $validator = Validator::make($request->all(),[
-            'message' => 'required|min:3|string',
+            'message' => 'required|min:3|max:2300|string',
         ]);
          
         if ($validator->fails()) {

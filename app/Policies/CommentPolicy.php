@@ -13,7 +13,11 @@ class CommentPolicy
     
     public function comment(User $user, Comment $comment)
     {
-        // TODO: new rules
-        return $user->can('comment', $comment->commentable);
+        return $this->allow();
+    }
+    
+    public function delete(User $user, Comment $comment)
+    {
+        return $comment->user_id == $user->id;
     }
 }

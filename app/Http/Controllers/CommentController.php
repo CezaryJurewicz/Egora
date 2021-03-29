@@ -76,7 +76,7 @@ class CommentController extends Controller
     public function comment(Request $request, Comment $comment)
     {
         $validator = Validator::make($request->all(),[
-            'message' => 'required|min:3|string',
+            'message' => 'required|min:3|max:2300|string',
         ]);
          
         if ($validator->fails()) {
@@ -96,8 +96,15 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request, Comment $comment)
     {
-        //
+        if ($comment->commentable instanceof \App\Comment) {  
+            $idea = $comment->commentable->commentable;
+            $comment->forceDelete();
+        } else {
+            $idea = $comment->commentable;
+            $comment->delete();
+        }
+        return redirect()->to(route('ideas.view', $idea).'#my-tab-content')->with('success', 'Comment deleted.'); 
     }
 }

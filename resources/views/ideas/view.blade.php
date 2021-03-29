@@ -127,7 +127,7 @@
                     <div class="card-body">
                     <div id="my-tab-content" class="tab-content">
                         <div class="tab-pane active" id="mainTab">
-                        @include('blocks.comments', ['item'=>$idea])
+                        @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
                         </div>
                         <div class="tab-pane" id="inviteTab">
                         @include('blocks.invite_examine')
