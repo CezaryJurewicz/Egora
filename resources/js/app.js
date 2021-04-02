@@ -19,3 +19,4 @@ require('./components/Date');
 require('./components/Time');
 require('./components/CopyLink');
 require('./components/Invite');
+require('./components/Moderate');

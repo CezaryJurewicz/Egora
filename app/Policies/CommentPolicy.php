@@ -20,4 +20,9 @@ class CommentPolicy
     {
         return $comment->user_id == $user->id;
     }
+    
+    public function moderate(User $user, Comment $comment)
+    {
+        return $comment->user_id != $user->id;
+    }
 }

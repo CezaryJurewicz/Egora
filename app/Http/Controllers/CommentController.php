@@ -107,4 +107,34 @@ class CommentController extends Controller
         }
         return redirect()->to(route('ideas.view', $idea).'#my-tab-content')->with('success', 'Comment deleted.'); 
     }
+    
+    public function moderate(Request $request, Comment $comment, $action)
+    {
+        $votes = $comment->votes()->where('user_id',$request->user()->id)->get();
+        
+        if ($action == 'keep') {
+            $add = 1;
+        } elseif ($action == 'delete') {
+            $add = -1;
+        }
+        
+        if ($votes->isNotEmpty()) {
+            $vote = $votes->first()->pivot->vote;
+            
+            if ($vote != $add) {
+                $comment->votes()->syncWithoutDetaching([$request->user()->id => ['vote' => $add]]);
+                $comment->score = $comment->score + $add;
+                $comment->save();
+            } else {
+                return response(['error'=>'Already voted.'], 403);
+            }
+        } else {
+            $comment->votes()->attach($request->user()->id, ['vote' => $add]);
+            $comment->score = $comment->score + $add;
+            $comment->save();
+        }
+        
+        
+        return [$comment->score];
+    }
 }

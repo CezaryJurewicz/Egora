@@ -19,6 +19,10 @@ Route::middleware('auth:api')->group(function(){
 
 // Moved default throttle from Kernel
 Route::middleware('throttle:60,1')->group(function() {
+
+    Route::prefix('/comments')->name('comments.')->group(function(){
+        Route::post('/{comment}/moderate/{action}', 'CommentController@moderate')->name('moderate')->middleware('auth:api', 'can:moderate,comment');
+    });
     
     Route::prefix('/nations')->name('nations.')->group(function(){
         Route::get('/', 'NationController@indexApi')->name('indexapi');

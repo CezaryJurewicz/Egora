@@ -12,8 +12,6 @@ class Invite extends React.Component {
     }
     
     inviteClick = () => {
-        console.log(this.state.action);
-        
         window.axios.post(this.state.action)
             .then(r => {
                 if (r.status === 200) {

@@ -23,7 +23,7 @@
                     </div>
                     @endif
                     
-                    <div class="mb-2">
+                    <div class="mb-2 text-right">
                     Order:                    
                     @if ($order == 'asc')
                     &#x25B2; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'desc'], compact('notification_id'))).'#my-tab-content' }}">new-old</a> 
