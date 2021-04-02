@@ -34,15 +34,17 @@
                 </small>
             </div>
                 
-            @if (auth('web')->check() && auth('web')->user()->can('moderate', $comment))
             <div class="col-md-9 text-right">
                 <small>
-                    <span class="moderate" 
-                          action_keep="{{ route('comments.moderate', [$comment, 'action'=> 'keep']) }}" 
-                          action_delete="{{ route('comments.moderate', [$comment, 'action' => 'delete']) }}">{{ $comment->score }}</span>            
+                @if (auth('web')->check() && auth('web')->user()->can('moderate', $comment))
+                        <span class="moderate" 
+                              action_keep="{{ route('comments.moderate', [$comment, 'action'=> 'keep']) }}" 
+                              action_delete="{{ route('comments.moderate', [$comment, 'action' => 'delete']) }}">{{ $comment->score }}</span>            
+                @else
+                    {{ $comment->score }} (deletion at -5)
+                @endif
                 </small>
             </div>
-            @endif
             
             </div>
             @if (!isset($reply))
