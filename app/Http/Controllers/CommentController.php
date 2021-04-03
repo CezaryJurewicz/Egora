@@ -125,6 +125,14 @@ class CommentController extends Controller
                 $comment->votes()->syncWithoutDetaching([$request->user()->id => ['vote' => $add]]);
                 $comment->score = $comment->score + $add;
                 $comment->save();
+                
+                if ($comment->is_response() && $comment->score == -5) {
+                    $comment->forceDelete();
+                    return response(['error'=>'Comment deleted.', 'deleted'=>1], 200);
+                } else if (!$comment->is_response() && $comment->score == -23) {
+                    $comment->delete();
+                    return response(['error'=>'Comment deleted.', 'deleted'=>1], 200);
+                }
             } else {
                 return response(['error'=>'Already voted.'], 403);
             }
@@ -133,8 +141,7 @@ class CommentController extends Controller
             $comment->score = $comment->score + $add;
             $comment->save();
         }
-        
-        
-        return [$comment->score];
+                
+        return response(['message'=>'Score changed.', 'score' => $comment->score], 200);
     }
 }

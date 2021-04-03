@@ -24,4 +24,14 @@ class Comment extends Model
     {
         return $this->belongsToMany(User::class)->withPivot('vote');
     }
+    
+    public function is_response() 
+    {
+        return ($this->commentable instanceof \App\Comment);
+    }
+    
+    public function scopeCounted($query)
+    {
+        return $query->whereNull('deleted_at')->orWhereDate('deleted_at', '>', now()->subDays(23));
+    }
 }

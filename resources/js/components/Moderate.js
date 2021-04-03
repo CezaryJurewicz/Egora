@@ -52,7 +52,7 @@ class CallAPI extends React.Component {
             <a href="#/" onClick={() => this.callClick(this.state.action_delete)}>
                 Delete
             </a> }]
-            this comment? { this.state.score } (deletion at -5)
+            this comment? { this.state.score }
             </span>
                     
         )

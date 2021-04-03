@@ -41,8 +41,9 @@
                               action_keep="{{ route('comments.moderate', [$comment, 'action'=> 'keep']) }}" 
                               action_delete="{{ route('comments.moderate', [$comment, 'action' => 'delete']) }}">{{ $comment->score }}</span>            
                 @else
-                    {{ $comment->score }} (deletion at -5)
+                    {{ $comment->score }}
                 @endif
+                (deletion at @if ($comment->is_response()) &nbsp; -5 @else -23 @endif)
                 </small>
             </div>
             
