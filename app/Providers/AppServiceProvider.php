@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
                 ->count()<1;
         });
         
-        View::composer('*', function ($view)
+        View::composer('layouts.app', function ($view)
         {
             $view->with('current_egora', session('current_egora', 'default'));
             
@@ -74,9 +74,13 @@ class AppServiceProvider extends ServiceProvider
 
                 $view->with('inbox_notifications_cnt', $inbox_notifications->count());
                 
-                $value = \App\Setting::where('name', 'information')->first()->value; 
-                $view->with('admin_message_text', $value);
             }
+        });
+        
+        View::composer(['layouts.app', 'settings.message'], function ($view)
+        {
+            $value = \App\Setting::where('name', 'information')->first()->value; 
+            $view->with('admin_message_text', $value);            
         });
         
     }

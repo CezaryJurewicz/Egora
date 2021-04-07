@@ -859,7 +859,7 @@ class UserController extends Controller
                         $fail('The user is already supporting the idea.');
                     }
                     
-                    if ($request->user()->user_notifications->contains(function ($value, $key) use ($user, $idea){
+                    if ($request->user()->user_notifications_new()->where('idea_id', $idea->id)->get()->contains(function ($value, $key) use ($user, $idea){
                             return $value->pivot->receiver_id == $user->id && 
                                 $value->pivot->idea_id == $idea->id;
                     }))
@@ -871,6 +871,10 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if($request->ajax() || $request->wantsJson()){
+                return response()->json($validator->messages(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+            }
+            
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }

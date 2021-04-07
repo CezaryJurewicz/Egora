@@ -36,11 +36,18 @@
                     @foreach($comments as $comment)
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments)
+                        <div style="padding-left:44px; margin-top: -20px;">
+                            <small>
+                            <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses</a>
+                            </small>
+                        </div>
+                        <div id="responses{{ $comment->id }}" style="display:none">
                             @foreach($comment->comments as $child)
-                            <div class="reply">
-                            @include('blocks.comment', ['comment' => $child, 'reply' => false])                
-                            </div>
+                                <div class="reply">
+                                @include('blocks.comment', ['comment' => $child, 'reply' => false])                
+                                </div>
                             @endforeach
+                        </div>
                         @endif
                     @endforeach
                     

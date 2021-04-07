@@ -574,9 +574,15 @@ class IdeaController extends Controller
                 $request->user()->load($load);
             }
         }
-       
+        
         $order = $request->input('order') ?? 'desc';
+        $idea->load(['comments'=> function($q){
+            $q->withTrashed();
+            $q->counted();
+        }]);
+        
         $comments = $idea->comments()->orderBy('created_at', $order)->paginate(25);
+        $comments->load(['user.image', 'comments.user.image', 'user.active_search_names', 'comments.user.active_search_names', 'commentable', 'comments.commentable']);
         
         return view('ideas.view')->with(compact('order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }

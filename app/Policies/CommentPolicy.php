@@ -13,7 +13,7 @@ class CommentPolicy
     
     public function comment(User $user, Comment $comment)
     {
-        return $this->allow();
+        return ($comment->comments->where('user_id',$user->id)->count() < 23);
     }
     
     public function delete(User $user, Comment $comment)

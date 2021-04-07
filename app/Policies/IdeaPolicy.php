@@ -102,7 +102,7 @@ class IdeaPolicy
     
     public function comment(User $user, Idea $idea)
     {
-        return ($idea->comments()->withTrashed()->where('user_id',$user->id)->counted()->get()->count() < 2);
+        return ($idea->comments->where('user_id',$user->id)->count() < 2);
     }
     
     public function invite_examine(User $user, Idea $idea, $notification) 
