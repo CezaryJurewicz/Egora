@@ -103,7 +103,7 @@ class CommentController extends Controller
             $comment->forceDelete();
         } else {
             $idea = $comment->commentable;
-            $comment->delete();
+            $comment->forceDelete();
         }
         return redirect()->to(route('ideas.view', $idea).'#my-tab-content')->with('success', 'Comment deleted.'); 
     }

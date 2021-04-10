@@ -380,9 +380,16 @@ class UserController extends Controller
             $q->whereIn('id', $request->user()->communities->pluck('id'));
         }]);
 
-        return view('users.ideological_profile')->with(compact('user', 'community_id'));
+        $ip_score = 0;
+        $scores = [];
+        foreach($user->liked_ideas as $idea) {
+            $scores[] = $idea->liked_users->pluck('pivot.position')->sum();
+        }
+        rsort($scores, SORT_NUMERIC);
+        $ip_score = array_sum(array_slice($scores, 0, 23));
+        
+        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score'));
     }
-    
     
     public function about(Request $request, $hash)
     {
