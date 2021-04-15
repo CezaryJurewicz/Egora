@@ -59,6 +59,9 @@
                             @endif
                             @endif
                             
+                            @if($user->infoEmpty() && auth('web')->check() && auth('web')->user()->id == $user->id)
+                            <div class="mt-2">Please provide your contact information so other philosophers can reach you to discuss ideas ;-)</div>
+                            @else
                             <div class="mt-2">{{ $user->email_address }}</div>
                             <div class="mt-2">{{ $user->phone_number }}</div>
                             <div class="mt-2">{{ $user->social_media_1 }}</div>
@@ -67,8 +70,11 @@
                             <div class="mt-2">{{ $user->messenger_2 }}</div>
                             <div class="mt-2">{{ $user->other_1 }}</div>
                             <div class="mt-2">{{ $user->other_2 }}</div>
+                            @endif
                             
+                            @if(auth('web')->check() && auth('web')->user()->id != $user->id)
                             <div class="mt-2">Online: {{ $user->last_online_at->diffForHumans() }}</div>
+                            @endif
                             
                             @if (auth('web')->check() && auth('web')->user()->can('update', $user))
                             <form action="{{ route('users.update_contacts', $user->id) }}" method="POST" style="display: none;">

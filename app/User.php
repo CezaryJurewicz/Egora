@@ -225,4 +225,16 @@ class User extends Authenticatable implements MustVerifyEmail
                 ->orderBy('pivot_created_at', 'desc');
 
     }
+    
+    public function infoEmpty()
+    {
+        return is_null($this->email_address) 
+            && is_null($this->phone_number)
+            && is_null($this->social_media_1)
+            && is_null($this->social_media_2)
+            && is_null($this->messenger_1)
+            && is_null($this->messenger_2)
+            && is_null($this->other_1)
+            && is_null($this->other_2);
+    }
 }
