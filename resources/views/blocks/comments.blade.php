@@ -35,7 +35,7 @@
                     <div class="comments">
                     @foreach($comments as $comment)
                         @include('blocks.comment', ['comment' => $comment])                
-                        @if ($comment->comments)
+                        @if ($comment->comments->isNotEmpty())
                         <div style="padding-left:44px; margin-top: -20px;">
                             <small>
                             <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses</a>
