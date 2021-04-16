@@ -17,7 +17,9 @@
                                     <div class="text-center">
                                         @if (is_egora())
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
+                                        @if (isset($ip_score))
                                         <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
+                                        @endif
                                         @elseif (is_egora('community'))
                                         <h3>{{ __('Community Matters') }}</h3>
                                         @elseif (is_egora('municipal'))
