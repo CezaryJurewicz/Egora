@@ -14,6 +14,8 @@
             </a>
         </h4>
         <p class="message">
+            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message))) !!}
+
             {{ $comment->message }}<br>
             <div class="row">
             <div class="col-md-3">
