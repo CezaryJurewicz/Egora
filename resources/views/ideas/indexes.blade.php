@@ -7,11 +7,22 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-10 offset-1 text-center">
-                        <h3>{{ __('views.Idea Dominance Index') }}</h3>
+                    <div class="col-md-4 text-md-right">
+                        @if (empty($sort)) 
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
+                        @else
+                        <div class="btn btn-secondary btn-block">{{ __('Newest Ideas') }}</div>
+                        @endif
                     </div>
-                    <div class="col-md-1 text-md-right">
-                        <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('IPI') }}</a>
+                    <div class="col-md-4 text-center">
+                        @if (empty($sort)) 
+                        <div class="btn btn-secondary btn-block">{{ __('Idea Dominance Index') }}</div>
+                        @else
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('Idea Dominance Index') }}</a>
+                        @endif
+                    </div>
+                    <div class="col-md-4 text-md-right">
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Idea Popularity Index') }}</a>
                     </div>
                 </div>
                 <div class="clearfix">&nbsp;</div>

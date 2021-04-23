@@ -71,7 +71,7 @@
                         <!--<p>@lang('ideas.No ideas found')</p>-->
                     @endforelse
                     
-                        {{  $ideas->appends(compact('search', 'relevance', 'unverified', 'nation'))->render() }}
+                        {{  $ideas->appends(compact('sort', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'))->render() }}
                     </div>
 
 @endif

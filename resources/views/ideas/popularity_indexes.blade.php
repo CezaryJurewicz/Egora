@@ -7,21 +7,39 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-10 offset-1 text-center">
-                        @if(is_egora())
-                        <h3>{{ __('views.Idea Popularity Index') }}</h3>
-                        @elseif (is_egora('community'))
-                        <h3>{{ __('Community Idea Popularity Index') }}</h3>
-                        @elseif (is_egora('municipal'))
-                        <h3>{{ __('Municipal Idea Popularity Index') }}</h3>
+                    <div class="col-md-4 text-md-right">
+                        @if (empty($sort)) 
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page', 'community', 'municipality']), ['sort' => 'date']) ) }}">{{ __('Newest Ideas') }}</a>
+                        @else
+                        <div class="btn btn-secondary btn-block">{{ __('Newest Ideas') }}</div>
                         @endif
                     </div>
                     @if (is_egora())
-                    <div class="col-md-1 text-md-right">
-                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('IDI') }}</a>
+                    <div class="col-md-4 text-md-right">
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('Idea Dominance Index') }}</a>
                     </div>
                     @endif
+                    <div class="col-md-4 text-center">
+                        @if (empty($sort)) 
+                            @if(is_egora())
+                            <div class="btn btn-secondary btn-block">{{ __('Idea Popularity Index') }}</div>
+                            @elseif (is_egora('community'))
+                            <div class="btn btn-secondary btn-block">{{ __('Community Idea Popularity Index') }}</div>
+                            @elseif (is_egora('municipal'))
+                            <div class="btn btn-secondary btn-block">{{ __('Municipal Idea Popularity Index') }}</div>
+                            @endif
+                        @else
+                            @if(is_egora())
+                            <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Idea Popularity Index') }}</a>
+                            @elseif (is_egora('community'))
+                            <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Community Idea Popularity Index') }}</a>
+                            @elseif (is_egora('municipal'))
+                            <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Municipal Idea Popularity Index') }}</a>
+                            @endif
+                        @endif
+                    </div>
                 </div>
+                
                 <div class="clearfix">&nbsp;</div>
                 
                 @if (is_egora())

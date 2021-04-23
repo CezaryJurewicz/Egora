@@ -41,7 +41,7 @@ class IdeaController extends Controller
         
         // if creator is not deactivated
         $model = Idea::query();
-        if (!empty($request->all()))
+        if (collect($request->all())->except(['sort'])->isNotEmpty())
         {
             if (is_egora()) {
                 $validator = Validator::make($request->all(),[
@@ -129,8 +129,6 @@ class IdeaController extends Controller
                         if($relevance != -1) {
                             $relevance = $request->user()->municipality->id;
                             $q->where('municipality_id', $relevance);                
-                        } else {
-                            $q->whereNull('municipality_id');
                         }
                         
                         if($municipality) {
@@ -146,7 +144,7 @@ class IdeaController extends Controller
             });
             
             $model->whereHas('liked_users', function($q) use ($request) {
-                $q->recent();
+//                $q->recent();
                 
                 if (!$request->input('unverified')) {
                     $q->whereHas('user_type', function($q){
@@ -179,7 +177,9 @@ class IdeaController extends Controller
             $model->selectSub($subSql, 'liked_users_sum');
             
             
-            if ($view == 'ideas.popularity_indexes'){
+            if ($request->has('sort')) {
+                $model->orderBy('created_at','desc');
+            } else if ($view == 'ideas.popularity_indexes'){
                 $model->orderBy('liked_users_count', 'desc');
                 $model->orderBy('liked_users_sum', 'desc');
             } else {
@@ -205,8 +205,9 @@ class IdeaController extends Controller
 //        }
                     
         $user = $request->user();
+        $sort = $request->input('sort');
         
-        return view($view)->with(compact('user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
+        return view($view)->with(compact('sort', 'user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
     }
     
     public function indexes(Request $request)
