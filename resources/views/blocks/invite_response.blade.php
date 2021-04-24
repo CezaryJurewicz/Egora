@@ -32,7 +32,7 @@
                             @endforeach
 
                             <div class="row pt-2 pl-5">
-                                <div class="offset-8 col-md-3 mb-3">
+                                <div class="offset-4 col-md-3 mb-3">
                                     <button class='btn btn-primary btn-sm btn-block'>
                                         {{__('Submit')}}
                                     </button>

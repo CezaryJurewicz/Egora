@@ -86,7 +86,7 @@ class CommentController extends Controller
         
         $new = $comment->addComment($request->input('message'), $request->user()->id);
                 
-        return redirect()->to(route('ideas.view', $comment->commentable).'#comment-'.$new->id)->with('success', 'Comment added.'); 
+        return redirect()->to(route('ideas.view', $comment->commentable).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
         
     }
 

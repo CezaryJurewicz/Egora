@@ -14,18 +14,20 @@
             </a>
         </h4>
         <p class="message">
-            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message))) !!}
-
-            {{ $comment->message }}<br>
+            {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message)))) !!}
+            <br>
             <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <small>
                     @if (!isset($reply))
                         @if (auth('web')->check() && auth('web')->user()->can('comment', $comment))
                         <a href="#" onclick="$('#reply{{ $comment->id }}').toggle(); return false;" >reply</a> 
                         @endif
                     @endif
-
+                </small>
+            </div>
+            <div class="col-md-2">
+                <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
                         <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('remove')}}</a> 
                         <form id="remove{{ $comment->id }}" action="{{ route('comments.delete', $comment) }}" method="POST">
@@ -36,7 +38,7 @@
                 </small>
             </div>
                 
-            <div class="col-md-9 text-right">
+            <div class="col-md-8 text-right">
                 <small>
                 @if (auth('web')->check() && auth('web')->user()->can('moderate', $comment))
                         <span class="moderate" 

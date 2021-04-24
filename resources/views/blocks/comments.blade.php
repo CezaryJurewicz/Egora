@@ -36,9 +36,9 @@
                     @foreach($comments as $comment)
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments->isNotEmpty())
-                        <div style="padding-left:44px; margin-top: -20px;">
+                        <div style="padding-left:44px; margin-top: -20px; padding-bottom: 10px;">
                             <small>
-                            <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses</a>
+                            <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses ({{ $comment->comments->count() }})</a>
                             </small>
                         </div>
                         <div id="responses{{ $comment->id }}" style="display:none">
