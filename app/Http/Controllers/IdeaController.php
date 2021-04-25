@@ -582,10 +582,16 @@ class IdeaController extends Controller
             $q->counted();
         }]);
         
-        $comments = $idea->comments()->orderBy('created_at', $order)->paginate(25);
+        $filter = $request->input('filter') ?? 'all';        
+        
+        if($filter == 'my') {
+            $comments = $idea->comments()->where('comments.user_id', $request->user()->id)->orderBy('created_at', $order)->paginate(25);
+        } else {
+            $comments = $idea->comments()->orderBy('created_at', $order)->paginate(25);
+        }
         $comments->load(['user.image', 'comments.user.image', 'user.active_search_names', 'comments.user.active_search_names', 'commentable', 'comments.commentable']);
         
-        return view('ideas.view')->with(compact('order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
+        return view('ideas.view')->with(compact('filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }
 
     /**

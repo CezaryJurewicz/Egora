@@ -11,12 +11,12 @@
                         @if (empty($sort)) 
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
                         @else
-                        <div class="btn btn-secondary btn-block">{{ __('Newest Ideas') }}</div>
+                        <div class="btn btn-light btn-block">{{ __('Newest Ideas') }}</div>
                         @endif
                     </div>
                     <div class="col-md-4 text-center">
                         @if (empty($sort)) 
-                        <div class="btn btn-secondary btn-block">{{ __('Idea Dominance Index') }}</div>
+                        <div class="btn btn-light btn-block">{{ __('Idea Dominance Index') }}</div>
                         @else
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('Idea Dominance Index') }}</a>
                         @endif
