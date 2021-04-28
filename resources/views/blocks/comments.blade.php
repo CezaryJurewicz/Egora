@@ -32,7 +32,7 @@
                             @if (auth('web')->check() && auth('web')->user()->can('comment', $item))
                             <form id="storecomment" method="POST" action="{{ route('ideas.store.comment', $item) }}" style="display:none">
                                 @csrf
-                                <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" required>{{ old('message') }}</textarea>
+                                <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('some.@<Search Name>') }}" required>{{ old('message') }}</textarea>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -55,7 +55,7 @@
                         @if ($comment->comments->isNotEmpty())
                         <div style="padding-left:44px; margin-top: -20px; padding-bottom: 10px;">
                             <small>
-                            <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses ({{ $comment->comments->count() }})</a>
+                            <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >Responses ({{ $comment->comments->count() }})</a>
                             </small>
                         </div>
                         <div id="responses{{ $comment->id }}" @if(is_null($open) || (isset($open) && ($open != $comment->id))) style="display:none" @endif>

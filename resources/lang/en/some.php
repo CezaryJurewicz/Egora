@@ -24,5 +24,6 @@ return [
     'Generate' => 'Generate',
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
-    'Submit' => 'Submit'
+    'Submit' => 'Submit',
+    '@<Search Name>' => 'Use @<Search Name> to link other philosophers in your comments.',
 ];
