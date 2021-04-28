@@ -46,7 +46,7 @@ class CreateCommentNotification
             }
         }
         
-        if (preg_match_all('/\@([a-zA-Z0-9_\-\s]*)[:,]/', $event->comment->message, $output_array)) {
+        if (preg_match_all('/\{([a-zA-Z0-9_\-\s]*)\}/', $event->comment->message, $output_array)) {
             foreach(array_unique($output_array[1]) as $name){
                 if ($search_name=SearchName::where('name', $name)->first()) {
                     if (!$event->comment->user->notifications_disabled_by->contains($search_name->user)) {
