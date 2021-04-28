@@ -79,8 +79,8 @@
                                 
                                 <div class="form-group row">
                                     <div class="col-md-12">
-                                        <label for="password" class="col-form-label">{{ __('New') }}</label>
-                                        <input id="current" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required>
+                                        <label for="newpassword" class="col-form-label">{{ __('New') }}</label>
+                                        <input id="newpassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -121,24 +121,24 @@
                                 <h5 class="pt-1">@lang('Profile Searchability:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="seachable" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search Name match)') }}</label>
-                                        <input  id="seachable" name="seachable" value=1 type="radio" {{ (old('seachable')?: $user->active_search_names->first()->seachable) ? ' checked' : '' }} >
+                                        <label for="seachable1" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search Name match)') }}</label>
+                                        <input  id="seachable1" name="seachable" value=1 type="radio" {{ (old('seachable')?: $user->active_search_names->first()->seachable) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="seachable" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (searchable with strict Search Name match)') }}</label>
-                                        <input id="seachable" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
+                                        <label for="seachable0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (searchable with strict Search Name match)') }}</label>
+                                        <input id="seachable0" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
                                 
                                 <h5 class="pt-1">@lang('Profile Visibility (Main Egora only):')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="visible" class="col-form-lable col-md-10">{{ __('Public Profile (your support for ideas is public)') }}</label>
-                                        <input  id="visible" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
+                                        <label for="visible1" class="col-form-lable col-md-10">{{ __('Public Profile (your support for ideas is public)') }}</label>
+                                        <input  id="visible1" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="visible" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is hidden from "New Users"; profile is hidden from published "Leads".)') }}</label>
-                                        <input id="visible" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
+                                        <label for="visible0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is hidden from "New Users"; profile is hidden from published "Leads".)') }}</label>
+                                        <input id="visible0" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
                                 
@@ -160,19 +160,32 @@
                     
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
-                            <h4>@lang('Email Notifications')</h4>
+                            <h4 class="pb-1">@lang('Email Notifications')</h4>
                             <form method="POST" action="{{ route('users.update_notifications', $user->id) }}" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="PUT"/>
                                 @csrf
-
+                                
+                                <h5 class="pt-1">@lang('Idea Notifications:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="notifications" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
-                                        <input  id="notifications" name="notifications" value=1 type="radio" {{ (old('notifications')?: $user->notifications) ? ' checked' : '' }} >
+                                        <label for="notifications1" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <input  id="notifications1" name="notifications" value=1 type="radio" {{ (old('notifications')?: $user->notifications) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="notifications" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
-                                        <input id="notifications" name="notifications" value=0 type="radio" {{ (old('notifications')?: ($user->notifications==0)) ? ' checked' : '' }} >
+                                        <label for="notifications0" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <input id="notifications0" name="notifications" value=0 type="radio" {{ (old('notifications')?: ($user->notifications==0)) ? ' checked' : '' }} >
+                                    </div>
+                                </div>
+                                
+                                <h5 class="pt-1">@lang('Comment Notifications:')</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="сomment_notifications1" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <input  id="сomment_notifications1" name="сomment_notifications" value=1 type="radio" {{ (old('сomment_notifications')?: $user->сomment_notifications) ? ' checked' : '' }} >
+                                    </div>
+                                    <div class="row">
+                                        <label for="сomment_notifications0" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <input id="сomment_notifications0" name="сomment_notifications" value=0 type="radio" {{ (old('сomment_notifications')?: ($user->сomment_notifications==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
                                 

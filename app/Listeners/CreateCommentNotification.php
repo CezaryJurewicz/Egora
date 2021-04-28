@@ -38,9 +38,11 @@ class CreateCommentNotification
                 $notification->comment_id = $event->comment->id;
                 $notification->message = ' responded to your comment.';
                 $notification->save();
-
-                $notification->receiver
-                    ->notify(new CommentNotificationEmail($notification));
+                
+                if ($notification->receiver->сomment_notifications) {
+                    $notification->receiver
+                        ->notify(new CommentNotificationEmail($notification));
+                }
             }
         }
         
@@ -56,9 +58,11 @@ class CreateCommentNotification
                             $notification->comment_id = $event->comment->id;
                             $notification->message = ' mentioned you in their comment.';
                             $notification->save();
-
-                            $notification->receiver
-                                ->notify(new CommentNotificationEmail($notification));
+                            
+                            if ($notification->receiver->сomment_notifications) {
+                                $notification->receiver
+                                    ->notify(new CommentNotificationEmail($notification));
+                            }
                         }
                     }
                 }

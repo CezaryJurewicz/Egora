@@ -581,7 +581,8 @@ class UserController extends Controller
     public function update_notifications(Request $request, User $user)
     {
         $validator = Validator::make($request->all(),[
-            'notifications' => ['required', 'boolean']
+            'notifications' => ['required', 'boolean'],
+            'сomment_notifications' => ['required', 'boolean']
         ]);
          
         if ($validator->fails()) {
@@ -590,6 +591,7 @@ class UserController extends Controller
         }
 
         $user->notifications = $request->input('notifications')?:0;
+        $user->сomment_notifications = $request->input('сomment_notifications')?:0;
         $user->save();
         
         return redirect()->back()->with('success', 'Notifications settings updated.');               
