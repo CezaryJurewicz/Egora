@@ -1,4 +1,5 @@
-<div class="media" id="comment-{{$comment->id}}">
+<div class="media">
+    <span class="comment" id="comment-{{$comment->id}}"> &nbsp; </span>
     <div class="media-left">
         @if ($comment->user->image)
         <img src="{{ Storage::url($comment->user->image->filename) }}" class="media-object img-fluid img-thumbnail" sty1le="width:40px" alt=""> 
@@ -26,7 +27,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
                         <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove my comment')}}</a> 
@@ -38,7 +39,7 @@
                 </small>
             </div>
                 
-            <div class="col-md-8 text-right">
+            <div class="col-md-7 text-right">
                 <small>
                 @if (auth('web')->check() && auth('web')->user()->can('moderate', $comment))
                         <span class="moderate" 
