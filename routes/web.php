@@ -44,6 +44,11 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::post('/{user}/enable', 'NotificationController@enable')->name('enable');
     });
     
+    Route::prefix('/comment_notifications')->name('comment_notifications.')->group(function(){
+        Route::get('/', 'CommentNotificationController@index')->name('index');
+        Route::delete('/{comment_notification}', 'CommentNotificationController@destroy')->name('delete')->middleware('can:delete,comment_notification');
+    });
+    
     Route::prefix('/media')->name('media.')->group(function(){
         Route::post('/store/{user}', 'MediaController@store')->name('store')->middleware('can:create,App\Media,user');
         Route::post('/verification', 'MediaController@verification')->name('verification')->middleware('can:verification,App\Media');
@@ -94,7 +99,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:update,user');
         Route::delete('/{user}/me', 'UserController@delete_by_user')->name('delete_by_user')->middleware('can:delete,user');
         Route::post('/{user}/follow', 'UserController@follow')->name('follow')->middleware('can:follow,user');
-        Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:follow,user');
+        Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:unfollow,user');
         Route::get('/{user}/settings', 'UserController@settings')->name('settings')->middleware('can:settings,user');
         Route::get('/{user}/disqualify_membership', 'UserController@disqualify_membership')->name('disqualify_membership')->middleware('can:disqualify_membership,user');
         Route::get('/{user}/cancel_guardianship', 'UserController@cancel_guardianship')->name('cancel_guardianship')->middleware('can:cancel_guardianship,user');

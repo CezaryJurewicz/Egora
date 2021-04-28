@@ -13,7 +13,7 @@ class CommentPolicy
     
     public function comment(User $user, Comment $comment)
     {
-        return ($user->user_type->isVerified && ($comment->comments->where('user_id',$user->id)->count() < 23));
+        return ($user->user_type->isVerified && ($comment->comments->where('user_id',$user->id)->count() < 46));
     }
     
     public function delete(User $user, Comment $comment)

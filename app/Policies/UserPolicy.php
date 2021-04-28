@@ -48,13 +48,13 @@ class UserPolicy
     public function leadsbyid(User $user, $hash)
     {
         $searchname = SearchName::with('user')->where('hash', $hash)->first();
-        
+
         if ($searchname) {
             $model = $searchname->user;
 
             return $user->id !== $model->id;
         }
-
+        
         return $this->deny();
     }
 
@@ -82,7 +82,12 @@ class UserPolicy
     
     public function follow(User $user, User $model)
     {
-        return $user->id != $model->id;
+        return (!$user->followingUser($model) && ($user->following->count()<300) && ($user->id != $model->id));
+    }
+    
+    public function unfollow(User $user, User $model)
+    {
+        return $user->followingUser($model);
     }
     
     public function submit_application(User $user)

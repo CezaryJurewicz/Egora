@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use App\Notification as NotificationModel;
+use App\CommentNotification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -73,6 +74,15 @@ class AppServiceProvider extends ServiceProvider
                 $inbox_notifications = $notification_ids->diff($responses->pluck('notification_id'));
 
                 $view->with('inbox_notifications_cnt', $inbox_notifications->count());
+
+                $comment_notifications = CommentNotification::where(function($q){
+                        $q->whereHas('receiver', function($q) {
+                            $q->where('id', auth('web')->user()->id);
+                        })
+                        ->where('egora_id', current_egora_id());
+                    })->select('id');
+                    
+                $view->with('inbox_comment_notifications_cnt', $comment_notifications->count());
                 
             }
         });

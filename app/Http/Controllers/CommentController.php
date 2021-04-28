@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Events\CommentAdded;
 
 class CommentController extends Controller
 {
@@ -86,6 +87,8 @@ class CommentController extends Controller
         
         $new = $comment->addComment($request->input('message'), $request->user()->id);
                 
+        event(new CommentAdded($new));
+         
         return redirect()->to(route('ideas.view', $comment->commentable).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
         
     }

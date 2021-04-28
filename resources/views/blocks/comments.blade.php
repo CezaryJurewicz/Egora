@@ -58,7 +58,7 @@
                             <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >responses ({{ $comment->comments->count() }})</a>
                             </small>
                         </div>
-                        <div id="responses{{ $comment->id }}" style="display:none">
+                        <div id="responses{{ $comment->id }}" @if(is_null($open) || (isset($open) && ($open != $comment->id))) style="display:none" @endif>
                             @foreach($comment->comments as $child)
                                 <div class="reply">
                                 @include('blocks.comment', ['comment' => $child, 'reply' => false])                

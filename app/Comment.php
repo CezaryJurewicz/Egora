@@ -32,6 +32,6 @@ class Comment extends Model
     
     public function scopeCounted($query)
     {
-        return $query->whereNull('deleted_at')->orWhereDate('deleted_at', '>', now()->subDays(23));
+        return $query->whereNull('deleted_at')->orWhereDate('deleted_at', '>', now()->subDays(46));
     }
 }

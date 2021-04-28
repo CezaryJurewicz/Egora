@@ -60,6 +60,12 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Inbox') }} @if($inbox_notifications_cnt && $inbox_notifications_cnt >0) ({{ $inbox_notifications_cnt }})@endif</a>
                             </li>
                             @endif                        
+                            
+                            @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\CommentNotification::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'comment_notifications.index') ? ' active' : '' }}" href="{{ route('comment_notifications.index')}}">{{ __('Comments') }} @if($inbox_comment_notifications_cnt && $inbox_comment_notifications_cnt >0) ({{ $inbox_comment_notifications_cnt }})@endif</a>
+                            </li>
+                            @endif                        
 
                             @if ((auth('web')->user()?:auth('admin')->user())->can('search', App\User::class))
                             <li class="nav-item">

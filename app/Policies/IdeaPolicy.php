@@ -102,7 +102,7 @@ class IdeaPolicy
     
     public function comment(User $user, Idea $idea)
     {
-        return ($user->user_type->isVerified && ($idea->comments->where('user_id',$user->id)->count() < 2));
+        return ($user->user_type->isVerified && ($idea->comments->where('user_id',$user->id)->count() < 23));
     }
     
     public function invite_examine(User $user, Idea $idea, $notification) 

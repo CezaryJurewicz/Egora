@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 offset-1 text-center">
-                        <h3>{{ __('Notifications') }}</h3>
+                        <h3>{{ __('Idea Notifications') }}</h3>
                     </div>
                 </div>
                 <div class="clearfix">&nbsp;</div>

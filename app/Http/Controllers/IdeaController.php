@@ -12,6 +12,7 @@ use Illuminate\Validation\Rule;
 use App\NotificationPreset;
 use App\Notification as NotificationModel;
 use App\Events\UserLikedIdeaFromNotification;
+use App\Events\CommentAdded;
 
 class IdeaController extends Controller
 {
@@ -591,7 +592,9 @@ class IdeaController extends Controller
         }
         $comments->load(['user.image', 'comments.user.image', 'user.active_search_names', 'comments.user.active_search_names', 'commentable', 'comments.commentable']);
         
-        return view('ideas.view')->with(compact('filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
+        $open = ($request->has('open') ? (int) $request->input('open') : null);
+        
+        return view('ideas.view')->with(compact('open', 'filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }
 
     /**
@@ -727,7 +730,9 @@ class IdeaController extends Controller
         }
         
         $comment = $idea->addComment($request->input('message'), $request->user()->id);
-                
+        
+        event(new CommentAdded($comment));
+        
         return redirect()->to(route('ideas.view', $idea).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
     }
 }

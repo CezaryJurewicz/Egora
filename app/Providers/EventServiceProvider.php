@@ -57,6 +57,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserLeftingMunicipality' => [
             'App\Listeners\DetachMunicipalityIdeasFromUser',
+        ],
+        'App\Events\CommentAdded' => [
+            'App\Listeners\CreateCommentNotification',
         ]
     ];
 
