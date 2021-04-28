@@ -39,7 +39,7 @@
                                 <div class="col-3 text-right">
                                     @if ($row->comment->is_response())
                                     <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', [$row->comment->commentable->commentable, 'open'=>$row->comment->commentable->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>
-                                    @else 
+                                    @elseif (!is_null($row->comment->commentable))
                                     <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', [$row->comment->commentable]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>                                    
                                     @endif
                                 </div>
