@@ -48,7 +48,7 @@ class CommentNotificationEmail extends Notification
         }
         
         return (new MailMessage)
-                    ->subject($this->notification->sender->active_search_names. $this->notification->message)
+                    ->subject($this->notification->sender->active_search_name. $this->notification->message)
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
                     ->line($this->notification->sender->active_search_name.$this->notification->message)
                     ->action('Comment', $action)
