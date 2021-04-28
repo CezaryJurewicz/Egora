@@ -25,5 +25,5 @@ return [
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
     'Submit' => 'Submit',
-    '@<Search Name>' => 'Use @<Search Name> to link other philosophers in your comments.',
+    '@<Search Name>' => 'Use @Search Name, or @Search Name: to link other philosophers in your comments.',
 ];
