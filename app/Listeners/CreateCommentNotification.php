@@ -28,7 +28,7 @@ class CreateCommentNotification
      */
     public function handle(CommentAdded $event)
     {
-        if ($event->comment->is_response() && $event->comment->user_id!==$event->comment->commentable->user_id) {
+        if ($event->comment->is_response() && $event->comment->user_id != $event->comment->commentable->user_id) {
             $notification = new CommentNotification();
             $notification->egora_id = $event->egora_id;
             $notification->sender_id = $event->comment->user_id;
