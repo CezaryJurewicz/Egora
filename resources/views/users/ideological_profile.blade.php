@@ -64,14 +64,20 @@
                                 @endif
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
-                                <div class="mb-1 text-right"> 
-                                    @if (is_egora('community'))
-                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
-                                    @else
-                                        @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
-                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                <div class="row mb-1"> 
+                                    <div class="col-md-6">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+
+                                        @if (is_egora('community'))
+                                            <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                        @else
+                                            @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
+                                            <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                            @endif
                                         @endif
-                                    @endif
+                                    </div>
                                 </div>
                                 @endif
                                 @if($user->liked_ideas->isNotEmpty())

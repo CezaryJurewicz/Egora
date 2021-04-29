@@ -347,6 +347,21 @@ class UserController extends Controller
         $searchname = SearchName::where('hash', $hash)->get()->first();
         $user = $searchname->user;
         
+        $validator = Validator::make($request->all(),[
+            'pdf' => ['boolean', 
+                function ($attribute, $value, $fail) use ($request, $user) {                    
+                    if ($request->user()->id != $user->id)
+                    {
+                        $fail('You are not allowed to download other users pdf.');
+                    }
+                }]
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
         // Change;
         if ($request->user()->isAdmin()) {
             $community_id = $user->communities->first()->id;
@@ -356,7 +371,11 @@ class UserController extends Controller
         
         $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
             if (is_egora('community') && $community_id) {
-                $q->where('ideas.community_id', $community_id);
+                if ($request->has('pdf')) {
+                    $q->whereNotNull('ideas.community_id');                    
+                } else {
+                    $q->where('ideas.community_id', $community_id);
+                }
             } else {
                 $q->whereNull('ideas.community_id');
             }
@@ -387,6 +406,14 @@ class UserController extends Controller
         }
         rsort($scores, SORT_NUMERIC);
         $ip_score = array_sum(array_slice($scores, 0, 23));
+        
+        if ($request->has('pdf')) {
+            view()->share(compact('user', 'community_id', 'ip_score'));
+            $pdf_doc = \PDF::loadView('users.ideological_profile_pdf');
+
+//            return $pdf_doc->stream(date('U').'.pdf', array('Attachment'=>0));
+            return $pdf_doc->download(date('U').'.pdf');
+        }
         
         return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score'));
     }
