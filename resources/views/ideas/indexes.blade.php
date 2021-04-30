@@ -7,16 +7,16 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4 text-md-right">
+                    <div class="col-md-4 text-center">
                         @if (empty($sort)) 
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
                         @else
-                        <div class="btn btn-light btn-block">{{ __('Newest Ideas') }}</div>
+                        <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
                         @endif
                     </div>
                     <div class="col-md-4 text-center">
                         @if (empty($sort)) 
-                        <div class="btn btn-light btn-block">{{ __('Idea Dominance Index') }}</div>
+                        <h5 class="pt-2">{{ __('Idea Dominance Index') }}</h5>
                         @else
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('Idea Dominance Index') }}</a>
                         @endif
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="clearfix">&nbsp;</div>
-                <div class="accordion mb-3" id="accordion">
+                <div class="accordion mb-3 bt-0" id="accordion">
                     <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
                       <div class="card-header" id="headingOne">
                         <h2 class="mb-0">

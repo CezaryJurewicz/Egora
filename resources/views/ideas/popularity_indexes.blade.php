@@ -7,11 +7,11 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4 text-md-right">
+                    <div class="col-md-4 text-center">
                         @if (empty($sort)) 
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page', 'community', 'municipality']), ['sort' => 'date']) ) }}">{{ __('Newest Ideas') }}</a>
                         @else
-                        <div class="btn btn-light btn-block">{{ __('Newest Ideas') }}</div>
+                        <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
                         @endif
                     </div>
                     @if (is_egora())
@@ -22,11 +22,11 @@
                     <div class="col-md-4 text-center">
                         @if (empty($sort)) 
                             @if(is_egora())
-                            <div class="btn btn-light btn-block">{{ __('Idea Popularity Index') }}</div>
+                            <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
                             @elseif (is_egora('community'))
-                            <div class="btn btn-light btn-block">{{ __('Community Idea Popularity Index') }}</div>
+                            <h5 class="pt-2">{{ __('Community Idea Popularity Index') }}</h5>
                             @elseif (is_egora('municipal'))
-                            <div class="btn btn-light btn-block">{{ __('Municipal Idea Popularity Index') }}</div>
+                            <h5 class="pt-2">{{ __('Municipal Idea Popularity Index') }}</h5>
                             @endif
                         @else
                             @if(is_egora())

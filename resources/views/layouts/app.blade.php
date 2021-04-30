@@ -87,13 +87,13 @@
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewIdi', App\Idea::class))
                             <li>
-                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes')}}">{{ __('Ideas') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.indexes', ['sort'=>'date'])}}">{{ __('Ideas') }}</a>
                             </li>
                             @endif
                             
                             @if (auth('web')->check() && auth('web')->user()->can('viewIPI', App\Idea::class))
                             <li>
-                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.popularity_indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.popularity_indexes')}}">{{ __('Ideas') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'ideas.popularity_indexes' || Route::current()->getName() == 'ideas.popularity_indexes' ) ? ' active' : '' }}" href="{{ route('ideas.popularity_indexes', ['sort'=>'date'])}}">{{ __('Ideas') }}</a>
                             </li>
                             @endif
                             
