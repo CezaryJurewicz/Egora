@@ -39,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserLeftIlp' => [
             'App\Listeners\RemoveOfficerPetition',
             'App\Listeners\RemoveOfficerPetitionSupport',
+            'App\Listeners\RemoveCampaign',
         ],
         'App\Events\UserLostVerification' => [
             'App\Listeners\RemoveOfficerPetitionSupport',            
