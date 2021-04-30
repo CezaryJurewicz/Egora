@@ -6,6 +6,7 @@ class CallAPI extends React.Component {
         super(props)
         
         this.state = {
+            comment: props.comment ? props.comment : '',
             action_keep: props.action_keep ? props.action_keep : '',
             action_delete: props.action_delete ? props.action_delete : '',
             score: props.score ? parseInt(props.score) : '',
@@ -26,6 +27,10 @@ class CallAPI extends React.Component {
                     } else if (action == this.state.action_delete) {
                         this.setState({disableDelete: true});
                         this.setState({score: this.state.score-1});                        
+                    }
+                    
+                    if (typeof r.data.deleted !== 'undefined') {
+                        document.getElementById(this.state.comment).parentElement.parentElement.remove();                    
                     }
                 } else {
                    console.log(r.status);
@@ -64,11 +69,12 @@ export default CallAPI;
 var calls = document.querySelectorAll("span.moderate");
 if (calls) {
     calls.forEach(function(e) {
+        var comment = e.getAttribute('comment');
         var action_keep = e.getAttribute('action_keep');
         var action_delete = e.getAttribute('action_delete');
         var score = e.textContent;
         
-        ReactDOM.render(<CallAPI action_keep={action_keep} action_delete={action_delete} score={score} />, e);
+        ReactDOM.render(<CallAPI comment={comment} action_keep={action_keep} action_delete={action_delete} score={score} />, e);
     });
     
 }

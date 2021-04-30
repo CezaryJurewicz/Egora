@@ -29,7 +29,32 @@ class CreateCommentNotification
      */
     public function handle(CommentAdded $event)
     {
-        if ($event->comment->is_response() && $event->comment->user_id != $event->comment->commentable->user_id) {
+        $search_name_ids = [];
+        
+        if (preg_match_all('/\{([a-zA-Z0-9_\-\s]*)\}/', $event->comment->message, $output_array)) {
+            foreach(array_unique($output_array[1]) as $name){
+                if ($search_name=SearchName::where('name', $name)->first()) {
+                    if (!$event->comment->user->notifications_disabled_by->contains($search_name->user)) {
+                        $notification = new CommentNotification();
+                        $notification->egora_id = $event->egora_id;
+                        $notification->sender_id = $event->comment->user_id;
+                        $notification->receiver_id = $search_name->user->id;
+                        $notification->comment_id = $event->comment->id;
+                        $notification->message = ' mentioned you in their comment.';
+                        $notification->save();
+
+                        $search_name_ids[] = $search_name->user->id;
+
+                        if ($notification->receiver->сomment_notifications) {
+                            $notification->receiver
+                                ->notify(new CommentNotificationEmail($notification));
+                        }
+                    }
+                }
+            }
+        }
+        
+        if ($event->comment->is_response() && $event->comment->user_id != $event->comment->commentable->user_id && !in_array($event->comment->commentable->user_id, $search_name_ids)) {
             if (!$event->comment->user->notifications_disabled_by->contains($event->comment->commentable->user)) {
                 $notification = new CommentNotification();
                 $notification->egora_id = $event->egora_id;
@@ -45,28 +70,6 @@ class CreateCommentNotification
                 }
             }
         }
-        
-        if (preg_match_all('/\{([a-zA-Z0-9_\-\s]*)\}/', $event->comment->message, $output_array)) {
-            foreach(array_unique($output_array[1]) as $name){
-                if ($search_name=SearchName::where('name', $name)->first()) {
-                    if (!$event->comment->user->notifications_disabled_by->contains($search_name->user)) {
-                        if (($event->comment->is_response() && $search_name->user->id !== $event->comment->commentable->user_id) || (!$event->comment->is_response())) {
-                            $notification = new CommentNotification();
-                            $notification->egora_id = $event->egora_id;
-                            $notification->sender_id = $event->comment->user_id;
-                            $notification->receiver_id = $search_name->user->id;
-                            $notification->comment_id = $event->comment->id;
-                            $notification->message = ' mentioned you in their comment.';
-                            $notification->save();
-                            
-                            if ($notification->receiver->сomment_notifications) {
-                                $notification->receiver
-                                    ->notify(new CommentNotificationEmail($notification));
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
     }
 }

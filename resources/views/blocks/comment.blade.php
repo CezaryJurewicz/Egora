@@ -42,13 +42,12 @@
             <div class="col-md-7 text-right">
                 <small>
                 @if (auth('web')->check() && auth('web')->user()->can('moderate', $comment))
-                        <span class="moderate" 
+                        <span class="moderate" comment="comment-{{$comment->id}}"
                               action_keep="{{ route('comments.moderate', [$comment, 'action'=> 'keep']) }}" 
                               action_delete="{{ route('comments.moderate', [$comment, 'action' => 'delete']) }}">{{ $comment->score }}</span>            
                 @else
                     {{ $comment->score }}
                 @endif
-                (deletion at @if ($comment->is_response()) &nbsp; -5 @else -23 @endif)
                 </small>
             </div>
             

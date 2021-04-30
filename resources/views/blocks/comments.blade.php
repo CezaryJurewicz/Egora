@@ -51,6 +51,7 @@
                          
                     <div class="comments">
                     @foreach($comments as $comment)
+                        <div>
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments->isNotEmpty())
                         <div style="padding-left:44px; margin-top: -20px; padding-bottom: 10px;">
@@ -66,6 +67,7 @@
                             @endforeach
                         </div>
                         @endif
+                        </div>
                     @endforeach
                     
                     {{ $comments->appends(compact('notification_id', 'order'))->fragment('my-tab-content')->links() }}
