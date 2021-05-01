@@ -40,6 +40,11 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
+    protected function redirectPath() {
+        return route('ideas.indexes', ['sort'=>'date']);
+    }
+
+
     protected function attemptLogin(\Illuminate\Http\Request $request)
     {
         if ($admin = \Auth::guard('admin')->attempt(
