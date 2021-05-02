@@ -42,9 +42,9 @@ class CommentNotificationEmail extends Notification
     public function toMail($notifiable)
     {
         if ($this->notification->comment->is_response()) {
-            $action = route('ideas.view', [$this->notification->comment->commentable->commentable, 'open'=>$this->notification->comment->commentable->id]).'#comment-'.$this->notification->comment->id;
+            $action = route('ideas.view', [$this->notification->comment->commentable->commentable, 'comment_notification_id'=> $this->notification->id, 'open'=>$this->notification->comment->commentable->id]).'#comment-'.$this->notification->comment->id;
         } else {
-            $action = route('ideas.view', [$this->notification->comment->commentable]).'#comment-'.$this->notification->comment->id;            
+            $action = route('ideas.view', [$this->notification->comment->commentable, 'comment_notification_id'=> $this->notification->id]).'#comment-'.$this->notification->comment->id;            
         }
         
         return (new MailMessage)

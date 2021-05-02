@@ -52,6 +52,14 @@ class IdeaPolicy
             return $this->allow();
         }
         
+        if (app('request')->has('comment_notification_id')) {
+            $comment_notification = \App\CommentNotification::where('id', app('request')->input('comment_notification_id'))
+                    ->where('receiver_id', $user->id)->first();
+            if ($comment_notification) {
+                return $this->allow();
+            }
+        }
+        
         if (app('request')->has('notification_id')) {
             $notification = \App\Notification::findOrFail(app('request')->input('notification_id'));
 

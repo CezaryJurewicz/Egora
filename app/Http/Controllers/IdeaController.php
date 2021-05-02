@@ -13,6 +13,7 @@ use App\NotificationPreset;
 use App\Notification as NotificationModel;
 use App\Events\UserLikedIdeaFromNotification;
 use App\Events\CommentAdded;
+use App\CommentNotification;
 
 class IdeaController extends Controller
 {
@@ -492,6 +493,7 @@ class IdeaController extends Controller
     {
        $validator = Validator::make($request->all(),[
             'notification_id' => ['exists:notifications,id'],
+            'comment_notification_id' => ['exists:comment_notifications,id'],
             ]);
 
         if ($validator->fails()) {
@@ -550,6 +552,15 @@ class IdeaController extends Controller
                         ->first();
             
         } else {
+            if ($request->has('comment_notification_id')) {
+                $comment_notification = CommentNotification::where('id', $request->input('comment_notification_id'))
+                        ->where('receiver_id', $request->user()->id)->first();
+                
+                if ($comment_notification) {
+                    switch_by_idea($idea);
+                }
+            }
+            
 //            $idea->load('liked_users_visible.active_search_names');
             $idea->load(['liked_users' => function($q){
                 $q->with('active_search_names');
