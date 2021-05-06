@@ -78,6 +78,8 @@
                                 <div class="col-3 text-right">
                                     @if ($row->invite)
                                     <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', [$row->idea->id,'notification_id'=>$row->id]) }}">{{ __('Open') }}</a>
+                                    @else
+                                    <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', [$row->idea->id]) }}">{{ __('Open') }}</a>
                                     @endif
                                 </div>
                             </div>

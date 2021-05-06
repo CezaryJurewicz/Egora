@@ -57,6 +57,9 @@
                                             point-weighted ideas.</p>
                                             <p>The E, G, O, R, and A ideas are additional ideas for ILP Members to control
                                             Egora and to organize of the ILP.</p>
+                                            <p>The Portfolio Score is equal to the Candidate Score. The Candidate Score is 
+                                            explained in the Campaigns screen. The Portfolio Score is here to let you know 
+                                            where you would stand if you announced yourself as an ILP candidate.</p>
                                         </div>
                                       </div>
                                     </div>
@@ -65,16 +68,16 @@
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                 <div class="row mb-1"> 
-                                    <div class="col-md-6">
-                                        <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
+                                    <div class="col-lg-3 col-4">
+                                        <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
                                     </div>
-                                    <div class="col-md-6 text-right">
+                                    <div class="col-lg-3 col-4 offset-4 offset-sm-6 text-right">
 
                                         @if (is_egora('community'))
-                                            <a class="btn btn-sm btn-primary" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
                                         @else
                                             @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
-                                            <a class="btn btn-sm btn-primary" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create') }}">Create New Idea</a>
                                             @endif
                                         @endif
                                     </div>
