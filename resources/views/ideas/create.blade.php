@@ -89,7 +89,15 @@
                                         @if(old('position1') && old('position1')== $i) selected @endif
                                         value="{{$i}}">0 ({{$i}})</option>
                                 @endfor
-                                    </optgroup>
+                                </optgroup>
+                                
+                                <optgroup label="0-E,G,O,R,A">
+                                @foreach([-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] as $i=>$v)                                        
+                                <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
+                                        @if(old('position1') && old('position1')== $i) selected @endif
+                                        value="{{$i}}">0 ({{$v}})</option>
+                                @endforeach
+                                </optgroup>
                                     
                                 @elseif (is_egora('community') || is_egora('municipal'))
                                 <optgroup label="Supporting [+]">

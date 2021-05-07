@@ -392,7 +392,13 @@ class UserController extends Controller
                 $q->whereHas('user_type',function($q){
                     $q->where('verified', 1);
                 });
+                
+                //don't include supporters for E,G,O,R,A ideas
+                //$q->where('idea_user.order', '>=', 0 );
             }]);
+            
+            //don't include E,G,O,R,A ideas 
+            //$q->where('idea_user.order', '>=', 0 );
         }, 'petition.supporters' => function($q) {
             $q->recent();
         }, 'communities' => function($q) use ($request) {
@@ -402,8 +408,10 @@ class UserController extends Controller
         $ip_score = 0;
         $scores = [];
         foreach($user->liked_ideas as $idea) {
-            $scores[] = $idea->liked_users->pluck('pivot.position')->sum();
-        }
+            if ($idea->pivot->order >= 0) {
+                $scores[] = $idea->liked_users->pluck('pivot.position')->sum();
+            }
+        }        
         rsort($scores, SORT_NUMERIC);
         $ip_score = array_sum(array_slice($scores, 0, 23));
         

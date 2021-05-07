@@ -163,7 +163,7 @@ class IdeaController extends Controller
                         $q->where('verified', 1);                
                     });
                 }
-                $q->recent();
+                $q->recent();                
             }]);
 
             $subSql = 'select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
@@ -427,7 +427,7 @@ class IdeaController extends Controller
         
         $rules = [
             'content' => 'required|string|max:64000',
-            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46',
+            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:-6', 'max:46',
                         // fix this for communities
                 //        'unique_position:'.$request->user()->id 
                 ],            
@@ -525,7 +525,8 @@ class IdeaController extends Controller
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
                 if (is_null($idea->community) && is_null($idea->municipality)) {
-                    $current_idea_point_position = '0 (' . $current_idea_position . ')' ;
+                    $num = ($current_idea_position < 0) ? negative_order()[$current_idea_position] : $current_idea_position;
+                    $current_idea_point_position = '0 (' . $num . ')' ;
                 } else if (is_egora('community')) {
                     $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
                 }
@@ -647,7 +648,7 @@ class IdeaController extends Controller
     public function like(Request $request, Idea $idea) 
     {
         $validator = Validator::make($request->all(),[
-            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:1', 'max:46'],
+            'position1' => ['required_without:position2', 'nullable', 'numeric', 'min:-6', 'max:46'],
             'notification_id' => ['exists:notifications,id'],
         ]);
          

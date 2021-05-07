@@ -120,3 +120,8 @@ function no_html(string $input, string $encoding = 'UTF-8'): string
 {
     return htmlentities($input, ENT_COMPAT | ENT_QUOTES , $encoding);
 }
+
+function negative_order() : array
+{
+    return [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'];
+}

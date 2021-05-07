@@ -114,8 +114,16 @@
                                                 @endif
                                                     <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
                                                        @else 
-                                                            @if (is_egora()) 0 @endif 
+                                                            @if (is_egora())
+                                                                0 
+                                                                @if ($idea->pivot->order < 0)
+                                                                ({{negative_order()[$idea->pivot->order]}}) 
+                                                                @else
+                                                                ({{$idea->pivot->order}}) 
+                                                                @endif
+                                                            @else
                                                             ({{$idea->pivot->order}}) 
+                                                            @endif 
                                                        @endif</b>
                                                     <br/>
                                                 @if ($idea->nation)

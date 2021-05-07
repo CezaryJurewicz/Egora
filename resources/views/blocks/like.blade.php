@@ -27,6 +27,15 @@
                                              value="{{$i}}">0 ({{$i}})</option>
                                     @endfor
                                 </optgroup>
+
+                                <optgroup label="0-E,G,O,R,A">
+                                @foreach([-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] as $i=>$v)                                        
+                                <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
+                                        @if($current_idea_position && $current_idea_position == $i) selected @endif
+                                        value="{{$i}}">0 ({{$v}})</option>
+                                @endforeach
+                                </optgroup>
+
                                 @else
                                 <optgroup label="Supporting [+]">
                                     @for($i=23; $i>0; $i--)                                        
