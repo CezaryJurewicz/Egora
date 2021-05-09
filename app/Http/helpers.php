@@ -61,6 +61,12 @@ function ip_places() {
         $places[] = $i;
     }
     
+    if (is_egora()) {
+        for($i=-1;$i>=-5;$i--){
+            $places[] = $i;
+        }
+    }
+    
     return $places;
 }
 
@@ -76,7 +82,7 @@ function ip_has_place($ideas, $idea) {
         $up = $place > $current ?: $up;
         $down = $place < $current ?: $down;
     }
-    
+
     return [$up, $down];
 }
 

@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-10 offset-1">
-                            {{ Markdown2::parse( strip_tags($admin_message_text) ) }}
+                            {{ Markdown2::parse( no_html($admin_message_text) ) }}
                         </div>
                     </div>
                 </div>

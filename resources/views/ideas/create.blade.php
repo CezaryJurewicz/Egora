@@ -91,11 +91,11 @@
                                 @endfor
                                 </optgroup>
                                 
-                                <optgroup label="0-E,G,O,R,A">
+                                <optgroup label="Egora Ideas">
                                 @foreach([-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] as $i=>$v)                                        
                                 <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
                                         @if(old('position1') && old('position1')== $i) selected @endif
-                                        value="{{$i}}">0 ({{$v}})</option>
+                                        value="{{$i}}">{{$v}}</option>
                                 @endforeach
                                 </optgroup>
                                     

@@ -87,7 +87,7 @@ class SettingController extends Controller
         }
         
         if ($request->has('value')) {
-            $setting->value = no_html($request->input('value'));
+            $setting->value = strip_tags($request->input('value'));
             $setting->save();
             
             return redirect()->route('settings.index')->with('success', 'Setting updated!');

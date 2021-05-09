@@ -525,8 +525,7 @@ class IdeaController extends Controller
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
                 if (is_null($idea->community) && is_null($idea->municipality)) {
-                    $num = ($current_idea_position < 0) ? negative_order()[$current_idea_position] : $current_idea_position;
-                    $current_idea_point_position = '0 (' . $num . ')' ;
+                    $current_idea_point_position = ($current_idea_position < 0) ? negative_order()[$current_idea_position] : '0 ('.$current_idea_position.')';
                 } else if (is_egora('community')) {
                     $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
                 }

@@ -28,7 +28,7 @@
                                     <td>{{ $setting->name}}</td>
                                     <td>
                                         @if ($setting->type == 'text')
-                                        <div style="overflow-y: scroll; height:200px;">{{ Markdown2::parse(strip_tags($setting->value)) }}</div> 
+                                        <div style="overflow-y: scroll; height:200px;">{{ Markdown2::parse(no_html($setting->value)) }}</div> 
                                         @else
                                             {{$setting->value}}
                                         @endif
