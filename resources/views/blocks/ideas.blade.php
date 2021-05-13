@@ -38,7 +38,11 @@
                                         @if($index == 'dominance')
                                         {{ number_format($idea->liked_users_sum) }}
                                         @else
-                                        {{ number_format($idea->liked_users_count) }}
+                                            @if (is_egora())
+                                            {{ number_format($idea->liked_users_count) }}
+                                            @else
+                                            {{ number_format($idea->liked_users_count - $idea->moderators_count) }}
+                                            @endif
                                         @endif
                                         </div>
                                     </div>

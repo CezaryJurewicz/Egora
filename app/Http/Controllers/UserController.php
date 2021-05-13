@@ -393,8 +393,15 @@ class UserController extends Controller
                     $q->where('verified', 1);
                 });
                 
-                //don't include supporters for E,G,O,R,A ideas
-                //$q->where('idea_user.order', '>=', 0 );
+                if (!is_egora()) {
+                    //don't include supporters for E,G,O,R,A ideas
+                    $q->where('idea_user.order', '>=', 0 );
+                }
+            }, 'moderators' => function($q) {
+                $q->recent();
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
             }]);
             
             //don't include E,G,O,R,A ideas 

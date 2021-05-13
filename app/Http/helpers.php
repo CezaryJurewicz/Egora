@@ -65,6 +65,10 @@ function ip_places() {
         for($i=-1;$i>=-5;$i--){
             $places[] = $i;
         }
+    } else {
+        for($i=-1;$i>=-6;$i--){
+            $places[] = $i;
+        }        
     }
     
     return $places;
@@ -129,5 +133,5 @@ function no_html(string $input, string $encoding = 'UTF-8'): string
 
 function negative_order() : array
 {
-    return [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'];
+    return is_egora() ? [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] : [-1=>'N',-2=>'O',-3=>'H',-4=>'A',-5=>'T', -6=>'E'];
 }

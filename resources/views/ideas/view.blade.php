@@ -97,7 +97,20 @@
                         @endforeach
                     </div>
                 </div>
-                
+                @if(!is_egora())
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mt-2">Moderators</h5>
+                    </div>                
+                    <div class="card-body">
+                        @foreach($idea->moderators->sortByDesc('created_at')->take(92) as $u)
+                        <a class="mr-2" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                            {{ $u->active_search_name }} 
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif                
                 <div class="card">
                     <div class="card-header">
                     </div>                

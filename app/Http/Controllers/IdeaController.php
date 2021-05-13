@@ -155,8 +155,6 @@ class IdeaController extends Controller
                 }
             });
             
-
-            
             $model->withCount(['liked_users' => function($q) use ($request){
                 if (!$request->input('unverified')) {
                     $q->whereHas('user_type', function($q){
@@ -164,8 +162,15 @@ class IdeaController extends Controller
                     });
                 }
                 $q->recent();                
+                
+                if (!is_egora()) {
+                    $q->where('idea_user.order', '>=', 0 );
+                }
+            }, 'moderators' => function($q) {
+                $q->recent();
             }]);
-
+            
+            
             $subSql = 'select sum(`idea_user`.`position`) from `users` inner join `idea_user` on `users`.`id` = `idea_user`.`user_id` '
                     . 'where `ideas`.`id` = `idea_user`.`idea_id` and exists (select * from `user_types` where `users`.`user_type_id` = `user_types`.`id`';
 
@@ -524,10 +529,14 @@ class IdeaController extends Controller
             if($current_idea_position>23) {
                 $current_idea_point_position = $current_idea_position - 23;
             } else {
-                if (is_null($idea->community) && is_null($idea->municipality)) {
-                    $current_idea_point_position = ($current_idea_position < 0) ? negative_order()[$current_idea_position] : '0 ('.$current_idea_position.')';
-                } else if (is_egora('community')) {
-                    $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
+                if ($current_idea_position < 0) {
+                    $current_idea_point_position = negative_order()[$current_idea_position];
+                } else {
+                    if (is_null($idea->community) && is_null($idea->municipality)) {
+                        $current_idea_point_position = '0 ('.$current_idea_position.')';
+                    } else if (is_egora('community')) {
+                        $current_idea_point_position = '(' . $current_idea_position . ')' ;                    
+                    }
                 }
             }
         }
@@ -563,6 +572,13 @@ class IdeaController extends Controller
             
 //            $idea->load('liked_users_visible.active_search_names');
             $idea->load(['liked_users' => function($q){
+                $q->with('active_search_names');
+                $q->visible()->recent();
+
+                if (!is_egora()) {
+                    $q->where('idea_user.order', '>=', 0 );
+                }
+            }, 'moderators' => function($q) {
                 $q->with('active_search_names');
                 $q->visible()->recent();
             }]);

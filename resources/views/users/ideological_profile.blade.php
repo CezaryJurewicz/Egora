@@ -114,15 +114,15 @@
                                                 @endif
                                                     <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
                                                        @else 
-                                                            @if (is_egora())
-                                                                @if ($idea->pivot->order < 0)
+                                                            @if ($idea->pivot->order < 0)
                                                                 {{negative_order()[$idea->pivot->order]}}
-                                                                @else
-                                                                0 ({{$idea->pivot->order}}) 
-                                                                @endif
                                                             @else
-                                                            ({{$idea->pivot->order}}) 
-                                                            @endif 
+                                                                @if (is_egora())
+                                                                    0 ({{$idea->pivot->order}}) 
+                                                                @else
+                                                                    ({{$idea->pivot->order}}) 
+                                                                @endif 
+                                                            @endif
                                                        @endif</b>
                                                     <br/>
                                                 @if ($idea->nation)
@@ -150,8 +150,11 @@
                                                 Supporters:
                                                     </div>
                                                     <div class="col-6">
+                                                @if (is_egora())
                                                 {{ number_format($idea->liked_users->count()) }}
-                                                @include('blocks.debug.users',['users' => $idea->liked_users])
+                                                @else
+                                                {{ number_format($idea->liked_users->count() - $idea->moderators->count()) }}
+                                                @endif
                                                     </div>
                                                 </div>
                                                 </div>

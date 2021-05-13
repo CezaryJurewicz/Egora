@@ -45,6 +45,11 @@
                                     @endfor
                                 </optgroup>
                                 <optgroup label="Moderating [-]">
+                                @foreach([-1=>'N',-2=>'O',-3=>'H',-4=>'A',-5=>'T', -6=>'E'] as $i=>$v)                                        
+                                <option @if(in_array($i, $numbered)) style="background-color: lightgray;" disabled @endif 
+                                        @if($current_idea_position && $current_idea_position == $i) selected @endif
+                                        value="{{$i}}">{{$v}}</option>
+                                @endforeach
                                 </optgroup>
                                 @endif
                             </select>

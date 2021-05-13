@@ -107,8 +107,6 @@
                                              value="{{$i}}">({{$i}})</option>
                                     @endfor
                                 </optgroup>
-                                <optgroup label="Moderating [-]">
-                                </optgroup>
                                 @endif
                             </select>
 
