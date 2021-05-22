@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios'
 
 class Invite extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class Invite extends React.Component {
     }
     
     inviteClick = () => {
-        window.axios.post(this.state.action)
+        axios.post(this.state.action)
             .then(r => {
                 if (r.status === 200) {
                     this.setState({inviteSuccess: true});

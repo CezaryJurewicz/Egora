@@ -78,6 +78,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     });
     
     Route::prefix('/users')->name('users.')->group(function(){
+        Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
+        Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
         Route::get('/leads', 'UserController@leads')->name('leads')->middleware('can:leads,App\User');        
         Route::get('/{hash}/leads', 'UserController@leadsbyid')->name('leadsbyid')->middleware('can:leadsbyid,App\User,hash');        
         Route::get('/{hash}/communities', 'UserController@communities')->name('communities')->middleware('can:communities,App\User,hash');        

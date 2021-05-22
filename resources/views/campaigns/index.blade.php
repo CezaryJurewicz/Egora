@@ -54,6 +54,25 @@
 
                         <form action="{{ route('campaigns.store') }}" method="POST">
                             @csrf
+                            <div class="form-group row">
+                                <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
+
+                                <div class="col-md-6">
+                                    <select id="subdivision" type="text" class="form-control @error('relevance') is-invalid @enderror" name="subdivision" value="{{ old('subdivision') }}">
+                                    <option @if ((old('subdivision') && old('subdivision')==0) || (isset($subdivision) && $subdivision == 0)) selected @endif value="0">Head of State</option>
+                                    @for($i=1; $i<24; $i++)
+                                    <option @if ((old('subdivision') && old('subdivision')==$i) || (isset($subdivision) && $subdivision == $i))  selected @endif @if (!isset($subdivisions[$i])) disabled @else value="{{$i}}" @endif>Subdivision {{$i}} - {{ (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}</option>
+                                    @endfor
+                                    </select>
+
+                                    @error('subdivision')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>                    
+                        
                             <button type='submit' class='btn btn-sm btn-primary mt-4 btn-static-200'>{{__('Submit')}}</button>
                         </form>
                     </div>
@@ -63,9 +82,39 @@
                     <div class="text-center">
                         <h5 class="col-md-10 offset-1">I withdraw my candidacy to champion my ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
 
+                            <div class="form-group row">
+                                <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
+
+                                <div class="col-md-6 text-md-left">
+                                    <p class="mt-2 mb-0">
+                                    @if (auth('web')->user()->campaign->subdivision)
+                                    Subdivision {{auth('web')->user()->campaign->order}} - {{ auth('web')->user()->campaign->subdivision->title }}
+                                    @else
+                                    Head of State
+                                    @endif
+                                    </p>
+                                </div>
+                            </div>                    
+                        
+                        
+                        
                         <form action="{{ route('campaigns.delete', auth('web')->user()->campaign) }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE"/>
+                            
+                            <div class="form-group row">
+                                <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Confirm Password:') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('current') is-invalid @enderror" name="password" value="" required>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>                    
+                            
                             <button type='submit' class='btn btn-sm btn-primary mt-4 btn-static-200'>{{__('Submit')}}</button>
                         </form>
                     </div>
@@ -81,20 +130,26 @@
                     <form action="{{ route('campaigns.search') }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PUT"/>
+                        
                         <div class="form-group row">
-                            <label for="nation" class="offset-1 col-md-2 col-form-label text-md-right">{{ __('Nation:') }}</label>
+                            <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
 
                             <div class="col-md-6">
-                                <div id="NationSearch" value="{{ $nation ?? '' }}"></div>
+                                <select id="subdivision" type="text" class="form-control @error('relevance') is-invalid @enderror" name="subdivision" value="{{ old('subdivision') }}">
+                                <option @if ((old('subdivision') && old('subdivision')==0) || (isset($subdivision) && $subdivision == 0)) selected @endif value="0">Head of State</option>
+                                @for($i=1; $i<24; $i++)
+                                <option @if ((old('subdivision') && old('subdivision')==$i) || (isset($subdivision) && $subdivision == $i))  selected @endif @if (!isset($subdivisions[$i])) disabled @else value="{{$i}}" @endif>Subdivision {{$i}} - {{ (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}</option>
+                                @endfor
+                                </select>
 
-                                @error('nation')
+                                @error('subdivision')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-
+                        </div>                    
+                        
                         <div class="form-group row">
                             <div class="col-md-12 text-center">
                                     <button type='submit' class='btn btn-sm btn-primary mt-4 btn-static-200'>{{__('Display')}}</button>
@@ -103,19 +158,21 @@
 
                     </form>
                     
-                    <div class="offset-2 col-md-6 col-centered">
+                    <div class="offset-1 col-md-10 col-centered">
                     @if($rows->isNotEmpty()) 
                         <div class="row mt-5 mb-3">
-                            <div class="col-md-2"><b>Rank</b></div>
-                            <div class="col-md-4"><b>Score</b></div>
-                            <div class="col-md-6"><b>Candidate</b></div>
+                            <div class="col-md-1"><b>Rank</b></div>
+                            <div class="col-md-2"><b>Score</b></div>
+                            <div class="col-md-4"><b>Candidate</b></div>
+                            <div class="col-md-3"><b>Qualification</b></div>
+                            <div class="col-md-2"><b>Seniority</b></div>
                         </div>
 
                         @foreach($rows as $points => $row)
                         <div class="row mb-3">
-                            <div class="col-md-2">{{$loop->iteration}}</div>
-                            <div class="col-md-4">{{ number_format($points) }}</div>
-                            <div class="col-md-6">
+                            <div class="col-md-1">{{$loop->iteration}}</div>
+                            <div class="col-md-2">{{ number_format($points) }}</div>
+                            <div class="col-md-4">
                                 @foreach($row as $names)
                                 <div>
                                     <a href="{{ route('users.ideological_profile', $names['hash']) }}">
@@ -124,6 +181,8 @@
                                 </div>
                                 @endforeach
                             </div>
+                            <div class="col-md-3">-</div>
+                            <div class="col-md-2">-</div>                            
                         </div>
                         @endforeach
                     @endif

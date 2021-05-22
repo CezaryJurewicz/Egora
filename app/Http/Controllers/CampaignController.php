@@ -7,6 +7,7 @@ use App\Idea;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CampaignController extends Controller
 {
@@ -19,25 +20,37 @@ class CampaignController extends Controller
     {
         $nation = null;
         $rows = collect();
+        $subdivision = 0;
+
+        $subdivisions=[];
+        foreach( $request->user()->subdivisions as $i=>$s) {
+            $subdivisions[$s->pivot->order] = $s;
+        }
         
-        if ($request->has('nation') && $request->input('nation')) {
+        if ($request->isMethod('put')) {
             
             $validator = Validator::make($request->all(),[
-                'nation' => 'required|exists:nations,title',
+                'subdivision' => [
+                    'required',
+                    Rule::in(array_merge([0], $request->user()->subdivisions->pluck('pivot.order')->toArray())),
+                ]
             ]);
 
-            $nation = $request->input('nation');
-            
             if ($validator->fails()) {
                 return redirect()->back()
                         ->withInput()->withErrors($validator);
             }
-            
-            $users = User::recent()->whereHas('campaign')
-                ->whereHas('nation', function($q) use ($request) {
-                    $q->where('title', $request->input('nation'));
-                })->get();
 
+            $subdivision = $request->input('subdivision');            
+            $users = User::recent()->whereHas('campaign', function($q) use ($request, $subdivision, $subdivisions) {
+                    if ($subdivision) {
+                        $q->whereHas('subdivision', function($q) use ($request, $subdivision, $subdivisions) {
+                            $q->where('id', $subdivisions[$subdivision]->id);
+                        });
+                    } 
+                    $q->where('order', $subdivision);
+                })->get();
+                
             $user_points = collect();
             
             foreach ($users as $user) {
@@ -67,9 +80,9 @@ class CampaignController extends Controller
             }
             
             $rows = $user_points->sortByDesc('points')->groupBy('points');
-        }
-        
-        return view('campaigns.index')->with(compact('rows', 'nation'));   
+        } 
+
+        return view('campaigns.index')->with(compact('rows', 'nation', 'subdivisions', 'subdivision'));   
     }
     
     /**
@@ -90,8 +103,28 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'subdivision' => [
+                'required',
+                Rule::in(array_merge([0], $request->user()->subdivisions->pluck('pivot.order')->toArray())),
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        $subdivision_id = null;
+        if ($request->input('subdivision')) {
+            $subdivision = $request->user()->subdivisions()->where('order', $request->input('subdivision'))->first();
+            $subdivision_id = $subdivision->id;
+        }
+        
         $campaign = new Campaign();
         $campaign->user()->associate($request->user());
+        $campaign->subdivision_id = $subdivision_id;
+        $campaign->order = $request->input('subdivision');
         $campaign->save();
         
         return redirect()->back()->with('success','Candidacy announced.');
@@ -137,8 +170,17 @@ class CampaignController extends Controller
      * @param  \App\Campaign  $campaign
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Campaign $campaign)
+    public function destroy(Request $request, Campaign $campaign)
     {
+        $validator = Validator::make($request->all(),[
+            'password' => ['required', 'string', 'password'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
         $campaign->delete();
         return redirect()->back()->with('success','Candidacy withdrawn.');
     }

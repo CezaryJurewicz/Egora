@@ -7,7 +7,8 @@ const API_URL = {
        'nation': '/api/nations',
        'country': '/api/countries',
        'city': '/api/cities',
-       'municipality': '/api/municipalities'
+       'municipality': '/api/municipalities',
+       'subdivision': '/api/subdivisions'
     };
 
 function Store(initialState = {}) {
@@ -17,6 +18,7 @@ var myStore = new Store();
 
 class Search extends Component {
   state = {
+    name: this.props.name ? this.props.name : null,
     query: this.props.query ? this.props.query : '',
     type: (this.props.type && (API_URL[this.props.type] !== undefined)) ? this.props.type : 'nation',
     value: '',
@@ -65,7 +67,7 @@ class Search extends Component {
             <input 
                 value={this.state.query} 
                 onChange={this.handleInputChange} 
-                id={this.state.type} type="text" className={this.state.cssClass} name={this.state.type} 
+                id={this.state.type} type="text" className={this.state.cssClass} name={this.state.name ? this.state.name : this.state.type} 
                 autoComplete="off"
             />
 
@@ -104,4 +106,15 @@ if (document.getElementById('MunicipalitySearch')) {
     var value = document.getElementById('MunicipalitySearch').getAttribute('value');
     var cssClass = document.getElementById('MunicipalitySearch').getAttribute('cssClass');
     ReactDOM.render(<Search type="municipality"  query={ value } myStore = {myStore} cssClass={cssClass} />, document.getElementById('MunicipalitySearch'));
+}
+
+var calls = document.querySelectorAll("div.subdivisionsearch");
+if (calls) {
+    calls.forEach(function(e) {
+        var value = e.getAttribute('value');
+        var cssClass = e.getAttribute('cssClass');
+        var name = e.getAttribute('name');
+        ReactDOM.render(<Search type="subdivision" query={ value } myStore = {myStore} cssClass={cssClass} name={name} />, e);
+    });
+    
 }

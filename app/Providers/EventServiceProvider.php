@@ -35,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\BeforeUserNationChanged' => [
             'App\Listeners\RemoveToggleLikedIdeas',
             'App\Listeners\RemoveOfficerPetitionSupport',
+            'App\Listeners\RemoveAdministrativeSubdivisions',
         ],
         'App\Events\UserLeftIlp' => [
             'App\Listeners\RemoveOfficerPetition',

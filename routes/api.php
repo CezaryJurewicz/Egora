@@ -40,4 +40,7 @@ Route::middleware('throttle:60,1')->group(function() {
         Route::get('/', 'MunicipalityController@indexApi')->name('indexapi');
     });
     
+    Route::prefix('/subdivisions')->name('subdivisions.')->group(function(){
+        Route::get('/', 'SubdivisionController@indexApi')->name('indexapi')->middleware('auth:api');
+    });
 }); 

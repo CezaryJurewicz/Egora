@@ -976,4 +976,68 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Former user set to '. $type->title);  
     }
     
+    public function subdivisions(Request $request)
+    {
+        $user = $request->user();
+        
+        $subdivisions=[];
+        foreach( $user->subdivisions as $i=>$subdivision) {
+            $subdivisions[$subdivision->pivot->order] = $subdivision;
+        }
+        
+        return view('users.subdivisions')->with(compact('user','subdivisions'));
+    }
+    
+    public function subdivisions_update(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'subdivisions' => 'required|array|min:23|max:23',
+            'subdivisions.*' => 'nullable|string|min:3|max:190'
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $sync_ids =[];
+        foreach(array_filter($request->subdivisions) as $i=>$subdivision) 
+        {
+            if ($row = \App\Subdivision::where('title', $subdivision)->where('nation_id', $request->user()->nation->id)->first()) {
+                $sync_ids[$row->id] = ['order'=>$i];    
+            } else {
+                $row = new \App\Subdivision();
+                $row->title = $subdivision;
+                $row->nation_id = $request->user()->nation->id;
+                $row->save();
+                $sync_ids[$row->id] = ['order'=>$i];
+            }
+        }
+        
+        
+        $validator = Validator::make($request->all(),[
+            'subdivisions' => [function ($attribute, $value, $fail) use ($sync_ids, $request) {   
+                    $old=[];
+                    foreach( $request->user()->subdivisions as $i=>$subdivision) {
+                        $old[$subdivision->pivot->order] = $subdivision->title;
+                    }
+
+                    if ( $request->user()->campaign && $request->user()->campaign->order 
+                        && $old[$request->user()->campaign->order] != $value[$request->user()->campaign->order])
+                    {
+                        $fail('You have an active campaign.');
+                    }            
+            }]
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->route('campaigns.index')
+                    ->withInput()->withErrors($validator);
+        }
+
+        $request->user()->subdivisions()->sync($sync_ids);
+        
+        return redirect()->back()->with('success', 'Subdivisions Updated');
+    }
+    
 }

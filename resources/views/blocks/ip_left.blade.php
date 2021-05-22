@@ -89,9 +89,17 @@
                                 <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
                             </div>
                             @endif
+                            
+                            <div class="mt-2">
+                                <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.subdivisions') }}">Administrative Subdivisions</a>
+                            </div>
 
                             <div class="mt-2">
                             @include('blocks.ilp')
+                            </div>
+                            
+                            <div class="mt-2">
+                            @include('blocks.candidate')
                             </div>
                             
                             <div class="mt-2">
