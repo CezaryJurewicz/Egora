@@ -309,4 +309,14 @@ class UserPolicy
         
         return $this->deny();
     }
+    
+    public function disqualify(User $user, User $model) 
+    {
+        return (($user->id != $model->id) && !$user->disqualifyingUser($model));
+    }
+    
+    public function qualify(User $user, User $model) 
+    {
+        return (($user->id != $model->id) && $user->disqualifyingUser($model));
+    }    
 }

@@ -10,20 +10,23 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Idea;
+use App\User;
 
 class IdeaSupportHasChanged
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $idea;
+    public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Idea $idea)
+    public function __construct(User $user, Idea $idea)
     {
         $this->idea = $idea;
+        $this->user = $user;
     }
 
     /**

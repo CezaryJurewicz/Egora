@@ -267,7 +267,7 @@
 
                         <div class="form-group row">
                                 <div class="offset-md-1 col-md-3 row">
-                                    <label for="name" class="col-12 col-form-label">{{ __('Your Name') }}</label>
+                                    <label for="name" class="col-12 col-form-label">{{ __('Name (full, legal)') }}</label>
                                 </div>
                                 <div class="col-md-7">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">

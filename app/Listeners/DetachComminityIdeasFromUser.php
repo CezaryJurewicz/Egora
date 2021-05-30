@@ -30,7 +30,7 @@ class DetachComminityIdeasFromUser
         $ideas = $event->user->liked_ideas()->where('idea_user.community_id', $event->community->id)->get();
         $event->user->liked_ideas()->detach($ideas);
         foreach ($ideas as $idea) {
-            event(new IdeaSupportHasChanged($idea));
+            event(new IdeaSupportHasChanged($event->user, $idea));
         }        
     }
 }

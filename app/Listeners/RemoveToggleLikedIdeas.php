@@ -41,7 +41,7 @@ class RemoveToggleLikedIdeas
 
         foreach($ideas as $idea)
         {
-            event(new IdeaSupportHasChanged($idea));
+            event(new IdeaSupportHasChanged($event->user, $idea));
         }
     }
 }

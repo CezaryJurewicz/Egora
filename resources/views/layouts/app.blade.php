@@ -127,7 +127,7 @@
                             </li>
                             @endif
                             
-                            @if (auth('web')->check() && is_egora() && !empty($admin_message_text))
+                            @if (auth('web')->check() && !empty($admin_message_text))
                             <li class="nav-item">
                                 <a class="nav-link{{ (Route::current()->getName() == 'settings.message') ? ' active' : '' }}" href="{{ route('settings.message')}}">{{ __('Information') }}</a>
                             </li>

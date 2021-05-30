@@ -100,6 +100,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
     
+    public function disqualifyingUser(User $user)
+    {
+        return $this->disqualifying_users->pluck('pivot.user_id')->contains($user->id);
+    }
+    
+    public function disqualifying_users()
+    {
+        return $this->belongsToMany(User::class, 'disqualified_users', 'disqualified_user_id', 'user_id');
+    }
+    
+    public function disqualified_by()
+    {
+        return $this->belongsToMany(User::class, 'disqualified_users', 'user_id', 'disqualified_user_id');
+    }
+    
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');

@@ -1040,4 +1040,17 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Subdivisions Updated');
     }
     
+    public function disqualify(Request $request, User $user)
+    {
+        $request->user()->disqualifying_users()->syncWithoutDetaching($user);
+
+        return redirect()->back()->with('success', "User is disqualified.");
+    }
+    
+    public function qualify(Request $request, User $user)
+    {
+        $request->user()->disqualifying_users()->detach($user->id);
+
+        return redirect()->back()->with('success', "User is qualified.");
+    }
 }

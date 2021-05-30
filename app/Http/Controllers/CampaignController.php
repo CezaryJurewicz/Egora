@@ -21,6 +21,7 @@ class CampaignController extends Controller
         $nation = null;
         $rows = collect();
         $subdivision = 0;
+        $status = 0;
 
         $subdivisions=[];
         foreach( $request->user()->subdivisions as $i=>$s) {
@@ -33,6 +34,10 @@ class CampaignController extends Controller
                 'subdivision' => [
                     'required',
                     Rule::in(array_merge([0], $request->user()->subdivisions->pluck('pivot.order')->toArray())),
+                ],
+                'status' => [
+                    'required',
+                    Rule::in([0,1]),
                 ]
             ]);
 
@@ -41,7 +46,19 @@ class CampaignController extends Controller
                         ->withInput()->withErrors($validator);
             }
 
-            $subdivision = $request->input('subdivision');            
+            $status = $request->input('status');
+            $subdivision = $request->input('subdivision');
+            
+            if ($subdivision) {
+                $votes = $subdivisions[$subdivision]->participants->count();
+            } else {
+                $votes = User::recent()
+                    ->whereHas('nation', function($q) use ($request) {
+                        $q->where('id', $request->user()->nation->id);
+                    })
+                    ->get()->count();
+            }
+            
             $users = User::recent()->whereHas('campaign', function($q) use ($request, $subdivision, $subdivisions) {
                     if ($subdivision) {
                         $q->whereHas('subdivision', function($q) use ($request, $subdivision, $subdivisions) {
@@ -49,10 +66,20 @@ class CampaignController extends Controller
                         });
                     } 
                     $q->where('order', $subdivision);
-                })->get();
+                })
+                ->whereHas('nation', function($q) use ($request) {
+                    $q->where('id', $request->user()->nation->id);
+                })
+                ->withCount(['disqualified_by' => function($q) use ($request){
+                    $q->whereHas('user_type', function($q){
+                        $q->where('verified', 1);                
+                    });
+                    $q->recent();                
+                }])
+                ->get();
                 
             $user_points = collect();
-            
+
             foreach ($users as $user) {
                 $result = \DB::select('select sum(`position`) as `points` from (
                         select sum(`idea_user`.`position`) as `position` from `idea_user` where `idea_id` in (
@@ -69,20 +96,26 @@ class CampaignController extends Controller
                         limit 23
                     ) as `p`', [$user->id]);
                 
+                
+                $qualification = ($votes - ($user->disqualified_by_count ?: 0)) / $votes * 100;
                 if ($result && is_array($result) && isset($result[0]) && $result[0]->points) {
+                    if (($status == 1 && $qualification<50) || ($status == 0 && $qualification>=50))
                     $user_points->push([
                         'user_id' => $user->id,
                         'search_name' => $user->active_search_names->first()->name ?? '-',
                         'hash' => $user->active_search_names->first()->hash,
-                        'points' =>$result[0]->points
-                    ]);
+                        'points' =>$result[0]->points,
+                        'qualification' => number_format($qualification,8),
+                        'debug' => [$user->disqualified_by_count , $votes],
+                        'seniority' => $user->campaign->updated_at
+                    ]);                    
                 }
             }
             
             $rows = $user_points->sortByDesc('points')->groupBy('points');
         } 
 
-        return view('campaigns.index')->with(compact('rows', 'nation', 'subdivisions', 'subdivision'));   
+        return view('campaigns.index')->with(compact('rows', 'nation', 'subdivisions', 'subdivision', 'status'));   
     }
     
     /**

@@ -9,24 +9,24 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Notification as NotificationModel;
+use App\Idea;
+use App\User;
 
-class UserLikedIdeaFromNotification
+class UserIdeologicalProfileChanged
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $notification;
-    public $email;
-    
+    public $idea;
+    public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(NotificationModel $notification, $email = true)
+    public function __construct(User $user, Idea $idea)
     {
-        $this->notification = $notification;
-        $this->email = $email;
+        $this->idea = $idea;
+        $this->user = $user;
     }
 
     /**

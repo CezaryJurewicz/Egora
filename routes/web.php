@@ -29,11 +29,6 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     });
     
     Route::get('/information', 'SettingController@message')->name('settings.message');    
-    Route::prefix('/settings')->name('settings.')->group(function(){
-        Route::get('/', 'SettingController@index')->name('index');
-        Route::get('/{setting}', 'SettingController@edit')->name('edit');
-        Route::post('/{setting}', 'SettingController@update')->name('update');
-    });
     
     Route::prefix('/notification')->name('notifications.')->group(function(){
         Route::get('/', 'NotificationController@index')->name('index');
@@ -116,6 +111,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
         Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
         Route::post('/{user}/invite/{idea}', 'UserController@invite')->name('invite')->middleware('can:invite,user,idea');
+        Route::get('/{user}/disqualify', 'UserController@disqualify')->name('disqualify')->middleware('can:disqualify,user');
+        Route::get('/{user}/qualify', 'UserController@qualify')->name('qualify')->middleware('can:qualify,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){
@@ -228,4 +225,9 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{content}', 'ContentController@restore')->name('restore')->middleware('can:restore,App\Content');
     });
     
+    Route::prefix('/settings')->name('settings.')->group(function(){
+        Route::get('/', 'SettingController@index')->name('index');
+        Route::get('/{setting}', 'SettingController@edit')->name('edit');
+        Route::post('/{setting}', 'SettingController@update')->name('update');
+    });
 });

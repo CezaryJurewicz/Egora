@@ -14,6 +14,7 @@ use App\Notification as NotificationModel;
 use App\Events\UserLikedIdeaFromNotification;
 use App\Events\CommentAdded;
 use App\CommentNotification;
+use App\Events\UserIdeologicalProfileChanged;
 
 class IdeaController extends Controller
 {
@@ -393,13 +394,22 @@ class IdeaController extends Controller
                 $position = 0;
             }
 
-            $request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);
-
+            //$request->user()->liked_ideas()->updateExistingPivot($idea->id, ['position'=>$position, 'order' => $order]);            
+                        
+            // prev line not saving before event UserIdeologicalProfileChanged started
+            if ($liked_idea = $request->user()->liked_ideas->where('id', $idea->id)->first()) {
+                $liked_idea->pivot->order = $order;
+                $liked_idea->pivot->position = $position;
+                $liked_idea->pivot->save();
+            }
+            
             $route = [$request->user()->active_search_names->first()->hash];
-            if (isset($idea->community)) {
+            if (isset($idea->community)) {  
                 $route['community_id'] = $idea->community->id;
             }
         
+            event(new UserIdeologicalProfileChanged($request->user(), $idea));
+
             return redirect()->to(route('users.ideological_profile', $route).'#idea'.$idea->id)
                     ->with('success', 'Idea position updated.');
         }
@@ -485,6 +495,8 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);        
         $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
 
+        event(new UserIdeologicalProfileChanged($request->user(), $idea));
+        
         return redirect()->route('users.ideological_profile', array_merge([$request->user()->active_search_name_hash], $arr))->with('success', 'New Idea created');   
     }
 
@@ -690,7 +702,7 @@ class IdeaController extends Controller
 //            $notification->notification_preset_id = 0;
             $notification->save();
 
-            event(new UserLikedIdeaFromNotification($notification));
+            event(new UserLikedIdeaFromNotification($notification, ($order >= 0)));
         }
 
         $arr =  ['position'=>$position, 'order' => $order];
@@ -701,7 +713,8 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
         
-        event(new IdeaSupportHasChanged($idea));
+        event(new UserIdeologicalProfileChanged($request->user(), $idea));
+        event(new IdeaSupportHasChanged($request->user(), $idea));
         
         $params = [$request->user()->active_search_name_hash];
         if (isset($idea->community)) {
@@ -718,9 +731,11 @@ class IdeaController extends Controller
             $params['community_id'] = $idea->community->id;
         }
         
+        event(new UserIdeologicalProfileChanged($request->user(), $idea));
+        
         $request->user()->liked_ideas()->detach($idea);
         
-        event(new IdeaSupportHasChanged($idea));
+        event(new IdeaSupportHasChanged($request->user(), $idea));
         
         return redirect()->route('users.ideological_profile', $params)->with('success', 'Idea removed from your IP');   
     }

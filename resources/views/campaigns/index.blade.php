@@ -55,7 +55,7 @@
                         <form action="{{ route('campaigns.store') }}" method="POST">
                             @csrf
                             <div class="form-group row">
-                                <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
+                                <label for="subdivision" class="offset-1 col-md-3 col-form-label text-left">{{ __('Administrative Level:') }}</label>
 
                                 <div class="col-md-6">
                                     <select id="subdivision" type="text" class="form-control @error('relevance') is-invalid @enderror" name="subdivision" value="{{ old('subdivision') }}">
@@ -83,7 +83,7 @@
                         <h5 class="col-md-10 offset-1">I withdraw my candidacy to champion my ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
 
                             <div class="form-group row">
-                                <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
+                                <label for="subdivision" class="offset-1 col-md-3 col-form-label text-left">{{ __('Administrative Level:') }}</label>
 
                                 <div class="col-md-6 text-md-left">
                                     <p class="mt-2 mb-0">
@@ -103,7 +103,7 @@
                             <input type="hidden" name="_method" value="DELETE"/>
                             
                             <div class="form-group row">
-                                <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Confirm Password:') }}</label>
+                                <label for="password" class="offset-1 col-md-3 col-form-label text-left">{{ __('Confirm Password:') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control @error('current') is-invalid @enderror" name="password" value="" required>
@@ -132,10 +132,10 @@
                         <input type="hidden" name="_method" value="PUT"/>
                         
                         <div class="form-group row">
-                            <label for="subdivision" class="col-md-3 col-form-label text-md-right">{{ __('Administrative Level:') }}</label>
+                            <label for="subdivision" class="offset-1 col-md-3 col-form-label">{{ __('Administrative Level:') }}</label>
 
                             <div class="col-md-6">
-                                <select id="subdivision" type="text" class="form-control @error('relevance') is-invalid @enderror" name="subdivision" value="{{ old('subdivision') }}">
+                                <select id="subdivision" type="text" class="form-control @error('subdivision') is-invalid @enderror" name="subdivision" value="{{ old('subdivision') }}">
                                 <option @if ((old('subdivision') && old('subdivision')==0) || (isset($subdivision) && $subdivision == 0)) selected @endif value="0">Head of State</option>
                                 @for($i=1; $i<24; $i++)
                                 <option @if ((old('subdivision') && old('subdivision')==$i) || (isset($subdivision) && $subdivision == $i))  selected @endif @if (!isset($subdivisions[$i])) disabled @else value="{{$i}}" @endif>Subdivision {{$i}} - {{ (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}</option>
@@ -143,6 +143,29 @@
                                 </select>
 
                                 @error('subdivision')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                    
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-1">
+                                <div class="row">
+                                <label for="status" class="col-md-5 col-form-label">{{ __('Qualification Status:') }}</label>
+                                </div>
+                                <div class="row">
+                                <small class="col-md-12">See the bottom of any user's Ideological Profile for details about this function</small>
+                                </div>
+                            </div>
+                            <div class="col-md-2 offset-1">
+                                <select id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}">
+                                <option @if ((old('status') && old('status')==0) || (isset($status) && $status == 0)) selected @endif value="0">Qualified</option>
+                                <option @if ((old('status') && old('status')==1) || (isset($status) && $status == 1)) selected @endif value="1">Disqualified</option>
+                                </select>
+
+                                @error('status')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -163,26 +186,38 @@
                         <div class="row mt-5 mb-3">
                             <div class="col-md-1"><b>Rank</b></div>
                             <div class="col-md-2"><b>Score</b></div>
-                            <div class="col-md-4"><b>Candidate</b></div>
-                            <div class="col-md-3"><b>Qualification</b></div>
-                            <div class="col-md-2"><b>Seniority</b></div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-5"><b>Candidate</b></div>
+                                    <div class="col-md-4 text-center"><b>Qualification</b></div>
+                                    <div class="col-md-3 text-center"><b>Seniority</b></div>
+                                </div>
+                            </div>
                         </div>
 
                         @foreach($rows as $points => $row)
                         <div class="row mb-3">
                             <div class="col-md-1">{{$loop->iteration}}</div>
                             <div class="col-md-2">{{ number_format($points) }}</div>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 @foreach($row as $names)
-                                <div>
-                                    <a href="{{ route('users.ideological_profile', $names['hash']) }}">
-                                    {{ $names['search_name'] }}
-                                    </a>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <a href="{{ route('users.ideological_profile', $names['hash']) }}">
+                                        {{ $names['search_name'] }}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        @if ($names['qualification'])
+                                            {{ $names['qualification'] }}%
+                                        @else 
+                                            -
+                                        @endif
+                                    </div>
+                                    <div class="col-md-3 text-center"> {{ $names['seniority']->diffForHumans() }}</div>                            
                                 </div>
                                 @endforeach
                             </div>
-                            <div class="col-md-3">-</div>
-                            <div class="col-md-2">-</div>                            
                         </div>
                         @endforeach
                     @endif

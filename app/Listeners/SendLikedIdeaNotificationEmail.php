@@ -27,8 +27,10 @@ class SendLikedIdeaNotificationEmail
      */
     public function handle(UserLikedIdeaFromNotification $event)
     {
-        $event->notification
-            ->receiver
-            ->notify(new UserResponseLikeNotification($event->notification));
+        if ($event->email) {
+            $event->notification
+                ->receiver
+                ->notify(new UserResponseLikeNotification($event->notification));
+        }
     }
 }

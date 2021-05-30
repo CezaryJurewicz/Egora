@@ -33,145 +33,178 @@
                                 </div>
                                 @endif
                             </div>
-                            <div>
-                                @if (is_egora())
-                                <div class="accordion mb-3" id="accordion">
-                                    <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
-                                      <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                            Guide
-                                          </button>
-                                        </h2>
-                                      </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (is_egora())
+                                    <div class="accordion mb-3" id="accordion">
+                                        <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                                          <div class="card-header" id="headingOne">
+                                            <h2 class="mb-0">
+                                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                Guide
+                                              </button>
+                                            </h2>
+                                          </div>
 
-                                      <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <p>The Ideological Profile (IP) is a person’s existential, political, economic,
-                                            social, and personal philosophy. The 23-point idea is the most fundamental
-                                            idea or the most practically important idea, depending on which strategy a
-                                            person uses for building their IP. The total number of points Egora users
-                                            assign to a particular idea in their IPs is given as “IDI Points” (only verified
-                                            and active users are counted).</p>
-                                            <p>The 0-point ideas are a convenient way to suggest alternative ideas to the
-                                            point-weighted ideas.</p>
-                                            <p>The E, G, O, R, and A ideas are additional ideas for ILP Members to control
-                                            Egora and to organize of the ILP.</p>
-                                            <p>The Portfolio Score is equal to the Candidate Score. The Candidate Score is 
-                                            explained in the Campaigns screen. The Portfolio Score is here to let you know 
-                                            where you would stand if you announced yourself as an ILP candidate.</p>
+                                          <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>The Ideological Profile (IP) is a person’s existential, political, economic,
+                                                social, and personal philosophy. The 23-point idea is the most fundamental
+                                                idea or the most practically important idea, depending on which strategy a
+                                                person uses for building their IP. The total number of points Egora users
+                                                assign to a particular idea in their IPs is given as “IDI Points” (only verified
+                                                and active users are counted).</p>
+                                                <p>The 0-point ideas are a convenient way to suggest alternative ideas to the
+                                                point-weighted ideas.</p>
+                                                <p>The E, G, O, R, and A ideas are additional ideas for ILP Members to control
+                                                Egora and to organize of the ILP.</p>
+                                                <p>The Portfolio Score is equal to the Candidate Score. The Candidate Score is 
+                                                explained in the Campaigns screen. The Portfolio Score is here to let you know 
+                                                where you would stand if you announced yourself as an ILP candidate.</p>
+                                            </div>
+                                          </div>
                                         </div>
-                                      </div>
                                     </div>
-                                </div>
-                                @endif
-                                
-                                @if (auth('web')->user() && $user->id == auth('web')->user()->id)
-                                <div class="row mb-1"> 
-                                    <div class="col-lg-3 col-4">
-                                        <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
-                                    </div>
-                                    <div class="col-lg-3 col-4 offset-4 offset-sm-6 text-right">
+                                    @endif
 
-                                        @if (is_egora('community'))
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
-                                        @else
-                                            @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                    @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                                    <div class="row mb-1"> 
+                                        <div class="col-lg-3 col-4">
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
+                                        </div>
+                                        <div class="col-lg-3 col-4 offset-4 offset-sm-6 text-right">
+
+                                            @if (is_egora('community'))
+                                                <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
+                                            @else
+                                                @if (auth('web')->check() && auth('web')->user()->can('create', App\Idea::class) )
+                                                <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create') }}">Create New Idea</a>
+                                                @endif
                                             @endif
-                                        @endif
+                                        </div>
                                     </div>
-                                </div>
-                                @endif
-                                @if($user->liked_ideas->isNotEmpty())
-                                <div class="card p-2">
-                                    @foreach($user->liked_ideas as $idea)
-                                    <div class="card mb-3">
-                                        <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
-                                        <div class="card-header">
-                                            <div class="row">
-                                                @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
-                                                <div class="col-1">
-                                                    @php
-                                                        list($up, $down) = ip_has_place($user->liked_ideas, $idea)
-                                                    @endphp
-                                                    @if ($up)
-                                                    <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
-                                                    <i class="fa fa-chevron-up pt-1"></i>
-                                                    </a><br/>
+                                    @endif
+                                    @if($user->liked_ideas->isNotEmpty())
+                                    <div class="card p-2">
+                                        @foreach($user->liked_ideas as $idea)
+                                        <div class="card mb-3">
+                                            <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
+                                                    <div class="col-1">
+                                                        @php
+                                                            list($up, $down) = ip_has_place($user->liked_ideas, $idea)
+                                                        @endphp
+                                                        @if ($up)
+                                                        <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
+                                                        <i class="fa fa-chevron-up pt-1"></i>
+                                                        </a><br/>
+                                                        @else
+                                                        &nbsp;<br/>
+                                                        @endif
+                                                        @if ($down)
+                                                        <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
+                                                        <i class="fa fa-chevron-down pt-1"></i>
+                                                        </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-8 col-sm-4">
                                                     @else
-                                                    &nbsp;<br/>
+                                                    <div class="col-9 col-sm-5">
                                                     @endif
-                                                    @if ($down)
-                                                    <a href="{{ route('ideas.move', [$idea->id, $user->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
-                                                    <i class="fa fa-chevron-down pt-1"></i>
-                                                    </a>
-                                                    @endif
-                                                </div>
-                                                <div class="col-8 col-sm-4">
-                                                @else
-                                                <div class="col-9 col-sm-5">
-                                                @endif
-                                                    <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
-                                                       @else 
-                                                            @if ($idea->pivot->order < 0)
-                                                                {{negative_order()[$idea->pivot->order]}}
-                                                            @else
-                                                                @if (is_egora())
-                                                                    0 ({{$idea->pivot->order}}) 
+                                                        <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
+                                                           @else 
+                                                                @if ($idea->pivot->order < 0)
+                                                                    {{negative_order()[$idea->pivot->order]}}
                                                                 @else
-                                                                    ({{$idea->pivot->order}}) 
-                                                                @endif 
-                                                            @endif
-                                                       @endif</b>
-                                                    <br/>
-                                                @if ($idea->nation)
-                                                    {{$idea->nation->title}}
-                                                @elseif ($idea->community)
-                                                    {{$idea->community->title}}
-                                                @endif
-                                                </div>
-                                                <div class="col-2 text-center">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
-                                                </div>
-                                                <div class="offset-sm-1 col-12 col-sm-4">
-                                                @if (is_egora())
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        IDI Points:
+                                                                    @if (is_egora())
+                                                                        0 ({{$idea->pivot->order}}) 
+                                                                    @else
+                                                                        ({{$idea->pivot->order}}) 
+                                                                    @endif 
+                                                                @endif
+                                                           @endif</b>
+                                                        <br/>
+                                                    @if ($idea->nation)
+                                                        {{$idea->nation->title}}
+                                                    @elseif ($idea->community)
+                                                        {{$idea->community->title}}
+                                                    @endif
                                                     </div>
-                                                    <div class="col-6">
-                                                    {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                    <div class="col-2 text-center">
+                                                        <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                     </div>
-                                                </div>
-                                                @endif
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                Supporters:
+                                                    <div class="offset-sm-1 col-12 col-sm-4">
+                                                        @if (is_egora())
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                IDI Points:
+                                                            </div>
+                                                            <div class="col-6">
+                                                            {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                        Supporters:
+                                                            </div>
+                                                            <div class="col-6">
+                                                        @if (is_egora())
+                                                        {{ number_format($idea->liked_users->count()) }}
+                                                        @else
+                                                        {{ number_format($idea->liked_users->count() - $idea->moderators->count()) }}
+                                                        @endif
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                @if (is_egora())
-                                                {{ number_format($idea->liked_users->count()) }}
-                                                @else
-                                                {{ number_format($idea->liked_users->count() - $idea->moderators->count()) }}
-                                                @endif
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
+                                            <div class="card-body">
+                                                {!! make_clickable_links(shorten_text($idea->content)) !!}
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            {!! make_clickable_links(shorten_text($idea->content)) !!}
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
+                                    @endif
                                 </div>
-                                @endif
                             </div>
+                            @if (auth('web')->user() && (auth('web')->user()->can('disqualify', $user) || auth('web')->user()->can('qualify', $user)))
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <p class="lead">Are the ideas in this Ideological Profile well formed 
+                                    and logically consistent (both within themselves and 
+                                    between one another)?</p>
+                                    <p class="lead">Furthermore, will these ideas be effectively represented 
+                                    by this person if this person ever vecomes elected into
+                                    public office?</p>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="offset-5 col-2 text-center">
+                                    @if (auth('web')->user()->can('disqualify', $user))
+                                    <a class="btn btn-sm btn-danger col-12" href="{{ route('users.disqualify', $user) }}">{{ __('No') }}</a>
+                                    @endif
+                                    @if (auth('web')->user()->can('qualify', $user))
+                                    <a class="btn btn-sm btn-success col-12" href="{{ route('users.qualify', $user) }}">{{ __('Yes') }}</a>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12"><small>If this user ever becomes an ILP candidate and 50% or more
+                                    of the ILP Members in their administrativ devision have ansver "No", this
+                                    candidate will be disqualified from becoming an ILP nominee. You can change
+                                    your evaluation of this user's Ideological Profile at any time.
+                                    </small>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         
 
                     </div>
+                        
                 </div>
 
             </div>
