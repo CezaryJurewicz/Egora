@@ -11,6 +11,11 @@ class Admin extends User
 
     public function isAdmin() 
     {
-        return true;
+        return (!$this->guardianship);
+    }
+    
+    public function isGuardian() 
+    {
+        return $this->guardianship;
     }
 }

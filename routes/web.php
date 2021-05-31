@@ -99,8 +99,6 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::delete('/{user}/follow', 'UserController@unfollow')->name('unfollow')->middleware('can:unfollow,user');
         Route::get('/{user}/settings', 'UserController@settings')->name('settings')->middleware('can:settings,user');
         Route::get('/{user}/disqualify_membership', 'UserController@disqualify_membership')->name('disqualify_membership')->middleware('can:disqualify_membership,user');
-        Route::get('/{user}/cancel_guardianship', 'UserController@cancel_guardianship')->name('cancel_guardianship')->middleware('can:cancel_guardianship,user');
-        Route::get('/{user}/allow_guardianship', 'UserController@allow_guardianship')->name('allow_guardianship')->middleware('can:allow_guardianship,user');
         Route::put('/email/{token}', 'UserController@update_email')->name('update_email');
         Route::get('/email/{token}', 'UserController@update_email_confirm')->name('update_email_confirm');
         Route::put('/{user}/email', 'UserController@update_email_send_token')->name('update_email_send_token')->middleware('can:update,user');
@@ -108,8 +106,6 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/{user}/notifications', 'UserController@update_notifications')->name('update_notifications')->middleware('can:update,user');
         Route::put('/{user}/privacy', 'UserController@update_privacy')->name('update_privacy')->middleware('can:update,user');
         Route::get('/{user}/verification_id_image', 'UserController@verification_id_image')->name('verification_id_image')->middleware('can:verify,user');
-        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
-        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
         Route::post('/{user}/invite/{idea}', 'UserController@invite')->name('invite')->middleware('can:invite,user,idea');
         Route::get('/{user}/disqualify', 'UserController@disqualify')->name('disqualify')->middleware('can:disqualify,user');
         Route::get('/{user}/qualify', 'UserController@qualify')->name('qualify')->middleware('can:qualify,user');
@@ -173,6 +169,13 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/password', 'AdminController@update_password')->name('update_password');
     });
     
+    Route::prefix('/admins')->name('admins.')->group(function(){
+        Route::get('/', 'AdminController@index')->name('index')->middleware('can:viewAny,App\Admin');
+        Route::get('/create', 'AdminController@create')->name('create')->middleware('can:create,App\Admin');
+        Route::post('/create', 'AdminController@store')->name('store')->middleware('can:create,App\Admin');
+        Route::delete('/{admin}', 'AdminController@destroy')->name('delete')->middleware('can:delete,admin');
+    });
+    
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
@@ -181,6 +184,8 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{user}/restore', 'UserController@restore')->name('restore')->middleware('can:restore,user');
         Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:deactivate,user');
         Route::post('/{user}/reset', 'UserController@reset')->name('reset')->middleware('can:reset,user');
+        Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
+        Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){
@@ -226,8 +231,13 @@ Route::middleware(['auth:admin'])->group(function() {
     });
     
     Route::prefix('/settings')->name('settings.')->group(function(){
-        Route::get('/', 'SettingController@index')->name('index');
-        Route::get('/{setting}', 'SettingController@edit')->name('edit');
-        Route::post('/{setting}', 'SettingController@update')->name('update');
+        Route::get('/', 'SettingController@index')->name('index')->middleware('can:viewAny,App\Setting');
+        Route::get('/{setting}', 'SettingController@edit')->name('edit')->middleware('can:update,setting');
+        Route::post('/{setting}', 'SettingController@update')->name('update')->middleware('can:update,setting');
     });
+    
+    Route::prefix('/a/ideas')->name('a.ideas.')->group(function(){
+        Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
+    });
+
 });

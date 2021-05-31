@@ -90,10 +90,12 @@
                             </div>
                             @endif
                             
+                            @if (auth('web')->user() && (auth('web')->user()->id == $user->id))
                             <div class="mt-2">
                                 <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.subdivisions') }}">Administrative Subdivisions</a>
                             </div>
-
+                            @endif 
+                            
                             <div class="mt-2">
                             @include('blocks.ilp')
                             </div>
@@ -160,18 +162,6 @@
                                 @endif
                             </div>
                             
-                            <div class="mt-2">
-                                @if ( (auth('admin')->user() ?: auth('web')->user())->can('cancel_guardianship', $user) )
-                                <a class="btn btn-black btn-sm btn-block" href="{{ route('users.cancel_guardianship', $user->id ) }}">Cancel Guardianship</a>
-                                @endif
-                            </div>
-                            
-                            <div class="mt-2">
-                                @if ( (auth('admin')->user() ?: auth('web')->user())->can('allow_guardianship', $user) )
-                                <a class="btn btn-black btn-sm btn-block" href="{{ route('users.allow_guardianship', $user->id ) }}">Allow Guardianship</a>
-                                @endif
-                            </div>
-
                             <div class="mt-2">
                                 @if ( auth('admin')->check() && auth('admin')->user()->can('delete', $user) )
                                 <form action="{{ route('users.delete',[$user->id]) }}" method="POST">

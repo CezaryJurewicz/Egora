@@ -19,7 +19,7 @@ class MeetingPolicy
      */
     public function viewAny(User $user)
     {
-        return is_egora();
+        return (auth('web')->user() && is_egora());
     }
 
     /**

@@ -25,17 +25,17 @@ class IdeaPolicy
     
     public function viewIdi(User $user)
     {
-        return is_egora();
+        return (auth('web')->user() && is_egora());
     }
     
     public function viewIpi(User $user)
     {
-        return (!is_egora());
+        return $user->isGuardian() || (auth('web')->user() && !is_egora());
     }
     
     public function administrate(User $user)
     {
-        return $this->deny();
+        return $user->isGuardian();
     }
 
     /**
@@ -47,6 +47,9 @@ class IdeaPolicy
      */
     public function view(User $user, Idea $idea)
     {
+        if ($user->isGuardian()) {
+            return $this->allow();
+        }
         // is not secure for private communities, but priview is also
         if (app('request')->has('preview')) {
             return $this->allow();

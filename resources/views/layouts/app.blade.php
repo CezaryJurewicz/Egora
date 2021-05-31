@@ -67,7 +67,7 @@
                             </li>
                             @endif                        
 
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('search', App\User::class))
+                            @if (auth('web')->user() && auth('web')->user()->can('search', App\User::class))
                             <li class="nav-item">
                                 <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->active_search_names->first()->hash) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Users') }}</a>
                             </li>
@@ -76,6 +76,12 @@
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
                                 <a class="nav-link{{ (Route::current()->getName() == 'users.index') ? ' active' : '' }}" href="{{ route('users.index')}}">{{ __('All users') }}</a>
+                            </li>
+                            @endif
+
+                            @if (auth('admin')->user() && auth('admin')->user()->can('viewAny', App\Admin::class))
+                            <li class="nav-item">
+                                <a class="nav-link{{ (in_array(Route::current()->getName(), ['admins.index', 'admins.create'])) ? ' active' : '' }}" href="{{ route('admins.index')}}">{{ __('Guardians') }}</a>
                             </li>
                             @endif
 
@@ -133,7 +139,7 @@
                             </li>
                             @endif
                             
-                            @if (auth('admin')->check())
+                            @if (auth('admin')->check() && auth('admin')->user()->can('viewAny', App\Setting::class))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('settings.index')}}">{{ __('Control') }}</a>
                             </li>

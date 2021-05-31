@@ -25,7 +25,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        $ideas = Idea::paginate(100);
+        $ideas = Idea::latest()->paginate(100);
         
         return view('ideas.index')->with(compact('ideas'));
     }

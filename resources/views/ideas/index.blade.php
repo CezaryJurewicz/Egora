@@ -50,9 +50,9 @@
                                     <th scope="row">{{$idea->id}}</th>
                                     <td>
                                         @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                            <a href="{{ route('ideas.view', $idea->id) }}">
+                                            <a href="{{ route('a.ideas.view', $idea->id) }}">
                                         @endif
-                                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 5)) }} ...
+                                            {{ implode(' ', array_slice(explode(' ', $idea->content), 0, 10)) }} ...
                                         @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
                                             </a>
                                         @endif
@@ -64,7 +64,7 @@
                                     
                                     <td>
                                         @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                        <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">
+                                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('a.ideas.view', $idea->id) }}">
                                             @lang('some.View')
                                         </a>
                                         @endif

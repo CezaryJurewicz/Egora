@@ -12,6 +12,49 @@ use App\Notifications\AdminEmailChanged;
 
 class AdminController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $users = Admin::withTrashed()
+                ->where('guardianship',1)
+                ->orderBy('name', 'desc')->paginate(10);
+        
+        return view('admins.index')->with(compact('users'));
+    }
+    
+    public function create(Request $request)
+    {
+        return view('admins.create');
+    }
+    
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'min:5'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $admin = new Admin();
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->guardianship = 1;
+        $admin->save();
+
+        return redirect()->route('admins.index')->with('success', 'Guardian created.');   
+        
+    }
+    
     public function settings(Request $request)
     {
         $user = $request->user();

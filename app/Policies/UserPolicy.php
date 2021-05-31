@@ -12,7 +12,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        if (!in_array($ability, ['reset', 'update', 'disqualify_membership', 'cancel_guardianship', 'allow_guardianship', 'verify'])) {        
+        if (!in_array($ability, ['reset', 'update', 'disqualify_membership', 'verify'])) {        
             if ($user->isAdmin()) {
                 return $this->allow();
             }
@@ -27,7 +27,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isGuardian();
     }
     
     public function search(User $user)
@@ -187,7 +187,7 @@ class UserPolicy
     
     public function verify(User $user, User $model)
     {
-        if ($user->isAdmin() && $user->guardianship) {
+        if ($user->isAdmin() || $user->isGuardian()) {
             return $this->allow();
         }
 
@@ -230,17 +230,7 @@ class UserPolicy
 
         return $this->deny();
     }
-    
-    public function cancel_guardianship(User $user, User $model) 
-    {
-        return $this->deny();
-    }
-    
-    public function allow_guardianship(User $user, User $model) 
-    {
-        return $this->deny();
-    }
-    
+        
     public function withdraw_from_ilp(User $user, User $model) 
     {
         return $user->id == $model->id && $model->user_type->isIlp;

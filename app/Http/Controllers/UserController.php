@@ -793,22 +793,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Member disqualified.');  
     }
     
-    public function cancel_guardianship(Request $request, User $user) 
-    {
-        $user->guardianship = false;
-        $user->save();
-        
-        return redirect()->back()->with('success', 'Guardianship disabled.');          
-    }
-    
-    public function allow_guardianship(Request $request, User $user) 
-    {
-        $user->guardianship = true;
-        $user->save();
-        
-        return redirect()->back()->with('success', 'Guardianship enabled.');          
-    }
-    
     public function update_email_send_token(Request $request, User $user)
     {
         $validator = Validator::make($request->all(),[

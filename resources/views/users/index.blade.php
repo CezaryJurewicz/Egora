@@ -59,10 +59,12 @@
                                     <td>
                                         {{ __('user.Name')}}: {{ $user->name }} 
                                         <br>
+                                        @if (auth('admin')->user() && auth('admin')->user()->isAdmin())
                                         {{ __('user.Search Name')}}: {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
                                         <br>
                                         {{ __('user.Email')}}: {{ $user->email }}
                                         <br>
+                                        @endif
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                         <br>
                                         {{ __('user.User Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
@@ -80,24 +82,28 @@
                                     <td>{{ $user->lastOnlineAtDate() }}</td>
                                     <td>
                                         @if (!$user->trashed())
-                                        <a class="btn btn-sm btn-primary p-1" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
+                                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
                                         @endif
                                         @if ($user->trashed())
-                                        <form action="{{ route('users.restore',[$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PUT"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-warning'>{{__('some.Restore')}}</button>
-                                            </div>
-                                        </form>
+                                            @if (auth('admin')->user() && auth('admin')->user()->can('restore', $user))
+                                            <form action="{{ route('users.restore',[$user->id]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PUT"/>
+                                                <div class="input-group">
+                                                    <button type='submit' class='btn btn-sm btn-warning mb-2'>{{__('some.Restore')}}</button>
+                                                </div>
+                                            </form>
+                                            @endif
                                         @else
-                                        <form action="{{ route('users.deactivate',[$user->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PUT"/>
-                                            <div class="input-group">
-                                                <button type='submit' class='btn btn-sm btn-secondary'>{{__('Deactivate')}}</button>
-                                            </div>
-                                        </form>
+                                            @if (auth('admin')->user() && auth('admin')->user()->can('deactivate', $user))
+                                            <form action="{{ route('users.deactivate',[$user->id]) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PUT"/>
+                                                <div class="input-group">
+                                                    <button type='submit' class='btn btn-sm btn-secondary mb-2'>{{__('Deactivate')}}</button>
+                                                </div>
+                                            </form>
+                                            @endif
                                         @endif                                        
                                     </td>
                                 </tr>   

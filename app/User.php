@@ -49,6 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return false;
     }
+    
+    public function isGuardian() 
+    {
+        return false;
+    }
  
     public function campaign()
     {
