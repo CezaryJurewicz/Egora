@@ -115,7 +115,9 @@ class RegisterController extends Controller
 
         $ids = \DB::table('communities')->where('on_registration', true)->get()->pluck('id');
         $user->communities()->sync($ids);
-                
+        
+        $user->disqualifying_users()->syncWithoutDetaching($user);
+
         return $user;
     }
     

@@ -31,6 +31,16 @@ class AdminController extends Controller
         return view('admins.create');
     }
     
+    public function destroy(Admin $admin)
+    {
+        if ($admin->guardianship) {
+            $admin->forceDelete();
+            return redirect()->back()->with('success', 'Guardian deleted.');  
+        }
+        
+        return redirect()->back();
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

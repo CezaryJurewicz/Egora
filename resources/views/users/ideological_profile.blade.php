@@ -173,12 +173,8 @@
                             @if (auth('web')->user() && (auth('web')->user()->can('disqualify', $user) || auth('web')->user()->can('qualify', $user)))
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <p class="lead">Are the ideas in this Ideological Profile well formed 
-                                    and logically consistent (both within themselves and 
-                                    between one another)?</p>
-                                    <p class="lead">Furthermore, will these ideas be effectively represented 
-                                    by this person if this person ever vecomes elected into
-                                    public office?</p>
+                                    <p class="lead">Are the ideas in this Ideological Profile well informed and logically consistent?</p>
+                                    <p class="lead">And, will these ideas be represented well by this person if they are ever elected into public office?</p>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -192,11 +188,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12"><small>If this user ever becomes an ILP candidate and 50% or more
-                                    of the ILP Members in their administrativ devision have ansver "No", this
-                                    candidate will be disqualified from becoming an ILP nominee. You can change
-                                    your evaluation of this user's Ideological Profile at any time.
-                                    </small>
+                                <div class="col-12"><small>If this user ever becomes an ILP candidate and 50% or more of the ILP Members 
+                                        in their administrative division have answered "No", this candidate will be disqualified from 
+                                        becoming an ILP nominee. You can change your evaluation of this user's Ideological Profile at 
+                                        any time.</small>
                                 </div>
                             </div>
                             @endif

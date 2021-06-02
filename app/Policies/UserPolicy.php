@@ -77,7 +77,11 @@ class UserPolicy
     
     public function deactivate(User $user, User $model)
     {
-        return $this->deny(); // return $user->id == $model->id;
+        if ($user->isAdmin() || $user->isGuardian()) {
+            return $this->allow();
+        }
+        
+        return $this->deny();
     }
     
     public function follow(User $user, User $model)
@@ -170,7 +174,11 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        if ($user->isAdmin() || $user->isGuardian()) {
+            return $this->allow();
+        }
+        
+        return $this->deny();
     }
     
     /**
@@ -196,6 +204,10 @@ class UserPolicy
     
     public function unverify(User $user, User $model)
     {
+        if ($user->isAdmin() || $user->isGuardian()) {
+            return $this->allow();
+        }
+        
         return $this->deny();
     }
 
@@ -302,11 +314,11 @@ class UserPolicy
     
     public function disqualify(User $user, User $model) 
     {
-        return (($user->id != $model->id) && !$user->disqualifyingUser($model));
+        return (!$user->disqualifyingUser($model));
     }
     
     public function qualify(User $user, User $model) 
     {
-        return (($user->id != $model->id) && $user->disqualifyingUser($model));
+        return ($user->disqualifyingUser($model));
     }    
 }

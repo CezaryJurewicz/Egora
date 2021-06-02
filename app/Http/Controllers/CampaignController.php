@@ -70,7 +70,17 @@ class CampaignController extends Controller
                 ->whereHas('nation', function($q) use ($request) {
                     $q->where('id', $request->user()->nation->id);
                 })
-                ->withCount(['disqualified_by' => function($q) use ($request){
+                ->whereHas('user_type', function($q){
+                        $q->where('verified', 1);                
+                })
+                ->withCount(['disqualified_by' => function($q) use ($request, $subdivision, $subdivisions){
+                    if ($subdivision) {
+                        $q->whereHas('subdivisions', function($q) use ($request, $subdivision, $subdivisions) {
+                            $q->where('id', $subdivisions[$subdivision]->id);
+                            $q->where('order', $subdivision);
+                        });
+                    } 
+                    
                     $q->whereHas('user_type', function($q){
                         $q->where('verified', 1);                
                     });
@@ -99,7 +109,7 @@ class CampaignController extends Controller
                 
                 $qualification = ($votes - ($user->disqualified_by_count ?: 0)) / $votes * 100;
                 if ($result && is_array($result) && isset($result[0]) && $result[0]->points) {
-                    if (($status == 1 && $qualification<50) || ($status == 0 && $qualification>=50))
+                    if (($status == 1 && $qualification<=50) || ($status == 0 && $qualification>50))
                     $user_points->push([
                         'user_id' => $user->id,
                         'search_name' => $user->active_search_names->first()->name ?? '-',
