@@ -61,7 +61,7 @@
                 <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="10" required autocomplete="content" autofocus>{{ old('content') ?: $text ?? '' }}</textarea>
+                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="23" required autocomplete="content" autofocus>{{ old('content') ?: $text ?? '' }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

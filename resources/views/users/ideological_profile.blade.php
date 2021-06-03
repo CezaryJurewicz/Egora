@@ -173,8 +173,8 @@
                             @if (auth('web')->user() && (auth('web')->user()->can('disqualify', $user) || auth('web')->user()->can('qualify', $user)))
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <p class="lead">Are the ideas in this Ideological Profile well informed and logically consistent?</p>
-                                    <p class="lead">And, will these ideas be represented well by this person if they are ever elected into public office?</p>
+                                    <p class="lead">Are the ideas in this Ideological Profile well-informed and logically consistent?</p>
+                                    <p class="lead">Additionally, will this person serve their ideas well if they are ever elected into public office?</p>
                                 </div>
                             </div>
                             <div class="row mb-3">

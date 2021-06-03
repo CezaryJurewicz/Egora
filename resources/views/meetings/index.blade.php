@@ -131,10 +131,10 @@
                     
                     <div class="form-group row">
                         <div class="offset-1 col-md-12 row">
-                            <label for="comments" class="col-md-2 col-form-label text-md-right">{{ __('Comments') }}</label>
+                            <label for="comments" class="col-md-2 col-form-label text-md-right">{{ __('Details') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="comments" type="text" class="form-control @error('comments') is-invalid @enderror" name="comments">{{ old('comments') }}</textarea>
+                                <textarea id="comments" type="text" class="form-control @error('comments') is-invalid @enderror" rows="5" name="comments">{{ old('comments') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -200,9 +200,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-md-4">@lang('Comments:')</div>
+                                                    <div class="col-md-4">@lang('Details:')</div>
                                                     <div class="col-md-8">
-                                                    {!! nl2br(str_replace('  ', '&nbsp;&nbsp;', htmlspecialchars($meeting->comments))) !!}
+                                                    {!! make_clickable_links(nl2br(str_replace('  ', '&nbsp;&nbsp;', htmlspecialchars($meeting->comments)))) !!}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
