@@ -30,7 +30,7 @@ class UpdatePetitionStatus
             $q->recent();
         }]);
         
-        if ($event->petition->supporters->count() >= 23) {
+        if ($event->petition->supporters->count() >= 5) {
             $event->petition->finished = true;
         } else {
             $event->petition->finished = false;

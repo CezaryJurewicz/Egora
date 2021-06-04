@@ -31,7 +31,7 @@ class ChangeUserType
             $q->recent();
         }]);
         
-        if ($event->petition->supporters->count() >= 23) {
+        if ($event->petition->supporters->count() >= 5) {
             $type = UserType::where('class', 'officer')
                 ->where('candidate', 0)
                 ->where('verified', 1)

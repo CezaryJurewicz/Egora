@@ -64,8 +64,8 @@
                         <ol>
                         <li>The <i>Filosofos tou Dromou</i> (<i>FD</i>) is automatically appointed by the <i>FV</i> through the Egora as soon
                         as an ILP Member officer-petitioner has completed an officer petition. A petition is complete when the
-                        officer-petitioner has received the support of at least 23 ILP Members from their own nation (each ILP
-                        Member can support only one <i>FD</i> at a time, from any Polis). If an <i>FD</i>’s support falls below 23 people
+                        officer-petitioner has received the support of at least 5 ILP Members from their own nation (each ILP
+                        Member can support only one <i>FD</i> at a time, from any Polis). If an <i>FD</i>’s support falls below 5 people
                         on their petition, they will lose their officer status.<br/>
                         Additionally, when an officer-petitioner first opens their petition, they will specify their Polis.
                         An officer’s Polis is a self-determined category that enables subordination into higher levels of

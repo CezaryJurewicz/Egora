@@ -16,8 +16,8 @@
                         your provisional national branch of the ILP. ILP Members from your nation,
                         including yourself, will be able to give you their support by clicking the “Add
                         My Name” button under your petition. If you receive the support of at least
-                        23 ILP Members, you will attain the first officer rank of <b><i>Filosofos tou
-                        Dromou</i></b>, meaning Philosopher of the Street. If your support falls below 23
+                        5 ILP Members, you will attain the first officer rank of <b><i>Filosofos tou
+                        Dromou</i></b>, meaning Philosopher of the Street. If your support falls below 5
                         names, you will lose your officer status.</p>
                         <p>To learn more about the structure of the Provisional Administrative
                         Leadership of the ILP, including how to attain the higher officer ranks of
