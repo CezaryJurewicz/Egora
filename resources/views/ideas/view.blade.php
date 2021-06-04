@@ -80,6 +80,10 @@
                     </div>
                     <div class="card-body">
                     {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($idea->content)))) !!}
+                    <br/>
+                    @if ($idea->source)
+                    <br/>Source Idea: <a href="{{ route('ideas.view', $idea->source->id) }}">{{$idea->source->id}}</a>
+                    @endif
                     </div>
                     
                     @include('blocks.like')

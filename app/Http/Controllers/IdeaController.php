@@ -346,7 +346,7 @@ class IdeaController extends Controller
 
         $user = $request->user();
 
-        return view('ideas.create')->with(compact('nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
+        return view('ideas.create')->with(compact('idea', 'nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
     }
 
     public function move(Request $request, Idea $idea)
@@ -483,6 +483,10 @@ class IdeaController extends Controller
             $idea->community()->associate($request->input('community'));
         } else if ($idea->egora_id == config('egoras.municipal.id')) {
             $idea->municipality()->associate($request->user()->municipality->id);
+        }
+        
+        if ($request->has('idea_id')) {
+            $idea->idea_id = $request->input('idea_id');
         }
         
         $idea->save();

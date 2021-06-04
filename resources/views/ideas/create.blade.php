@@ -14,6 +14,9 @@
             <form id="create" method="POST" action="{{ route('ideas.store') }}">
                 @csrf
 
+            @if (isset($idea))
+            <input type="hidden" name="idea_id" value="{{ $idea->id }}"/>
+            @endif
             <input type="hidden" name="egora_id" value="{{ current_egora_id() }}"/>
             <div class="card">
                 <div class="card-header">

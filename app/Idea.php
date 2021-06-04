@@ -13,6 +13,11 @@ class Idea extends Model
     
     protected $fillable = array('content', 'position', 'order', 'egora_id');
     
+    public function source()
+    {
+        return $this->belongsTo(Idea::class, 'idea_id');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);
