@@ -42,7 +42,8 @@ class CampaignPolicy
      */
     public function create(User $user)
     {
-        return ($user->user_type->isIlp && $user->user_type->verified && !$user->campaign);
+//        ($user->user_type->isIlp && $user->user_type->verified && !$user->campaign);
+        return ($user->user_type->verified && !$user->campaign);
     }
 
     /**
@@ -66,7 +67,7 @@ class CampaignPolicy
      */
     public function delete(User $user, Campaign $campaign)
     {
-        return ($user->user_type->isIlp && $user->user_type->verified && $campaign->user->id == $user->id);
+        return ($user->user_type->verified && $campaign->user->id == $user->id);
     }
 
     /**

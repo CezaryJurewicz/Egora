@@ -188,11 +188,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12"><small>If this user ever becomes an ILP candidate and 50% or more of the ILP Members 
-                                        in their administrative division have answered "No", this candidate will be disqualified from 
-                                        becoming an ILP nominee. You can change your evaluation of this user's Ideological Profile at 
-                                        any time.</small>
-                                </div>
+                                <div class="col-12"><small>If this user ever becomes a political candidate and 50% or more of the ILP Members in their administrative division have answered "No", this candidate will be disqualified from becoming an ILP nominee. You can change your evaluation of this user's Ideological Profile at any time.</small></div>
                             </div>
                             @endif
                         </div>

@@ -117,7 +117,8 @@ class CampaignController extends Controller
                         'points' =>$result[0]->points,
                         'qualification' => number_format($qualification,8),
                         'debug' => [$user->disqualified_by_count , $votes],
-                        'seniority' => $user->campaign->updated_at
+                        'seniority_campaign' => $user->campaign->updated_at,
+                        'seniority_ip' => $user->ip_updated_at
                     ]);                    
                 }
             }

@@ -564,6 +564,20 @@ class IdeaController extends Controller
         $user_notifications = collect();
         $user_notifications_ids = [];
         $notification_response_sent = false;
+
+//        $idea->load('liked_users_visible.active_search_names');
+        $idea->load(['liked_users' => function($q){
+            $q->with('active_search_names');
+            $q->visible()->recent();
+
+            if (!is_egora()) {
+                $q->where('idea_user.order', '>=', 0 );
+            }
+        }, 'moderators' => function($q) {
+            $q->with('active_search_names');
+            $q->visible()->recent();
+        }]);
+
         
         if($request->has('notification_id')) {
             $notification = \App\Notification::findOrFail($request->input('notification_id'));
@@ -586,19 +600,6 @@ class IdeaController extends Controller
                 }
             }
             
-//            $idea->load('liked_users_visible.active_search_names');
-            $idea->load(['liked_users' => function($q){
-                $q->with('active_search_names');
-                $q->visible()->recent();
-
-                if (!is_egora()) {
-                    $q->where('idea_user.order', '>=', 0 );
-                }
-            }, 'moderators' => function($q) {
-                $q->with('active_search_names');
-                $q->visible()->recent();
-            }]);
-
             if ($request->user()) {
                 $user_notifications = $request->user()->user_notifications_new()
                         ->where('idea_id', $idea->id)
@@ -735,7 +736,7 @@ class IdeaController extends Controller
             $params['community_id'] = $idea->community->id;
         }
         
-        event(new UserIdeologicalProfileChanged($request->user(), $idea));
+//        event(new UserIdeologicalProfileChanged($request->user(), $idea));
         
         $request->user()->liked_ideas()->detach($idea);
         

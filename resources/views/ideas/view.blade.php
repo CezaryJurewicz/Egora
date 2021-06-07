@@ -80,9 +80,11 @@
                     </div>
                     <div class="card-body">
                     {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($idea->content)))) !!}
-                    <br/>
+                    </div>
+                    
+                    <div class="card-footer pt-4 pb-4">
                     @if ($idea->source)
-                    <br/>Source Idea: <a href="{{ route('ideas.view', $idea->source->id) }}">{{$idea->source->id}}</a>
+                    Source Idea: #<a href="{{ route('ideas.preview', base_convert($idea->source->id, 10, 36)) }}">{{$idea->source->id}}</a>
                     @endif
                     </div>
                     

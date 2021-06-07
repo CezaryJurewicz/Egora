@@ -40,7 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_online_at' => 'datetime'
+        'last_online_at' => 'datetime',
+        'ip_updated_at' => 'datetime'
     ];
     
     protected $appends = array('active_search_name');

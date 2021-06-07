@@ -185,12 +185,13 @@
                     @if($rows->isNotEmpty()) 
                         <div class="row mt-5 mb-3">
                             <div class="col-md-1"><b>Rank</b></div>
-                            <div class="col-md-2"><b>Score</b></div>
-                            <div class="col-md-8">
+                            <div class="col-md-1"><b>Score</b></div>
+                            <div class="col-md-9">
                                 <div class="row">
-                                    <div class="col-md-5"><b>Candidate</b></div>
-                                    <div class="col-md-4 text-center"><b>Qualification</b></div>
-                                    <div class="col-md-3 text-center"><b>Seniority</b></div>
+                                    <div class="col-md-4"><b>Candidate</b></div>
+                                    <div class="col-md-2 text-center"><b>Qualification</b></div>
+                                    <div class="col-md-3 text-center"><b>Seniority (IP)</b></div>
+                                    <div class="col-md-3 text-center"><b>Seniority (Candidate)</b></div>
                                 </div>
                             </div>
                         </div>
@@ -198,23 +199,24 @@
                         @foreach($rows as $points => $row)
                         <div class="row mb-3">
                             <div class="col-md-1">{{$loop->iteration}}</div>
-                            <div class="col-md-2">{{ number_format($points) }}</div>
-                            <div class="col-md-8">
+                            <div class="col-md-1">{{ number_format($points) }}</div>
+                            <div class="col-md-9">
                                 @foreach($row as $names)
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <a href="{{ route('users.ideological_profile', $names['hash']) }}">
                                         {{ $names['search_name'] }}
                                         </a>
                                     </div>
-                                    <div class="col-md-4 text-right">
+                                    <div class="col-md-2 text-right">
                                         @if ($names['qualification'])
                                             {{ $names['qualification'] }}%
                                         @else 
                                             -
                                         @endif
                                     </div>
-                                    <div class="col-md-3 text-center"> {{ $names['seniority']->diffForHumans() }}</div>                            
+                                    <div class="col-md-3 text-center"> {{ $names['seniority_ip'] ? $names['seniority_ip']->diffForHumans() : '-' }}</div>                            
+                                    <div class="col-md-3 text-center"> {{ $names['seniority_campaign']->diffForHumans() }}</div>                            
                                 </div>
                                 @endforeach
                             </div>

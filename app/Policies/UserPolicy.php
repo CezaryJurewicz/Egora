@@ -224,7 +224,7 @@ class UserPolicy
     public function support_officer_application(User $user, User $model)
     {        
         //NOTE: allow own support
-        return ($model->nation->id == $user->nation->id) && $user->user_type->isIlp && $user->user_type->verified
+        return ($model->id != $user->id) && ($model->nation->id == $user->nation->id) && $user->user_type->isIlp && $user->user_type->verified
                 && $model->petition && $model->petition->supporters->count() < 46 
                 && !$model->petition->supporters->pluck('id')->contains($user->id);
     }
@@ -314,11 +314,11 @@ class UserPolicy
     
     public function disqualify(User $user, User $model) 
     {
-        return (!$user->disqualifyingUser($model));
+        return (is_egora() && (!$user->disqualifyingUser($model)));
     }
     
     public function qualify(User $user, User $model) 
     {
-        return ($user->disqualifyingUser($model));
+        return (is_egora() && ($user->disqualifyingUser($model)));
     }    
 }

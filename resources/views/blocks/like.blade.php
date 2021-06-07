@@ -1,9 +1,5 @@
                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('like', $idea) )
                     
-                    <div class="card-footer pt-4 pb-4">
-                        @if(isset($current_idea_position) && !is_null($current_idea_point_position))Current Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span> @endif
-                    </div>
-                    
                     <div class="card-body">
                     <form action="{{ route('ideas.like',[$idea->id]) }}" method="POST">
                         @csrf
@@ -58,11 +54,18 @@
                             <input type="hidden" name="notification_id" value="{{ $notification->id }}"/>
                             @endif
                             
-                            <div class="col-md-4 text-center">
-                                <button type="submit" class="btn btn-primary col-md-6">
+                            <div class="col-md-3 text-center">
+                                <button type="submit" class="btn btn-primary col-md-auto">
                                     {{ __('Save & Close') }}
                                 </button>
                             </div>
+                            
+                            <div class="col-md-4 text-right">
+                                @if(isset($current_idea_position) && !is_null($current_idea_point_position))
+                                Current Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span>
+                                @endif
+                            </div>
+
                         </div>
                     </form>
                     </div>
