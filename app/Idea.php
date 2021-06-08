@@ -18,6 +18,11 @@ class Idea extends Model
         return $this->belongsTo(Idea::class, 'idea_id');
     }
     
+    public function derivatives()
+    {
+        return $this->hasMany(Idea::class);
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

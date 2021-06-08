@@ -85,6 +85,12 @@
                     <div class="card-footer pt-4 pb-4">
                     @if ($idea->source)
                     Source Idea: #<a href="{{ route('ideas.preview', base_convert($idea->source->id, 10, 36)) }}">{{$idea->source->id}}</a>
+                    @elseif ($idea->derivatives->isNotEmpty())
+                        @if ($idea->egora_id == config('egoras.default.id'))
+                        Derivative Ideas: <a href="{{ route('ideas.indexes', ['source_id'=>$idea->id])}}">Idea Dominance Index</a>
+                        @else 
+                        Derivative Ideas: <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                        @endif
                     @endif
                     </div>
                     

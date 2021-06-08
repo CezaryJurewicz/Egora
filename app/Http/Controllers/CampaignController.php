@@ -50,7 +50,7 @@ class CampaignController extends Controller
             $subdivision = $request->input('subdivision');
             
             if ($subdivision) {
-                $votes = $subdivisions[$subdivision]->participants->count();
+                $votes = $subdivisions[$subdivision]->participants()->where('order', $subdivision)->count();
             } else {
                 $votes = User::recent()
                     ->whereHas('nation', function($q) use ($request) {
@@ -121,6 +121,8 @@ class CampaignController extends Controller
                         'seniority_ip' => $user->ip_updated_at
                     ]);                    
                 }
+                
+//                dd($votes ,$user->disqualified_by_count, $subdivisions[$subdivision]);
             }
             
             $rows = $user_points->sortByDesc('points')->groupBy('points');

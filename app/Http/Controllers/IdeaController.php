@@ -44,7 +44,7 @@ class IdeaController extends Controller
         
         // if creator is not deactivated
         $model = Idea::query();
-        if (collect($request->all())->except(['sort'])->isNotEmpty())
+        if (collect($request->all())->except(['sort', 'source_id'])->isNotEmpty())
         {
             if (is_egora()) {
                 $validator = Validator::make($request->all(),[
@@ -99,6 +99,10 @@ class IdeaController extends Controller
             $model->where(function($q) use ($request, &$community, $municipality, $search, &$relevance, $nation){
                 if($search) {
                     $q->where('content','like', '%'.$search.'%');
+                }
+                
+                if($request->has('source_id')) {
+                    $q->where('idea_id', (int) $request->input('source_id'));
                 }
                 
                 if (is_egora()) {
