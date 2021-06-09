@@ -7,6 +7,7 @@ const API_URL = {
        'nation': '/api/nations',
        'country': '/api/countries',
        'city': '/api/cities',
+       'party': '/api/parties',
        'municipality': '/api/municipalities',
        'subdivision': '/api/subdivisions'
     };
@@ -82,6 +83,11 @@ export default Search
 if (document.getElementById('NationSearch')) {
     var value = document.getElementById('NationSearch').getAttribute('value');
     ReactDOM.render(<Search type="nation" query={ value } myStore = {myStore}/>, document.getElementById('NationSearch'));
+}
+
+if (document.getElementById('PartySearch')) {
+    var value = document.getElementById('PartySearch').getAttribute('value');
+    ReactDOM.render(<Search type="party" query={ value } myStore = {myStore}/>, document.getElementById('PartySearch'));
 }
 
 if (document.getElementById('Search')) {

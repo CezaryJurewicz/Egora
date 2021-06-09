@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\Idea;
 use App\User;
+use App\Party;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -118,11 +119,10 @@ class CampaignController extends Controller
                         'qualification' => number_format($qualification,8),
                         'debug' => [$user->disqualified_by_count , $votes],
                         'seniority_campaign' => $user->campaign->updated_at,
+                        'affiliated' => ($user->campaign->party ? $user->campaign->party->title : null),
                         'seniority_ip' => $user->ip_updated_at
                     ]);                    
                 }
-                
-//                dd($votes ,$user->disqualified_by_count, $subdivisions[$subdivision]);
             }
             
             $rows = $user_points->sortByDesc('points')->groupBy('points');
@@ -166,12 +166,25 @@ class CampaignController extends Controller
             $subdivision = $request->user()->subdivisions()->where('order', $request->input('subdivision'))->first();
             $subdivision_id = $subdivision->id;
         }
-        
+                
         $campaign = new Campaign();
         $campaign->user()->associate($request->user());
         $campaign->subdivision_id = $subdivision_id;
         $campaign->order = $request->input('subdivision');
         $campaign->save();
+        
+        if ($request->has('party')) {
+            $party = Party::where(\DB::raw('BINARY `title`'), $request->input('party'))->first();
+
+            if (is_null($party)) {
+                $party = Party::create([
+                   'title' => $request->input('party')
+                ]);
+            }
+            
+            $campaign->party()->associate($party);
+            $campaign->save();
+        }
         
         return redirect()->back()->with('success','Candidacy announced.');
     }

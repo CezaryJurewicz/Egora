@@ -72,7 +72,24 @@
                                     @enderror
                                 </div>
                             </div>                    
-                        
+
+                            <div class="form-group row">
+                                <label for="party" class="offset-1 col-md-3 col-form-label text-left">{{ __('Party Affiliation:') }}</label>
+
+                                <div class="col-md-6 text-left">
+                                    @if (auth('web')->user()->user_type->isIlp)
+                                        International Logic Party
+                                    @else                                    
+                                        <div id="PartySearch" value="{{ old('party') }}"></div>
+                                        @error('party')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    @endif
+                                </div>
+                            </div>                    
+                            
                             <button type='submit' class='btn btn-sm btn-primary mt-4 btn-static-200'>{{__('Submit')}}</button>
                         </form>
                     </div>
@@ -106,7 +123,7 @@
                                 <label for="password" class="offset-1 col-md-3 col-form-label text-left">{{ __('Confirm Password:') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('current') is-invalid @enderror" name="password" value="" required>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -207,6 +224,8 @@
                                         <a href="{{ route('users.ideological_profile', $names['hash']) }}">
                                         {{ $names['search_name'] }}
                                         </a>
+                                        <br/>
+                                        <small>{{ $names['affiliated'] }}</small>
                                     </div>
                                     <div class="col-md-2 text-right">
                                         @if ($names['qualification'])

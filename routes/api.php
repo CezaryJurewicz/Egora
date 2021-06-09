@@ -28,6 +28,10 @@ Route::middleware('throttle:60,1')->group(function() {
         Route::get('/', 'NationController@indexApi')->name('indexapi');
     });
     
+    Route::prefix('/parties')->name('parties.')->group(function(){
+        Route::get('/', 'PartyController@indexApi')->name('indexapi');
+    });
+    
     Route::prefix('/countries')->name('countries.')->group(function(){
         Route::get('/', 'CountryController@indexApi')->name('indexapi');
     });

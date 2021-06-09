@@ -9,6 +9,11 @@
         Head of State
         @endif
         </p>
+        @if ($user->campaign->party)
+        <p><b>Party Affiliation:</b><br/>
+        {{ ($user->campaign->party ? $user->campaign->party->title : null) }}
+        </p>
+        @endif
     </div>
 </div>
 @endif
