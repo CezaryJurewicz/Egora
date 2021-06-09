@@ -173,7 +173,7 @@ class CampaignController extends Controller
         $campaign->order = $request->input('subdivision');
         $campaign->save();
         
-        if ($request->has('party')) {
+        if ($request->has('party') && $request->input('party')) {
             $party = Party::where(\DB::raw('BINARY `title`'), $request->input('party'))->first();
 
             if (is_null($party)) {
