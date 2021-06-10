@@ -142,8 +142,8 @@
                     <div class="card-header">
                         <div id="tabs">
                             <ul id="tabs" class="nav nav-pills pb-0" data-tabs="tabs">
-                                <li class="nav-item active"><a style="font-size: large;" class="nav-link active" href="#mainTab" data-toggle="tab">Comments</a></li>
-                                <li class="nav-item active"><a style="font-size: large;" class="nav-link" href="#inviteTab" data-toggle="tab">Invitations</a></li>
+                                <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a></li>
+                                <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a></li>
                             </ul>
                         </div>
                     </div>
@@ -151,10 +151,10 @@
 
                     <div class="card-body">
                     <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="mainTab">
+                        <div class="tab-pane @if (request()->has('comments')) active @endif" id="mainTab">
                         @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
                         </div>
-                        <div class="tab-pane" id="inviteTab">
+                        <div class="tab-pane @if (!request()->has('comments')) active @endif" id="inviteTab">
                         @include('blocks.invite_examine')
                         </div>
                     </div>

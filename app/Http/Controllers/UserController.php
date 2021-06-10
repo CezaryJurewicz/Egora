@@ -370,6 +370,7 @@ class UserController extends Controller
         }
         
         $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
+            $q->with('comments.comments');
             if (is_egora('community') && $community_id) {
                 if ($request->has('pdf')) {
                     $q->whereNotNull('ideas.community_id');                    

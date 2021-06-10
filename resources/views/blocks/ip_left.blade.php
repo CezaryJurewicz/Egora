@@ -64,12 +64,12 @@
                             @else
                             <div class="mt-2">{{ $user->email_address }}</div>
                             <div class="mt-2">{{ $user->phone_number }}</div>
-                            <div class="mt-2">{{ $user->social_media_1 }}</div>
-                            <div class="mt-2">{{ $user->social_media_2 }}</div>
+                            <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->social_media_1))) !!}</div>
+                            <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->social_media_2))) !!}</div>
                             <div class="mt-2">{{ $user->messenger_1 }}</div>
                             <div class="mt-2">{{ $user->messenger_2 }}</div>
-                            <div class="mt-2">{{ $user->other_1 }}</div>
-                            <div class="mt-2">{{ $user->other_2 }}</div>
+                            <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->other_1))) !!}</div>
+                            <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->other_2))) !!}</div>
                             @endif
                             
                             @if(auth('web')->check() && auth('web')->user()->id != $user->id)

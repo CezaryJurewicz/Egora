@@ -132,8 +132,10 @@
                                                         {{$idea->community->title}}
                                                     @endif
                                                     </div>
-                                                    <div class="col-2 text-center">
+                                                    <div class="col-2 text-center small">
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
+                                                        <br/>
+                                                        <a class="col-12" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
                                                     </div>
                                                     <div class="offset-sm-1 col-12 col-sm-4">
                                                         @if (is_egora())

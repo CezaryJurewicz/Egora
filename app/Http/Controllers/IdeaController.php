@@ -199,7 +199,7 @@ class IdeaController extends Controller
                 $model->orderBy('liked_users_count', 'desc');
             }
 
-            $model->with(['nation','community', 'liked_users' => function($q) use ($request) {
+            $model->with(['comments.comments', 'nation','community', 'liked_users' => function($q) use ($request) {
                 if (!$request->input('unverified')) {
                     $q->whereHas('user_type', function($q){
                         $q->where('verified', 1);                
