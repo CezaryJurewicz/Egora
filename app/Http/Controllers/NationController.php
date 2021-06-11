@@ -23,10 +23,14 @@ class NationController extends Controller
     {
         $prefix = $request->input('prefix');
         
-        if ($prefix) {
-            $model = Nation::where('title', 'like', $prefix.'%');
+        if ( $search = replace_nation_USA($prefix)) {
+            $model = Nation::where('title', $search);
         } else {
-            $model = new Nation;
+            if ($prefix) {
+                $model = Nation::where('title', 'like', $prefix.'%');
+            } else {
+                $model = new Nation;
+            }
         }
         
         $result = $model->get();

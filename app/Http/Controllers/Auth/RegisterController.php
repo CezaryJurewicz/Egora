@@ -74,8 +74,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password'])
         ]);
 
-        $nation = Nation::where(\DB::raw('BINARY `title`'), $data['nation'])->first();
-                
+        // filter errors for USA
+        
+        if ($search = replace_nation_USA($data['nation'])) {
+            $nation = Nation::where('title', $search)->first();
+        } else {
+            $nation = Nation::where(\DB::raw('BINARY `title`'), $data['nation'])->first();
+        }
+        
         if (is_null($nation)) {
             $nation = Nation::create([
                'title' => $data['nation']

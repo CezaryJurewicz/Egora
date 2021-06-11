@@ -135,3 +135,33 @@ function negative_order() : array
 {
     return is_egora() ? [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] : [-1=>'N',-2=>'O',-3=>'H',-4=>'A',-5=>'T', -6=>'E'];
 }
+
+function array_nation_USA() : array
+{
+    return [
+        'US',
+        'USA',
+        'USA, US, America, United States',
+        'usa',
+        'United  States',
+        'United Staets',
+        'United States',
+        'United states',
+        'United states of America',
+        'united states',
+        'UNITED STATES OF AMERICA'
+    ];
+}
+
+function replace_nation_USA($prefix) : string
+{
+    $array = array_filter(array_nation_USA(), function($v) use ($prefix) {
+        return strpos($v, $prefix) === 0;
+    });
+    
+    if (!empty($array)) {
+        return 'United States of America';
+    }
+    
+    return '';
+}
