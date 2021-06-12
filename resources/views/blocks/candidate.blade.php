@@ -13,6 +13,10 @@
         <p><b>Party Affiliation:</b><br/>
         {{ ($user->campaign->party ? $user->campaign->party->title : null) }}
         </p>
+        @elseif ($user->user_type->isIlp)
+        <p><b>Party Affiliation:</b><br/>
+        International Logic Party
+        </p>
         @endif
     </div>
 </div>

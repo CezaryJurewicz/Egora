@@ -76,7 +76,7 @@
                             <div class="form-group row">
                                 <label for="party" class="offset-1 col-md-3 col-form-label text-left">{{ __('Party Affiliation:') }}</label>
 
-                                <div class="col-md-6 text-left">
+                                <div class="col-md-6 text-left pt-2">
                                     @if (auth('web')->user()->user_type->isIlp)
                                         International Logic Party
                                     @else                                    
@@ -225,7 +225,13 @@
                                         {{ $names['search_name'] }}
                                         </a>
                                         <br/>
-                                        <small>{{ $names['affiliated'] }}</small>
+                                        <small>
+                                        @if ($names['user']->campaign->party)
+                                            {{ $names['affiliated'] }}
+                                        @elseif ($names['user']->user_type->isIlp)
+                                            International Logic Party
+                                        @endif
+                                        </small>
                                     </div>
                                     <div class="col-md-2 text-right">
                                         @if ($names['qualification'])

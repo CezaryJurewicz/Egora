@@ -1,4 +1,7 @@
                 <form autocomplete="off" action="{{ route(Route::current()->getName()) }}" method="GET">
+                    @if (collect(Request::query())->has('sort'))
+                        <input id="sort" type="hidden" name="sort" value="date">
+                    @endif
                     
                     @if (is_egora())
                     <div class="form-group row">

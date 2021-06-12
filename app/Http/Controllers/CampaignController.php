@@ -87,6 +87,7 @@ class CampaignController extends Controller
                     });
                     $q->recent();                
                 }])
+                ->with('campaign.party')
                 ->get();
                 
             $user_points = collect();
@@ -120,7 +121,8 @@ class CampaignController extends Controller
                         'debug' => [$user->disqualified_by_count , $votes],
                         'seniority_campaign' => $user->campaign->updated_at,
                         'affiliated' => ($user->campaign->party ? $user->campaign->party->title : null),
-                        'seniority_ip' => $user->ip_updated_at
+                        'seniority_ip' => $user->ip_updated_at,
+                        'user' => $user
                     ]);                    
                 }
             }
