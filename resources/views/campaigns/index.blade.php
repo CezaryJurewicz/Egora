@@ -208,7 +208,7 @@
                                     <div class="col-md-4"><b>Candidate</b></div>
                                     <div class="col-md-2 text-center"><b>Qualification</b></div>
                                     <div class="col-md-3 text-center"><b>Seniority (IP)</b></div>
-                                    <div class="col-md-3 text-center"><b>Seniority (Candidate)</b></div>
+                                    <div class="col-md-3 text-center"><b>Seniority (CRL)</b></div>
                                 </div>
                             </div>
                         </div>
