@@ -84,13 +84,13 @@
                     
                     <div class="card-footer pt-4 pb-4">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-8">
                             Source Idea: 
                             @if ($idea->source)
                             <a href="{{ route('ideas.preview', base_convert($idea->source->id, 10, 36)) }}">{{$idea->source->id}}</a>
                             @endif
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                             Derivative Ideas: 
                             @if ($idea->derivatives->isNotEmpty())
                                 @if ($idea->egora_id == config('egoras.default.id'))
