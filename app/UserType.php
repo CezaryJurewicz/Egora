@@ -48,7 +48,7 @@ class UserType extends Model
     
     public function scopeIlp($query)
     {
-        return $query->where('class', 'user')
+        return $query->where('class', '!=', 'user')
             ->where('candidate', 0)
             ->where('former', 0);
     }

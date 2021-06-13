@@ -51,7 +51,11 @@ class CampaignController extends Controller
             $subdivision = $request->input('subdivision');
             
             if ($subdivision) {
-                $votes = $subdivisions[$subdivision]->participants()->where('order', $subdivision)->count();
+                $votes = $subdivisions[$subdivision]->participants() 
+                    ->whereHas('user_type', function($q) use ($request) {
+                        $q->ilp();
+                    })
+                    ->where('order', $subdivision)->count();
             } else {
                 $votes = User::recent()
                     ->whereHas('user_type', function($q) use ($request) {
