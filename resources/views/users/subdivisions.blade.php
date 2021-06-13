@@ -16,16 +16,18 @@
 
               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body col-md-10 offset-1">
-                    <p>Using the 23 Administrative Subdivision categories, all users of Egora can self-organize 
-                    themselves into various voting blocks corresponding to the various administrative districts 
-                    within their respective countries. For example, users from USA can use Subdivision 1 to 
-                    create the category of "Alabama Senator", use Subdivision 2 to create the category of 
-                    "Alabama Representative District 1", use Subdivision 3 to create the category of "Alabama Governor",
-                    and so on. However, for the properly established Administrative Subdivision categories, please defer 
-                    to the leadership of your national branch of the ILP.</p>
-                    <p>Furthermore, on the Campaigns screen, all Egora users can generate a Candidate Rank List for 
-                    each Administrative Level of their nation. The ILP Members will then filter out and nominate the 
-                    best of those candidates.</p>
+                    <p>Using the 23 Administrative Subdivision categories, users of Egora can self-organize 
+                        themselves into various voting blocks corresponding to the various administrative 
+                        districts within their respective countries. For example, users from United States 
+                        of America can use Subdivision 1 to create the category of "Alabama Senator", use 
+                        Subdivision 2 to create the category of "Alabama Representative District 1", use 
+                        Subdivision 3 to create the category of "Alabama Governor", and so on. However, 
+                        for the properly established Administrative Subdivision categories, please defer to 
+                        the leadership of your national branch of the ILP.</p>
+                    <p>Subsequently, on the Campaigns screen, Egora users can generate a Candidate Rank 
+                        Listing for each Administrative Level of their nation – Head of State and the 23 
+                        Administrative Subdivisions. Finally, the Members of the ILP will filter out and 
+                        nominate the best of those candidates.</p>
                 </div>
               </div>
             </div>

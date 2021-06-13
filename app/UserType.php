@@ -46,6 +46,13 @@ class UserType extends Model
         return $query->where('fake', 1);
     }
     
+    public function scopeIlp($query)
+    {
+        return $query->where('class', 'user')
+            ->where('candidate', 0)
+            ->where('former', 0);
+    }
+    
     public function getIsIlpAttribute()
     {
         return ($this->attributes['class'] != 'user' && $this->attributes['candidate'] == 0 && $this->attributes['former'] == 0);

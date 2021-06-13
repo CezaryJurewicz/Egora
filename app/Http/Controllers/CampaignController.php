@@ -54,6 +54,9 @@ class CampaignController extends Controller
                 $votes = $subdivisions[$subdivision]->participants()->where('order', $subdivision)->count();
             } else {
                 $votes = User::recent()
+                    ->whereHas('user_type', function($q) use ($request) {
+                        $q->ilp();
+                    })
                     ->whereHas('nation', function($q) use ($request) {
                         $q->where('id', $request->user()->nation->id);
                     })
@@ -83,6 +86,7 @@ class CampaignController extends Controller
                     } 
                     
                     $q->whereHas('user_type', function($q){
+                        $q->ilp();
                         $q->where('verified', 1);                
                     });
                     $q->recent();                
@@ -91,7 +95,7 @@ class CampaignController extends Controller
                 ->get();
                 
             $user_points = collect();
-
+            
             foreach ($users as $user) {
                 $result = \DB::select('select sum(`position`) as `points` from (
                         select sum(`idea_user`.`position`) as `position` from `idea_user` where `idea_id` in (
@@ -101,12 +105,12 @@ class CampaignController extends Controller
                             select * from `users` where `idea_user`.`user_id` = `users`.`id` and exists (
                                 select * from `user_types` where `users`.`user_type_id` = `user_types`.`id` and `verified` = 1
                             ) and `users`.`deleted_at` is null
-                            and DATEDIFF(now(), `users`.`last_online_at`) < 23
+                            and DATEDIFF(?, `users`.`last_online_at`) < 23
                         )
                         group by `idea_user`.`idea_id`
                         order by `position` desc
                         limit 23
-                    ) as `p`', [$user->id]);
+                        ) as `p`', [$user->id, now()->format('Y-m-d H:i:s')]);
                 
                 
                 $qualification = ($votes - ($user->disqualified_by_count ?: 0)) / $votes * 100;
@@ -127,7 +131,10 @@ class CampaignController extends Controller
                 }
             }
             
-            $rows = $user_points->sortByDesc('points')->groupBy('points');
+            $rows = collect();
+            foreach($user_points->sortByDesc('points')->groupBy('points') as $points => $row) {
+                $rows->put($points, $row->sortByDesc('qualification')->values());
+            }
         } 
 
         return view('campaigns.index')->with(compact('rows', 'nation', 'subdivisions', 'subdivision', 'status'));   
