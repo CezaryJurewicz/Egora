@@ -700,7 +700,7 @@ class IdeaController extends Controller
             $position = '0';
         }
         
-        if ($request->exists('notification_id')) {
+        if ($request->exists('notification_id') && ($order >= 0)) {
             $prev_notification = NotificationModel::findOrFail($request->notification_id);
                         
             $notification = new NotificationModel();
@@ -784,6 +784,6 @@ class IdeaController extends Controller
         
         event(new CommentAdded($comment));
         
-        return redirect()->to(route('ideas.view', $idea).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
+        return redirect()->to(route('ideas.view', [$idea, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
     }
 }

@@ -71,7 +71,25 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'message' => 'required|min:3|max:2300|string',
+        ]);
+         
+        if ($validator->fails()) {  
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $comment->message = $request->input('message');
+        $comment->save();
+
+        if ($comment->commentable instanceof \App\Comment) {  
+            $idea = $comment->commentable->commentable;
+        } else {
+            $idea = $comment->commentable;
+        }
+        
+        return redirect()->to(route('ideas.view', [$idea, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
     }
 
     public function comment(Request $request, Comment $comment)
@@ -80,7 +98,7 @@ class CommentController extends Controller
             'message' => 'required|min:3|max:2300|string',
         ]);
          
-        if ($validator->fails()) {
+        if ($validator->fails()) {  
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
@@ -89,7 +107,7 @@ class CommentController extends Controller
                 
         event(new CommentAdded($new));
          
-        return redirect()->to(route('ideas.view', $comment->commentable).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
+        return redirect()->to(route('ideas.view', [$comment->commentable, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
         
     }
 
@@ -108,7 +126,7 @@ class CommentController extends Controller
             $idea = $comment->commentable;
             $comment->forceDelete();
         }
-        return redirect()->to(route('ideas.view', $idea).'#my-tab-content')->with('success', 'Comment deleted.'); 
+        return redirect()->to(route('ideas.view', [$idea, 'comments']).'#my-tab-content')->with('success', 'Comment deleted.'); 
     }
     
     public function moderate(Request $request, Comment $comment, $action)

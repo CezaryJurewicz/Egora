@@ -6,6 +6,7 @@ class CallAPI extends React.Component {
         super(props)
         
         this.state = {
+            vote: props.vote ? props.vote : '',
             comment: props.comment ? props.comment : '',
             action_keep: props.action_keep ? props.action_keep : '',
             action_delete: props.action_delete ? props.action_delete : '',
@@ -22,9 +23,11 @@ class CallAPI extends React.Component {
                 if (r.status === 200) {
                     this.setState({callSuccess: true});
                     if (action == this.state.action_keep) {
+                        this.setState({vote: 1});
                         this.setState({disableKeep: true});
                         this.setState({score: this.state.score+1});
                     } else if (action == this.state.action_delete) {
+                        this.setState({vote: -1});
                         this.setState({disableDelete: true});
                         this.setState({score: this.state.score-1});                        
                     }
@@ -46,13 +49,13 @@ class CallAPI extends React.Component {
 //            this.state.callSuccess ?
 //            this.state.caption : 
             <span>
-            [{ this.state.disableKeep ?
+            [{ this.state.vote == 1 ?
             'Keep':
             <a href="#/" onClick={() => this.callClick(this.state.action_keep)}>
                 Keep 
             </a> }]
             or
-            [{ this.state.disableDelete ?
+            [{ this.state.vote == -1 ?
             'Delete':
             <a href="#/" onClick={() => this.callClick(this.state.action_delete)}>
                 Delete
@@ -70,11 +73,12 @@ var calls = document.querySelectorAll("span.moderate");
 if (calls) {
     calls.forEach(function(e) {
         var comment = e.getAttribute('comment');
+        var vote = e.getAttribute('vote');
         var action_keep = e.getAttribute('action_keep');
         var action_delete = e.getAttribute('action_delete');
         var score = e.textContent;
         
-        ReactDOM.render(<CallAPI comment={comment} action_keep={action_keep} action_delete={action_delete} score={score} />, e);
+        ReactDOM.render(<CallAPI vote={vote} comment={comment} action_keep={action_keep} action_delete={action_delete} score={score} />, e);
     });
     
 }
