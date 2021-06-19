@@ -83,7 +83,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{hash}/municipality', 'UserController@municipality')->name('municipality')->middleware('can:municipality_update,App\User,hash');        
         Route::put('/{hash}/municipality', 'UserController@municipality_update')->name('municipality_update')->middleware('can:municipality_update,App\User,hash');        
         Route::get('/search', 'UserController@search')->name('search')->middleware('can:search,App\User');        
-        Route::post('/search', 'UserController@search')->name('search')->middleware(['can:searchAny,App\User', 'throttle:46,1440']);        
+        Route::post('/search', 'UserController@search')->name('search')->middleware(['can:searchAny,App\User', 'throttle:46,1440,search']);        
         Route::get('/{hash}', 'UserController@ideological_profile')->name('ideological_profile')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about', 'UserController@about')->name('about')->middleware('can:ideological_profile,App\User,hash');
         Route::get('/{hash}/about_edit', 'UserController@about_edit')->name('about_edit')->middleware('can:about_edit,App\User,hash');

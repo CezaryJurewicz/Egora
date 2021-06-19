@@ -14,8 +14,65 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        @media screen and (min-width: 600px) {
+            .modal {
+                display: block; /* Hidden by default */
+                position: fixed;
+                z-index: 1; 
+                left: 0;
+                top: 0;
+                width: 30%; 
+                height: 25%; 
+                overflow: none; 
+                /*background-color: rgb(0,0,0);  Fallback color */
+                /*background-color: rgba(0,0,0,0.4);  Black w/ opacity */
+            }
+        }
+
+        @media screen and (max-width: 599px) {
+            .modal {
+              display: block;
+              position: fixed;
+              z-index: 1; 
+              left: 0;
+              top: 0;
+              width: 50%; 
+              height: 40%; 
+              overflow: none; 
+            }
+        }
+        .modal-content {
+            /*background-color: #fefefe;*/
+            background-color: rgba(0,0,0,0);
+            margin: 1% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 0px solid #888;
+            width: 90%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+        <!--<span class="close">&times;</span>-->
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1J5zl7jQYJg?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
     <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 800px;">
         <a href="{{ route('register') }}">
             <img class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
