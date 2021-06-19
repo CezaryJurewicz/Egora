@@ -4,7 +4,7 @@
                     <div class="mb-3">
                         <div class="p-2">
                             <div class="row">
-                                <div class="col-8 col-sm-5">
+                                <div class="col-12 col-sm-5">
                                     <div class="row">
                                         <div class="col-12">#{{$i + $ideas->firstItem()}} </div>
                                     </div>
@@ -20,9 +20,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2 text-center">
+                                <div class="col-12 col-sm-2 text-center small">
                                     @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                    <a class="btn btn-sm btn-primary" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
+                                    <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                     <br/>
                                     <a class="col-12" href="{{ route('ideas.view', [$idea->id, 'comments'] ).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
                                     @endif

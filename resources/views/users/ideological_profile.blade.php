@@ -109,9 +109,9 @@
                                                         </a>
                                                         @endif
                                                     </div>
-                                                    <div class="col-8 col-sm-4">
+                                                    <div class="col-10 col-sm-4">
                                                     @else
-                                                    <div class="col-9 col-sm-5">
+                                                    <div class="col-11 col-sm-5">
                                                     @endif
                                                         <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
                                                            @else 
@@ -132,7 +132,7 @@
                                                         {{$idea->community->title}}
                                                     @endif
                                                     </div>
-                                                    <div class="col-2 text-center small">
+                                                    <div class="col-12 col-sm-2 pr-0 pl-0 text-center small">
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                         <br/>
                                                         <a class="col-12" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>

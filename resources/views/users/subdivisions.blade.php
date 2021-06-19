@@ -53,17 +53,15 @@
                     @csrf
                     
                     @for($i=1; $i<24; $i++)
-                        <div class="form-group row">
-                            <div class="col-12">
+                        <div class="row pt-3">
+                            <div class="col-12 pl-1">
                                 <label>Subdivision {{$i}}</label>
                             </div>
-                            <div class="form-group row col-12">
-                                <div class="col-11">
-                                    <div style="position: absolute; width: 96%;" class="subdivisionsearch" name="subdivisions[{{$i}}]" value="{{ old('subdivisions.$i')?: (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}"></div>
-                                </div>
-                                <button style="height: calc(1.7em + 0.75rem + 2px);" class="btn btn-primary btn-sm col-1">{{ __('Save') }}</button>
-                            </div>
                         </div>
+                            <div class="row col-12 p-0 pl-1">
+                                <div class="subdivisionsearch col-12 col-md-11 p-0" name="subdivisions[{{$i}}]" value="{{ old('subdivisions.$i')?: (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}"></div>
+                                <button class="btn btn-primary col-12 col-md-1 btn-sm ">{{ __('Save') }}</button>
+                            </div>
                     @endfor
                 </form>
                 </div>
