@@ -23,7 +23,7 @@
                 left: 0;
                 top: 0;
                 width: 30%; 
-                height: 25%; 
+                height: 30%; 
                 overflow: none; 
                 /*background-color: rgb(0,0,0);  Fallback color */
                 /*background-color: rgba(0,0,0,0.4);  Black w/ opacity */
