@@ -8,6 +8,8 @@ use App\Nation;
 use App\UserType;
 use App\Municipality;
 use App\SearchName;
+use App\Community;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -121,6 +123,17 @@ class RegisterController extends Controller
 
         $ids = \DB::table('communities')->where('on_registration', true)->get()->pluck('id');
         $user->communities()->sync($ids);
+        
+        foreach( communities_list() as $order => $title) {
+            $community = Community::where('title', $title)->first();
+            
+            if ($community) {
+                $affected = DB::table('community_user')
+                    ->where('community_id', $community->id)
+                    ->where('user_id', $user->id)
+                    ->update(['order' => $order]);
+            }
+        }
         
         $user->disqualifying_users()->syncWithoutDetaching($user);
 

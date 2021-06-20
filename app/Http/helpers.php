@@ -165,3 +165,21 @@ function replace_nation_USA($prefix) : string
     
     return '';
 }
+
+function communities_list() : array
+{
+    return [
+        1=>"Egora development",
+        2=>"Truths we all should know",
+        3=>"Stories we all should hear",
+        4=>"World's biggest challenges",
+        5=>"Citizen Assembly",
+        6=>"Shaping culture",
+        7=>"Media we can trust",
+        8=>"Businesses to boycott",
+        9=>"My favorite books",
+        10=>"My personal values",
+        11=>"Bucket list",
+        12=>"Other public communities",
+    ];
+}
