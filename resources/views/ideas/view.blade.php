@@ -160,12 +160,18 @@
 
                     <div class="card-body">
                     <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane @if (request()->has('comments')) active @endif" id="mainTab">
-                        @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
-                        </div>
-                        <div class="tab-pane @if (!request()->has('comments')) active @endif" id="inviteTab">
-                        @include('blocks.invite_examine')
-                        </div>
+                        @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
+                            <div class="tab-pane active" id="mainTab">
+                            @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
+                            </div>
+                        @else
+                            <div class="tab-pane @if (request()->has('comments')) active @endif" id="mainTab">
+                            @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
+                            </div>
+                            <div class="tab-pane @if (!request()->has('comments')) active @endif" id="inviteTab">
+                            @include('blocks.invite_examine')
+                            </div>
+                        @endif
                     </div>
 
                     </div>                    
