@@ -96,7 +96,11 @@
                                 @if ($idea->egora_id == config('egoras.default.id'))
                                 <a href="{{ route('ideas.indexes', ['source_id'=>$idea->id])}}">Idea Dominance Index</a>
                                 @else 
-                                <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    @if (!is_null($idea->community))
+                                    <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    @else
+                                    <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    @endif
                                 @endif
                             @endif
                             </div>
