@@ -107,11 +107,13 @@ class IdeaController extends Controller
                 
                 if (is_egora()) {
                     $q->where(function($q) use ($relevance, $nation){
-                        if($relevance && $relevance != -1) {
+                        if($relevance && $relevance != -1 && $relevance != -2) {
                             $q->where('nation_id', $relevance);
                         } else if ($relevance && $relevance == -1) {
                             $egora = Nation::where('title', 'Egora')->first();
                             $q->where('nation_id', '<>', $egora->id);
+                        } else if ($relevance && $relevance == -2) {
+                            $q->where('nation_id', '<>', null);
                         }
 
                         if($nation) {
@@ -275,6 +277,7 @@ class IdeaController extends Controller
     {
         $result = [
             'All Categories, except Egora'=>-1, 
+            'All Categories'=>-2, 
         ];
         
         $nation = Nation::where('title', 'Universal')->first();

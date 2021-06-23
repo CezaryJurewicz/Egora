@@ -41,27 +41,42 @@
                                     </div>
                                 </div>
                             @elseif (is_egora('community') && !$u->communities->contains($idea->community))
-                            <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST">
-                                @csrf
-
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
-                                        {{ $u->active_search_name }}
+                                            {{ $u->active_search_name }}
                                         </a>
                                     </div>
 
-                                    <div class="col-2  align-self-center text-center">
-                                        <button type="submit" class="btn btn-sm btn-primary col-md-12">
-                                            {{ __('Invite') }}
-                                        </button>
+                                    <div class="col-2 text-center">
+                                        <div class="user-invite" action="{{ route('api.users.invite',[$u->id, $idea->id]) }}"></div>
                                     </div>
-
+                                    
                                     <div class="col-4 text-center">
                                         {{ __('Not in this community') }} 
                                     </div>
                                 </div>
-                            </form>
+                                <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
+                                    @csrf
+
+                                    <div class="row pt-1 pb-1 pl-5">
+                                        <div class="col-6 align-self-center">
+                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
+                                            {{ $u->active_search_name }}
+                                            </a>
+                                        </div>
+
+                                        <div class="col-2  align-self-center text-center">
+                                            <button type="submit" class="btn btn-sm btn-primary col-md-12">
+                                                {{ __('Invite') }}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-4 text-center">
+                                            {{ __('Not in this community') }} 
+                                        </div>
+                                    </div>
+                                </form>
                             @elseif ($u->liked_ideas->contains($idea))
                                 <div class="row pt-1 pb-1 pl-5">
                                     <div class="col-md-6 align-self-center">
