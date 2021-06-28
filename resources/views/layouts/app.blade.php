@@ -55,6 +55,12 @@
                             </li>
                             @endif
 
+                            @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\LogLine::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'log.index') ? ' active' : '' }}" href="{{ route('log.index')}}">{{ __('Inbox') }} @if(($inbox_notifications_cnt || $inbox_comment_notifications_cnt) && (($inbox_notifications_cnt+$inbox_comment_notifications_cnt)>0) ) ({{ $inbox_notifications_cnt + $inbox_comment_notifications_cnt }})@endif</a>
+                            </li>
+                            @endif                        
+                            
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Notification::class) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Inbox') }} @if($inbox_notifications_cnt && $inbox_notifications_cnt >0) ({{ $inbox_notifications_cnt }})@endif</a>

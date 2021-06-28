@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CommentNotification extends Model
 {
     use SoftDeletes;
-
+    
+    public function logline()
+    {
+        return $this->morphOne(LogLine::class, 'loggable');
+    }
+    
     public function sender()
     {
         return $this->belongsTo(User::class);

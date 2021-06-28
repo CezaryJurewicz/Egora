@@ -8,7 +8,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 offset-1 text-center">
-                        <h3>{{ __('Idea Notifications') }}</h3>
+                        <h3>{{ __('Notifications') }}</h3>
                     </div>
                 </div>
                 <div class="clearfix">&nbsp;</div>
@@ -44,15 +44,20 @@
                       </div>
                     </div>
                 </div>
-
+                
                 <div class="card p-5 mt-5">
-                    @forelse($rows as $row)
-                        @include('blocks.log.notification', ['row' => $row])   
+                    @forelse($lines as $line)
+                        @if ($line->loggable instanceof \App\Notification)   
+                            @include('blocks.log.notification', ['row' => $line->loggable])   
+                        @elseif ($line->loggable instanceof \App\CommentNotification)   
+                            @include('blocks.log.comment', ['row' => $line->loggable])   
+                        @endif
+                    
                     @empty
                         <!--<p>@lang('ideas.No ideas found')</p>-->
                     @endforelse
                     
-                    {{  $rows->render() }}
+                    {{  $lines->render() }}
                 </div>
             </div>
         </div>

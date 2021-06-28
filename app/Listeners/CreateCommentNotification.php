@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\CommentNotification;
 use App\Notifications\CommentNotificationEmail;
 use App\SearchName;
+use App\LogLine;
 
 class CreateCommentNotification
 {
@@ -43,6 +44,12 @@ class CreateCommentNotification
                         $notification->message = ' mentioned you in their comment.';
                         $notification->save();
 
+                        $line = new LogLine();
+                        $line->user_id = $notification->receiver_id;
+                        $line->egora_id = $notification->egora_id;
+                        $line->created_at = $notification->created_at;
+                        $notification->logline()->save($line);
+                        
                         $search_name_ids[] = $search_name->user->id;
 
                         if ($notification->receiver->сomment_notifications) {
@@ -63,6 +70,12 @@ class CreateCommentNotification
                 $notification->comment_id = $event->comment->id;
                 $notification->message = ' responded to your comment.';
                 $notification->save();
+                
+                $line = new LogLine();
+                $line->user_id = $notification->receiver_id;
+                $line->egora_id = $notification->egora_id;
+                $line->created_at = $notification->created_at;
+                $notification->logline()->save($line);
                 
                 if ($notification->receiver->сomment_notifications) {
                     $notification->receiver

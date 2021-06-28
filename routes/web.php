@@ -30,6 +30,10 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     
     Route::get('/information', 'SettingController@message')->name('settings.message');    
     
+    Route::prefix('/log')->name('log.')->group(function(){
+        Route::get('/', 'LogLineController@index')->name('index');
+    });
+    
     Route::prefix('/notification')->name('notifications.')->group(function(){
         Route::get('/', 'NotificationController@index')->name('index');
         Route::post('/', 'NotificationController@store')->name('store')->middleware('can:create,App\Notification');

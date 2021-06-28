@@ -13,7 +13,7 @@ class CommentNotificationPolicy
 
     public function viewAny(User $user)
     {
-        return $this->allow();
+        return $this->deny();
     }
     
     public function delete(User $user, CommentNotification $notification)

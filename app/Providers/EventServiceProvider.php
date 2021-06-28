@@ -50,12 +50,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserInvitedToIdea' => [
             'App\Listeners\SendUserNotificationEmail',
+            'App\Listeners\CreateLogLine',
         ],
         'App\Events\UserRespondedToInvitation' => [
             'App\Listeners\SendResponseNotificationEmail',
+            'App\Listeners\CreateLogLine',
         ],
         'App\Events\UserLikedIdeaFromNotification' => [
             'App\Listeners\SendLikedIdeaNotificationEmail',
+            'App\Listeners\CreateLogLine',
         ],
         'App\Events\UserLeftComminity' => [
             'App\Listeners\DetachComminityIdeasFromUser',
