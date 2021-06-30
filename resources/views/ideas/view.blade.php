@@ -110,6 +110,7 @@
                     </div>
                     
                     @include('blocks.like')
+                    @include('blocks.notincommunity')
                 </div>
 
                 <div class="card">
