@@ -23,5 +23,14 @@ class LogLine extends Model
     {
         return $query->whereDate('created_at', '>=', now()->subDays(23));
     }
+    
+    public function scopeNotifications($query)
+    {
+        return $query->where('loggable_type', 'App\Notification');
+    }
+    public function scopeComments($query)
+    {
+        return $query->where('loggable_type', 'App\CommentNotification');
+    }
 
 }

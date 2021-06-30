@@ -14,11 +14,23 @@ class LogLineController extends Controller
      */
     public function index(Request $request)
     {
-        $lines = LogLine::whereHas('user', function($q) use ($request) {
-            $q->where('id', $request->user()->id);
-        })
-        ->where('egora_id', current_egora_id())
-        ->new()->paginate(100);
+        $lines = LogLine::
+            where(function($q) use ($request) {
+                $q->whereHas('user', function($q) use ($request) {
+                    $q->where('id', $request->user()->id);
+                });
+                $q->Notifications();
+                $q->new();
+                $q->where('egora_id', current_egora_id());
+            })
+            ->orWhere(function($q) use ($request) {
+                $q->whereHas('user', function($q) use ($request) {
+                    $q->where('id', $request->user()->id);
+                });
+                $q->Comments();
+                $q->where('egora_id', current_egora_id());
+            })
+            ->paginate(100);
 
         return view('log.index')->with(compact('lines'));
 

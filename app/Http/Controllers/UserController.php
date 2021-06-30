@@ -941,7 +941,7 @@ class UserController extends Controller
         $request->session()->put('current_egora', $key);      
 
         if ($page == 'index') {
-            return redirect()->route('notifications.index')->with('success', 'Egora switched.');
+            return redirect()->route('log.index')->with('success', 'Egora switched.');
         }
         
         return redirect()->route('users.ideological_profile', $request->user()->active_search_name_hash)->with('success', 'Egora switched.');
