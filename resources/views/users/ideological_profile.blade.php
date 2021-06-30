@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="offset-5 col-2 text-center">
+                                <div class="offset-4 offset-md-5 col-4 col-md-2 text-center">
                                     @if (auth('web')->user()->can('disqualify', $user))
                                     <a class="btn btn-sm btn-danger col-12" href="{{ route('users.disqualify', $user) }}">{{ __('No') }}</a>
                                     @endif

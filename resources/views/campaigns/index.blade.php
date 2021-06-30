@@ -148,7 +148,7 @@
                         @csrf
                         <input type="hidden" name="_method" value="PUT"/>
                         
-                        <div class="form-group row">
+                        <div class="form-group row mb-1">
                             <label for="subdivision" class="offset-1 col-md-3 col-form-label">{{ __('Administrative Level:') }}</label>
 
                             <div class="col-md-6">
@@ -166,6 +166,14 @@
                                 @enderror
                             </div>
                         </div>                    
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-1">
+                                <div class="row">
+                                <small class="col-md-12">Access the Administrative Subdivisions page from the Home screen</small>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="form-group row">
                             <div class="col-md-6 offset-1">
