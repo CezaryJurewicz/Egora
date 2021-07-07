@@ -26,16 +26,15 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
-                            <p>This campaign organizing function is only <u>minimally</u> operational –
-                            there are many critical filters and other essential features that are not
-                            yet available. For now, the purpose of this function is only to
-                            demonstrate the potential of Egora’s algorithm to highlight persons
-                            who most closely represent the will of the people.</p>
-                            <p>The Candidate Score algorithm is very simple: of all of the ideas that
-                            a candidate supports (up to 46), we total the IDI Points of the 23
-                            ideas with the most IDI Points.</p>
+                            <p>The Campaign Manager functions enable us to create a list of political candidates for any government position in the world, according to which candidates most closely represent the will of the people (Candidate Score) and how much the Members of the ILP trust those candidates to carry out the will of the people (Qualification Status). Each user is able to see the Candidate Rank Listing for the candidates from their own electoral divisions, according to their Nation and Administrative Subdivisions.</p>
+                            <p>The Candidate Score algorithm is very simple: <br/>
+                            From all ideas that a candidate supports––up to 46, from both 23 to 1 and 0 (23) to 0 (1) positions––we total the IDI Points of the 23 ideas with the most IDI Points. </p>
+                            <p>Regarding the Qualification Status of a candidate, only the votes of ILP Members from the candidate’s electoral division are counted. However, votes cast by Egora users who are non-members or outside the candidate’s electoral division will become counted once the user becomes a Member in the candidate’s electoral division.</p>
+                            <p>Regarding candidate Seniority (IP), this is an indicator of how recently a candidate has repositioned their ideas or supported new ideas in their Ideological Profile. Regarding candidate Seniority (CRL), this is an indicator of how recently a candidate has announced themself as a candidate on the Candidate Rank Listing. </p>
+                            <p>Both of these indicators exist to ensure that candidates announce themselves with enough time in advance to be properly evaluated by the ILP membership. The Seniority requirements for official candidate nomination (or endorsement) by the ILP will be set by the leadership of the national branches of the ILP.</p>
+                            
                             <center>
-                                <p>Please support our work in making Egora everything it can be: <br>
+                                <p>Please support our work in completing Egora and making it available to all people around the world: <br>
                                 <a href="https://GoFundMe.com/EgoraILP23">GoFundMe.com/EgoraILP23</a></p>                                
                             </center>
                             

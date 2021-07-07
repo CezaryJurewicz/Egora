@@ -43,8 +43,8 @@
                         as the <i>International Logic Party</i> (ILP). Anyone is able declare
                         themself as a member of the ILP in Egora if they agree with the Five
                         Party Principles (see Home screen, “ILP” button).</li>
-                        <li>Using a simple algorithm, Egora then enables us to cross-
-                        reference the IPs of ILP Members who want to be political
+                        <li>Using a simple algorithm, Egora then enables us to cross-reference 
+                        the IPs of ILP Members who want to be political
                         candidates to the most strongly supported ideas on the IDI. By doing
                         this, we can find political candidates who actually represent what the
                         people really want. These candidates then go on to campaign for
