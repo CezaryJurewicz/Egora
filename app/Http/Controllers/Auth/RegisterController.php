@@ -136,6 +136,9 @@ class RegisterController extends Controller
         }
         
         $user->disqualifying_users()->syncWithoutDetaching($user);
+        
+        $default_leads = User::whereHas('default_lead')->get();
+        $user->following()->sync($default_leads);
 
         return $user;
     }

@@ -84,6 +84,12 @@
                                 <a class="nav-link{{ (Route::current()->getName() == 'users.index') ? ' active' : '' }}" href="{{ route('users.index')}}">{{ __('All users') }}</a>
                             </li>
                             @endif
+                            
+                            @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
+                            <li class="nav-item">
+                                <a class="nav-link{{ (Route::current()->getName() == 'default_leads') ? ' active' : '' }}" href="{{ route('default_leads')}}">{{ __('Default leads') }}</a>
+                            </li>
+                            @endif
 
                             @if (auth('admin')->user() && auth('admin')->user()->can('viewAny', App\Admin::class))
                             <li class="nav-item">

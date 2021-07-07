@@ -55,7 +55,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return false;
     }
- 
+
+    public function default_lead()
+    {
+        return $this->hasOne(DefaultLead::class);
+    }
+    
     public function campaign()
     {
         return $this->hasOne(Campaign::class);

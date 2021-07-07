@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $search = null;
         
-        $model = User::withTrashed();
+        $model = User::with('default_lead')->withTrashed();
         
         if ($request->has('search')) {
             $model->where(function($q) use($request){
@@ -184,6 +184,31 @@ class UserController extends Controller
 
         return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
+    
+    public function default_leads()
+    {
+        $users = User::whereHas('default_lead')->paginate(10);
+        
+        return view('users.default_leads')->with(compact('users'));
+    }
+    
+    public function remove_default_lead(Request $request, User $user)
+    {
+        if ($result = \DB::table('default_leads')->where('user_id', $user->id)->delete()) {
+            return redirect()->back()->with('success', 'User removed from default leads');
+        }
+        
+        return redirect()->back()->withErrors('Can\'t remove user from default leads.');
+    }    
+    
+    public function add_default_lead(Request $request, User $user)
+    {
+        if ($result = \DB::table('default_leads')->insertOrIgnore(['user_id' => $user->id])) {
+            return redirect()->back()->with('success', 'User added to default leads');
+        }
+        
+        return redirect()->back()->withErrors('Can\'t add user to default leads.');
+    }    
     
     public function leads()
     {

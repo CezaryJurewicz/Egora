@@ -181,6 +181,9 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::delete('/{admin}', 'AdminController@destroy')->name('delete')->middleware('can:delete,admin');
     });
     
+    Route::get('/default_leads', 'UserController@default_leads')->name('default_leads')->middleware('can:viewAny,App\User');
+    Route::delete('/default_leads/{user}', 'UserController@remove_default_lead')->name('remove_default_lead')->middleware('can:viewAny,App\User');
+    Route::get('/default_leads/{user}', 'UserController@add_default_lead')->name('add_default_lead')->middleware('can:viewAny,App\User');
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
