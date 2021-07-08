@@ -84,9 +84,6 @@
                                         @if (!$user->trashed())
                                         <a class="btn btn-sm btn-primary mb-2" href="{{ route('users.profile', $user->id) }}">@lang('some.View')</a>
                                         @endif
-                                        @if (auth('admin')->user() && is_null($user->default_lead))
-                                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('add_default_lead', $user->id) }}">@lang('Add to default leads')</a>
-                                        @endif
                                         @if ($user->trashed())
                                             @if (auth('admin')->user() && auth('admin')->user()->can('restore', $user))
                                             <form action="{{ route('users.restore',[$user->id]) }}" method="POST">
@@ -108,6 +105,9 @@
                                             </form>
                                             @endif
                                         @endif                                        
+                                        @if (auth('admin')->user() && is_null($user->default_lead))
+                                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('add_default_lead', $user->id) }}">@lang('Add to default leads')</a>
+                                        @endif
                                     </td>
                                 </tr>   
                     @empty
