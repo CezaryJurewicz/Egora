@@ -86,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('inbox_comment_notifications_cnt', $comment_notifications->count());
             
                 $updates = Update::where(function($q) {
+                    $q->whereHasMorph('updatable', '*');
                     $q->whereHas('user', function($q) {
                         $q->where('id', auth('web')->user()->id);
                     });

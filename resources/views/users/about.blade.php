@@ -37,6 +37,13 @@
                             </div>
                             @endif
                             
+                            <div class="row">
+                                <div class="col col-md-8 offset-2 mt-3">
+                                    <div class="text-center">
+                                        <h3>{{ __('Status') }}</h3>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mt-2">
                                 <div class="card">
                                     <div class="card-body">

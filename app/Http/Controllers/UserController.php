@@ -819,7 +819,7 @@ class UserController extends Controller
         if ($user->updates->count() < 64) {
             $update = new Update();
             $update->user_id = $user->id;
-            $update->egora_id = current_egora_id();
+            $update->egora_id = config('egoras.default.id');
             $update->type = 'follower';
             $request->user()->update_relation()->save($update);
         }

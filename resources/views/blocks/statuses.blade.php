@@ -14,7 +14,7 @@
                             @if (auth('web')->check() && auth('web')->user()->can('status', $item))
                             <form id="storestatus" method="POST" action="{{ route('users.status', $item) }}" style="display:none">
                                 @csrf
-                                <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('some.@<Search Name>') }}" required>{{ old('message') }}</textarea>
+                                <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('Use {Search Name} to link other philosophers in your status.') }}" required>{{ old('message') }}</textarea>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

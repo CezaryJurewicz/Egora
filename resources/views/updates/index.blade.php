@@ -39,6 +39,8 @@
                                 @include('blocks.updates.status', ['row' => $line])   
                             @elseif ($line->type == 'follower')
                                 @include('blocks.updates.follower', ['row' => $line])   
+                            @elseif ($line->type == 'comment')
+                                @include('blocks.updates.comment', ['row' => $line])   
                             @endif
                         @endif
                     @empty

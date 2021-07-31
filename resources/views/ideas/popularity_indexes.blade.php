@@ -21,21 +21,9 @@
                     @endif
                     <div class="col-md-4 text-center">
                         @if (empty($sort)) 
-                            @if(is_egora())
                             <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
-                            @elseif (is_egora('community'))
-                            <h5 class="pt-2">{{ __('Community Idea Popularity Index') }}</h5>
-                            @elseif (is_egora('municipal'))
-                            <h5 class="pt-2">{{ __('Municipal Idea Popularity Index') }}</h5>
-                            @endif
                         @else
-                            @if(is_egora())
                             <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Idea Popularity Index') }}</a>
-                            @elseif (is_egora('community'))
-                            <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Community Idea Popularity Index') }}</a>
-                            @elseif (is_egora('municipal'))
-                            <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">{{ __('Municipal Idea Popularity Index') }}</a>
-                            @endif
                         @endif
                     </div>
                 </div>
