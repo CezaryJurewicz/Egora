@@ -61,6 +61,12 @@
                             </li>
                             @endif                        
                             
+                            @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Update::class) )
+                            <li>
+                                <a class="nav-link{{ (Route::current()->getName() == 'updates.index') ? ' active' : '' }}" href="{{ route('updates.index')}}">{{ __('Updates') }} @if($updates_cnt && $updates_cnt>0) ({{ $updates_cnt }})@endif</a>
+                            </li>
+                            @endif                        
+                            
                             @if (auth('web')->check() && auth('web')->user()->can('viewAny', App\Notification::class) )
                             <li>
                                 <a class="nav-link{{ (Route::current()->getName() == 'notifications.index') ? ' active' : '' }}" href="{{ route('notifications.index')}}">{{ __('Inbox') }} @if($inbox_notifications_cnt && $inbox_notifications_cnt >0) ({{ $inbox_notifications_cnt }})@endif</a>

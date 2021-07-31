@@ -57,6 +57,19 @@ class UserPolicy
         
         return $this->deny();
     }
+    
+    public function followersbyid(User $user, $hash)
+    {
+        $searchname = SearchName::with('user')->where('hash', $hash)->first();
+
+        if ($searchname) {
+            $model = $searchname->user;
+
+            return $user->id !== $model->id;
+        }
+        
+        return $this->deny();
+    }
 
     /**
      * Determine whether the user can view the model.
@@ -163,6 +176,11 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         return $user->id == $model->id && $user->user_type->class == 'user';
+    }
+    
+    public function status(User $user, User $model)
+    {
+        return ($user->id == $model->id) && ($model->comments->count() < 23);
     }
 
     /**

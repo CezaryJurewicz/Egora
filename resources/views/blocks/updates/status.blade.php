@@ -1,15 +1,16 @@
                     <div id="cid{{$row->id}}" class="mb-3">
                         <div class="pb-2">
                             <div class="row">
+                                @if (($row->updatable instanceof \App\Comment) && ($row->updatable->commentable instanceof \App\User))
                                 <div class="col-9">
                                     <div class="row">
                                         <div class="col-12">
                                         <b>
-                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $row->sender->active_search_name_hash) }}">
-                                            {{ $row->sender->active_search_name ??  $row->sender->id }} 
+                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $row->updatable->commentable->active_search_name_hash) }}">
+                                            {{ $row->updatable->commentable->active_search_name ??  $row->updatable->commentable->id }} 
                                             </a>
                                         </b>
-                                        {{ $row->message }}
+                                        posted this status.
                                         </div>
                                     </div>
                                     <div class="row">
@@ -19,32 +20,26 @@
                                     </div>
                                 </div>
                                 <div class="col-3 text-right">
-                                    @if ($row->comment->commentable->commentable instanceof \App\User)
-                                    <a class="btn btn-primary btn-sm" href="{{ route('users.about', [ $row->comment->commentable->commentable->active_search_names->first()->hash,'open'=>$row->comment->commentable->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>                                    
-                                    @elseif ($row->comment->is_response())
-                                    <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', ['comments' => 1, $row->comment->commentable->commentable, 'comment_notification_id'=> $row->id, 'open'=>$row->comment->commentable->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>
-                                    @elseif (!is_null($row->comment->commentable))
-                                    <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', ['comments' => 1, $row->comment->commentable, 'comment_notification_id'=> $row->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>                                    
-                                    @endif
+                                    <a class="btn btn-primary btn-sm" href="{{ route('updates.redirect', [$row->id]) }}">{{ __('Open') }}</a>                                    
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! make_clickable_links(shorten_text($row->comment->message)) !!}
+                                {!! make_clickable_links(shorten_text($row->updatable->message)) !!}
                             </div>
                         </div>
                         <div class="pt-2">
                             <div class="row">
                                 <div class="col-3 text-left">
                                     @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('delete', $row) )
-                                    <form action="{{ route('comment_notifications.delete', $row->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('updates.delete', $row->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE"/>
                                         <button type='submit' class='btn btn-primary btn-sm'>{{__('Delete')}}</button>
                                     </form>
                                     @endif
-
                                 </div>
                             </div>
                         </div>

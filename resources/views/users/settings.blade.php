@@ -44,10 +44,10 @@
 
 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>
@@ -97,10 +97,10 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>
@@ -144,10 +144,10 @@
                                 
                                 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>
@@ -190,10 +190,10 @@
                                 </div>
                                 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_name_hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>
@@ -223,10 +223,10 @@
                                 </div>
                                 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>
@@ -259,10 +259,10 @@
                                 </div>
                                 
                                 <div class="form-group row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
-                                    <div class="col-md-8 text-center">
+                                    <div class="col-4 offset-2 text-center">
                                         <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
                                             {{ __('Save') }}
                                         </button>

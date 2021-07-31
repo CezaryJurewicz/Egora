@@ -34,6 +34,12 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/', 'LogLineController@index')->name('index');
     });
     
+    Route::prefix('/updates')->name('updates.')->group(function(){
+        Route::get('/', 'UpdateController@index')->name('index');
+        Route::get('/{update}/redirect', 'UpdateController@redirect')->name('redirect');
+        Route::delete('/{update}', 'UpdateController@destroy')->name('delete')->middleware('can:delete,update');
+    });
+    
     Route::prefix('/notification')->name('notifications.')->group(function(){
         Route::get('/', 'NotificationController@index')->name('index');
         Route::post('/', 'NotificationController@store')->name('store')->middleware('can:create,App\Notification');
@@ -82,6 +88,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
         Route::get('/leads', 'UserController@leads')->name('leads')->middleware('can:leads,App\User');        
         Route::get('/{hash}/leads', 'UserController@leadsbyid')->name('leadsbyid')->middleware('can:leadsbyid,App\User,hash');        
+        Route::get('/{hash}/followers', 'UserController@followersbyid')->name('followersbyid')->middleware('can:followersbyid,App\User,hash');        
         Route::get('/{hash}/communities', 'UserController@communities')->name('communities')->middleware('can:communities,App\User,hash');        
         Route::put('/{hash}/communities', 'UserController@communities_update')->name('communities_update')->middleware('can:communities,App\User,hash');        
         Route::get('/{hash}/municipality', 'UserController@municipality')->name('municipality')->middleware('can:municipality_update,App\User,hash');        
@@ -114,6 +121,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::post('/{user}/invite/{idea}', 'UserController@invite')->name('invite')->middleware('can:invite,user,idea');
         Route::get('/{user}/disqualify', 'UserController@disqualify')->name('disqualify')->middleware('can:disqualify,user');
         Route::get('/{user}/qualify', 'UserController@qualify')->name('qualify')->middleware('can:qualify,user');
+        Route::post('/{user}/status', 'UserController@status')->name('status')->middleware('can:status,user');
+        Route::post('/{comment}/status/reply', 'UserController@status_reply')->name('status.reply')->middleware('can:comment,comment');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){

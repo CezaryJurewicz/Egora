@@ -12,17 +12,17 @@
                         <div class="offset-3 col-md-3 text-right">
                             Filter:                    
                             @if ($filter == 'my')
-                            <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id], compact('notification_id'))).'#my-tab-content' }}">all comments</a> 
+                            <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'comments'], compact('notification_id'))).'#my-tab-content' }}">all comments</a> 
                             @else
-                            <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'filter' => 'my'], compact('notification_id'))).'#my-tab-content' }}">my comments</a> 
+                            <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'filter' => 'my', 'comments'], compact('notification_id'))).'#my-tab-content' }}">my comments</a> 
                             @endif
                         </div>
                         <div class="col-md-2 mb-2 text-right">
                             Order:                    
                             @if ($order == 'asc')
-                            &#x25B2; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'desc'], compact('notification_id'))).'#my-tab-content' }}">new-old</a> 
+                            &#x25B2; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'desc', 'comments'], compact('notification_id'))).'#my-tab-content' }}">new-old</a> 
                             @elseif ($order == 'desc')
-                            &#x25BC; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'asc'], compact('notification_id'))).'#my-tab-content' }}">old-new</a> 
+                            &#x25BC; <a href="{{ route('ideas.view', array_merge(['idea'=>$item->id, 'order' => 'asc', 'comments'], compact('notification_id'))).'#my-tab-content' }}">old-new</a> 
                             @endif
                         </div>
                     </div>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\LogLine;
+use App\Update;
 use Illuminate\Http\Request;
 
-class LogLineController extends Controller
+class UpdateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,27 +14,17 @@ class LogLineController extends Controller
      */
     public function index(Request $request)
     {
-        $lines = LogLine::
+        $lines = Update::
             where(function($q) use ($request) {
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });
-                $q->Notifications();
-                $q->new();
-                $q->where('egora_id', current_egora_id());
-            })
-            ->orWhere(function($q) use ($request) {
-                $q->whereHas('user', function($q) use ($request) {
-                    $q->where('id', $request->user()->id);
-                });
-                $q->Comments();
                 $q->where('egora_id', current_egora_id());
             })
             ->orderBy('created_at','asc')
             ->paginate(100);
 
-        return view('log.index')->with(compact('lines'));
-
+        return view('updates.index')->with(compact('lines'));
     }
 
     /**
@@ -61,21 +51,39 @@ class LogLineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\LogLine  $logLine
+     * @param  \App\Update  $update
      * @return \Illuminate\Http\Response
      */
-    public function show(LogLine $logLine)
+    public function show(Update $update)
     {
-        //
+        //        
+    }
+    
+    public function redirect(Update $update)
+    {
+        if ($update->type == 'status') {
+            $hash = $update->updatable->commentable->active_search_name_hash;
+            $updatable_id = $update->updatable->id;
+            $update->delete();
+
+            return redirect(route('users.about', [ $hash,'open'=>$updatable_id]).'#comment-'.$updatable_id);
+        } else if ($update->type == 'follower') {
+            $hash = $update->updatable->active_search_name_hash;
+            $update->delete();
+            
+            return redirect()->route('users.ideological_profile', [$hash]);
+        }
+        
+        return redirect()->back();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\LogLine  $logLine
+     * @param  \App\Update  $update
      * @return \Illuminate\Http\Response
      */
-    public function edit(LogLine $logLine)
+    public function edit(Update $update)
     {
         //
     }
@@ -84,10 +92,10 @@ class LogLineController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LogLine  $logLine
+     * @param  \App\Update  $update
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LogLine $logLine)
+    public function update(Request $request, Update $update)
     {
         //
     }
@@ -95,11 +103,13 @@ class LogLineController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LogLine  $logLine
+     * @param  \App\Update  $update
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LogLine $logLine)
+    public function destroy(Update $update)
     {
-        //
+        $update->delete();
+        
+        return redirect()->back()->with('success', 'Update removed.'); 
     }
 }

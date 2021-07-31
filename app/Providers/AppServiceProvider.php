@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use App\Notification as NotificationModel;
 use App\CommentNotification;
+use App\Update;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -83,6 +84,15 @@ class AppServiceProvider extends ServiceProvider
                     })->select('id');
                     
                 $view->with('inbox_comment_notifications_cnt', $comment_notifications->count());
+            
+                $updates = Update::where(function($q) {
+                    $q->whereHas('user', function($q) {
+                        $q->where('id', auth('web')->user()->id);
+                    });
+                    $q->where('egora_id', current_egora_id());
+                })->select('id');
+                
+                $view->with('updates_cnt', $updates->count());
                 
             }
         });

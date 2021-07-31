@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col col-md-8 offset-2">
                                     <div class="text-center">
-                                        <h3>{{ __('Leads') }} ({{ $leads->count() }})</h3>
+                                        <h3>{{ __('Followers') }} ({{ $followers->count() }})</h3>
                                     </div>
                                 </div>
                                 <div class="col col-md-2 text-right">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-body">
-                                    @if($leads->isNotEmpty())
+                                    @if($followers->isNotEmpty())
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr style="border-top: hidden;">
@@ -40,7 +40,7 @@
                                             <tbody>
                                     @endif
 
-                                    @forelse ($leads as $i=>$user)
+                                    @forelse ($followers as $i=>$user)
                                                 <tr>
                                                     <td>
                                                         {{$user->user_type->title}}
@@ -58,7 +58,7 @@
                                         <!--<p>@lang('user.No users found')</p>-->
                                     @endforelse
 
-                                    @if($leads->isNotEmpty())                 
+                                    @if($followers->isNotEmpty())                 
                                             </tbody>
                                         </table>
                                     @endif

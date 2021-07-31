@@ -18,7 +18,7 @@ class CommentPolicy
     
     public function delete(User $user, Comment $comment)
     {
-        return $comment->user_id == $user->id;
+        return (($comment->user_id == $user->id) || ($comment->commentable->is_user() && $comment->commentable->commentable->id == $user->id));
     }
     
     public function update(User $user, Comment $comment)
@@ -28,6 +28,6 @@ class CommentPolicy
     
     public function moderate(User $user, Comment $comment)
     {
-        return ($user->user_type->isVerified && ($comment->user_id != $user->id));
+        return ($user->user_type->isVerified && ($comment->user_id != $user->id) && (!$comment->is_user()));
     }
 }

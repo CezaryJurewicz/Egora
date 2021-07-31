@@ -26,6 +26,10 @@ use App\Events\UserLeftComminity;
 use App\Municipality;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Events\UserLeftingMunicipality;
+use App\Comment;
+use App\Events\StatusAdded;
+use App\Events\CommentAdded;
+use App\Update;
 
 class UserController extends Controller
 {
@@ -227,9 +231,26 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
 
-        $leads = $user->following()->where('visible',1)->get()->sortBy('active_search_name');
+        $leads = $user->following()->where('visible',1)->with('nation', 'search_names')->get()->sortBy('active_search_name');
         
         return view('users.leadsbyid')->with(compact('leads', 'user', 'community_id'));
+    }
+    
+    public function followersbyid(Request $request, $hash)
+    {
+        $searchname = SearchName::where('hash', $hash)->get()->first();
+        $user = $searchname->user;
+        
+        // Change;
+        if ($request->user()->isAdmin()) {
+            $community_id = $user->communities->first()->id;
+        } else {
+            $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+        }
+
+        $followers = $user->followers()->where('visible',1)->with('nation', 'search_names')->get()->sortBy('active_search_name');
+        
+        return view('users.followersbyid')->with(compact('followers', 'user', 'community_id'));
     }
     
     public function communities(Request $request, $hash)
@@ -468,7 +489,11 @@ class UserController extends Controller
             $q->recent();
         }]);
         
-        return view('users.about')->with(compact('user','hash'));
+        $comments = $user->comments()->orderBy('created_at', 'desc')->paginate(25);
+        
+        $open = ($request->has('open') ? (int) $request->input('open') : null);
+        
+        return view('users.about')->with(compact('user','hash', 'comments', 'open'));
     }
 
     public function about_edit(Request $request, $hash)
@@ -790,6 +815,15 @@ class UserController extends Controller
     public function follow(Request $request, User $user)
     {
         $user->followers()->syncWithoutDetaching($request->user());
+        
+        if ($user->updates->count() < 64) {
+            $update = new Update();
+            $update->user_id = $user->id;
+            $update->egora_id = current_egora_id();
+            $update->type = 'follower';
+            $request->user()->update_relation()->save($update);
+        }
+        
         return redirect()->back()->with('success', 'Lead added.');  
     }
     
@@ -1063,4 +1097,42 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', "User is qualified.");
     }
+    
+    public function status(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'message' => 'required|min:3|max:2300|string',
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $comment = $user->addComment($request->input('message'), $request->user()->id);
+        
+        event(new StatusAdded($comment));
+        
+        return redirect()->back()->with('success', 'Status added.'); 
+    }
+    
+    public function status_reply(Request $request, Comment $comment)
+    {
+        $validator = Validator::make($request->all(),[
+            'message' => 'required|min:3|max:2300|string',
+        ]);
+         
+        if ($validator->fails()) {  
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $new = $comment->addComment($request->input('message'), $request->user()->id);
+                
+        event(new CommentAdded($new));
+         
+        return redirect()->back()->with('success', 'Reply added.'); 
+        
+    }
+    
 }

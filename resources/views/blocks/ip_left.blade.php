@@ -116,6 +116,9 @@
                             <div class="mt-2">
                             @include('blocks.leads')
                             </div>
+                            <div class="mt-2">
+                            @include('blocks.followers')
+                            </div>
                             
                             @if (Auth::guard('web')->check() && Auth::guard('web')->user()->id !== $user->id)
                             <div class="mt-2">

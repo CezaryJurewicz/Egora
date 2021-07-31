@@ -11,9 +11,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
 
+use App\Traits\CommentableTrait;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, SoftDeletes, HasApiTokens;
+    use Notifiable, SoftDeletes, HasApiTokens, CommentableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -61,6 +63,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(DefaultLead::class);
     }
     
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
+    
     public function campaign()
     {
         return $this->hasOne(Campaign::class);
@@ -89,6 +96,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ideas()
     {
         return $this->hasMany(Idea::class);
+    }
+    
+    public function updates()
+    {
+        return $this->hasMany(Update::class);
+    }
+    
+    public function update_relation()
+    {
+        return $this->morphOne(Update::class, 'updatable');
     }
     
     public function meetings()

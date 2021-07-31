@@ -120,13 +120,18 @@ class CommentController extends Controller
     public function destroy(Request $request, Comment $comment)
     {
         if ($comment->commentable instanceof \App\Comment) {  
-            $idea = $comment->commentable->commentable;
+            $item = $comment->commentable->commentable;
             $comment->forceDelete();
         } else {
-            $idea = $comment->commentable;
+            $item = $comment->commentable;
             $comment->forceDelete();
         }
-        return redirect()->to(route('ideas.view', [$idea, 'comments']).'#my-tab-content')->with('success', 'Comment deleted.'); 
+        
+        if ($item instanceof \App\User) {
+            return redirect()->back()->with('success', 'Comment deleted.');
+        }
+        
+        return redirect()->to(route('ideas.view', [$item, 'comments']).'#my-tab-content')->with('success', 'Comment deleted.'); 
     }
     
     public function moderate(Request $request, Comment $comment, $action)

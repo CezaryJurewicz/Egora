@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CommentableTrait;
+use App\Traits\UpdatableTrait ;
 
 class Comment extends Model
 {
-    use SoftDeletes, CommentableTrait;
+    use SoftDeletes, CommentableTrait, UpdatableTrait;
     
     public function commentable()
     {

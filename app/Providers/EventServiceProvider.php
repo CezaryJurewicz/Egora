@@ -68,6 +68,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\CommentAdded' => [
             'App\Listeners\CreateCommentNotification',
+        ],
+        'App\Events\StatusAdded' => [
+            'App\Listeners\CreateStatusUpdates',
         ]
     ];
 

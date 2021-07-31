@@ -36,10 +36,19 @@
                                 </div>
                             </div>
                             @endif
+                            
+                            <div class="mt-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @include('blocks.statuses', ['item'=> $user, 'statuses'=> $comments])
+                                    </div> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                
             </div>
         </div>
     </div>

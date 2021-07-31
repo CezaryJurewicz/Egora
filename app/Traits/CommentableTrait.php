@@ -5,6 +5,11 @@ use App\Comment;
 
 trait CommentableTrait {
 
+    public function is_user() 
+    {
+        return ($this->commentable instanceof \App\User);
+    }
+
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');

@@ -23,7 +23,7 @@
                                                 @if ($setting->type == 'text')
                                                 <div class="form-group row">
                                                     <div class="col-md-12">
-                                                        <textarea id="value" class="form-control @error('value') is-invalid @enderror" name="value" rows="10" autofocus>{{ old('value') ?: $setting->value }}</textarea>
+                                                        <textarea id="value" class="form-control @error('value') is-invalid @enderror" name="value" rows="23" autofocus>{{ old('value') ?: $setting->value }}</textarea>
                                                         @error('value')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -35,7 +35,7 @@
                                                 @elseif ($setting->type == 'string')
                                                 <div class="form-group row">
                                                     <div class="col-md-12">
-                                                        <input type="text" id="value" class="form-control @error('value') is-invalid @enderror" name="value" rows="10" autofocus value="{{ old('value') ?: $setting->value }}">
+                                                        <input type="text" id="value" class="form-control @error('value') is-invalid @enderror" name="value" rows="23" autofocus value="{{ old('value') ?: $setting->value }}">
                                                         @error('value')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
