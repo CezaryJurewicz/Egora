@@ -41,6 +41,8 @@
                                 @include('blocks.updates.follower', ['row' => $line])   
                             @elseif ($line->type == 'comment')
                                 @include('blocks.updates.comment', ['row' => $line])   
+                            @elseif ($line->type == 'idea')
+                                @include('blocks.updates.idea', ['row' => $line])   
                             @endif
                         @endif
                     @empty

@@ -16,4 +16,9 @@ class Update extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function from()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
