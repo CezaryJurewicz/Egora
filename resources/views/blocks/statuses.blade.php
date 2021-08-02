@@ -3,7 +3,7 @@
                     <div class="row pt-3 pl-1">
                         <div class="col-md-4">
                             <a href="#" onclick="$('#storestatus').toggle(); return false;" >
-                            <h5 class="pt-0">Add status</h5>
+                            <h5 class="pt-0">Add Status</h5>
                             </a>
                         </div>
                     </div>

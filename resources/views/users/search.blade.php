@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-8">
         @if ((auth('web')->user()?:auth('admin')->user())->can('searchAny', App\User::class))
         <div class="panel">
             <div class="panel-body">
@@ -114,7 +114,7 @@
         @endif
     </div>
         
-    <div class="col-md-3">
+    <div class="col-md-4">
         @include('blocks.following')
     </div>
         

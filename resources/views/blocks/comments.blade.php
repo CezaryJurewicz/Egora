@@ -4,7 +4,7 @@
                         <div class="col-md-4">
                             @if (auth('web')->check() && auth('web')->user()->can('comment', $item))
                             <a href="#" onclick="$('#storecomment').toggle(); return false;" >
-                            <h5 class="pt-0">Add comment</h5>
+                            <h5 class="pt-0">Add Comment</h5>
                             </a>
                             @endif
                         </div>
