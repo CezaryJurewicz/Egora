@@ -21,6 +21,8 @@
                                 <div class="col-3 text-right">
                                     @if ($row->comment->commentable && $row->comment->commentable->commentable instanceof \App\User)
                                     <a class="btn btn-primary btn-sm" href="{{ route('users.about', [ $row->comment->commentable->commentable->active_search_names->first()->hash,'open'=>$row->comment->commentable->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>                                    
+                                    @elseif ($row->comment->commentable && $row->comment->commentable instanceof \App\User)
+                                    <a class="btn btn-primary btn-sm" href="{{ route('users.about', [ $row->comment->commentable->active_search_name_hash,'open'=>$row->comment->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>                                    
                                     @elseif ($row->comment->is_response())
                                     <a class="btn btn-primary btn-sm" href="{{ route('ideas.view', ['comments' => 1, $row->comment->commentable->commentable, 'comment_notification_id'=> $row->id, 'open'=>$row->comment->commentable->id]).'#comment-'.$row->comment->id }}">{{ __('Open') }}</a>
                                     @elseif (!is_null($row->comment->commentable))

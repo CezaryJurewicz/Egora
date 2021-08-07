@@ -39,7 +39,7 @@
                                 @include('blocks.updates.status', ['row' => $line])   
                             @elseif ($line->type == 'follower')
                                 @include('blocks.updates.follower', ['row' => $line])   
-                            @elseif ($line->type == 'comment')
+                            @elseif (($line->type == 'comment') || ($line->type == 'subcomment'))
                                 @include('blocks.updates.comment', ['row' => $line])   
                             @elseif ($line->type == 'idea')
                                 @include('blocks.updates.idea', ['row' => $line])   

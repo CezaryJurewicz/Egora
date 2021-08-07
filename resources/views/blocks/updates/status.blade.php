@@ -10,7 +10,7 @@
                                             {{ $row->updatable->commentable->active_search_name ??  $row->updatable->commentable->id }} 
                                             </a>
                                         </b>
-                                        posted this status.
+                                        posted a new status.
                                         </div>
                                     </div>
                                     <div class="row">

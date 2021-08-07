@@ -73,6 +73,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\StatusAdded' => [
             'App\Listeners\CreateStatusUpdates',
+            'App\Listeners\LinkUserInStatus',
         ]
     ];
 

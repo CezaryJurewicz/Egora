@@ -32,7 +32,12 @@ class CreateLeadsCommentUpdates
                 $update = new Update();
                 $update->user_id = $user->id;
                 $update->egora_id = $event->egora_id;
-                $update->type = 'comment';
+
+                if ($event->comment->is_response()) {
+                    $update->type = 'subcomment';
+                } else {
+                    $update->type = 'comment';
+                }
                 $event->comment->update_relation()->save($update);
             }
         }

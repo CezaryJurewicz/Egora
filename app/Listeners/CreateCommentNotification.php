@@ -68,7 +68,11 @@ class CreateCommentNotification
                 $notification->sender_id = $event->comment->user_id;
                 $notification->receiver_id = $event->comment->commentable->user_id;
                 $notification->comment_id = $event->comment->id;
-                $notification->message = ' responded to your comment.';
+                if ($event->comment->commentable->is_user()) {
+                    $notification->message = ' responded to your status.';
+                } else {
+                    $notification->message = ' responded to your comment.';
+                }
                 $notification->save();
                 
                 $line = new LogLine();
