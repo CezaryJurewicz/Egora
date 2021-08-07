@@ -37,7 +37,7 @@
                                     </span>
                                 @enderror
                             @elseif (is_egora('community'))
-                                <select @if (isset($community_id)) disabled1='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
+                                <select @if (!isset($copy)) disabled='disabled' @endif  id="community" type="text" class="form-control @error('community') is-invalid @enderror" name="community" value="{{ old('community') }}" required autocomplete="community" >
                                 @foreach($user->communities as $c)
                                 <option @if(old('community') && old('community')== $c->id || $community_id == $c->id) selected @endif value="{{$c->id}}">{{$c->title}}</option>
                                 @endforeach

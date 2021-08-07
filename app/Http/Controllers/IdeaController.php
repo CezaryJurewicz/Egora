@@ -337,6 +337,7 @@ class IdeaController extends Controller
         $community_id = null;
         $nation_id = null;
         $ideas=[];
+        $copy=1;
         
         if(is_egora()) {
             $nation_id = $idea->nation ? $idea->nation->id : null ;
@@ -353,7 +354,7 @@ class IdeaController extends Controller
 
         $user = $request->user();
 
-        return view('ideas.create')->with(compact('idea', 'nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
+        return view('ideas.create')->with(compact('copy', 'idea', 'nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
     }
 
     public function move(Request $request, Idea $idea)
