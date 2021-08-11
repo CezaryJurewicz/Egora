@@ -72,7 +72,7 @@ class UpdateController extends Controller
             $update->delete();
             
             return redirect()->route('users.ideological_profile', [$hash]);
-        } else if ($update->type == 'comment') {
+        } else if ($update->type == 'comment' || $update->type == 'subcomment') {
             if ($update->updatable->commentable && $update->updatable->commentable->commentable instanceof \App\User) {
                 $redirect = route('users.about', [ $update->updatable->commentable->commentable->active_search_name_hash,'open'=> $update->updatable->commentable->id]).'#comment-'.$update->updatable->id;                                    
             } else if ($update->updatable->is_response()) {

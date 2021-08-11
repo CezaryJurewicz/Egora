@@ -84,6 +84,8 @@ class UserController extends Controller
                 'nation' => 'nullable|exists:nations,title',
                 'officer' => 'nullable|boolean',
                 'officer_petitioner' => 'nullable|boolean',
+            ], [
+                'search_name.required_without_all' => 'Please provide search criteria.'
             ]); 
 
             if ($validator->fails()) {
@@ -175,7 +177,7 @@ class UserController extends Controller
                     });
                 })->visible()->orderBy('created_at', 'desc')->paginate($perPage);
 
-            $total = 4600;
+            $total = 300;
             
             $users = new LengthAwarePaginator(
                 $users->toArray()['data'], 

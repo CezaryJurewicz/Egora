@@ -204,56 +204,58 @@
                         </div>
 
                     </form>
-                    
+                     
                     <div class="offset-1 col-md-10 col-centered">
                     @if($rows->isNotEmpty()) 
-                        <div class="row mt-5 mb-3">
-                            <div class="col-md-1"><b>Rank</b></div>
-                            <div class="col-md-1"><b>Score</b></div>
-                            <div class="col-md-9">
-                                <div class="row">
-                                    <div class="col-md-4"><b>Candidate</b></div>
-                                    <div class="col-md-2 text-center"><b>Qualification</b></div>
-                                    <div class="col-md-3 text-center"><b>Seniority (IP)</b></div>
-                                    <div class="col-md-3 text-center"><b>Seniority (CRL)</b></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @foreach($rows as $points => $row)
-                        <div class="row mb-3">
-                            <div class="col-md-1">{{$loop->iteration}}</div>
-                            <div class="col-md-1">{{ number_format($points) }}</div>
-                            <div class="col-md-9">
+                    <div class="table-campaigns">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><b>Rank</b></div>
+                                    <th><b>Score</b></div>
+                                    <th><b>Candidate</b></div>
+                                    <th><b>Qualification</b></div>
+                                    <th><b>Seniority (IP)</b></div>
+                                    <th><b>Seniority (CRL)</b></div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($rows as $points => $row)
+                                @php
+                                    $i=$loop->iteration;
+                                @endphp
                                 @foreach($row as $names)
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <a href="{{ route('users.ideological_profile', $names['hash']) }}">
-                                        {{ $names['search_name'] }}
-                                        </a>
-                                        <br/>
-                                        <small>
-                                        @if ($names['user']->campaign->party)
-                                            {{ $names['affiliated'] }}
-                                        @elseif ($names['user']->user_type->isIlp)
-                                            International Logic Party
-                                        @endif
-                                        </small>
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        @if ($names['qualification'])
-                                            {{ $names['qualification'] }}%
-                                        @else 
-                                            -
-                                        @endif
-                                    </div>
-                                    <div class="col-md-3 text-center"> {{ $names['seniority_ip'] ? $names['seniority_ip']->diffForHumans() : '-' }}</div>                            
-                                    <div class="col-md-3 text-center"> {{ $names['seniority_campaign']->diffForHumans() }}</div>                            
-                                </div>
+                                    <tr>
+                                        <td>{{$i}}</td>
+                                        <td>{{ number_format($points) }}</td>
+                                        <td>
+                                            <a href="{{ route('users.ideological_profile', $names['hash']) }}">
+                                            {{ $names['search_name'] }}
+                                            </a>
+                                            <br/>
+                                            <small>
+                                            @if ($names['user']->campaign->party)
+                                                {{ $names['affiliated'] }}
+                                            @elseif ($names['user']->user_type->isIlp)
+                                                International Logic Party
+                                            @endif
+                                            </small>
+                                        </td>
+                                        <td>
+                                            @if ($names['qualification'])
+                                                {{ $names['qualification'] }}%
+                                            @else 
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>{{ $names['seniority_ip'] ? $names['seniority_ip']->diffForHumans() : '-' }}</td>
+                                        <td>{{ $names['seniority_campaign']->diffForHumans() }}</td>
+                                    </tr>
                                 @endforeach
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     @endif
                     </div>
                 </div>

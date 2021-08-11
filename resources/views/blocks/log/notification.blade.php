@@ -10,13 +10,13 @@
                                             </a>
                                         </b>
                                         @if ($row->invite)
-                                            {{ __('invited you to examine their idea.') }}
+                                            {{ __('invited you to examine an idea.') }}
                                         @elseif (!$row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('removed their support from this idea.') }}
                                         @elseif ($row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('supported your idea!') }}
                                         @elseif ($row->response)
-                                            : {{ $row->notification_preset->title }}
+                                            responded to your invitation: {{ $row->notification_preset->title }}
                                         @endif
                                         </div>
                                     </div>

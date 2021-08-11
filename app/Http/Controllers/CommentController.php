@@ -128,7 +128,7 @@ class CommentController extends Controller
         }
         
         if ($item instanceof \App\User) {
-            return redirect()->back()->with('success', 'Successfully deleted.');
+            return redirect()->back()->with('success', 'Deleted.');
         }
         
         return redirect()->to(route('ideas.view', [$item, 'comments']).'#my-tab-content')->with('success', 'Comment deleted.'); 
