@@ -40,6 +40,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="followers" class="col-md-3 col-form-label">{{ __('My followers:') }}</label>
+
+                        <div class="col-md-1">
+                            <input class="form-control-sm" id="followers" name="followers" value=1 type="checkbox" {{ (old('followers')?: $followers) ? ' checked' : '' }}>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="officer" class="col-md-3 col-form-label">{{ __('Search ILP officers:') }}</label>
 
                         <div class="col-md-1">

@@ -208,7 +208,7 @@
                     <div class="offset-1 col-md-10 col-centered">
                     @if($rows->isNotEmpty()) 
                     <div class="table-campaigns">
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th><b>Rank</b></div>

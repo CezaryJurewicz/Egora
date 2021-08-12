@@ -73,15 +73,83 @@ class UserController extends Controller
         $nation = null;
         $officer = null;
         $officer_petitioner = null;
+        $followers = null;
         $recent = false;
         $perPage = 25;
         
         $nations = Nation::get();
         
-        if ($request->exists('search_name')){     
+        if ($request->exists('followers')){     
             $validator = Validator::make($request->all(),[
-                'search_name' => 'nullable|min:3|string|required_without_all:officer_petitioner,officer',
+                'search_name' => 'nullable|min:3|string|required_without_all:officer_petitioner,officer,followers',
                 'nation' => 'nullable|exists:nations,title',
+                'followers' => 'nullable|boolean',
+                'officer' => 'nullable|boolean',
+                'officer_petitioner' => 'nullable|boolean',
+            ], [
+                'search_name.required_without_all' => 'Please provide search criteria.'
+            ]); 
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withInput()->withErrors($validator);
+            }
+
+            $search_name = $request->input('search_name');
+            $nation = $request->input('nation');
+            $officer = $request->input('officer');
+            $followers = $request->input('followers');
+            $officer_petitioner = $request->input('officer_petitioner');
+
+            $model = $request->user()->followers()->with(['user_type','nation']);
+            
+            $model->where(function($q) use ($request) {
+                if ($request->input('search_name')) {
+                    $q->whereHas('search_names', function($q) use ($request){
+                        $q->where(function($q) use ($request){
+                            $q->where('name','like', $request->input('search_name').'%');
+                            $q->where('seachable','1');
+                            $q->where('active','1');
+                        });
+                        $q->orWhere(function($q) use ($request){
+                            $q->where('name','like', $request->input('search_name'));
+                            $q->where('seachable','0');
+                            $q->where('active','1');
+                        });
+                    });
+                }
+                if ($request->input('nation')) {
+                    $q->whereHas('nation', function($q) use ($request){
+                        $q->where('title', $request->input('nation'));
+                    });
+                }
+                
+                if ($request->input('officer')) {
+                    $q->whereHas('user_type', function($q) {
+                        $q->where('class','officer');
+                    });
+                } else if ($request->input('officer_petitioner')) {
+                    $q->whereHas('user_type', function($q) {
+                        $q->where('class','petitioner');
+                    });
+                }
+            });
+
+            $users = $model->get()->sortBy('active_search_name'); 
+              
+            $users = new LengthAwarePaginator(
+                $users->toArray(), 
+                $users->count(), 
+                100, 
+                LengthAwarePaginator::resolveCurrentPage(), 
+                ['path' => LengthAwarePaginator::resolveCurrentPath()]
+            );
+            
+        } else if ($request->exists('search_name')){     
+            $validator = Validator::make($request->all(),[
+                'search_name' => 'nullable|min:3|string|required_without_all:officer_petitioner,officer,followers',
+                'nation' => 'nullable|exists:nations,title',
+                'followers' => 'nullable|boolean',
                 'officer' => 'nullable|boolean',
                 'officer_petitioner' => 'nullable|boolean',
             ], [
@@ -96,6 +164,7 @@ class UserController extends Controller
             $search_name = $request->input('search_name');
             $nation = $request->input('nation');
             $officer = $request->input('officer');
+            $followers = $request->input('followers');
             $officer_petitioner = $request->input('officer_petitioner');
             
             $model = User::query();
@@ -188,7 +257,7 @@ class UserController extends Controller
             );
         }
 
-        return view('users.search')->with(compact('recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
+        return view('users.search')->with(compact('followers', 'recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
     
     public function default_leads()

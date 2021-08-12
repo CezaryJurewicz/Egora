@@ -122,7 +122,7 @@ class CampaignController extends Controller
                     if (($status == 1 && $qualification<=50) || ($status == 0 && $qualification>50))
                     $user_points->push([
                         'user_id' => $user->id,
-                        'search_name' => $user->active_search_names->first()->name ?? '-',
+                        'search_name' => $user->active_search_name ?? '-',
                         'hash' => $user->active_search_names->first()->hash,
                         'points' =>$result[0]->points,
                         'qualification' => number_format($qualification,8),
