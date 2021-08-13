@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col col-md-8 offset-2">
                                     <div class="text-center">
-                                        <h3>{{ __('Followers') }} ({{ $followers->count() }})</h3>
+                                        <h3>{{ __('Followers') }} ({{ $total }})</h3>
                                     </div>
                                 </div>
                                 <div class="col col-md-2 text-right">
@@ -40,18 +40,18 @@
                                             <tbody>
                                     @endif
 
-                                    @forelse ($followers as $i=>$user)
+                                    @forelse ($followers as $i=>$u)
                                                 <tr>
                                                     <td>
-                                                        {{$user->user_type->title}}
+                                                        {{$u['user_type']['title']}}
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('users.ideological_profile', $user->active_search_name_hash) }}">
-                                                        {{ $user->active_search_name }} 
+                                                        <a href="{{ route('users.ideological_profile', $u['active_search_name_hash']) }}">
+                                                        {{ $u['active_search_name'] }} 
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        {{ $user->nation->title }}                                        
+                                                        {{ $u['nation']['title'] }}                                        
                                                     </td>
                                                 </tr>
                                     @empty
@@ -61,6 +61,7 @@
                                     @if($followers->isNotEmpty())                 
                                             </tbody>
                                         </table>
+                                        {{ $followers->links() }}
                                     @endif
                                     
                                 </div>

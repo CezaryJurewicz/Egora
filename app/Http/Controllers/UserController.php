@@ -319,9 +319,16 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
 
-        $followers = $user->followers()->where('visible',1)->with('nation', 'search_names')->get()->sortBy('active_search_name');
+        $total = $user->followers->where('visible',1)->count();
         
-        return view('users.followersbyid')->with(compact('followers', 'user', 'community_id'));
+        $model = $user->followers()->with(['user_type','nation'])
+                ->where('visible',1)
+                ->join('search_names', 'followers.follower_id', '=', 'search_names.user_id')
+                ->orderBy('search_names.name');
+                
+        $followers = $model->paginate(100); 
+        
+        return view('users.followersbyid')->with(compact('followers', 'user', 'community_id', 'total'));
     }
     
     public function communities(Request $request, $hash)

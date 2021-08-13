@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'ip_updated_at' => 'datetime'
     ];
     
-    protected $appends = array('active_search_name');
+    protected $appends = array('active_search_name','active_search_name_hash');
     
     public function isAdmin() 
     {
