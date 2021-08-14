@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Update;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateController extends Controller
 {
@@ -14,17 +15,44 @@ class UpdateController extends Controller
      */
     public function index(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'filter' => 'nullable|in:status,idea,comment,all,follower',
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+
+        $f = [
+            'status' => 'status',
+            'idea' => 'idea',
+            'comment' => 'comment',
+            'follower' => 'follower',
+        ];
+        
+        $filter = $request->input('filter') ?: 'status';
+        
         $lines = Update::
-            where(function($q) use ($request) {
+            where(function($q) use ($request, $filter, $f) {
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });
                 $q->where('egora_id', current_egora_id());
+                
+                if (in_array($filter, $f)) {
+                    $q->where('type', $f[$filter]);                    
+                } else if($filter == 'all') {
+                    $q->where(function($q){
+                        $q->where('type', 'comment');
+                        $q->orWhere('type', 'subcomment');
+                    });
+                }
             })
             ->orderBy('created_at','asc')
             ->paginate(100);
 
-        return view('updates.index')->with(compact('lines'));
+        return view('updates.index')->with(compact('lines','filter'));
     }
 
     /**
