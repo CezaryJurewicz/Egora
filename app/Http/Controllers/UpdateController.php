@@ -24,35 +24,30 @@ class UpdateController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
-        $f = [
-            'status' => 'status',
-            'idea' => 'idea',
-            'comment' => 'comment',
-            'follower' => 'follower',
-        ];
-        
         $filter = $request->input('filter') ?: 'status';
         
         $lines = Update::
-            where(function($q) use ($request, $filter, $f) {
+            where(function($q) use ($request, $filter) {
+                $q->whereHasMorph('updatable', '*');
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });
-                $q->where('egora_id', current_egora_id());
-                
-                if (in_array($filter, $f)) {
-                    $q->where('type', $f[$filter]);                    
-                } else if($filter == 'all') {
-                    $q->where(function($q){
-                        $q->where('type', 'comment');
-                        $q->orWhere('type', 'subcomment');
-                    });
-                }
+                $q->where('egora_id', current_egora_id());                
             })
             ->orderBy('created_at','asc')
-            ->paginate(100);
+            ->get();
+            
+        $result = [];
+        
+        foreach(['status', 'idea', 'follower', 'comment', 'all'] as $title=>$id) {
+            if ($id == 'all') {
+                $result[$id]  = $lines->whereIn('type', ['comment', 'subcomment']);
+            } else {
+                $result[$id]  = $lines->where('type', $id);
+            }
+        }
 
-        return view('updates.index')->with(compact('lines','filter'));
+        return view('updates.index')->with(compact('lines','filter','result'));
     }
 
     /**
@@ -155,5 +150,47 @@ class UpdateController extends Controller
         $update->delete();
         
         return redirect()->back()->with('success', 'Update removed.'); 
+    }
+    
+    public function destroy_filtered(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'filter' => 'required|in:status,idea,comment,all,follower',
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $f = [
+            'status' => 'status',
+            'idea' => 'idea',
+            'comment' => 'comment',
+            'follower' => 'follower',
+        ];
+        
+        $filter = $request->input('filter') ?: 'status';
+        
+        $lines = Update::
+            where(function($q) use ($request, $filter, $f) {
+                $q->whereHas('user', function($q) use ($request) {
+                    $q->where('id', $request->user()->id);
+                });
+                
+                if (in_array($filter, $f)) {
+                    $q->where('type', $f[$filter]);                    
+                } else if($filter == 'all') {
+                    $q->where(function($q){
+                        $q->where('type', 'comment');
+                        $q->orWhere('type', 'subcomment');
+                    });
+                }
+                
+                $q->where('egora_id', current_egora_id());                
+            })
+            ->delete();
+        
+        return redirect()->back()->with('success', 'Updates removed.'); 
     }
 }

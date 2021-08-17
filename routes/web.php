@@ -37,7 +37,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/updates')->name('updates.')->group(function(){
         Route::get('/', 'UpdateController@index')->name('index');
         Route::get('/{update}/redirect', 'UpdateController@redirect')->name('redirect');
-        Route::delete('/{update}', 'UpdateController@destroy')->name('delete')->middleware('can:delete,update');
+        Route::delete('/{update}', 'UpdateController@destroy')->name('delete')->middleware('can:delete,update')->where('update', '[0-9]+');
+        Route::delete('/filtered', 'UpdateController@destroy_filtered')->name('delete_filtered');
     });
     
     Route::prefix('/notification')->name('notifications.')->group(function(){

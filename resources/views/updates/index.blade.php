@@ -31,38 +31,50 @@
                     </div>
                 </div>
                 
-                <div class="card pb-5 pl-5 pr-5 pt-4 mt-5">
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <form id="filter-form" action="{{ route('updates.index') }}" method="GET">
-                                Filter:
-                                <select id="filter" type="text" class="form-control" name="filter" 
-                                    onchange="event.preventDefault(); document.getElementById('filter-form').submit();"
-                                    value="{{ old('filter') }}">
-                                    @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Comments'=>'comment', 'All Comments'=>'all', 'Followers'=>'follower'] as $title=>$id)
-                                    <option @if((old('filter') && old('filter')==$id) || ($filter && $filter==$id) || ($filter==0 && $filter==$id)) selected @endif value="{{$id}}">{{$title}}</option>
-                                    @endforeach
-                                </select>
-                            </form>
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <div id="tabs">
+                            <ul id="tabs" class="nav nav-pills flex-column flex-sm-row nav-fill1 na1v-justified p1b-0" data-tabs="tabs">
+                                @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Comments'=>'comment', 'All Comments'=>'all', 'Followers'=>'follower'] as $title=>$id)
+                                <li class="nav-item active"><a style="font-size: small;" class="nav-link @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>  
+                    <div class="card-body pb-5 pl-5 pr-5 pt-4 ">
+                        <div id="my-tab-content" class="tab-content">
+                            @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Followers'=>'follower', 'Comments'=>'comment', 'All Comments'=>'all'] as $title=>$id)
+                            <div class="tab-pane @if ($filter== $id) active @endif" id="{{$id}}Tab">
+                                @if ($result[$id]->count() > 0)
+                                <div class="mb-3">
+                                    <form action="{{ route('updates.delete_filtered') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE"/>
+                                        <input type="hidden" name="filter" value="{{$id}}"/>
+                                        <button type='submit' class='btn btn-primary btn-sm'>{{__('Delete All')}}</button>
+                                    </form>
+                                </div>
+                                @endif
+
+                                @forelse($result[$id] as $line)
+                                    @if ($line->updatable)
+                                        @if ($line->type == 'status')
+                                            @include('blocks.updates.status', ['row' => $line])   
+                                        @elseif ($line->type == 'follower')
+                                            @include('blocks.updates.follower', ['row' => $line])   
+                                        @elseif (($line->type == 'comment') || ($line->type == 'subcomment'))
+                                            @include('blocks.updates.comment', ['row' => $line])   
+                                        @elseif ($line->type == 'idea')
+                                            @include('blocks.updates.idea', ['row' => $line])   
+                                        @endif
+                                    @endif
+                                @empty
+                                @endforelse
+                            </div>
+                            @endforeach
+
                         </div>
                     </div>
-                    
-                    @forelse($lines as $line)
-                        @if ($line->updatable)
-                            @if ($line->type == 'status')
-                                @include('blocks.updates.status', ['row' => $line])   
-                            @elseif ($line->type == 'follower')
-                                @include('blocks.updates.follower', ['row' => $line])   
-                            @elseif (($line->type == 'comment') || ($line->type == 'subcomment'))
-                                @include('blocks.updates.comment', ['row' => $line])   
-                            @elseif ($line->type == 'idea')
-                                @include('blocks.updates.idea', ['row' => $line])   
-                            @endif
-                        @endif
-                    @empty
-                    @endforelse
-                    
-                    {{  $lines->render() }}
                 </div>
             </div>
         </div>
