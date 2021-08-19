@@ -486,11 +486,38 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
+        $ownIP = false;
+        $_ideas = collect();
+        
         // Change;
         if ($request->user()->isAdmin()) {
             $community_id = $user->communities->first()->id;
         } else {
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+            
+            if ($request->user()) {
+                $_user = $request->user();
+                $_user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
+                    if (is_egora('community') && $community_id) {
+                        $q->where('ideas.community_id', $community_id);
+                    } else {
+                        $q->whereNull('ideas.community_id');
+                    }
+
+                    if (is_egora('municipal')) {
+                        $q->where('ideas.municipality_id', $user->municipality_id);
+                        $q->whereNotNull('ideas.municipality_id');
+                    } else {
+                        $q->whereNull('ideas.municipality_id');
+                    }
+
+                    //don't include E,G,O,R,A ideas 
+                    //$q->where('idea_user.order', '>=', 0 );
+                }]);
+                
+                $_ideas = $_user->liked_ideas->pluck('id');
+                $ownIP = $user->id == $_user->id;
+            }
         }
         
         $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
@@ -537,6 +564,8 @@ class UserController extends Controller
             $q->whereIn('id', $request->user()->communities->pluck('id'));
         }]);
 
+        $ideas = $user->liked_ideas->pluck('id');
+        
         $ip_score = 0;
         $scores = [];
         foreach($user->liked_ideas as $idea) {
@@ -555,7 +584,7 @@ class UserController extends Controller
             return $pdf_doc->download(date('U').'.pdf');
         }
         
-        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score'));
+        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP'));
     }
     
     public function about(Request $request, $hash)

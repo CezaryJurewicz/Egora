@@ -19,6 +19,9 @@
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
                                         @if (isset($ip_score))
                                         <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
+                                        @if (!$ownIP)
+                                        <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
+                                        @endif
                                         @endif
                                         @elseif (is_egora('community'))
                                         <h3>{{ __('Community Matters') }}</h3>
@@ -89,7 +92,7 @@
                                         @foreach($user->liked_ideas as $idea)
                                         <div class="card mb-3">
                                             <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
-                                            <div class="card-header">
+                                            <div class="card-header" @if(!$_ideas->contains($idea->id)) style="background-color: pink;"@endif>
                                                 <div class="row">
                                                     @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
                                                     <div class="col-1">
