@@ -124,6 +124,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{user}/qualify', 'UserController@qualify')->name('qualify')->middleware('can:qualify,user');
         Route::post('/{user}/status', 'UserController@status')->name('status')->middleware('can:status,user');
         Route::post('/{comment}/status/reply', 'UserController@status_reply')->name('status.reply')->middleware('can:comment,comment');
+        Route::put('/{user}/role', 'UserController@update_role')->name('update_role')->middleware('can:role,user');
+        Route::delete('/{user}/role', 'UserController@remove_role')->name('remove_role')->middleware('can:role,user');
     });
     
     Route::prefix('/ilp')->name('ilp.')->group(function(){

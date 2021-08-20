@@ -339,4 +339,9 @@ class UserPolicy
     {
         return (is_egora() && ($user->disqualifyingUser($model)));
     }    
+    
+    public function role(User $user, User $model)
+    {
+        return $user->isAdmin();
+    }
 }

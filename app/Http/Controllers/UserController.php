@@ -1242,4 +1242,29 @@ class UserController extends Controller
         
     }
     
+    public function update_role(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(),[
+            'role' => 'required|max:92|string',
+        ]);
+         
+        if ($validator->fails()) {  
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $user->role = $request->input('role');
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Role updated.'); 
+    }
+    
+    public function remove_role(Request $request, User $user)
+    {
+        $user->role = null;
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Role removed.'); 
+    }
+    
 }

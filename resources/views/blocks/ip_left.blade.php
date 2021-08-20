@@ -1,5 +1,38 @@
                             @include('blocks.user_image')                 
+                            @if (!empty($user->role))
+                            <div class="mt-3"><h4><i>{{ $user->role }}</i></h4></div>
+                            @endif
                             
+                            @if ( auth('admin')->check() && auth('admin')->user()->can('role', $user) )
+                            <small>
+                                <a href="#" onclick="$('#edit_role').toggle(); return false;">{{__('Edit role')}}</a> 
+                            </small>
+                            
+                            <form id="edit_role" action="{{ route('users.update_role', $user) }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="_method" value="PUT"/>
+
+                                <textarea id="role" class="form-control @error('role') is-invalid @enderror" name="role" rows="3">{{ $user->role }}</textarea>
+
+                                <div class="pt-2 text-left">
+                                    <button type="submit" class="btn btn-sm btn-primary col-md-5">
+                                        {{ __('Update') }}
+                                    </button>
+      
+                                    <a class="col-md-2 offset-md-1 p-0" href="{{ route('users.remove_role', $user) }}" 
+                                               onclick="event.preventDefault(); document.getElementById('remove_role').submit();">
+                                        {{ __('Remove') }}
+                                    </a>
+                                </div>
+                            </form>     
+                            
+                            <form id="remove_role" action="{{ route('users.remove_role', $user) }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE"/>
+                            </form>
+                            
+                            @endif
+
                             <div class="mt-3"><h4><i>{{ $user->user_type->subtitle }}</i></h4></div>
                             <!--<div class="mt-2">{{ $user->user_type->title }}</div>-->
                             
