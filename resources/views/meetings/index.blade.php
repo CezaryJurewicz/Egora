@@ -95,13 +95,13 @@
                     
                     <div class="form-group row">
                         <div class="offset-1 col-md-12 row">
-                            <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date:') }}</label>
+                            <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date') }}</label>
 
                             <div class="col-md-2">
                                 <div id="dateInput" cssClass="form-control @error('date') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
                             </div>
                             
-                            <label for="time" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock):') }}</label>
+                            <label for="time" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock)') }}</label>
 
                             <div class="col-md-2">
                                 <div id="timeInput" cssClass="form-control @error('time') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>

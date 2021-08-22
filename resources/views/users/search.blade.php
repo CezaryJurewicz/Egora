@@ -12,7 +12,7 @@
                 </div>
                 <form action="{{ route('users.search') }}" method="POST" autocomplete="off">
                     <div class="form-group row mt-4">
-                        <label for="search_name" class="col-md-3 col-form-label">@lang('"Search Name"') <br>@lang('(complete or partial)')</label>
+                        <label for="search_name" class="col-md-3 col-form-label">@lang('Search Name') <br>@lang('(complete or partial)')</label>
 
                         @csrf
                         <div class="col-md-7">
@@ -27,7 +27,7 @@
                     </div>
                     @if (is_egora())
                     <div class="form-group row">
-                        <label for="nation" class="col-md-3 col-form-label">@lang('"Nation"')<br> @lang('(optional)')</label>
+                        <label for="nation" class="col-md-3 col-form-label">@lang('Nation')<br> @lang('(optional)')</label>
 
                         <div class="col-md-7">
                             <div id="NationSearch" value="{{  $nation }}"></div>
@@ -40,21 +40,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="followers" class="col-md-3 col-form-label">{{ __('My followers:') }}</label>
+                        <label for="followers" class="col-md-3 col-form-label">{{ __('My followers') }}</label>
 
                         <div class="col-md-1">
                             <input class="form-control-sm" id="followers" name="followers" value=1 type="checkbox" {{ (old('followers')?: $followers) ? ' checked' : '' }}>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="officer" class="col-md-3 col-form-label">{{ __('Search ILP officers:') }}</label>
+                        <label for="officer" class="col-md-3 col-form-label">{{ __('Search ILP officers') }}</label>
 
                         <div class="col-md-1">
                             <input class="form-control-sm" id="officer" name="officer" value=1 type="checkbox" onClick="c = document.getElementById('officer_petitioner'); c.checked = false;" {{ (old('officer')?: $officer) ? ' checked' : '' }}>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="officer_petitioner" class="col-md-3 col-form-label">{{ __('Search officer-petitioners:') }}</label>
+                        <label for="officer_petitioner" class="col-md-3 col-form-label">{{ __('Search officer-petitioners') }}</label>
 
                         <div class="col-md-1">
                             <input class="form-control-sm" id="officer_petitioner" name="officer_petitioner" value=1 type="checkbox" onClick="c = document.getElementById('officer'); c.checked = false;" {{ (old('officer_petitioner')?: $officer_petitioner) ? ' checked' : '' }} >
