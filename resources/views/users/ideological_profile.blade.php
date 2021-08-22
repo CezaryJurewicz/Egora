@@ -100,7 +100,7 @@
                                         @foreach($user->liked_ideas as $idea)
                                         <div class="card mb-3">
                                             <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
-                                            <div class="card-header" @if(!$_ideas->contains($idea->id)) style="background-color: pink;"@endif>
+                                            <div class="card-header" @if(!$_ideas->contains($idea->id)) style="background-color: #ffeeee;"@endif>
                                                 <div class="row">
                                                     @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
                                                     <div class="col-1">
