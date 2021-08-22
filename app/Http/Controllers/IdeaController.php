@@ -15,6 +15,7 @@ use App\Events\UserLikedIdeaFromNotification;
 use App\Events\CommentAdded;
 use App\CommentNotification;
 use App\Events\UserIdeologicalProfileChanged;
+use App\Events\UserIdeologicalProfileIdeaMoved;
 
 class IdeaController extends Controller
 {
@@ -416,7 +417,7 @@ class IdeaController extends Controller
                 $route['community_id'] = $idea->community->id;
             }
         
-            event(new UserIdeologicalProfileChanged($request->user(), $idea));
+            event(new UserIdeologicalProfileIdeaMoved($request->user(), $idea));
 
             return redirect()->to(route('users.ideological_profile', $route).'#idea'.$idea->id)
                     ->with('success', 'Idea position updated.');

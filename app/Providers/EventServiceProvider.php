@@ -36,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UpdateSeniorityTime',
             'App\Listeners\CreateLeadsIdeaUpdates',
         ],
+        'App\Events\UserIdeologicalProfileIdeaMoved' => [
+            'App\Listeners\UpdateSeniorityTime',
+        ],
         'App\Events\BeforeUserNationChanged' => [
             'App\Listeners\RemoveToggleLikedIdeas',
             'App\Listeners\RemoveOfficerPetitionSupport',
