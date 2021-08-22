@@ -29,7 +29,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     @if($followers->isNotEmpty())
-                                        <table class="table table-striped">
+                                        <table class="table table-striped" style="table-layout:fixed;">
                                             <thead>
                                                 <tr style="border-top: hidden;">
                                                     <th scope="col">{{ __('tables.User Category')}}</th>

@@ -13,16 +13,10 @@
                         
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col col-md-8 offset-2">
+                                <div class="col-12 col-md-8 offset-md-2">
                                     <div class="text-center">
                                         @if (is_egora())
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
-                                        @if (isset($ip_score))
-                                        <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
-                                        @if (!$ownIP)
-                                        <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
-                                        @endif
-                                        @endif
                                         @elseif (is_egora('community'))
                                         <h3>{{ __('Community Matters') }}</h3>
                                         @elseif (is_egora('municipal'))
@@ -31,10 +25,24 @@
                                     </div>
                                 </div>
                                 @if (is_egora())
-                                <div class="col col-md-2 text-right">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
+                                <div class="col-12 col-md-2 text-right">
+                                    <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
                                 </div>
                                 @endif
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        @if (is_egora())
+                                            @if (isset($ip_score))
+                                                <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
+                                                @if (!$ownIP)
+                                                        <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
+                                                @endif
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
