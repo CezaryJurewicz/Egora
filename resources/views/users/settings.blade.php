@@ -121,11 +121,11 @@
                                 <h5 class="pt-1">@lang('Profile Searchability:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="seachable1" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search Name match)') }}</label>
+                                        <label for="seachable1" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search-Name match)') }}</label>
                                         <input  id="seachable1" name="seachable" value=1 type="radio" {{ (old('seachable')?: $user->active_search_names->first()->seachable) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="seachable0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (searchable with strict Search Name match)') }}</label>
+                                        <label for="seachable0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (searchable with strict Search-Name match)') }}</label>
                                         <input id="seachable0" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@
                                 <p class="col-md-12 row">Account deletion is not available to ILP Members nor former ILP members in
                                 order to protect the interests of the current ILP Members.</p>
                                 <p class="col-md-12 row">However, if you wish to minimize your presence in Egora, you can do so by
-                                changing your registered name, changing your Search Name, changing your
+                                changing your registered name, changing your Search-Name, changing your
                                 email address, deleting your public contact information, and removing all of
                                 your ideas. Nevertheless, if you verified your Egora account using a
                                 government ID, your ID number––associated to your Egora Account

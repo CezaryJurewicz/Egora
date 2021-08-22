@@ -60,7 +60,7 @@
                                         {{ __('user.Name')}}: {{ $user->name }} 
                                         <br>
                                         @if (auth('admin')->user() && auth('admin')->user()->isAdmin())
-                                        {{ __('user.Search Name')}}: {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
+                                        {{ __('user.Search-Name')}}: {{ $user->active_search_names->first() ? $user->active_search_names->first()->name : '-'}} 
                                         <br>
                                         {{ __('user.Email')}}: {{ $user->email }}
                                         <br>

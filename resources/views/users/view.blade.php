@@ -11,7 +11,7 @@
                     <div>Type: {{ $user->user_type->title }}</div>
                     <div>User: {{ $user->name }}</div>
                     <div>Email: {{ $user->email }}</div>
-                    <div>Search Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
+                    <div>Search-Name: @if(null !== $user->active_search_names->first()) {{ $user->active_search_names->first()->name }} @else - @endif
                         
                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                     <!--<a class="btn btn-sm btn-warning" href="{{ route('search_names.create') }}">Create</a>-->

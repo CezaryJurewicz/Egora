@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
-                <h3>{{ __('views.Create Search Name') }}</h3>
+                <h3>{{ __('views.Create Search-Name') }}</h3>
                 <div>
                     <form method="POST" action="{{ route('search_names.store') }}" enctype="multipart/form-data">
                         @csrf

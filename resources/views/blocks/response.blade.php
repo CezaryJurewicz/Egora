@@ -49,7 +49,7 @@
                 <form id="reply{{ $comment->id }}" method="POST" action="{{ route('comments.store.comment', $comment) }}" style="display:none">
                     @csrf
 
-                    <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('some.@<Search Name>') }}" required>{{ old('message') }}</textarea>
+                    <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('some.@<Search-Name>') }}" required>{{ old('message') }}</textarea>
                     @error('message')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="title" class="col-form-label">{{ __('Search Name') }} <small>({{ __('Changing your Search Name allows you to lose all of your followers') }})</small></label>
+                            <label for="title" class="col-form-label">{{ __('Search-Name') }} <small>({{ __('Changing your Search-Name allows you to lose all of your followers') }})</small></label>
                             <div>
                                 <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name')?: $searchName->name }}" required>
 

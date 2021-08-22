@@ -57,7 +57,7 @@ class SearchNameController extends Controller
         
         $search_name->save();
         
-        return redirect()->route('users.view', $request->user()->active_search_names->first()->hash)->with('success', 'Search Name created!');   
+        return redirect()->route('users.view', $request->user()->active_search_names->first()->hash)->with('success', 'Search-Name created!');   
     }
 
     /**
@@ -111,7 +111,7 @@ class SearchNameController extends Controller
         $searchName->active = $request->input('active')?:0;
         $searchName->save();
         
-        return redirect()->back()->with('success', 'Search Name updated!');   
+        return redirect()->back()->with('success', 'Search-Name updated!');   
     }
 
     /**
