@@ -157,7 +157,7 @@
                     @else
                     <div class="card-header">
                         <div id="tabs">
-                            <ul id="tabs" class="nav nav-pills pb-0" data-tabs="tabs">
+                            <ul id="tabs" class="nav nav-pills nav-justified pb-0" data-tabs="tabs">
                                 <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a></li>
                                 <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a></li>
                             </ul>

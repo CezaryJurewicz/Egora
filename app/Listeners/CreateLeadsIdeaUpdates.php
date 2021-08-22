@@ -28,7 +28,7 @@ class CreateLeadsIdeaUpdates
     public function handle(UserIdeologicalProfileChanged $event)
     {
         foreach($event->user->followers as $user){
-            if ($user->updates->count() < 64) {
+            if ($user->updates->count() < 92) {
                 $update = new Update();
                 $update->user_id = $user->id;
                 $update->egora_id = $event->idea->egora_id;
