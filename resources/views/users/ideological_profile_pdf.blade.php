@@ -26,7 +26,7 @@
                         <div>
                             @if($user->liked_ideas->isNotEmpty())
                             <div class="card p-2">
-                                @foreach($user->liked_ideas as $idea)
+                                @foreach($liked_ideas as $idea)
                                     <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
                                     <div class="card-header">
                                         <div class="row">

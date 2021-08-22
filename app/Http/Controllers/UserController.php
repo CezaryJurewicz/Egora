@@ -575,9 +575,20 @@ class UserController extends Controller
         }        
         rsort($scores, SORT_NUMERIC);
         $ip_score = array_sum(array_slice($scores, 0, 23));
-        
+
         if ($request->has('pdf')) {
-            view()->share(compact('user', 'community_id', 'ip_score'));
+            if (is_egora('community')) {
+                $liked_ideas = collect();
+                foreach($user->communities as $community) {
+                    foreach($user->liked_ideas->where('community_id', $community->id) as $idea) {
+                        $liked_ideas->push($idea);
+                    }
+                }
+            } else {
+                $liked_ideas = $user->liked_ideas;
+            }
+                
+            view()->share(compact('user', 'community_id', 'ip_score', 'liked_ideas'));
             $pdf_doc = \PDF::loadView('users.ideological_profile_pdf');
 
 //            return $pdf_doc->stream(date('U').'.pdf', array('Attachment'=>0));
