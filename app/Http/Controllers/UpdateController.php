@@ -24,7 +24,7 @@ class UpdateController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
-        $filter = $request->input('filter') ?: 'status';
+        $filter = $request->input('filter') ?: 'idea';
         
         $lines = Update::
             where(function($q) use ($request, $filter) {
