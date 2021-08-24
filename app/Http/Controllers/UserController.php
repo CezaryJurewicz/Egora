@@ -1256,6 +1256,23 @@ class UserController extends Controller
         
     }
     
+    public function status_update(Request $request, Comment $comment)
+    {
+        $validator = Validator::make($request->all(),[
+            'message' => 'required|min:3|max:2300|string',
+        ]);
+         
+        if ($validator->fails()) {  
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $comment->message = $request->input('message');
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Status updated.'); 
+    }    
+    
     public function update_role(Request $request, User $user)
     {
         $validator = Validator::make($request->all(),[

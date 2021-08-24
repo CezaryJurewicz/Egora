@@ -7,7 +7,26 @@
             <div id="comment{{ $comment->id }}" class="p-0">
                 {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message)))) !!}
             </div>
+            @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
+            <form id="edit{{ $comment->id }}" action="{{ route('users.status.update', $comment) }}" method="POST" style="display:none">
+                @csrf
+                <input type="hidden" name="_method" value="PUT"/>
 
+                <textarea id="message" class="form-control @error('message') is-invalid @enderror" name="message" rows="5" placeholder="{{__('some.@<Search-Name>') }}" required>{{ $comment->message }}</textarea>
+                @error('message')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div class="pt-2 text-left">
+                    <button type="submit" class="btn btn-sm btn-primary col-md-2">
+                        {{ __('Update') }}
+                    </button>
+                </div>
+            </form>     
+            @endif
+            
             <div class="row">
             <div class="col-md-2">
                 <small>
@@ -19,6 +38,12 @@
                 </small>
             </div>
             <div class="col-md-1">
+                <small>
+                    @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
+                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
+                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;" style="display:none">{{__('Cancel')}}</a> 
+                    @endif
+                </small>
             </div>
             <div class="col-md-4">
                 <small>
