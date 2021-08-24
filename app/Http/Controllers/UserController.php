@@ -654,6 +654,9 @@ class UserController extends Controller
     
     public function profile(Request $request, User $user)
     {
+        $_ideas = collect();
+        $ideas = [];
+        
         $user->load(['liked_ideas' => function($q){
             $q->with(['nation', 'liked_users' => function($q){
                 $q->recent();
@@ -665,7 +668,7 @@ class UserController extends Controller
             $q->recent();
         }]);
 
-        return view('users.ideological_profile')->with(compact('user'));
+        return view('users.ideological_profile')->with(compact('user', '_ideas', 'ideas'));
     }
 
     /**

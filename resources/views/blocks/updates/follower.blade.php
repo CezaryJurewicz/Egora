@@ -30,6 +30,7 @@
                                     <form action="{{ route('updates.delete', $row->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE"/>
+                                        <input type="hidden" name="filter" value="{{$id}}"/>
                                         <button type='submit' class='btn btn-primary btn-sm'>{{__('Delete')}}</button>
                                     </form>
                                     @endif

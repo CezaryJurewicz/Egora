@@ -145,11 +145,22 @@ class UpdateController extends Controller
      * @param  \App\Update  $update
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Update $update)
+    public function destroy(Request $request, Update $update)
     {
+        $validator = Validator::make($request->all(),[
+            'filter' => 'required|in:status,idea,comment,all,follower',
+        ]); 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $filter = $request->input('filter');
+        
         $update->delete();
         
-        return redirect()->back()->with('success', 'Update removed.'); 
+        return redirect()->route('updates.index', compact('filter'))->with('success', 'Update removed.'); 
     }
     
     public function destroy_filtered(Request $request)
@@ -191,6 +202,6 @@ class UpdateController extends Controller
             })
             ->delete();
         
-        return redirect()->back()->with('success', 'Updates removed.'); 
+        return redirect()->route('updates.index', compact('filter'))->with('success', 'Updates removed.'); 
     }
 }

@@ -67,13 +67,13 @@
                                 @forelse($result[$id] as $line)
                                     @if ($line->updatable)
                                         @if ($line->type == 'status')
-                                            @include('blocks.updates.status', ['row' => $line])   
+                                            @include('blocks.updates.status', ['row' => $line, 'id' => $id])   
                                         @elseif ($line->type == 'follower')
-                                            @include('blocks.updates.follower', ['row' => $line])   
+                                            @include('blocks.updates.follower', ['row' => $line, 'id' => $id])   
                                         @elseif (($line->type == 'comment') || ($line->type == 'subcomment'))
-                                            @include('blocks.updates.comment', ['row' => $line])   
+                                            @include('blocks.updates.comment', ['row' => $line, 'id' => $id])   
                                         @elseif ($line->type == 'idea')
-                                            @include('blocks.updates.idea', ['row' => $line])   
+                                            @include('blocks.updates.idea', ['row' => $line, 'id' => $id])   
                                         @endif
                                     @endif
                                 @empty
