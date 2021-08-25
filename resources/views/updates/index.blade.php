@@ -35,18 +35,18 @@
                 
                 <div class="card mt-5">
                     <div class="card-header">
-                        <div id="tabs">
-                            <ul id="tabs" class="nav nav-pills nav-justified flex-column flex-sm-row nav-fill1 na1v-justified p1b-0" data-tabs="tabs">
+                        <div id="updates-tabs">
+                            <div id="tabs" class="nav btn-grou1p justify-content-center" data-tabs="tabs">
                                 @if (is_egora())
                                     @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Comments'=>'comment', 'All Comments'=>'all', 'Followers'=>'follower'] as $title=>$id)
-                                    <li class="nav-item active"><a style="font-size: small;" class="nav-link @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a></li>
+                                    <a style="font-size: small;" class="btn btn-primary col-12 col-md-2 m-1 @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a>
                                     @endforeach
                                 @else
                                     @foreach([ 'Ideas'=>'idea', 'Comments'=>'comment', 'All Comments'=>'all'] as $title=>$id)
-                                    <li class="nav-item active"><a style="font-size: small;" class="nav-link @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a></li>
+                                    <a style="font-size: small;" class="btn btn-primary col-12 col-md-3 m-1 @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a>
                                     @endforeach
                                 @endif
-                            </ul>
+                            </div>
                         </div>
                     </div>  
                     <div class="card-body pb-5 pl-5 pr-5 pt-4 ">

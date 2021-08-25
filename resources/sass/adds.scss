@@ -203,3 +203,12 @@ ol.bold {
     }
 
 }
+
+#updates-tabs {
+    .btn.active {
+        background-color: transparent; // $card-cap-bg;
+        border-color: transparent;
+        box-shadow: 0 0 0 0;
+        color: $body-color;
+    }
+}
