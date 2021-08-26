@@ -319,7 +319,7 @@ class UserController extends Controller
             $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
         }
 
-        $total = $user->followers->where('visible',1)->count();
+        $total = $user->followers->count();
         
         $model = $user->followers()->with(['user_type','nation'])
                 ->where('visible',1)

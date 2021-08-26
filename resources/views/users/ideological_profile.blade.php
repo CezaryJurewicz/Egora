@@ -36,12 +36,12 @@
                                         @if (is_egora())
                                             @if (isset($ip_score))
                                                 <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
-                                                @if (!$ownIP)
-                                                        <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
-                                                @endif
                                             @endif
                                         @endif
-                                    </div>
+                                        @if (!$ownIP)
+                                            <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
+                                        @endif
+                                        </div>
                                 </div>
                             </div>
                             <div class="row">
