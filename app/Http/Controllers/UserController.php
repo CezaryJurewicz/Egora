@@ -63,7 +63,7 @@ class UserController extends Controller
             });
         }
         
-        $users = $model->orderBy('created_at', 'desc')->paginate(10);
+        $users = $model->orderBy('created_at', 'desc')->paginate(100);
         return view('users.index')->with(compact('users', 'search'));
     }
 
@@ -561,7 +561,9 @@ class UserController extends Controller
         }, 'petition.supporters' => function($q) {
             $q->recent();
         }, 'communities' => function($q) use ($request) {
-            $q->whereIn('id', $request->user()->communities->pluck('id'));
+            if (!$request->user()->isAdmin()) {
+                $q->whereIn('id', $request->user()->communities->pluck('id'));
+            }
         }]);
 
         $ideas = $user->liked_ideas->pluck('id');

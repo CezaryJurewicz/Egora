@@ -156,11 +156,11 @@
                     
                     @else
                     <div class="card-header">
-                        <div id="tabs">
-                            <ul id="tabs" class="nav nav-pills nav-justified pb-0" data-tabs="tabs">
-                                <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a></li>
-                                <li class="nav-item active"><a style="font-size: large;" class="nav-link @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a></li>
-                            </ul>
+                        <div id="updates-tabs">
+                            <div id="tabs" class="nav justify-content-center pb-0" data-tabs="tabs">
+                                <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a>
+                                <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a>
+                            </div>
                         </div>
                     </div>
                     @endif

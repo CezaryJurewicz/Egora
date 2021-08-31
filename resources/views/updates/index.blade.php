@@ -36,7 +36,7 @@
                 <div class="card mt-5">
                     <div class="card-header">
                         <div id="updates-tabs">
-                            <div id="tabs" class="nav btn-grou1p justify-content-center" data-tabs="tabs">
+                            <div id="tabs" class="nav justify-content-center" data-tabs="tabs">
                                 @if (is_egora())
                                     @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Comments'=>'comment', 'All Comments'=>'all', 'Followers'=>'follower'] as $title=>$id)
                                     <a style="font-size: small;" class="btn btn-primary col-12 col-md-2 m-1 @if ($filter== $id) active @endif" href="#{{$id}}Tab" data-toggle="tab">{{$title}} ({{$result[$id]->count()}}) </a>

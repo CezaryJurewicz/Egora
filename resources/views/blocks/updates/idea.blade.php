@@ -4,12 +4,19 @@
                                 <div class="col-9">
                                     <div class="row">
                                         <div class="col-12">
+                                        @php
+                                            $order = ($row->from->liked_ideas->where('id',$row->updatable->id)->first() ? $row->from->liked_ideas->where('id',$row->updatable->id)->first()->pivot->order : 0)
+                                        @endphp
                                         <b>
                                             <a style="color:#000;" href="{{ route('users.ideological_profile', $row->from->active_search_name_hash) }}">
                                             {{ $row->from->active_search_name ??  $row->from->id }} 
                                             </a>
                                         </b>
+                                        @if ($order < 0 && !is_egora()) 
+                                        moderated this idea.
+                                        @else
                                         supported this idea.
+                                        @endif
                                         </div>
                                     </div>
                                     <div class="row">
