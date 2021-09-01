@@ -566,18 +566,27 @@ class UserController extends Controller
             }
         }]);
 
-        $ideas = $user->liked_ideas->pluck('id');
-        
+        $shared_ideas = null;
+        $ideas=collect();
         $ip_score = 0;
-        $scores = [];
+        $scores = [];        
         foreach($user->liked_ideas as $idea) {
             if ($idea->pivot->order >= 0) {
                 $scores[] = $idea->liked_users->pluck('pivot.position')->sum();
+                $ideas->push($idea->id);
             }
         }        
         rsort($scores, SORT_NUMERIC);
         $ip_score = array_sum(array_slice($scores, 0, 23));
 
+        if (!$ownIP) {
+            $filtered = $_user->liked_ideas->filter(function($v,$k){
+                return $v->pivot->order >= 0;
+            });
+            
+            $shared_ideas = $ideas->intersect($filtered->pluck('id'));
+        }
+        
         if ($request->has('pdf')) {
             if (is_egora('community')) {
                 $liked_ideas = collect();
@@ -597,7 +606,7 @@ class UserController extends Controller
             return $pdf_doc->download(date('U').'.pdf');
         }
         
-        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP'));
+        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
     }
     
     public function about(Request $request, $hash)

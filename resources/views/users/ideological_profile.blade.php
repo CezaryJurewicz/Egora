@@ -38,8 +38,8 @@
                                                 <h5>Portfolio Score: {{ number_format($ip_score) }}</h5>
                                             @endif
                                         @endif
-                                        @if (isset($ownIP) && !$ownIP)
-                                            <h5>Shared Ideas: {{ $ideas->intersect($_ideas)->count() }}</h5>
+                                        @if (isset($shared_ideas))
+                                            <h5>Shared Ideas: {{ $shared_ideas->count() }}</h5>
                                         @endif
                                         </div>
                                 </div>
