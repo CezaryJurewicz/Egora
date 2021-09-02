@@ -30,7 +30,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     
     Route::get('/information', 'SettingController@message')->name('settings.message');    
     
-    Route::prefix('/log')->name('log.')->group(function(){
+    Route::prefix('/inbox')->name('log.')->group(function(){
         Route::get('/', 'LogLineController@index')->name('index');
     });
     
