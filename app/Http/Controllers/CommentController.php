@@ -84,12 +84,16 @@ class CommentController extends Controller
         $comment->save();
 
         if ($comment->commentable instanceof \App\Comment) {  
-            $idea = $comment->commentable->commentable;
+            $item = $comment->commentable->commentable;
         } else {
-            $idea = $comment->commentable;
+            $item = $comment->commentable;
         }
         
-        return redirect()->to(route('ideas.view', [$idea, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
+        if ($item instanceof \App\User) {
+            return redirect()->back()->with('success', 'Updated.');
+        }
+        
+        return redirect()->to(route('ideas.view', [$item, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
     }
 
     public function comment(Request $request, Comment $comment)
