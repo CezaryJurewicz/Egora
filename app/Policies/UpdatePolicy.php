@@ -91,4 +91,13 @@ class UpdatePolicy
     {
         //
     }
+    
+    public function redirect(User $user, Update $update)
+    {
+        if (($update->updatable instanceof \App\Comment) && is_null($update->updatable->commentable)) {
+            return $this->deny();
+        }
+        
+        return $this->allow();
+    }
 }

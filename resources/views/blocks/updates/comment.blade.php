@@ -19,7 +19,9 @@
                                     </div>
                                 </div>
                                 <div class="col-3 text-right">
+                                    @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('redirect', $row) )
                                     <a class="btn btn-primary btn-sm" href="{{ route('updates.redirect', [$row->id]) }}">{{ __('Open') }}</a>                                    
+                                    @endif
                                 </div>
                             </div>
                         </div>
