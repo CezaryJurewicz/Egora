@@ -131,8 +131,15 @@ function no_html(string $input, string $encoding = 'UTF-8'): string
     return htmlentities($input, ENT_COMPAT | ENT_QUOTES , $encoding);
 }
 
-function negative_order() : array
+function negative_order($idea = null) : array
 {
+    // return array based on egora id
+    if (!is_null($idea) && $idea->egora_id == 1) {
+        return [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'];
+    } else if (!is_null($idea) && $idea->egora_id == 3) {
+        return [-1=>'N',-2=>'O',-3=>'H',-4=>'A',-5=>'T', -6=>'E'];
+    }
+    
     return is_egora() ? [-1=>'E',-2=>'G',-3=>'O',-4=>'R',-5=>'A'] : [-1=>'N',-2=>'O',-3=>'H',-4=>'A',-5=>'T', -6=>'E'];
 }
 

@@ -75,7 +75,7 @@ class UserController extends Controller
         $officer_petitioner = null;
         $followers = null;
         $recent = false;
-        $perPage = 25;
+        $perPage = 10;
         
         $nations = Nation::get();
         

@@ -3,11 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Cascade;
 
 class Passport extends Model
 {
-    protected $fillable = array('user_id');
+    use Cascade;
+    
+    protected $cascade = ['image'];
 
+    protected $fillable = array('user_id');
 
     protected $hidden = array(
         'mediable_type', 'mediable_id'

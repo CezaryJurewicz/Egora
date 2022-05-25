@@ -4,7 +4,7 @@ namespace App\Traits;
 use App\Comment;
 
 trait CommentableTrait {
-
+    
     public function is_user() 
     {
         return ($this->commentable instanceof \App\User);

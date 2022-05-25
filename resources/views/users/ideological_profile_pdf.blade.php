@@ -36,7 +36,7 @@
                                                         @if (is_egora())
                                                             0 
                                                             @if ($idea->pivot->order < 0)
-                                                            ({{negative_order()[$idea->pivot->order]}}) 
+                                                            ({{negative_order($idea)[$idea->pivot->order]}}) 
                                                             @else
                                                             ({{$idea->pivot->order}}) 
                                                             @endif

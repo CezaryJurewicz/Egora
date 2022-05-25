@@ -127,7 +127,7 @@
                                                         <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
                                                            @else 
                                                                 @if ($idea->pivot->order < 0)
-                                                                    {{negative_order()[$idea->pivot->order]}}
+                                                                    {{negative_order($idea)[$idea->pivot->order]}}
                                                                 @else
                                                                     @if (is_egora())
                                                                         0 ({{$idea->pivot->order}}) 

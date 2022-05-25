@@ -12,10 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
 
 use App\Traits\CommentableTrait;
+use App\Traits\Cascade;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, SoftDeletes, HasApiTokens, CommentableTrait;
+    use Notifiable, SoftDeletes, HasApiTokens, CommentableTrait, Cascade;
+    
+    public $cascade = ['update_relation', 'image', 'comments'];
 
     /**
      * The attributes that are mass assignable.

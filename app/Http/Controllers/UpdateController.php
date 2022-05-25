@@ -47,7 +47,11 @@ class UpdateController extends Controller
             }
         }
 
-        return view('updates.index')->with(compact('lines','filter','result'));
+        return response()->view('updates.index', compact('lines','filter','result'))
+                ->withHeaders([
+                    'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT',
+                    'Cache-Control' => 'no-store, no-cache, must-revalidate'
+                ]);
     }
 
     /**

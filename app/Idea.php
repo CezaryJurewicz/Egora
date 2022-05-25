@@ -7,10 +7,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CommentableTrait;
 use App\Traits\UpdatableTrait;
+use App\Traits\Cascade;
 
 class Idea extends Model
 {
-    use SoftDeletes, CommentableTrait, UpdatableTrait;
+    use SoftDeletes, CommentableTrait, UpdatableTrait, Cascade;
+    
+    public $cascade = ['comments', 'update_relation'];
     
     protected $fillable = array('content', 'position', 'order', 'egora_id');
     

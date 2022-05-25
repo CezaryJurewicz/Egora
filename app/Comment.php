@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CommentableTrait;
 use App\Traits\UpdatableTrait ;
+use App\Traits\Cascade;
 
 class Comment extends Model
 {
-    use SoftDeletes, CommentableTrait, UpdatableTrait;
+    use SoftDeletes, CommentableTrait, UpdatableTrait, Cascade;
+    
+    public $cascade = ['comments', 'update_relation'];
     
     public function commentable()
     {
