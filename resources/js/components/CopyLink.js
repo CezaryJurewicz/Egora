@@ -79,11 +79,11 @@ class CopyBtn extends React.Component {
       
     return (
         <div>
-          <button onClick={() => this.copyCodeToClipboard()} class="btn btn-sm btn-primary col-md-6">
-            Invitation Message
+          <button onClick={() => this.copyCodeToClipboard()} class="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
+            Copy Invitation Message
           </button>
-          <button onClick={() => this.copyLinkToClipboard()} class="btn btn-sm btn-primary col-md-5 offset-md-1">
-            Idea Link
+          <button onClick={() => this.copyLinkToClipboard()} class="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
+            Copy Idea Link
           </button>
           {
             this.state.copySuccess ?

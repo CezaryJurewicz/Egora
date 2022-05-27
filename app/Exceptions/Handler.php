@@ -61,6 +61,8 @@ class Handler extends ExceptionHandler
                 return redirect()->route('ideas.popularity_indexes')->with(['message' => 'This idea no longer exists.']);                 
             } else if ($exception->getModel() == \App\Update::class) {
                 return redirect()->route('ideas.popularity_indexes')->with(['message' => 'This update no longer exists.']);                 
+            } else if ($exception->getModel() == \App\Notification::class) {
+                return redirect()->route('ideas.popularity_indexes')->with(['message' => 'This notification for the idea no longer exists.']);                 
             }                
         }
         return parent::render($request, $exception);

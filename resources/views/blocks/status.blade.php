@@ -1,11 +1,13 @@
 <div class="media">
-    <span class="comment" id="comment-{{$comment->id}}"> &nbsp; </span>
+    <span class="comment" id="comment-{{$comment->id}}"></span>
     
     <div class="media-body">
         
         <div class="message pb-4">
             <div id="comment{{ $comment->id }}" class="p-0">
-                {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message)))) !!}
+                <div class="card-header">
+                {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($comment->message)))) !!}
+                </div>
             </div>
             @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
             <form id="edit{{ $comment->id }}" action="{{ route('users.status.update', $comment) }}" method="POST" style="display:none">
@@ -27,7 +29,7 @@
             </form>     
             @endif
             
-            <div class="row">
+            <div class="row pl-2">
             <div class="col-md-2">
                 <small>
                     @if (!isset($reply))

@@ -38,6 +38,7 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
+                            @if (empty($sort)) 
                             <p>The Idea Dominance Index (IDI) shows what are the most <u>strongly</u>
                             supported ideas universally and within any nation. As the people
                             give more points to a particular idea within their Ideological Profiles,
@@ -46,6 +47,9 @@
                             to other people why they should support this idea. If you think there
                             is an idea that should not be so high on the IDI, give other people
                             better ideas for them to support instead.</p>
+                            @else
+                            <p>This is simply a listing of ideas according to how recently they were introduced.</p>
+                            @endif
                         </div>
                       </div>
                     </div>

@@ -169,7 +169,7 @@
                     <ul class="navbar-nav ml-auto">                        
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    @if (auth('admin')->check()) {{  auth('admin')->user()->name  }} @endif
+                                    @if (auth('admin')->check()) FV @endif
                                     @if (auth('web')->check()) {{  auth('web')->user()->name  }} @endif
                                     <span class="caret"></span>
                                 </a>

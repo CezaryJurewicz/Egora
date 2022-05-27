@@ -68,7 +68,7 @@
                 
                 @if (auth('web')->check() && auth('web')->user()->can('create', App\Meeting::class))
                 <div class="text-center mt-5">
-                <h4>Schedule a meeting</h4>
+                <h4>Schedule a Meeting</h4>
                 </div>
                 <form autocomplete="off" action="{{ route('meetings.store') }}" method="POST">
                     @csrf
@@ -149,7 +149,7 @@
                 
                 <div class="p-2">
                     <div class="text-center mt-5">
-                    <h4>Upcoming meetings</h4>
+                    <h4>Upcoming Meetings</h4>
                     </div>
                     <div class="col-md-10 offset-1">
                     @foreach($countries as $country)
@@ -202,7 +202,7 @@
                                                 <div class="row mt-2">
                                                     <div class="col-md-4">@lang('Details:')</div>
                                                     <div class="col-md-8">
-                                                    {!! make_clickable_links(nl2br(str_replace('  ', '&nbsp;&nbsp;', htmlspecialchars($meeting->comments)))) !!}
+                                                    {!! nl2br(str_replace('  ', '&nbsp;&nbsp;', make_clickable_links(htmlspecialchars($meeting->comments)))) !!}
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">

@@ -16,7 +16,7 @@
         </h4>
         <p class="message">
             <div id="comment{{ $comment->id }}" class="p-0">
-                {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($comment->message)))) !!}
+                {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($comment->message)))) !!}
             </div>
             @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
             <form id="edit{{ $comment->id }}" action="{{ route('comments.update', $comment) }}" method="POST" style="display:none">
@@ -40,7 +40,7 @@
             
             <br>
             <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 mt-2">
                 <small>
                     @if (!isset($reply))
                         @if (auth('web')->check() && auth('web')->user()->can('comment', $comment))
@@ -49,7 +49,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1 mt-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
                         <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
@@ -57,7 +57,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
                         <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove my comment')}}</a> 

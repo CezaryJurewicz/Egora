@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($idea->content)))) !!}
+                    {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($idea->content)))) !!}
                     </div>
                     
                     <div class="card-footer pt-4 pb-4">
@@ -113,6 +113,10 @@
                     @include('blocks.notincommunity')
                 </div>
 
+                @if (auth('web')->check())
+                    @include('blocks.invite_response')
+                @endif
+                
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mt-2">Supporters</h5>
@@ -139,49 +143,42 @@
                     </div>
                 </div>
                 @endif                
-                <div class="card">
-                    <div class="card-header">
-                    </div>                
 
+                <div class="card">
                     @if (auth('web')->check())
-                    
-                    <div class="card-body">
-                        @include('blocks.invite_response')
-                    </div>
-                    
-                    @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
-                    <div class="card-header">
-                        <h5 class="mt-2">Comments</h5>
-                    </div>
-                    
-                    @else
-                    <div class="card-header">
-                        <div id="updates-tabs">
-                            <div id="tabs" class="nav justify-content-center pb-0" data-tabs="tabs">
-                                <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a>
-                                <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a>
+                        @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
+                        <div class="card-header">
+                            <h5 class="mt-2">Comments</h5>
+                        </div>
+
+                        @else
+                        <div class="card-header">
+                            <div id="updates-tabs">
+                                <div id="tabs" class="nav justify-content-center pb-0" data-tabs="tabs">
+                                    <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (!request()->has('comments')) active @endif" href="#inviteTab" data-toggle="tab">Invitations</a>
+                                    <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1 @if (request()->has('comments')) active @endif" href="#mainTab" data-toggle="tab">Comments</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @endif
-
-                    <div class="card-body">
-                    <div id="my-tab-content" class="tab-content">
-                        @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
-                            <div class="tab-pane active" id="mainTab">
-                            @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
-                            </div>
-                        @else
-                            <div class="tab-pane @if (request()->has('comments')) active @endif" id="mainTab">
-                            @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
-                            </div>
-                            <div class="tab-pane @if (!request()->has('comments')) active @endif" id="inviteTab">
-                            @include('blocks.invite_examine')
-                            </div>
                         @endif
-                    </div>
 
-                    </div>                    
+                        <div class="card-body">
+                            <div id="my-tab-content" class="tab-content">
+                                @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('invite_response', $notification) )
+                                    <div class="tab-pane active" id="mainTab">
+                                    @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
+                                    </div>
+                                @else
+                                    <div class="tab-pane @if (request()->has('comments')) active @endif" id="mainTab">
+                                    @include('blocks.comments', ['item'=>$idea, 'comments'=>$comments])
+                                    </div>
+                                    <div class="tab-pane @if (!request()->has('comments')) active @endif" id="inviteTab">
+                                    @include('blocks.invite_examine')
+                                    </div>
+                                @endif
+                            </div>
+
+                        </div>                    
                     
                     @endif 
 

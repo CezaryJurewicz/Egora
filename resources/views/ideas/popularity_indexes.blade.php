@@ -43,6 +43,7 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-1">
+                            @if (empty($sort)) 
                             <p>The Idea Popularity Index (IPI) shows what are the most <u>popularly</u>
                             supported ideas universally, within any nation, and within Egora. As
                             more people include a particular idea in their Ideological Profiles,
@@ -56,6 +57,9 @@
                             category of idea relevance, ILP Members can voice their feedback
                             about Egora. Most importantly, however, ILP Members can use the
                             IPI to elect the next administrator of Egora (not yet available).</p>
+                            @else
+                            <p>This is simply a listing of ideas according to how recently they were introduced.</p>
+                            @endif
                         </div>
                       </div>
                     </div>

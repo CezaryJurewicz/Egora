@@ -54,7 +54,7 @@
                         <div>
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments->isNotEmpty())
-                        <div style="padding-left:44px; margin-top: -20px; padding-bottom: 10px;">
+                        <div style="padding-left:48px; margin-top: -20px; padding-bottom: 10px;">
                             <small>
                             <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >Responses ({{ $comment->comments->count() }})</a>
                             </small>

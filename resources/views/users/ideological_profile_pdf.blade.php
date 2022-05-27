@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <br/>
-                                    {!! make_clickable_links(nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($idea->content)))) !!}
+                                    {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($idea->content)))) !!}
                                     <br/>
                                     <br/>
                                 @endforeach

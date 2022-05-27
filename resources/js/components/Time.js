@@ -25,7 +25,7 @@ class TimeInput extends React.Component {
     showTimeSelect
     showTimeSelectOnly
     timeCaption="Time"
-    timeIntervals={5}
+    timeIntervals={15}
     dateFormat="HH:mm"
     timeFormat="HH:mm"
     />;

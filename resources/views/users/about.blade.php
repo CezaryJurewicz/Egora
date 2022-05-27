@@ -13,19 +13,19 @@
                         
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col col-md-8 offset-2">
+                                <div class="col-12 col-md-8 offset-md-2">
                                     <div class="text-center">
                                         <h3>{{ __('views.About Me') }}</h3>
                                     </div>
                                 </div>
-                                <div class="col col-md-2 text-right">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">IP</a>
+                                <div class="col-12 col-md-2 text-right">
+                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">IP</a>
                                 </div>
                             </div>
                             <div>
                                 <div class="card">
                                     <div class="card-body" style="min-height: 300px;">
-                                            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), htmlspecialchars($user->about_me))) !!}                                                                    
+                                            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($user->about_me)))) !!}                                                                    
                                     </div>
                                 </div>
                             </div>

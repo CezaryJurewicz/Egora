@@ -15,7 +15,7 @@
                   </div>
 
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body col-md-10 offset-1">
+                      <div class="card-body col-10 offset-1">
                         <p>Philosopher {{ (auth('web')->user()?:auth('admin')->user())->name }} –</p>
                         <p>Whether or not you were a philosopher before, now that you are here
                         and have begun developing your Ideological Profile, you are a

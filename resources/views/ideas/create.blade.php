@@ -64,7 +64,11 @@
                 <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="23" required autocomplete="content" autofocus>{{ old('content') ?: $text ?? '' }}</textarea>
+                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="23" required autocomplete="content" autofocus 
+placeholder="In Egora an idea is primarily just a tool for solving our common problems. 
+Share with us your best tools so we can build the best possible world together!
+
+You may take credit for your idea, but all text must be copyleft and will remain protected by copyleft.">{{ old('content') ?: $text ?? '' }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

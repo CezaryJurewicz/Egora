@@ -33,10 +33,10 @@
                          
                     <div class="comments">
                     @foreach($statuses as $status)
-                        <div>
+                        <div class="card mb-3">
                         @include('blocks.status', ['comment' => $status])                
                         @if ($status->comments->isNotEmpty())
-                        <div style="padding-left:44px; margin-top: -20px; padding-bottom: 10px;">
+                        <div style="padding-left:48px; margin-top: -20px; padding-bottom: 10px;">
                             <small>
                             <a href="#" onclick="$('#responses{{ $status->id }}').toggle(); return false;" >Responses ({{ $status->comments->count() }})</a>
                             </small>

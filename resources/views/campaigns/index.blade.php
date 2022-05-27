@@ -49,7 +49,7 @@
                     
                     @if (auth('web')->check() && auth('web')->user()->can('create', App\Campaign::class))
                     <div class="text-center">
-                        <h5 class="col-md-10 offset-1">I announce my candidacy to serve and promote my sincerely held ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
+                        <h5 class="col-md-10 offset-md-1">I announce my candidacy to serve and promote my sincerely held ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
 
                         <form action="{{ route('campaigns.store') }}" method="POST">
                             @csrf
@@ -96,7 +96,7 @@
                     
                     @if (auth('web')->check() && auth('web')->user()->campaign && auth('web')->user()->can('delete', auth('web')->user()->campaign))
                     <div class="text-center">
-                        <h5 class="col-md-10 offset-1">I withdraw my candidacy to champion my ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
+                        <h5 class="col-md-10 offset-md-1">I withdraw my candidacy to champion my ideas in the governance of <br/> {{ auth('web')->user()->nation->title }}.</h5>
 
                             <div class="form-group row">
                                 <label for="subdivision" class="offset-1 col-md-3 col-form-label text-left">{{ __('Administrative Level:') }}</label>

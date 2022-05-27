@@ -6,7 +6,7 @@
                         <div class="form-group row">
                             <label for="position1" class="col-md-2 col-form-label">{{ __('Assign Position:') }}</label>
 
-                            <select id="position1" type="text" class="col-md-2 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
+                            <select id="position1" type="text" class="mb-2 col-md-2 form-control @error('position1') is-invalid @enderror" name="position1" value="{{ old('position1') }}">
                                 <option></option>
                                 @if (is_null($idea->community) && is_null($idea->municipality))
                                 <optgroup label="Point Positions">
