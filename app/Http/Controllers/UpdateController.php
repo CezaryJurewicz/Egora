@@ -32,7 +32,8 @@ class UpdateController extends Controller
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });
-                $q->where('egora_id', current_egora_id());                
+// Updates are common through all egoras
+//                $q->where('egora_id', current_egora_id());                
             })
             ->orderBy('created_at','asc')
             ->get();
@@ -46,7 +47,9 @@ class UpdateController extends Controller
                 $result[$id]  = $lines->where('type', $id);
             }
         }
-
+        
+        switch_to_egora();
+        
         return response()->view('updates.index', compact('lines','filter','result'))
                 ->withHeaders([
                     'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT',
@@ -103,8 +106,10 @@ class UpdateController extends Controller
             if ($update->updatable->commentable && $update->updatable->commentable->commentable instanceof \App\User) {
                 $redirect = route('users.about', [ $update->updatable->commentable->commentable->active_search_name_hash,'open'=> $update->updatable->commentable->id]).'#comment-'.$update->updatable->id;                                    
             } else if ($update->updatable->is_response()) {
+                switch_by_idea($update->updatable->commentable->commentable);
                 $redirect = route('ideas.view', ['comments' => 1, $update->updatable->commentable->commentable, 'open'=>$update->updatable->commentable->id]).'#comment-'.$update->updatable->id;
             } else if(!is_null($update->updatable->commentable)) {
+                switch_by_idea($update->updatable->commentable);
                 $redirect = route('ideas.view', ['comments' => 1, $update->updatable->commentable]).'#comment-'.$update->updatable->id;
             }
 

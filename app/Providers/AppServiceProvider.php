@@ -90,7 +90,8 @@ class AppServiceProvider extends ServiceProvider
                     $q->whereHas('user', function($q) {
                         $q->where('id', auth('web')->user()->id);
                     });
-                    $q->where('egora_id', current_egora_id());
+// Updates are common through all egoras
+//                    $q->where('egora_id', current_egora_id());
                 })->select('id');
                 
                 $view->with('updates_cnt', $updates->count());

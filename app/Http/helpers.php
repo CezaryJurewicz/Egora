@@ -110,6 +110,10 @@ function switch_by_idea($idea) {
     request()->session()->put('current_egora', $egora['name']);
 }
 
+function switch_to_egora($egora = 'default') {
+    request()->session()->put('current_egora', $egora);
+}
+
 function previous_route() {
     return app('router')->getRoutes()->match(app('request')->create(url()->previous()));
 }
