@@ -117,6 +117,7 @@ class UpdateController extends Controller
 
             return redirect($redirect);
         } else if ($update->type == 'idea') {
+            switch_by_idea($update);
             $update->delete();
             
             return redirect()->route('ideas.view', [$update->updatable->id]);
