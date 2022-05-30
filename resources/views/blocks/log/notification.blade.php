@@ -38,7 +38,7 @@
                         @if (!$row->invite)
                         <div class="card">
                             <div class="card-body">
-                                {!! make_clickable_links(shorten_text($row->idea->content)) !!}
+                                {!! shorten_text_link($row->idea->content) !!}
                             </div>
                         </div>
                         @endif

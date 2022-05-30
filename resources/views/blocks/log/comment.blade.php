@@ -33,7 +33,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! make_clickable_links(shorten_text($row->comment->message)) !!}
+                                {!! shorten_text_link($row->comment->message) !!}
                             </div>
                         </div>
                         <div class="pt-2">

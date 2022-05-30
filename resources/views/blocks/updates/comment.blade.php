@@ -27,7 +27,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! make_clickable_links(shorten_text($row->updatable->message)) !!}
+                                {!! shorten_text_link($row->updatable->message) !!}
                             </div>
                         </div>
                         <div class="pt-2">

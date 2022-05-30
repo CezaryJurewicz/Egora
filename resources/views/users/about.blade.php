@@ -25,7 +25,7 @@
                             <div>
                                 <div class="card">
                                     <div class="card-body" style="min-height: 300px;">
-                                            {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($user->about_me)))) !!}                                                                    
+                                            {!! filter_text($user->about_me) !!}                                                                    
                                     </div>
                                 </div>
                             </div>

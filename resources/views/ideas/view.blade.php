@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($idea->content)))) !!}
+                    {!! filter_text($idea->content) !!}
                     </div>
                     
                     <div class="card-footer pt-4 pb-4">

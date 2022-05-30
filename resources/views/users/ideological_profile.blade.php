@@ -175,7 +175,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                {!! make_clickable_links(shorten_text($idea->content)) !!}
+                                                {!! shorten_text_link($idea->content) !!}
                                             </div>
                                         </div>
                                         @endforeach

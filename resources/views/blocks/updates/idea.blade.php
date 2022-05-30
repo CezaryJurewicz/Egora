@@ -32,7 +32,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! make_clickable_links(shorten_text($row->updatable->content)) !!}
+                                {!! shorten_text_link($row->updatable->content) !!}
                             </div>
                         </div>
                         <div class="pt-2">

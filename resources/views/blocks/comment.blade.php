@@ -16,7 +16,7 @@
         </h4>
         <p class="message">
             <div id="comment{{ $comment->id }}" class="p-0">
-                {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($comment->message)))) !!}
+                {!! filter_text($comment->message) !!}
             </div>
             @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
             <form id="edit{{ $comment->id }}" action="{{ route('comments.update', $comment) }}" method="POST" style="display:none">

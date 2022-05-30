@@ -6,7 +6,7 @@
         <div class="message pb-4">
             <div id="comment{{ $comment->id }}" class="p-0">
                 <div class="card-header">
-                {!! nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars($comment->message)))) !!}
+                {!! filter_text($comment->message) !!}
                 </div>
             </div>
             @if (auth('web')->check() && auth('web')->user()->can('update', $comment))

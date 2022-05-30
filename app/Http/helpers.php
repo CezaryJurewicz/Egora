@@ -1,8 +1,8 @@
 <?php
 
-function shorten_text($text, $limit = 92) 
-{
 
+function _shorten_text($text, $limit = 92) 
+{
     if (str_word_count($text, 0) > $limit) {
         $words = str_word_count($text, 2);
         $pos = array_keys($words);
@@ -22,14 +22,40 @@ function shorten_text($text, $limit = 92)
         $result = $text;
     }
     
+    return $result;
+}
+
+function shorten_text($text, $limit = 92) 
+{
+   
     return strip_tags(
                nl2br(
                    str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), 
-                      htmlspecialchars($result)
+                      htmlspecialchars(_shorten_text($text, $limit))
                    )
                ), '<br><p><b><i><li><ul><ol>'
         );
 
+}
+
+function shorten_text_link($text, $limit = 92) 
+{
+   
+    return  nl2br(
+                str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), 
+                     make_clickable_links(
+                         htmlspecialchars(
+                             _shorten_text(strip_tags($text, '<br><p><b><i><li><ul><ol>'), $limit)
+                         )
+                     )
+                )
+            );
+
+}
+
+function filter_text($text)
+{
+    return nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars(strip_tags($text, '<br><p><b><i><li><ul><ol>')))));
 }
 
 function make_clickable_links($text) {
