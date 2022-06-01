@@ -130,14 +130,14 @@
                                     </div>
                                 </div>
                                 
-                                <h5 class="pt-1">@lang('Profile Visibility (Main Egora only):')</h5>
+                                <h5 class="pt-1">@lang('Profile Visibility:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="visible1" class="col-form-lable col-md-10">{{ __('Public Profile (your support for ideas is public)') }}</label>
+                                        <label for="visible1" class="col-form-lable col-md-10">{{ __('Public Profile') }}</label>
                                         <input  id="visible1" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="visible0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden; profile is not listed under "New Users"; profile is not listed under "Leads" nor "Followers" of other users.)') }}</label>
+                                        <label for="visible0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden in the Main Egora; profile is not listed under "New Users"; profile is not listed under "Leads" nor "Followers" of other users.)') }}</label>
                                         <input id="visible0" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>

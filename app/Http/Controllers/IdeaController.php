@@ -524,10 +524,14 @@ class IdeaController extends Controller
        $validator = Validator::make($request->all(),[
             'notification_id' => ['exists:notifications,id'],
             'comment_notification_id' => ['exists:comment_notifications,id'],
+            ],
+            [
+            'notification_id.exists' => 'This content no longer exists.',
+            'comment_notification_id.exists' => 'This content no longer exists.'
             ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
+            return redirect()->route('log.index')
                     ->withInput()->withErrors($validator);
         }
 
