@@ -125,7 +125,7 @@
                             </li>
                             <li>
                                 <span class="summary">
-                                    Egora will respect the user’s privacy.
+                                    Egora will honor the privacy of the user.
                                     <a data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
                                         <i class="fa fa-chevron-down pull-right"></i>
                                         <i class="fa fa-chevron-right pull-right"></i>

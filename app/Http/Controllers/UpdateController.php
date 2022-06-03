@@ -48,8 +48,6 @@ class UpdateController extends Controller
             }
         }
         
-        switch_to_egora();
-        
         return response()->view('updates.index', compact('lines','filter','result'))
                 ->withHeaders([
                     'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT',
@@ -95,12 +93,14 @@ class UpdateController extends Controller
             $hash = $update->updatable->commentable->active_search_name_hash;
             $updatable_id = $update->updatable->id;
             $update->delete();
-
+            
+            switch_to_egora();
             return redirect(route('users.about', [ $hash,'open'=>$updatable_id]).'#comment-'.$updatable_id);
         } else if ($update->type == 'follower') {
             $hash = $update->updatable->active_search_name_hash;
             $update->delete();
             
+            switch_to_egora();
             return redirect()->route('users.ideological_profile', [$hash]);
         } else if ($update->type == 'comment' || $update->type == 'subcomment') {
             if ($update->updatable->commentable && $update->updatable->commentable->commentable instanceof \App\User) {

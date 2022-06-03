@@ -28,7 +28,7 @@ class CreateStatusUpdates
     public function handle(StatusAdded $event)
     {   
        foreach($event->status->user->followers as $user){
-            if ($user->updates->count() < 92) {
+            if ($user->updates->count() < 99) {
                 $update = new Update();
                 $update->user_id = $user->id;
                 $update->egora_id = config('egoras.default.id');

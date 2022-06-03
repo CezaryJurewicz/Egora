@@ -526,13 +526,17 @@ class IdeaController extends Controller
             'comment_notification_id' => ['exists:comment_notifications,id'],
             ],
             [
-            'notification_id.exists' => 'This content no longer exists.',
-            'comment_notification_id.exists' => 'This content no longer exists.'
+            'notification_id.exists' => 'This notification no longer exists.',
+            'comment_notification_id.exists' => 'This notification no longer exists.'
             ]);
 
         if ($validator->fails()) {
+            $a = $validator->getMessageBag()->getMessages();
+            $message = array_shift($a);
+            $request->session()->flash('message', $message[0]);
+            
             return redirect()->route('log.index')
-                    ->withInput()->withErrors($validator);
+                    ->withInput();
         }
 
         $ideas = [];

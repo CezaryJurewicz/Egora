@@ -49,7 +49,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-1 mt-2">
+            <div class="col-md-2 mt-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
                         <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
@@ -57,10 +57,10 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-4 mt-2">
+            <div class="col-md-3 mt-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
-                        <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove my comment')}}</a> 
+                        <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove')}}</a> 
                         <form id="remove{{ $comment->id }}" action="{{ route('comments.delete', $comment) }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE"/>

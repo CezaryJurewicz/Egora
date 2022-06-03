@@ -5,7 +5,7 @@
         <div role="alert" class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span> </button>
-            <strong><i class="fa fa-exclamation-circle"></i> {{ __('some.Error') }}</strong> {{ str_replace('errors.','', __('errors.'.$error))  }}
+            <strong><i class="fa fa-exclamation-circle"></i> </strong> {{ str_replace('errors.','', __('errors.'.$error))  }}
         </div>
         @endforeach
     @endif

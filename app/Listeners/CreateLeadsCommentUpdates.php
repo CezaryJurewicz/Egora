@@ -28,7 +28,7 @@ class CreateLeadsCommentUpdates
     public function handle(CommentAdded $event)
     {
         foreach($event->comment->user->followers as $user){
-            if ($user->updates->count() < 92) {
+            if ($user->updates->count() < 99) {
                 $update = new Update();
                 $update->user_id = $user->id;
                 $update->egora_id = $event->egora_id;

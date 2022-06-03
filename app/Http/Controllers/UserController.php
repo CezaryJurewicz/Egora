@@ -948,7 +948,7 @@ class UserController extends Controller
     {
         $user->followers()->syncWithoutDetaching($request->user());
         
-        if ($user->updates->count() < 92) {
+        if ($user->updates->count() < 99) {
             $update = new Update();
             $update->user_id = $user->id;
             $update->egora_id = config('egoras.default.id');
