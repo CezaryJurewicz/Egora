@@ -52,7 +52,7 @@
             <div class="col-md-2 mt-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
-                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
+                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle(); $([document.documentElement, document.body]).animate({ scrollTop: $('#edit{{ $comment->id }}').offset().top - 80 }, 100); return false;">{{__('Edit')}}</a> 
                         <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;" style="display:none">{{__('Cancel')}}</a> 
                     @endif
                 </small>
