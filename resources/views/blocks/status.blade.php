@@ -39,15 +39,15 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
-                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
+                        <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle(); $([document.documentElement, document.body]).animate({ scrollTop: $('#edit{{ $comment->id }}').offset().top - 80 }, 100); return false;">{{__('Edit')}}</a> 
                         <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;" style="display:none">{{__('Cancel')}}</a> 
                     @endif
                 </small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
                         <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove')}}</a> 
