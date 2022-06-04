@@ -73,9 +73,9 @@
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1J5zl7jQYJg?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
-    <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 800px;">
+    <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 100%;">
         <a href="{{ route('register') }}">
-            <img class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
+            <img style="width:30%;" class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
         </a>
     </div>
     <div id="app">
@@ -85,12 +85,18 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
+                        <div class="accordion mb-3" id="accordion">
+                        <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                          <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                  Quick introduction for new visitors
+                              </button>
+                            </h2>
+                          </div>
 
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <p><b>Quick introduction for new visitors</b></p>
+                          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body col-10 offset-1">
                                 <p>“Egora” is a contraction of “electronic” and “agora”. “Agora” is an ancient Greek
                                 term meaning “gathering place”. For the ancient Greeks the agora of a town
                                 served as the center of public life, where people could socialize, do business,
@@ -117,24 +123,107 @@
                                 <p>Lastly, Egora is free to use and protected by Copyleft. If you are dissatisfied
                                 with this Egora, you can create your own version of it, and you can use <a href="https://github.com/CezaryJurewicz/Egora" target="_blank" rel="noopener">the code
                                 of this Egora</a> to start. Egora welcomes all competition. May the best ideas win!</p>
-                            </div>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                          <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Egora: Version &Sigma;
+                              </button>
+                            </h2>
+                          </div>
+
+                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body col-10 offset-1 text-center">
+                                    <div class="card">
+                                        <div class="card-body mb-3">
+                                            <h3><b>Egora: Version &Sigma;</b><br/>
+                                            (archived)</h3>
+                                        </div>
+                                        <div class="card-body mb-3">
+                                            <h5>Idea Dominance Index</h5>
+                                            <a href="{{ asset('docs/NewIDI.pdf') }}" target="_blank" rel="noopener">
+                                                <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
                         </div>
                     </div>
-                    
-                    
-                    <div class="col-md-12 text-center mt-5">
-                        <div class="card">
-                            <div class="card-body mb-3">
-                                <h3><b>Egora: Version &Sigma;</b><br/>
-                                (archived)</h3>
+                    </div>
+                    <div class="col-md-12">
+                        
+                        <div class="panel ">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4 text-center">
+                                        @if (empty($sort)) 
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
+                                        @else
+                                        <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        @if (empty($sort) && empty($index)) 
+                                        <h5 class="pt-2">{{ __('Idea Dominance Index') }}</h5>
+                                        @else
+                                        <a class="btn btn-primary btn-block" href="{{ route('index') }}">{{ __('Idea Dominance Index') }}</a>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        @if (empty($index)) 
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', ['index'=>'popularity']) }}">{{ __('Idea Popularity Index') }}</a>
+                                        @else
+                                        <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="clearfix">&nbsp;</div>
+                                @auth
+                                <div class="accordion mb-3 bt-0" id="accordion">
+                                    <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                                      <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Guide
+                                          </button>
+                                        </h2>
+                                      </div>
+
+                                      <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body col-md-10 offset-1">
+                                            @if (empty($sort)) 
+                                            <p>The Idea Dominance Index (IDI) shows what are the most <u>strongly</u>
+                                            supported ideas universally and within any nation. As the people
+                                            give more points to a particular idea within their Ideological Profiles,
+                                            the idea rises higher on the IDI.</p>
+                                            <p>If you think there is an idea that should be higher on the IDI, explain
+                                            to other people why they should support this idea. If you think there
+                                            is an idea that should not be so high on the IDI, give other people
+                                            better ideas for them to support instead.</p>
+                                            @else
+                                            <p>This is simply a listing of ideas according to how recently they were introduced.</p>
+                                            @endif
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                @endauth
+
+                                @include('blocks.search')
+
+                                @if ($index == 'popularity')
+                                    @include('blocks.ideas', ['index'=>'popularity'])
+                                @else
+                                    @include('blocks.ideas', ['index'=>'dominance'])
+                                @endif
+
                             </div>
-                            <div class="card-body mb-3">
-                                <h5>Idea Dominance Index</h5>
-                                <a href="{{ asset('docs/NewIDI.pdf') }}" target="_blank" rel="noopener">
-                                    <img src="{{ asset('img/pdf-64x64.png') }}" alt="" width="32" height="32">
-                                </a>
-                            </div>
-                        </div>
+                        </div>                        
+                        
                     </div>
                 </div>
             </div>

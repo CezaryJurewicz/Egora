@@ -31,7 +31,7 @@ class IdeaController extends Controller
         return view('ideas.index')->with(compact('ideas'));
     }
     
-    public function _ideas(Request $request, $view) 
+    public function _ideas(Request $request, $view, $limit = false) 
     {
         $ideas = collect();
         $search = null;
@@ -45,7 +45,7 @@ class IdeaController extends Controller
         
         // if creator is not deactivated
         $model = Idea::query();
-        if (collect($request->all())->except(['sort', 'source_id'])->isNotEmpty())
+        if (collect($request->all())->except(['index', 'sort', 'source_id'])->isNotEmpty())
         {
             if (is_egora()) {
                 $validator = Validator::make($request->all(),[
@@ -211,7 +211,11 @@ class IdeaController extends Controller
                 $q->recent();
             }]);
             
-            $ideas = $model->paginate(100);
+            if ($limit) {
+                $ideas = new \Illuminate\Pagination\Paginator($model->take($limit)->get(), 100);
+            } else {
+                $ideas = $model->paginate(100);
+            }
 
 //        } else {
 //            if (is_egora() && isset($request->user()->nation)) {
@@ -221,8 +225,14 @@ class IdeaController extends Controller
                     
         $user = $request->user();
         $sort = $request->input('sort');
+        $index = $request->input('index');
         
-        return view($view)->with(compact('sort', 'user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
+        return view($view)->with(compact('index','sort', 'user', 'ideas', 'nations', 'all_nations', 'search', 'relevance', 'unverified', 'nation', 'community', 'municipality'));
+    }
+    
+    public function welcome(Request $request)
+    {
+        return $this->_ideas($request, 'welcome', 23);
     }
     
     public function indexes(Request $request)

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'IdeaController@welcome')->name('index');
 
 Auth::routes(['verify' => true]);
 

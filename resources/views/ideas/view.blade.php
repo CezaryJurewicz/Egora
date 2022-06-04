@@ -87,7 +87,7 @@
                             <div class="col-8">
                             Source Idea: 
                             @if ($idea->source)
-                            <a href="{{ route('ideas.preview', base_convert($idea->source->id, 10, 36)) }}">{{$idea->source->id}}</a>
+                            <a href="{{ route('ideas.preview', preview_id($idea->source->id)) }}">{{$idea->source->id}}</a>
                             @endif
                             </div>
                             <div class="col-4">

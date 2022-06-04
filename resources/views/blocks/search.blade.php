@@ -3,6 +3,13 @@
                         <input id="sort" type="hidden" name="sort" value="date">
                     @endif
                     
+                    @guest
+                    <input type="hidden" name="relevance" value="{{ collect($nations)->first() }}" />
+                    <input type="hidden" name="sort" value="{{ $sort }}" />
+                    <input type="hidden" name="index" value="{{ $index }}" />
+                    @endguest
+                    
+                    @auth
                     @if (is_egora())
                     <div class="form-group row">
                         <label for="relevance" class="offset-2 col-md-1 col-form-label text-md-right">{{ __('Relevance') }}</label>
@@ -82,10 +89,9 @@
                             @enderror
                         </div>
                     </div>          
-                    
-                    
                     @endif
-
+                    @endauth
+                    
                     <div class="form-group row">
                         <label for="search" class="col-md-3 col-form-label text-md-right">{{ __('Containing text') }}</label>
 

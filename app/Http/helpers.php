@@ -220,3 +220,7 @@ function communities_list() : array
         12=>"Other public communities",
     ];
 }
+
+function preview_id($id) {
+    return base_convert($id, 10, 36);
+}
