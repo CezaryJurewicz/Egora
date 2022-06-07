@@ -232,7 +232,7 @@ class IdeaController extends Controller
     
     public function welcome(Request $request)
     {
-        return $this->_ideas($request, 'welcome', 23);
+        return $this->_ideas($request, 'welcome', 46);
     }
     
     public function indexes(Request $request)

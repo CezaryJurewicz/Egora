@@ -75,7 +75,7 @@
     </div>
     <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 100%;">
         <a href="{{ route('register') }}">
-            <img style="width:30%;" class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
+            <img style="width:60%;" class="img-fluid" src='{{ asset('img/Egora E-Image_Welcome.png') }}'>
         </a>
     </div>
     <div id="app">
@@ -130,7 +130,7 @@
                           <div class="card-header" id="headingTwo">
                             <h2 class="mb-0">
                               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                  Egora: Version &Sigma;
+                                  Egora: Version &Sigma; (archived)
                               </button>
                             </h2>
                           </div>
@@ -140,7 +140,7 @@
                                     <div class="card">
                                         <div class="card-body mb-3">
                                             <h3><b>Egora: Version &Sigma;</b><br/>
-                                            (archived)</h3>
+                                            (archived: Januray 7, 2019)</h3>
                                         </div>
                                         <div class="card-body mb-3">
                                             <h5>Idea Dominance Index</h5>
