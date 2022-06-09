@@ -60,6 +60,9 @@ class IdeaPolicy
                     ->where('receiver_id', $user->id)->first();
             if ($comment_notification) {
                 return $this->allow();
+            } else {
+                // TODO: need better processing of this part.
+                return $this->allow();
             }
         }
         

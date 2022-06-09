@@ -543,6 +543,8 @@ class IdeaController extends Controller
         if ($validator->fails()) {
             $a = $validator->getMessageBag()->getMessages();
             $message = array_shift($a);
+            
+            switch_by_idea($idea);
             $request->session()->flash('message', $message[0]);
             
             return redirect()->route('log.index')
