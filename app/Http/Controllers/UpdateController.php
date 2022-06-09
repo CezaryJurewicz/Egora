@@ -177,6 +177,7 @@ class UpdateController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'filter' => 'required|in:status,idea,comment,all,follower',
+            'egora_id' => 'in:1,2,3',
         ]); 
 
         if ($validator->fails()) {
@@ -208,7 +209,11 @@ class UpdateController extends Controller
                     });
                 }
                 
-                $q->where('egora_id', current_egora_id());                
+                if ($request->input('egora_id')) {
+                    $q->where('egora_id', $request->input('egora_id'));                
+                } else {
+                    $q->where('egora_id', current_egora_id());                
+                }
             })
             ->delete();
         

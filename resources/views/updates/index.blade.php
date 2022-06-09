@@ -43,35 +43,17 @@
                             </div>
                         </div>
                     </div>  
-                    <div class="card-body pb-5 pl-5 pr-5 pt-4 ">
+                    <div class="card-body pb-2 pl-2 pr-2 pt-1 pb-md-5 pl-md-5 pr-md-5 pt-md-4">
                         <div id="my-tab-content" class="tab-content">
                             @foreach(['Statuses'=>'status', 'Ideas'=>'idea', 'Followers'=>'follower', 'Comments'=>'comment', 'All Comments'=>'all'] as $title=>$id)
                             <div class="tab-pane @if ($filter== $id) active @endif" id="{{$id}}Tab" stle>
-                                @if ($result[$id]->count() > 0)
-                                <div class="mb-3">
-                                    <form action="{{ route('updates.delete_filtered') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="_method" value="DELETE"/>
-                                        <input type="hidden" name="filter" value="{{$id}}"/>
-                                        <button type='submit' class='btn btn-primary btn-sm'>{{__('Delete All')}}</button>
-                                    </form>
-                                </div>
-                                @endif
-
-                                @forelse($result[$id] as $line)
-                                    @if ($line->updatable)
-                                        @if ($line->type == 'status')
-                                            @include('blocks.updates.status', ['row' => $line, 'id' => $id])   
-                                        @elseif ($line->type == 'follower')
-                                            @include('blocks.updates.follower', ['row' => $line, 'id' => $id])   
-                                        @elseif (($line->type == 'comment') || ($line->type == 'subcomment'))
-                                            @include('blocks.updates.comment', ['row' => $line, 'id' => $id])   
-                                        @elseif ($line->type == 'idea')
-                                            @include('blocks.updates.idea', ['row' => $line, 'id' => $id])   
-                                        @endif
-                                    @endif
-                                @empty
-                                @endforelse
+                                @if ($result[$id]->where('egora_id', current_egora_id())->isNotEmpty())
+                                    @include('blocks.updates.card', ['rows' => $result[$id]->where('egora_id', current_egora_id()), 'eid' => current_egora_id(), 'filter' => $id])   
+                                @endif 
+                                
+                                @foreach($result[$id]->groupBy('egora_id')->diffKeys([current_egora_id() => []]) as  $eid => $nlines)
+                                    @include('blocks.updates.card', ['rows' => $nlines, 'eid' => $eid, 'filter' => $id])
+                                @endforeach
                             </div>
                             @endforeach
 

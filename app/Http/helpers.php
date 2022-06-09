@@ -156,6 +156,22 @@ function header_bg_color() {
     return config(implode('.',['egoras',session('current_egora', 'default'),'bgcolor']));
 }
 
+function bg_color_by_egora_id($id) {
+    $egora = collect(config('egoras'))->first(function($value, $key) use ($id) {
+        return $value['id'] == $id;
+    });
+
+    if ($egora['name'] == 'default' 
+        &&  auth('web')->check() 
+        && auth('web')->user() 
+        && (auth('web')->user()->user_type->class == 'user' || auth('web')->user()->user_type->former)
+        ) {
+        return "#636363";
+    }
+
+    return $egora['bgcolor'];
+}
+
 function no_html(string $input, string $encoding = 'UTF-8'): string
 {
     return htmlentities($input, ENT_COMPAT | ENT_QUOTES , $encoding);
