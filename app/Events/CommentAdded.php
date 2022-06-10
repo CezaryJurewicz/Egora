@@ -26,7 +26,20 @@ class CommentAdded
     public function __construct(Comment $comment)
     {
         $this->comment = $comment;
-        $this->egora_id = current_egora_id();
+        
+        if ($comment->commentable instanceof \App\Comment) {  
+            $item = $comment->commentable->commentable;
+        } else {
+            $item = $comment->commentable;
+        }
+        
+        if ($item instanceof \App\Idea) {
+            $this->egora_id = $item->egora_id;
+        } else if ($item instanceof \App\User) {
+            $this->egora_id = config('egoras.default.id');
+        } else {
+            $this->egora_id = current_egora_id();
+        }
     }
 
     /**
