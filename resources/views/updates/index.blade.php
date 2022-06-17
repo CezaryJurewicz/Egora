@@ -51,7 +51,7 @@
                                     @include('blocks.updates.card', ['rows' => $result[$id]->where('egora_id', current_egora_id()), 'eid' => current_egora_id(), 'filter' => $id])   
                                 @endif 
                                 
-                                @foreach($result[$id]->groupBy('egora_id')->diffKeys([current_egora_id() => []]) as  $eid => $nlines)
+                                @foreach($result[$id]->groupBy('egora_id')->diffKeys([current_egora_id() => []])->sortKeys() as  $eid => $nlines)
                                     @include('blocks.updates.card', ['rows' => $nlines, 'eid' => $eid, 'filter' => $id])
                                 @endforeach
                             </div>

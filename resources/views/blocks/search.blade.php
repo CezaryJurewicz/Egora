@@ -107,6 +107,29 @@
                     </div>
                     
                     <div class="form-group row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="accordion mb-3" id="accordionSearch">
+                                <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                                  <div class="card-header p-0" id="headingSearch">
+                                    <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                                        Guide
+                                      </button>
+                                    </h2>
+                                  </div>
+
+                                  <div id="collapseSearch" class="collapse" aria-labelledby="headingSearch" data-parent="#accordionSearch">
+                                    <div class="card-body col-md-10 offset-md-1">
+                                        <p>This in not a broad search function but a filter for specific terms or phrases. For example, you can enter "freedom of speech" to display an index of ideas that contain this particular text.</p>
+                                        <p>Additionally, when writing an idea pertaining to a specific topic, include all of the typical phrases associated with that topic to ensure that those who are filtering for it will find it.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
                         <div class="col-md-12 text-center">
                             <button type='submit' class='btn btn-sm btn-primary btn-static-200'>{{__('Display')}}</button>
                         </div>
