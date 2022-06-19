@@ -718,6 +718,7 @@ class UserController extends Controller
                 }],
             'current_password' => ['required', 'password'],
             'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,                        
+            'delete_followers' => ['boolean', 'nullable'],
             'email_address' => ['nullable', 'string', 'max:92'],
             'phone_number' => ['nullable', 'string', 'max:92'],
             'social_media_1' => ['nullable', 'string', 'max:92'],
@@ -744,7 +745,7 @@ class UserController extends Controller
             $searchName->name = $request->input('search_name');
             $searchName->hash = base64_encode(Hash::make($request->input('search_name')));
             $searchName->save();
-            event(new SearchNameChanged($searchName->user));
+            event(new SearchNameChanged($searchName->user, $request));
         }
         
         if ($user->name != $request->name) {

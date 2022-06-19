@@ -26,6 +26,8 @@ class RemoveFollowers
      */
     public function handle(SearchNameChanged $event)
     {
-        $event->user->followers()->sync([]);
+        if ($event->request->input('delete_followers')) {
+            $event->user->followers()->sync([]);
+        }
     }
 }
