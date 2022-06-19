@@ -30,6 +30,7 @@ use App\Comment;
 use App\Events\StatusAdded;
 use App\Events\CommentAdded;
 use App\Update;
+use App\Events\IdeaSupportHasChanged;
 
 class UserController extends Controller
 {
@@ -861,8 +862,14 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
+        $ideas = $user->liked_ideas;
+        
         $user->forceDelete();
         
+        $ideas->each(function($idea, $key) {
+            event(new IdeaSupportHasChanged(new User(), $idea));
+        });
+
         if($request->user()->isAdmin()) {
             return redirect()->route('users.index')->with('success', 'User permanently deleted');
         }
@@ -880,9 +887,16 @@ class UserController extends Controller
                     ->withInput()->withErrors($validator);
         }
         
+        $ideas = $user->liked_ideas;
+        
         Auth::logout();
         
         $user->forceDelete();
+        
+        $ideas->each(function($idea, $key) {
+            event(new IdeaSupportHasChanged(new User(), $idea));
+        });
+        
         return redirect()->route('index')->with('success', 'User permanently deleted');  
     }
     
