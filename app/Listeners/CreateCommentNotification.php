@@ -74,13 +74,13 @@ class CreateCommentNotification
                     $notification->message = ' responded to your comment.';
                 }
                 $notification->save();
-                
+
                 $line = new LogLine();
                 $line->user_id = $notification->receiver_id;
                 $line->egora_id = $notification->egora_id;
                 $line->created_at = $notification->created_at;
                 $notification->logline()->save($line);
-                
+
                 if ($notification->receiver->сomment_notifications) {
                     $notification->receiver
                         ->notify(new CommentNotificationEmail($notification));
