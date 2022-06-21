@@ -716,6 +716,7 @@ class UserController extends Controller
                         $fail('As a candidate, you are not allowed to change '.$attribute.' currently.');
                     }
                 }],
+            'national_affiliations' => ['nullable', 'string', 'max:230'],
             'current_password' => ['required', 'password'],
             'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,                        
             'delete_followers' => ['boolean', 'nullable'],
@@ -752,6 +753,7 @@ class UserController extends Controller
             $user->name = $request->name;
             event(new UserNameChanged($user));
         }        
+        $user->national_affiliations = $request->national_affiliations;
         $user->email_address = $request->email_address;
         $user->phone_number = $request->phone_number;
         $user->social_media_1 = $request->social_media_1;

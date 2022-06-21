@@ -90,6 +90,7 @@
                                 <button disabled class="btn btn-ssm btn-secondary col-md-3">Edit</button>
                             </form>
                             @endif
+                            <div class="mt-2">{{ $user->national_affiliations }}</div>
                             @endif
                             
                             @if($user->infoEmpty() && auth('web')->check() && auth('web')->user()->id == $user->id)

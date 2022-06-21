@@ -62,6 +62,20 @@
                             </div>
                         </div>
                         
+                        <div class="form-group">
+                            <label for="national_affiliations" class="col-form-label">{{ __('National Affiliations') }}</label>
+
+                            <div>
+                                <input id="national_affiliations" type="text" class="form-control @error('national_affiliations') is-invalid @enderror" name="national_affiliations" value="{{ old('national_affiliations') ?: $user->national_affiliations  }}" autocomplete="national_affiliations" autofocus>
+
+                                @error('national_affiliations')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
                         <hr class="mt-4">
                         <div class="text-center">
                             <h5>{{ __('Contact Information') }}</h5>
