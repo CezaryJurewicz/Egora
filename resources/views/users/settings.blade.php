@@ -121,11 +121,11 @@
                                 <h5 class="pt-1">@lang('Profile Searchability:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="seachable1" class="col-form-lable col-md-10">{{ __('Public Profile (searchable with partial Search-Name match)') }}</label>
+                                        <label for="seachable1" class="col-form-lable col-8 col-md-10">{{ __('Public Profile (searchable with partial Search-Name match)') }}</label>
                                         <input  id="seachable1" name="seachable" value=1 type="radio" {{ (old('seachable')?: $user->active_search_names->first()->seachable) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="seachable0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (searchable with strict Search-Name match)') }}</label>
+                                        <label for="seachable0" class="col-form-lab1e col-8 col-md-10">{{ __('Hidden Profile (searchable with strict Search-Name match)') }}</label>
                                         <input id="seachable0" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -133,11 +133,11 @@
                                 <h5 class="pt-1">@lang('Profile Visibility:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="visible1" class="col-form-lable col-md-10">{{ __('Public Profile') }}</label>
+                                        <label for="visible1" class="col-form-lable col-8 col-md-10">{{ __('Public Profile') }}</label>
                                         <input  id="visible1" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="visible0" class="col-form-lab1e col-md-10">{{ __('Hidden Profile (your support for ideas is hidden in the Main Egora; profile is not listed under "New Users"; profile is not listed under "Leads" nor "Followers" of other users.)') }}</label>
+                                        <label for="visible0" class="col-form-lab1e col-8 col-md-10">{{ __('Hidden Profile (your support for ideas is hidden in the Main Egora; profile is not listed under "New Users"; profile is not listed under "Leads" nor "Followers" of other users.)') }}</label>
                                         <input id="visible0" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -168,11 +168,11 @@
                                 <h5 class="pt-1">@lang('Idea Notifications:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="notifications1" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <label for="notifications1" class="col-form-lable col-8 col-md-10">{{ __('Instant (instant email notifications)') }}</label>
                                         <input  id="notifications1" name="notifications" value=1 type="radio" {{ (old('notifications')?: $user->notifications) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="notifications0" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <label for="notifications0" class="col-form-lab1e col-8 col-md-10">{{ __('None (no email notifications)') }}</label>
                                         <input id="notifications0" name="notifications" value=0 type="radio" {{ (old('notifications')?: ($user->notifications==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -180,11 +180,11 @@
                                 <h5 class="pt-1">@lang('Comment Notifications:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="сomment_notifications1" class="col-form-lable col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <label for="сomment_notifications1" class="col-form-lable col-8 col-md-10">{{ __('Instant (instant email notifications)') }}</label>
                                         <input  id="сomment_notifications1" name="сomment_notifications" value=1 type="radio" {{ (old('сomment_notifications')?: $user->сomment_notifications) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="сomment_notifications0" class="col-form-lab1e col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <label for="сomment_notifications0" class="col-form-lab1e col-8 col-md-10">{{ __('None (no email notifications)') }}</label>
                                         <input id="сomment_notifications0" name="сomment_notifications" value=0 type="radio" {{ (old('сomment_notifications')?: ($user->сomment_notifications==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@
                                 upon next login.</p>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="deactivate" class="col-form-lable col-md-10">{{ __('Do you really wish to deactivate your account?') }}</label>
+                                        <label for="deactivate" class="col-form-lable col-8 col-md-10">{{ __('Do you really wish to deactivate your account?') }}</label>
                                         <input  id="deactivate" name="deactivate" value=1 type="checkbox" {{ old('deactivate') ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@
 
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="delete" class="col-form-lable col-md-10">{{ __('Do you really wish to delete your account?') }}</label>
+                                        <label for="delete" class="col-form-lable col-8 col-md-10">{{ __('Do you really wish to delete your account?') }}</label>
                                         <input  id="delete" name="delete" value=1 type="checkbox" {{ old('delete') ? ' checked' : '' }} >
                                     </div>
                                 </div>

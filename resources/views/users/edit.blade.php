@@ -43,7 +43,7 @@
                         
                         <div class="form-group">
                             <div>
-                                <label for="delete_followers" class="col-form-lable col-md-10">{{ __('Lose all of my followers') }}</label>
+                                <label for="delete_followers" class="col-form-lable col-8 col-md-10">{{ __('Lose all of my followers') }}</label>
                                 <input  id="delete_followers" name="delete_followers" value=1 type="checkbox" {{ old('delete_followers') ? ' checked' : '' }} >
                             </div>
                         </div>
