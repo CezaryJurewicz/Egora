@@ -12,7 +12,7 @@
                         </div>
                         
                         <div class="col-md-9">
-                            <div class="row">
+                            <div class="row pb-3">
                                 <div class="col-12 col-md-8 offset-md-2">
                                     <div class="text-center">
                                         <h3>{{ __('views.About Me') }}</h3>
@@ -31,14 +31,14 @@
                             </div>
                             @if (auth('web')->check() && auth('web')->user()->can('about_edit', [App\User::class, $user->active_search_names->first()->hash]))
                             <div class="row">
-                                <div class="col col-md-2 text-right offset-10 p-3">
-                                    <a class="btn btn-sm btn-primary" href="{{ route('users.about_edit', $user->active_search_names->first()->hash) }}">Edit</a>
+                                <div class="col-12 col-md-2 text-right offset-md-10 p-3">
+                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.about_edit', $user->active_search_names->first()->hash) }}">Edit</a>
                                 </div>
                             </div>
                             @endif
                             
                             <div class="row">
-                                <div class="col col-md-8 offset-2 mt-3">
+                                <div class="col col-md-8 offset-md-2 mt-3">
                                     <div class="text-center">
                                         <h3>{{ __('Status') }}</h3>
                                     </div>

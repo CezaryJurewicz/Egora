@@ -7,7 +7,7 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-10 offset-1 text-center">
+                    <div class="col-md-10 offset-md-1 text-center">
                         <h3>{{ __('Notifications') }}</h3>
                     </div>
                 </div>
