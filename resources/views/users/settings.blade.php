@@ -275,7 +275,7 @@
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
                             <h4>@lang('Delete Account')</h4>
-                                <p class="col-md-12 row">Account deletion is not available to ILP Members nor former ILP members in
+                                <p class="col-md-12 row">Per the ILP Membership Declaration, account deletion is not available to ILP Members nor former ILP members in
                                 order to protect the interests of the current ILP Members.</p>
                                 <p class="col-md-12 row">However, if you wish to minimize your presence in Egora, you can do so by
                                 changing your registered name, changing your Search-Name, changing your

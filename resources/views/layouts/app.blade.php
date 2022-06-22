@@ -200,7 +200,7 @@
                                     
                                     <li><a class="dropdown-item"  style="line-height: initial;" href="{{ route('logout') }}" 
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Log Out') }}
                                     </a></li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="title" class="col-form-label">{{ __('Search-Name') }} <small>({{ __('Changing your Search-Name allows you to lose all of your followers') }})</small></label>
+                            <label for="search_name" class="col-form-label">{{ __('Search-Name') }} <small>({{ __('Changing your Search-Name allows you to lose all of your followers') }})</small></label>
                             <div>
                                 <input id="search_name" type="text" class="form-control @error('search_name') is-invalid @enderror" name="search_name" value="{{ old('search_name')?: $searchName->name }}" required>
 
@@ -44,7 +44,13 @@
                         <div class="form-group">
                             <div>
                                 <label for="delete_followers" class="col-form-lable col-8 col-md-10">{{ __('Lose all of my followers') }}</label>
-                                <input  id="delete_followers" name="delete_followers" value=1 type="checkbox" {{ old('delete_followers') ? ' checked' : '' }} >
+                                <input  id="delete_followers" name="delete_followers" class="@error('delete_followers') is-invalid @enderror" value=1 type="checkbox" {{ old('delete_followers') ? ' checked' : '' }} >
+                                
+                                @error('delete_followers')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         

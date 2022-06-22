@@ -1,4 +1,4 @@
-                <form autocomplete="off" action="{{ route(Route::current()->getName()) }}" method="GET">
+                <form autocomplete="off" action="{{ route(Route::current()->getName()) }}#ideas" method="GET">
                     @if (collect(Request::query())->has('sort'))
                         <input id="sort" type="hidden" name="sort" value="date">
                     @endif

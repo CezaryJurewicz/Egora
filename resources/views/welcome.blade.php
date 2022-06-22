@@ -140,7 +140,7 @@
                                     <div class="card">
                                         <div class="card-body mb-3">
                                             <h3><b>Egora: Version &Sigma;</b><br/>
-                                            (archived: Januray 7, 2019)</h3>
+                                            (archived: January 7, 2019)</h3>
                                         </div>
                                         <div class="card-body mb-3">
                                             <h5>Idea Dominance Index</h5>
@@ -158,10 +158,10 @@
                         
                         <div class="panel ">
                             <div class="panel-body">
-                                <div class="row">
+                                <div class="row pt-2" id="ideas">
                                     <div class="col-md-4 text-center">
                                         @if (empty($sort)) 
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}#ideas">{{ __('Newest Ideas') }}</a>
                                         @else
                                         <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
                                         @endif
@@ -170,12 +170,12 @@
                                         @if (empty($sort) && empty($index)) 
                                         <h5 class="pt-2">{{ __('Idea Dominance Index') }}</h5>
                                         @else
-                                        <a class="btn btn-primary btn-block" href="{{ route('index') }}">{{ __('Idea Dominance Index') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index') }}#ideas">{{ __('Idea Dominance Index') }}</a>
                                         @endif
                                     </div>
                                     <div class="col-md-4 text-center">
                                         @if (empty($index)) 
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', ['index'=>'popularity']) }}">{{ __('Idea Popularity Index') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', ['index'=>'popularity']) }}#ideas">{{ __('Idea Popularity Index') }}</a>
                                         @else
                                         <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
                                         @endif

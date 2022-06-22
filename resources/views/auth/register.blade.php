@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card bg-dark text-light text-center shadow-sm p-2 mb-3">
-                Humanity,<br/>
+                People,<br/>
                 here all tyrants drown<br/>
                 in the ocean of your collective wisdom.<br/>
                 --------------------------------------------<br/>

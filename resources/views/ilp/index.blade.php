@@ -39,8 +39,8 @@
                         maintenance of this record. The ILP will continue to maintain this record,
                         even in the event of your latter withdrawal from membership.</p>
                         <p>Furthermore, to ensure the highest accuracy of this record and for the
-                        convenience of everyone, the Egora account of ILP Members and former ILP
-                        members will be undeletable. If these terms are not acceptable to you, DO
+                        convenience of everyone, the Egora accounts of ILP Members and former ILP
+                        members will not be deletable. If these terms are not acceptable to you, DO
                         NOT declare yourself as a member until you are ready to meet these
                         conditions.</p>
                     </div>
@@ -62,7 +62,7 @@
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
-                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a member of the International Logic Party.                    
+                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a Member of the International Logic Party.                    
                     </div>
                     <div class="row">
                         <div class="col-md-3">

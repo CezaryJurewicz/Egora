@@ -719,7 +719,13 @@ class UserController extends Controller
             'national_affiliations' => ['nullable', 'string', 'max:230'],
             'current_password' => ['required', 'password'],
             'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,                        
-            'delete_followers' => ['boolean', 'nullable'],
+            'delete_followers' => ['boolean', 'nullable',
+                function ($attribute, $value, $fail) use ($request, $searchName) {
+                    if ($request->search_name == $searchName->name)
+                    {
+                        $fail('Please change your Search-Name.');
+                    }
+                }],
             'email_address' => ['nullable', 'string', 'max:92'],
             'phone_number' => ['nullable', 'string', 'max:92'],
             'social_media_1' => ['nullable', 'string', 'max:92'],
