@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Member Declaration') }}</h4>
                 <div class="card">
-                    <div class="card-body text-justify col-md-10 offset-1">
+                    <div class="card-body text-justify col-md-10 offset-md-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         <p>Through this function you are able to declare yourself as a member of the
                         International Logic Party (ILP). To be a member of this political party, you
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <h3 class="mt-5">International Logic Party Principles</h3>
-                <div class="text-justify col-md-10 offset-1">
+                <div class="text-justify col-md-10 col-11 offset-1">
                     @include('blocks.principles')
                 </div>
                 
@@ -61,14 +61,14 @@
                 @else
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
+                    <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
                         I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a Member of the International Logic Party.                    
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                             <a class='btn btn-primary btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('some.Cancel and Close')}}</a>
                         </div>
-                        <div class="col-md-3 offset-6">
+                        <div class="col-md-3 offset-md-6">
                             <button type='submit' class='btn btn-ilp btn-block'>{{__('some.Save and Close')}}</button>                            
                         </div>
                     </div>

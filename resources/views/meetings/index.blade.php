@@ -23,7 +23,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             <p>The Meeting Organizer function is primarily intended for scheduling
                             ILP meetings, but other democratic events are welcome too,
                             especially Citizen Assembly meetings. Below are the key points

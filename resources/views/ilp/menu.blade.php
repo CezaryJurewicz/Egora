@@ -23,7 +23,7 @@
                           </div>
 
                           <div id="collapseOne" class="collapse @if($show) show @endif" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="card-body col-md-10 offset-1">
+                            <div class="card-body col-md-10 offset-md-1">
                                 
                                 <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif – </p>
                                 <p>Congratulations! You are now an officer of the International Logic

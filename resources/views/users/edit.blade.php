@@ -69,7 +69,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="national_affiliations" class="col-form-label">{{ __('National Affiliations') }}</label>
+                            <label for="national_affiliations" class="col-form-label">{{ __('Other National Affiliations') }}</label>
 
                             <div>
                                 <input id="national_affiliations" type="text" class="form-control @error('national_affiliations') is-invalid @enderror" name="national_affiliations" value="{{ old('national_affiliations') ?: $user->national_affiliations  }}" autocomplete="national_affiliations" autofocus>

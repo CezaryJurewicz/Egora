@@ -15,7 +15,7 @@
               </div>
 
               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body col-md-10 offset-1">
+                <div class="card-body col-md-10 offset-md-1">
                     <p>Using the 23 Administrative Subdivision categories, users of Egora can self-organize 
                         themselves into various voting blocks corresponding to the various administrative 
                         districts within their respective countries. For example, users from United States 
@@ -60,7 +60,7 @@
                         </div>
                             <div class="row col-12 p-0 pl-1">
                                 <div class="subdivisionsearch col-12 col-md-11 p-0" name="subdivisions[{{$i}}]" value="{{ old('subdivisions.$i')?: (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}"></div>
-                                <button class="btn btn-primary col-12 col-md-1 btn-sm ">{{ __('Save') }}</button>
+                                <button class="btn btn-primary col-12 col-md-1 pb-2 pt-2 btn-sm ">{{ __('Save') }}</button>
                             </div>
                     @endfor
                 </form>

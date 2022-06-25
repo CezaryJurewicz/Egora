@@ -25,7 +25,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             <p>The Updates function let's you know what's going on around Egora. "Status", "Ideas", "Main Comments", and "All Comments" sections keep you informed about what your leads are doing, and the "Followers" section tells you when you have new followers.</p>                            
                         </div>
                       </div>

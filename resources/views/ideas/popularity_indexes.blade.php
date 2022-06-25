@@ -42,7 +42,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             @if (empty($sort)) 
                             <p>The Idea Popularity Index (IPI) shows what are the most <u>popularly</u>
                             supported ideas universally, within any nation, and within Egora. As

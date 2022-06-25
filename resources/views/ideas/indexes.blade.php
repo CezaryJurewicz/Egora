@@ -37,7 +37,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             @if (empty($sort)) 
                             <p>The Idea Dominance Index (IDI) shows what are the most <u>strongly</u>
                             supported ideas universally and within any nation. As the people

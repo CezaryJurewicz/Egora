@@ -25,7 +25,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             <p>The Campaign Manager functions enable us to create a list of political candidates for any government position in the world, according to which candidates most closely represent the will of the people (Candidate Score) and how much the Members of the ILP trust those candidates to carry out the will of the people (Qualification Status). Each user is able to see the Candidate Rank Listing for the candidates from their own electoral divisions, according to their Nation and Administrative Subdivisions.</p>
                             <p>The Candidate Score algorithm is very simple: <br/>
                             From all ideas that a candidate supports––up to 46, from both 23 to 1 and 0 (23) to 0 (1) positions––we total the IDI Points of the 23 ideas with the most IDI Points. </p>

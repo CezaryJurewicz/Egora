@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Membership Withdrawal') }}</h4>
                 <div class="card">
-                    <div class="card-body text-justify col-md-10 offset-1">
+                    <div class="card-body text-justify col-md-10 offset-md-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         <p>Through this function, you are able to withdraw yourself from membership in
                         the International Logic Party (ILP). This is a very serious decision because
@@ -35,11 +35,11 @@
                 
                 <form action="{{ route('users.withdraw_from_ilp_process', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="text-justify col-md-10 offset-1 mt-5 mb-5">
+                    <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
                         I, <input class='line' value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name" autocomplete="off">, withdraw and forever forfeit my membership in the International Logic Party.
                     </div>
                     
-                    <div class="col-md-10 offset-1 mt-5 mb-5">
+                    <div class="col-md-10 offset-md-1 mt-5 mb-5">
                         <div class="form-group row">
                             <label for="password" class="col-md-2 col-form-label text-md-left">{{ __('Confirm Password:') }}</label>
 
@@ -56,10 +56,10 @@
                     </div>
                     
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-2">
                             <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('some.Cancel and Close')}}</a>
                         </div>
-                        <div class="col-md-3 offset-6">
+                        <div class="col-md-3 offset-md-6">
                             <button type='submit' class='btn btn-danger btn-block'>{{__('some.Save and Close')}}</button>                            
                         </div>
                     </div>

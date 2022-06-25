@@ -25,16 +25,18 @@
                     
                     @for($i=0; $i<11; $i++)
                         <div class="form-group row">
-                            <div class="col-11">
+                            <div class="col-12 col-md-11 p-0">
                                 <input id="ci{{$i}}" type="text" class="form-control @error('communities.$i') is-invalid @enderror" name="communities[{{$i}}]" value="{{ old('communities.$i')?: (isset($communities[$i]) ? $communities[$i]->title : '') }}">
 
-                                @error('search_name')
+                                @error('communities.$i')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <button class="btn btn-primary btn-sm col-1">{{ __('Save') }}</button>
+                            <div class="col-md-1 col-12 p-0">
+                            <button class="btn btn-primary btn-sm pl-1 pb-2 pt-2 col-12">{{ __('Save') }}</button>
+                            </div>
 
                         </div>
                     @endfor

@@ -9,7 +9,7 @@
                 <h3>{{ __('International Logic Party') }}</h3>
                 <h4>{{ __('Provisional Administrative Leadership') }}</h4>
                 <div class="card">
-                    <div class="card-body col-md-10 offset-1 text-justify">
+                    <div class="card-body col-md-10 offset-md-1 text-justify">
                         <p class="text-center">                        
                             <b>Provisional Administrative Leadership<br/>
                             of the International Logic Party</b><br/>
@@ -101,10 +101,10 @@
                             <img width="200px" src='{{ asset('img/ILP_logo.jpg') }}'>
                         </div>
                         <div class="row mt-5">
-                            <div class="col-md-3">
+                            <div class="col-md-3 mb-2">
                                 <a class='btn btn-ilp btn-block' href="{{ route('users.ideological_profile', auth('web')->user()->active_search_names->first()->hash) }}">{{__('Close')}}</a>
                             </div>
-                            <div class="col-md-3 offset-6">
+                            <div class="col-md-3 offset-md-6">
                                 <a class='btn btn-ilp btn-block' href="{{ route('ilp.menu') }}">{{__('ILP Functions')}}</a>                            
                             </div>
                         </div>

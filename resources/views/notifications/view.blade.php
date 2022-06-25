@@ -21,19 +21,14 @@
                                 <div class="col-9">
                                     <div class="row">
                                         <div class="col-12">
-                                        <b>
-                                            <a style="color:#000;" href="{{ route('users.ideological_profile', $row->sender->active_search_name_hash) }}">
-                                            {{ $row->sender->active_search_names->first()->name ??  $row->sender->id }} 
-                                            </a>
-                                        </b>
-                                        @if ($row->invite)
+                                        <b><a style="color:#000;" href="{{ route('users.ideological_profile', $row->sender->active_search_name_hash) }}">{{ $row->sender->active_search_names->first()->name ??  $row->sender->id }}</a></b>@if ($row->invite)
                                             {{ __('invited you to examine their idea.') }}
                                         @elseif (!$row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('removed their support from this idea.') }}
                                         @elseif ($row->sender->liked_ideas->contains($row->idea) && !$row->response)
                                             {{ __('supported your idea!') }}
                                         @elseif ($row->response)
-                                            : {{ $row->notification_preset->title }}
+: {{ $row->notification_preset->title }}
                                         @endif
                                         </div>
                                     </div>

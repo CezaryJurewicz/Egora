@@ -24,7 +24,7 @@
                       </div>
 
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body col-md-10 offset-1">
+                        <div class="card-body col-md-10 offset-md-1">
                             <p>Sending ideas to other Egora users for review and support is easy
                                 and convenient.</p>
                             <ol>

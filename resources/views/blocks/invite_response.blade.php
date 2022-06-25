@@ -28,20 +28,20 @@
                                 <input type="hidden" name="idea_id" value="{{ $idea->id }}"/>
                                 @foreach($presets as $preset)
                                 <div class="row pt-2 pl-5">
-                                    <div class="col-md-9">
+                                    <div class="col-md-9 col-8">
                                         <label for="preset_{{ $preset->id }}">
                                     {{ $preset->title }}
                                         </label>
                                     </div>
 
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-2 col-2 align-self-center">
                                         <input id="preset_{{ $preset->id }}" type="radio" name="preset_id" value="{{ $preset->id }}"/>
                                     </div>
                                 </div>
                                 @endforeach
 
-                                <div class="row pt-2 pl-5">
-                                    <div class="offset-4 col-md-3 mb-3">
+                                <div class="row pt-2 pl-md-5">
+                                    <div class="offset-md-4 col-md-3 mb-3">
                                         <button class='btn btn-primary btn-sm btn-block'>
                                             {{__('Submit')}}
                                         </button>
