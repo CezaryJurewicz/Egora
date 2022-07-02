@@ -5,7 +5,7 @@
         
         <div class="message pb-4">
             <div id="comment{{ $comment->id }}" class="p-0">
-                <div class="card-header">
+                <div class="card-body">
                 {!! filter_text($comment->message) !!}
                 </div>
             </div>

@@ -1268,7 +1268,7 @@ class UserController extends Controller
         
         event(new StatusAdded($comment));
         
-        return redirect()->back()->with('success', 'Status added.'); 
+        return redirect()->to(route('users.about', $user->active_search_names->first()->hash).'#comment-'.$comment->id)->with('success', 'Status added.'); 
     }
     
     public function status_reply(Request $request, Comment $comment)
@@ -1286,7 +1286,7 @@ class UserController extends Controller
                 
         event(new CommentAdded($new));
          
-        return redirect()->back()->with('success', 'Reply added.'); 
+        return redirect()->to(route('users.about', [$comment->commentable->active_search_names->first()->hash, 'open'=>$comment->id]).'#comment-'.$new->id)->with('success', 'Reply added.'); 
         
     }
     
@@ -1304,7 +1304,7 @@ class UserController extends Controller
         $comment->message = $request->input('message');
         $comment->save();
 
-        return redirect()->back()->with('success', 'Status updated.'); 
+        return redirect()->to(route('users.about', [$comment->commentable->active_search_names->first()->hash]).'#comment-'.$comment->id)->with('success', 'Status updated.'); 
     }    
     
     public function update_role(Request $request, User $user)

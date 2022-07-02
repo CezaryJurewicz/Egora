@@ -7,11 +7,6 @@
         <div class="panel ">
             <div class="panel-body">
                 <div class="text-center">
-                    @if (is_egora())
-                    <h3>{{ __('Ideological Profile') }}</h3>
-                    @elseif (is_egora('community'))
-                    <h3>{{ __('Community Matters') }}</h3>
-                    @endif
                     <h3>Idea: Preview</h3>
                 </div>
                 

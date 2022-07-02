@@ -90,7 +90,7 @@ class CommentController extends Controller
         }
         
         if ($item instanceof \App\User) {
-            return redirect()->back()->with('success', 'Updated.');
+            return redirect()->to(route('users.about', [$item->active_search_names->first()->hash, 'open'=>$comment->commentable->id]).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
         }
         
         return redirect()->to(route('ideas.view', [$item, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
@@ -111,7 +111,7 @@ class CommentController extends Controller
                 
         event(new CommentAdded($new));
          
-        return redirect()->to(route('ideas.view', [$comment->commentable, 'comments']).'#comment-'.$comment->id)->with('success', 'Comment added.'); 
+        return redirect()->to(route('ideas.view', [$comment->commentable, 'comments', 'open'=>$comment->id]).'#comment-'.$new->id)->with('success', 'Comment added.'); 
         
     }
 

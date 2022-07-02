@@ -12,9 +12,9 @@
                     <div class="card-body text-justify col-md-10 offset-md-1">
                         <p>Philosopher @if(auth('web')->check()){{ auth('web')->user()->name }}@else [user’s name] @endif,</p>
                         
-                        <p>Through this function you are able to open a petition to become an officer of
-                        your provisional national branch of the ILP. ILP Members from your nation,
-                        including yourself, will be able to give you their support by clicking the “Add
+                        <p>Through this function you are able to open a petition to become an officer of 
+                        your national branch of the ILP. Other ILP Members from your nation 
+                        will then be able to give you their support by clicking the “Add
                         My Name” button under your petition. If you receive the support of at least
                         5 ILP Members, you will attain the first officer rank of <b><i>Filosofos tou
                         Dromou</i></b>, meaning Philosopher of the Street. If your support falls below 5

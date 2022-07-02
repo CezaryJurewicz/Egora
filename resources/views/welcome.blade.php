@@ -70,7 +70,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
         <!--<span class="close">&times;</span>-->
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1J5zl7jQYJg?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3hEzvAL-xgI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
     <div class="text-center" style="background-image: url({{ asset('img/line-800.jpg') }}); background-repeat: repeat-x; background-size: 100px 100%;">

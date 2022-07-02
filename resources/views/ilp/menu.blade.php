@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-5 col-centered">
-                        <ul class="text-justify">
+                        <ul class="text-left">
                             <li><a href="{{ route('ilp.principles') }}">ILP Principles</a></li>
                             <li><a href="{{ route('ilp.founding_members') }}">ILP Founding Members</a></li>
                             <li><a href="{{ route('ilp.guide') }}">Provisional Administrative Leadership of the ILP</a></li>

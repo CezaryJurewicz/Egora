@@ -31,7 +31,7 @@
                 @enderror
 
                 <div class="pt-2 text-left">
-                    <button type="submit" class="btn btn-sm btn-primary col-md-2">
+                    <button type="submit" class="btn btn-sm btn-primary col-md-3">
                         {{ __('Update') }}
                     </button>
                 </div>
@@ -49,7 +49,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('update', $comment))
                         <a href="#" class="editbtn{{ $comment->id }}" onclick="$('#edit{{ $comment->id }}').toggle(); $('#comment{{ $comment->id }}').toggle(); $('.editbtn{{ $comment->id }}').toggle();  return false;">{{__('Edit')}}</a> 
@@ -57,7 +57,7 @@
                     @endif
                 </small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <small>
                     @if (auth('web')->check() && auth('web')->user()->can('delete', $comment))
                         <a href="#" onclick="$('#remove{{ $comment->id }}').submit(); return false;" >{{__('Remove')}}</a> 

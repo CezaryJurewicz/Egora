@@ -9,35 +9,9 @@
                 <div class="text-center">
                     
                     @if (auth('web')->check())
-                        @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.indexes')
-                            <h3>{{ __('views.Idea Dominance Index') }}</h3>
-                        @elseif (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'ideas.popularity_indexes')
-                            <h3>{{ __('views.Idea Popularity Index') }}</h3>
-                        @elseif ( auth('web')->check() && app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'users.ideological_profile')
-                            @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'] == auth('web')->user()->active_search_names->first()->hash )
-                                @if (is_egora())
-                                <h3>{{ __('views.Ideological Profile') }}</h3>
-                                @elseif (is_egora('community'))
-                                <h3>{{ __('Community Matters') }}</h3>
-                                @endif
-                            @else 
-                                <h3>{{ (App\SearchName::where('hash', app('router')->getRoutes()->match(app('request')->create(url()->previous()))->parameters()['hash'])->firstOrFail() ?? App\User::findOrFail($idea->user->id)->active_search_names->first())->name ?? '' }} </h3>
-                            @endif
-                        @else
-                            @if (is_egora())
-                            <h3>{{ __('views.Ideological Profile') }}</h3>
-                            @elseif (is_egora('community'))
-                            <h3>{{ __('Community Matters') }}</h3>
-                            @endif
-                        @endif 
                         <h3>Idea: Open</h3>
                     @else 
                         @if( \Route::currentRouteName() == 'ideas.preview' )
-                            @if (is_egora())
-                            <h3>{{ __('views.Ideological Profile') }}</h3>
-                            @elseif (is_egora('community'))
-                            <h3>{{ __('Community Matters') }}</h3>
-                            @endif
                             <h3>Idea: Preview</h3>
                         @endif
                     @endif
@@ -94,7 +68,7 @@
                             Derivative Ideas: 
                             @if ($idea->derivatives->isNotEmpty())
                                 @if ($idea->egora_id == config('egoras.default.id'))
-                                <a href="{{ route('ideas.indexes', ['relevance'=>-2, 'source_id'=>$idea->id])}}">Idea Dominance Index</a>
+                                <a href="{{ route('ideas.indexes', ['relevance'=>-2, 'source_id'=>$idea->id])}}">IDI</a>
                                 @else 
                                     @if (!is_null($idea->community))
                                     <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">Idea Popularity Index</a>
