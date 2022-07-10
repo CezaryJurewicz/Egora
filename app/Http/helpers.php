@@ -240,3 +240,7 @@ function communities_list() : array
 function preview_id($id) {
     return base_convert($id, 10, 36);
 }
+
+function filter_office_hours_array($office_hours) {
+    return array_filter($office_hours, function($value) { return !is_null($value['day']) && $value['day'] !== ''; });
+}

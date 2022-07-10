@@ -104,7 +104,7 @@
                             <label for="time" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock)') }}</label>
 
                             <div class="col-md-2">
-                                <div id="timeInput" cssClass="form-control @error('time') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                <div class="timeInput" value='now' cssClass="form-control @error('time') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
                             </div>
                         </div>
                     </div>

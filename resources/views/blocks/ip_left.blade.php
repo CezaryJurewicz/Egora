@@ -105,6 +105,19 @@
                             <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->other_1))) !!}</div>
                             <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->other_2))) !!}</div>
                             @endif
+
+                            @if(!empty(filter_office_hours_array($user->office_hours)))
+                                <div class="mt-2"><b>{{ __('Citizen Office Hours') }}</b></div>
+                                @foreach(filter_office_hours_array($user->office_hours) as $row)
+                                <div class="mt-2"><div class="col row"><div class="col p-0">{{ $row['day'] }}</div><div class="col p-0"> {{ $row['from'] }}-{{ $row['to'] }}</div></div></div>
+                                @endforeach
+                                <div class="mt-2"><b>{{ __('Time Zone') }}</b></div>
+                                <div class="mt-2">{{ $user->time_zone }}</div>
+                                <div class="mt-2"><b>{{ __('Meeting Location / Link to Videoconference') }}</b></div>
+                                <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->meeting_location))) !!}</div>
+                                <div class="mt-2"><b>{{ __('Link to Scheduling Calendar') }}</b></div>
+                                <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->calendar_link))) !!}</div>
+                            @endif
                             
                             @if(auth('web')->check() && auth('web')->user()->id != $user->id)
                             <div class="mt-2">Online: {{ $user->last_online_at->diffForHumans() }}</div>

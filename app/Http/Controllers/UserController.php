@@ -692,8 +692,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $searchName = $user->active_search_names->first();
-        
-        return view('users.edit')->with(compact('user','searchName'));        
+        $office_hours = $user->office_hours ?: [];
+        return view('users.edit')->with(compact('user','searchName', 'office_hours'));        
     }
 
     /**
@@ -741,6 +741,64 @@ class UserController extends Controller
                         $fail('You are not allowed to change '.$attribute.' currently.');
                     }
                 }],
+            'office_hours' => [function ($attribute, $value, $fail) use ($request) {
+                    $office_hours = filter_office_hours_array($request->office_hours);
+                    
+                    if ( !empty($office_hours) && empty($request->time_zone))
+                    {
+                        $fail('Time Zone can\'t be empty');
+                    }
+                }
+            ],
+            'office_hours.*.day' => ['required_with:office_hours.*.from,office_hours.*.to'],
+            'office_hours.*.from' => ['required_with:office_hours.*.day,office_hours.*.to',
+                function ($attribute, $value, $fail) use ($request) {
+                    $i = (int) str_replace(['office_hours.', '.from', '.to'], '', $attribute);
+                    if ($value && (new Carbon())->parse($value)->greaterThan((new Carbon())->parse($request->input('office_hours.'.$i.'.to'))) )
+                    {
+                        $fail('The '.$attribute.' must be less than '.'office_hours.'.$i.'.to'.' time.');
+                    }
+                }
+            ],
+            'office_hours.*.to' => ['required_with:office_hours.*.day,office_hours.*.from', 
+                function ($attribute, $value, $fail) use ($request) {
+                    $i = (int) str_replace(['office_hours.', '.from', '.to'], '', $attribute);
+                    if ($value && (new Carbon())->parse($value)->lessThan((new Carbon())->parse($request->input('office_hours.'.$i.'.from'))) )
+                    {
+                        $fail('The '.$attribute.' must be greater than '.'office_hours.'.$i.'.from'.' time.');
+                    }
+                }
+            ],
+            'time_zone' => ['nullable', 'string', 'max:46', function ($attribute, $value, $fail) use ($request) {
+                    $office_hours = filter_office_hours_array($request->office_hours);
+                    
+                    if ( empty($office_hours) )
+                    {
+                        $fail('Please fill Office Hours.');
+                    }
+                }],
+            'meeting_location' => ['nullable', 'string', 'max:92', function ($attribute, $value, $fail) use ($request) {
+                    $office_hours = filter_office_hours_array($request->office_hours);
+                    
+                    if ( empty($office_hours) )
+                    {
+                        $fail('Please fill Office Hours.');
+                    }
+                }],
+            'calendar_link' => ['nullable', 'string', 'max:92', function ($attribute, $value, $fail) use ($request) {
+                    $office_hours = filter_office_hours_array($request->office_hours);
+                    
+                    if ( empty($office_hours) )
+                    {
+                        $fail('Please fill Office Hours.');
+                    }
+                }],
+        ],[
+//            'office_hours.*.from.required_with' => 'Office Hours From required if Day selected',
+//            'office_hours.*.to.required_with' => 'Office Hours To required if Day selected',
+            'time_zone.max' => 'Time Zone may not be greater than 46 characters.',     
+            'meeting_location.max' => 'Meeting Location / Link to Videoconference may not be greater than 92 characters.',     
+            'time_zone.max' => 'Link to Scheduling Calendar may not be greater than 92 characters.',     
         ]);
          
         if ($validator->fails()) {
@@ -768,6 +826,11 @@ class UserController extends Controller
         $user->messenger_2 = $request->messenger_2;
         $user->other_1 = $request->other_1;
         $user->other_2 = $request->other_2;
+        
+        $user->office_hours = $request->office_hours;
+        $user->meeting_location = trim($request->meeting_location);
+        $user->calendar_link = trim($request->calendar_link);
+        $user->time_zone = trim($request->time_zone);
 
         $nation = Nation::where('title', $request->nation)->first();
                 

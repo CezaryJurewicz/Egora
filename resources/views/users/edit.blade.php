@@ -194,6 +194,118 @@
                         </div>
 
                         <hr class="mt-4">
+                        <div class="text-center">
+                            <h5>{{ __('Citizen Office Hours') }}</h5>
+                        </div>
+                        
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="accordion mb-3" id="accordion">
+                            <div class="card" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); border-radius: calc(0.25rem - 1px);">
+                              <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Guide
+                                  </button>
+                                </h2>
+                              </div>
+
+                              <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body col-md-10 offset-md-1">
+                                    <p>Citizen Office Hours is a time that we––as responsible citizens––make ourselves readily available to our fellow citizens 
+                                        to discuss various ideas and to organize for political action. International Logic Party candidates, officers, and officer 
+                                        petitioners are expected to make themselves available at least one hour per week.</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                
+                        <div class="form-group p-0">
+                            <div class="col row p-0">
+                                <div class="col">
+                                    <label for="day" class="col-form-label">{{ __('Day') }}</label>
+                                </div>
+                                <div class="col">
+                                    <label for="time" class="col-form-label">{{ __('Time (24 hour clock)') }}</label>
+                                </div>                                
+                            </div>
+                            
+                            @for($i=0;$i<5;$i++)
+                            <div class="is-invalid col row p-0 mb-1">
+                            
+                                <div class="col">
+                                    <select type="text" class="form-control @error('office_hours.'.$i.'.day') is-invalid @enderror" name="office_hours[{{$i}}][day]" value="{{ old('office_hours.'.$i.'.day') }}">
+                                    @foreach(['', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
+                                        <option @if((old('office_hours.'.$i.'.day') && old('office_hours.'.$i.'.day')==$day) || ($office_hours && $office_hours[$i]['day']==$day)) selected @endif value="{{$day}}">{{$day}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="col row">
+                                    <div class="col pl-0">
+                                        <div id="from{{$i}}" class="timeInput" name='office_hours[{{$i}}][from]' caption='from' value='{{ old('office_hours.'.$i.'.from') ?? $office_hours[$i]['from'] ?? '' }}' cssClass="form-control @error('office_hours.'.$i.'.from') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                    </div>
+                                    <div class="col pl-0">
+                                        <div id="to{{$i}}" class="timeInput" name='office_hours[{{$i}}][to]' caption='to' value='{{ old('office_hours.'.$i.'.to') ?? $office_hours[$i]['to'] ?? '' }}' cssClass="form-control @error('office_hours.'.$i.'.to') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            @error('office_hours.'.$i.'.day')
+                            <div class="col row invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @enderror
+                            @error('office_hours.'.$i.'.from')
+                            <div class="col row invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @enderror
+                            @error('office_hours.'.$i.'.to')
+                            <div class="col row invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @enderror
+                            @endfor
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time_zone" class="col-form-label">{{ __('Time Zone') }}</label>
+                            <div>
+                                <input id="time_zone" type="text" class="form-control @error('time_zone') is-invalid @enderror" name="time_zone" placeholder="Town, Country" value="{{ old('time_zone')?: $user->time_zone }}">
+
+                                @error('time_zone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                        
+                        
+                        <div class="form-group">
+                            <label for="meeting_location" class="col-form-label">{{ __('Meeting Location / Link to Videoconference') }}</label>
+                            <div>
+                                <input id="meeting_location" type="text" class="form-control @error('meeting_location') is-invalid @enderror" name="meeting_location" value="{{ old('meeting_location')?: $user->meeting_location }}">
+
+                                @error('meeting_location')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                        
+                        
+                        <div class="form-group">
+                            <label for="calendar_link" class="col-form-label">{{ __('Link to Scheduling Calendar') }}</label>
+                            <div>
+                                <input id="calendar_link" type="text" class="form-control @error('calendar_link') is-invalid @enderror" name="calendar_link" value="{{ old('calendar_link')?: $user->calendar_link }}">
+
+                                @error('calendar_link')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                        
+                        
+                        <hr class="mt-4">
                         
                         <div class="form-group">
                             <label for="current_password" class="col-form-label">{{ __('Provide Your Current Password') }}</label>
