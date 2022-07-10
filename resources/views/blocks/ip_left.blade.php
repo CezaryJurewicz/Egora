@@ -106,7 +106,7 @@
                             <div class="mt-2">{!! make_clickable_links(nl2br( htmlspecialchars($user->other_2))) !!}</div>
                             @endif
 
-                            @if(!empty(filter_office_hours_array($user->office_hours)))
+                            @if($user->office_hours && !empty(filter_office_hours_array($user->office_hours)))
                                 <div class="mt-2"><b>{{ __('Citizen Office Hours') }}</b></div>
                                 @foreach(filter_office_hours_array($user->office_hours) as $row)
                                 <div class="mt-2"><div class="col row"><div class="col p-0">{{ $row['day'] }}</div><div class="col p-0"> {{ $row['from'] }}-{{ $row['to'] }}</div></div></div>
