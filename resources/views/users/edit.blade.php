@@ -58,7 +58,7 @@
                             <label for="nation" class="col-form-label">{{ __('Nation') }} <small>({{ __('Changing your nation will remove former nation\'s ideas from your IP') }})</small></label>
 
                             <div>
-                                <div id="NationSearch" value="{{ old('nation') ?: $user->nation->title }}"></div>
+                                <div id="NationSearch" class="@error('nation') is-invalid @enderror" value="{{ old('nation') ?: $user->nation->title }}"></div>
 
                                 @error('nation')
                                     <span class="invalid-feedback" role="alert">

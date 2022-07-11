@@ -245,7 +245,7 @@ class UserController extends Controller
                     $q->where(function($q) use ($request){
                         $q->where('seachable','1');
                     });
-                })->visible()->orderBy('created_at', 'desc')->paginate($perPage);
+                })->where('visible', 1)->orderBy('created_at', 'desc')->paginate($perPage);
 
             $total = 300;
             
@@ -360,7 +360,9 @@ class UserController extends Controller
     public function municipality_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'municipality' => ['required', 'string', 'max:255'],
+            'municipality' => ['required', 'string', 'max:92'],
+        ],[
+            'municipality.max' => 'Municipality may not be greater than :max characters.'
         ]);
          
         if ($validator->fails()) {
@@ -395,7 +397,9 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'communities' => 'required|array|min:11|max:11',
-            'communities.*' => 'nullable|string|min:3|max:190'
+            'communities.*' => 'nullable|string|min:3|max:92'
+        ],[
+            'communities.*.max' => 'A community may not be greater than :max characters.'
         ]); 
 
         if ($validator->fails()) {
@@ -708,7 +712,7 @@ class UserController extends Controller
         $searchName = $user->active_search_names->first();
         
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'string', 'max:255', 
+            'name' => ['required', 'string', 'max:92', 
                 function ($attribute, $value, $fail) use ($request, $user) {                    
                     if ($request->user()->id == $user->id && !$user->user_type->isOfficer 
                             && !is_null($user->campaign) && $user->name !== $value )
@@ -718,7 +722,7 @@ class UserController extends Controller
                 }],
             'national_affiliations' => ['nullable', 'string', 'max:92'],
             'current_password' => ['required', 'password'],
-            'search_name' => 'required|min:3|string|unique:search_names,name,'.$searchName->id,                        
+            'search_name' => 'required|min:3|max:92|string|unique:search_names,name,'.$searchName->id,                        
             'delete_followers' => ['boolean', 'nullable',
                 function ($attribute, $value, $fail) use ($request, $searchName) {
                     if ($request->search_name == $searchName->name)
@@ -733,8 +737,8 @@ class UserController extends Controller
             'messenger_1' => ['nullable', 'string', 'max:92'],
             'messenger_2' => ['nullable', 'string', 'max:92'],                        
             'other_1' => ['nullable', 'string', 'max:230'],
-            'other_2' => ['nullable', 'string', 'max:230'],
-            'nation' => ['required', 'string', 'max:255',
+            'other_2' => ['nullable', 'string', 'max:191'],
+            'nation' => ['required', 'string', 'max:92',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))
                     {
@@ -796,9 +800,21 @@ class UserController extends Controller
         ],[
 //            'office_hours.*.from.required_with' => 'Office Hours From required if Day selected',
 //            'office_hours.*.to.required_with' => 'Office Hours To required if Day selected',
-            'time_zone.max' => 'Time Zone may not be greater than 46 characters.',     
-            'meeting_location.max' => 'Meeting Location / Link to Videoconference may not be greater than 92 characters.',     
-            'time_zone.max' => 'Link to Scheduling Calendar may not be greater than 92 characters.',     
+            'time_zone.max' => 'Time Zone may not be greater than :max characters.',     
+            'meeting_location.max' => 'Meeting Location / Link to Videoconference may not be greater than :max characters.',     
+            'time_zone.max' => 'Link to Scheduling Calendar may not be greater than :max characters.',     
+            'name.max' => "Your Name may not be greater than :max characters.",
+            'search_name.max' => "Search-Name may not be greater than :max characters.",
+            'nation.max' => "Nation may not be greater than :max characters.",
+            'national_affiliations.max' => "Other National Affiliations may not be greater than :max characters.",
+            'email_address.max' => "Email Address may not be greater than :max characters.",
+            'phone_number.max' => "Phone Number may not be greater than :max characters.",
+            'social_media_1.max' => "Social Media 1 may not be greater than :max characters.",
+            'social_media_2.max' => "Social Media 2 may not be greater than :max characters.",
+            'messenger_1.max' => "Messenger 1 may not be greater than :max characters.",
+            'messenger_2.max' => "Messenger 2 may not be greater than :max characters.",
+            'other_1.max' => "Other 1 may not be greater than :max characters.",
+            'other_2.max' => "Other 2 may not be greater than :max characters.",
         ]);
          
         if ($validator->fails()) {
@@ -1254,7 +1270,9 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'subdivisions' => 'required|array|min:23|max:23',
-            'subdivisions.*' => 'nullable|string|min:3|max:190'
+            'subdivisions.*' => 'nullable|string|min:3|max:92'
+        ],[
+            'subdivisions.*.max' => 'A subdivision may not be greater than :max characters.'
         ]); 
 
         if ($validator->fails()) {

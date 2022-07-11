@@ -16,7 +16,7 @@
 
                         <div class="form-group">
                             <div class="mt-4">
-                                <div id="MunicipalitySearch" value="{{ (old('municipality') ?: ($user->municipality ? $user->municipality->title : '')) }}"></div>
+                                <div id="MunicipalitySearch" class="@error('municipality') is-invalid @enderror" value="{{ (old('municipality') ?: ($user->municipality ? $user->municipality->title : '')) }}"></div>
 
                                 @error('municipality')
                                     <span class="invalid-feedback" role="alert">

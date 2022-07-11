@@ -1,5 +1,5 @@
 <div class="media">
-    <span class="comment" id="comment-{{$comment->id}}"> &nbsp; </span>
+    <span class="subcomment" id="comment-{{$comment->id}}"> &nbsp; </span>
     <div class="media-left">
         @if ($comment->user->image)
         <img src="{{ Storage::url($comment->user->image->filename) }}" class="media-object img-fluid img-thumbnail" sty1le="width:40px" alt=""> 

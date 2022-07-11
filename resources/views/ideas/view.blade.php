@@ -71,11 +71,11 @@
                                 <a href="{{ route('ideas.indexes', ['relevance'=>-2, 'source_id'=>$idea->id])}}">IDI</a>
                                 @else 
                                     @if (!is_null($idea->community))
-                                    <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">IPI</a>
                                     @elseif (!is_null($idea->municipality))
-                                    <a href="{{ route('ideas.popularity_indexes', ['relevance'=>-1, 'source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    <a href="{{ route('ideas.popularity_indexes', ['relevance'=>-1, 'source_id'=>$idea->id])}}">IPI</a>
                                     @else
-                                    <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">Idea Popularity Index</a>
+                                    <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">IPI</a>
                                     @endif
                                 @endif
                             @endif

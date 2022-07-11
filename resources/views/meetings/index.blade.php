@@ -78,7 +78,12 @@
                             <label for="country" class="col-md-2 col-form-label text-md-right">{{ __('Country') }}</label>
 
                             <div class="col-md-6">
-                                <div id="CountrySearch" value="{{ old('country') }}"></div>
+                                <div id="CountrySearch" class="@error('country') is-invalid @enderror" value="{{ old('country') }}"></div>
+                                @error('country')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>  
@@ -89,6 +94,12 @@
 
                             <div class="col-md-6">
                                 <div id="CitySearch" value="{{ old('city') }}" cssClass="form-control @error('city') is-invalid @enderror"></div>
+                                <div id="CountrySearch" class="@error('country') is-invalid @enderror" value="{{ old('country') }}"></div>
+                                @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>  
@@ -98,13 +109,23 @@
                             <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date') }}</label>
 
                             <div class="col-md-2">
-                                <div id="dateInput" cssClass="form-control @error('date') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                <div id="dateInput" class="@error('date') is-invalid @enderror" cssClass="@error('date') is-invalid @enderror form-control react-datepicker-ignore-onclickoutside"></div>
+                                @error('date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             
                             <label for="time" class="col-md-2 col-form-label text-md-right">{{ __('Time (24 hour clock)') }}</label>
 
                             <div class="col-md-2">
-                                <div class="timeInput" value='now' cssClass="form-control @error('time') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                <div class="timeInput @error('time') is-invalid @enderror" value='now' cssClass="@error('time') is-invalid @enderror form-control react-datepicker-ignore-onclickoutside"></div>
+                                @error('time')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -115,6 +136,11 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}">
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror                                
                             </div>
                         </div>
                     </div>
@@ -125,6 +151,11 @@
 
                             <div class="col-md-6">
                                 <input id="topic" type="text" class="form-control @error('topic') is-invalid @enderror" name="topic" value="{{ old('topic') }}">
+                                @error('topic')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -135,6 +166,11 @@
 
                             <div class="col-md-6">
                                 <textarea id="comments" type="text" class="form-control @error('comments') is-invalid @enderror" rows="5" name="comments">{{ old('comments') }}</textarea>
+                                @error('comments')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>

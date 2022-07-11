@@ -73,9 +73,19 @@ class MeetingController extends Controller
             'city' => ['required', 'string', 'max:92'],
             'date' => ['required', 'date_format:"d/m/Y"', 'after:yesterday'], //TODO: create custom rule
             'time' => ['required', 'date_format:"H:i"'],
-            'address' => ['required', 'string', 'max:230'],
-            'topic' => ['required', 'string', 'max:230'],
+            'address' => ['required', 'string', 'max:92'],
+            'topic' => ['required', 'string', 'max:92'],
             'comments' => ['nullable', 'string', 'max:2300'],
+        ],[
+            'country.max' => "Country may not be greater than :max characters.",
+            'country.required' => "Country is a required field.",
+            'city.max' => "Town may not be greater than :max characters.",
+            'city.required' => "Town is a required field.",
+            'address.max' => "Location/Address may not be greater than :max characters.",
+            'address.required' => "Location/Address is a required field.",
+            'topic.max' => "Topic may not be greater than :max characters.",
+            'topic.required' => "Topic is a required field.",
+            'comments.max' => "Details may not be greater than :max characters.",
         ]);
          
         if ($validator->fails()) {

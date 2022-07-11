@@ -59,8 +59,13 @@
                             </div>
                         </div>
                             <div class="row col-12 p-0 pl-1">
-                                <div class="subdivisionsearch col-12 col-md-11 p-0" name="subdivisions[{{$i}}]" value="{{ old('subdivisions.$i')?: (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}"></div>
+                                <div class="subdivisionsearch col-12 col-md-11 p-0 @error('subdivisions.'.$i) is-invalid @enderror" name="subdivisions[{{$i}}]" value="{{ old('subdivisions.'.$i)?: (isset($subdivisions[$i]) ? $subdivisions[$i]->title : '') }}"></div>
                                 <button class="btn btn-primary col-12 col-md-1 pb-2 pt-2 btn-sm ">{{ __('Save') }}</button>
+                                @error('subdivisions.'.$i)
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                     @endfor
                 </form>
