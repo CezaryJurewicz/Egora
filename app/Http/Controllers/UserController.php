@@ -802,7 +802,7 @@ class UserController extends Controller
 //            'office_hours.*.to.required_with' => 'Office Hours To required if Day selected',
             'time_zone.max' => 'Time Zone may not be greater than :max characters.',     
             'meeting_location.max' => 'Meeting Location / Link to Videoconference may not be greater than :max characters.',     
-            'time_zone.max' => 'Link to Scheduling Calendar may not be greater than :max characters.',     
+            'calendar_link.max' => 'Link to Scheduling Calendar may not be greater than :max characters.',     
             'name.max' => "Your Name may not be greater than :max characters.",
             'search_name.max' => "Search-Name may not be greater than :max characters.",
             'nation.max' => "Nation may not be greater than :max characters.",
