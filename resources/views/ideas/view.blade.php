@@ -17,6 +17,8 @@
                     @endif
                 </div>
                 
+                <div class="share" url="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}"></div>
+                
                 @if (auth('web')->check())
                 <div class="row">
                     <div class="col-md-3 mb-3">

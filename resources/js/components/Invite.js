@@ -30,7 +30,7 @@ class Invite extends React.Component {
         return (
             this.state.inviteSuccess ?
             'Invited' : 
-            <button onClick={() => this.inviteClick()}  type="submit" class="btn btn-sm btn-primary col-md-12">
+            <button onClick={() => this.inviteClick()}  type="submit" className="btn btn-sm btn-primary col-md-12">
                 Invite
             </button>
         )

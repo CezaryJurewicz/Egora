@@ -15,7 +15,7 @@
             </a>
         </h4>
         <p class="message">
-            <div id="comment{{ $comment->id }}" class="p-0">
+            <div id="comment{{ $comment->id }}" class="p-0 pr-3">
                 {!! filter_text($comment->message) !!}
             </div>
             @if (auth('web')->check() && auth('web')->user()->can('update', $comment))

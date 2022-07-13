@@ -737,7 +737,7 @@ class UserController extends Controller
             'messenger_1' => ['nullable', 'string', 'max:92'],
             'messenger_2' => ['nullable', 'string', 'max:92'],                        
             'other_1' => ['nullable', 'string', 'max:230'],
-            'other_2' => ['nullable', 'string', 'max:191'],
+            'other_2' => ['nullable', 'string', 'max:230'],
             'nation' => ['required', 'string', 'max:92',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))

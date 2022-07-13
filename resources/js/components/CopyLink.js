@@ -29,7 +29,7 @@ class CopyBtn extends React.Component {
             var successful = document.execCommand('copy');
             var msg = successful ? 'successful' : 'unsuccessful';
             this.setState({copySuccess: true})
-            console.log('Fallback: Copying text command was ' + msg);
+            // console.log('Fallback: Copying text command was ' + msg);
           
             setTimeout(()=>{
                 this.setState({copySuccess: false})
@@ -79,10 +79,10 @@ class CopyBtn extends React.Component {
       
     return (
         <div>
-          <button onClick={() => this.copyCodeToClipboard()} class="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
+          <button onClick={() => this.copyCodeToClipboard()} className="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
             Copy Invitation Message
           </button>
-          <button onClick={() => this.copyLinkToClipboard()} class="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
+          <button onClick={() => this.copyLinkToClipboard()} className="btn btn-sm btn-primary col-md-5 offset-md-1 mb-1">
             Copy Idea Link
           </button>
           {
