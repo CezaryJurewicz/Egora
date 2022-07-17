@@ -23,9 +23,9 @@ class Share extends React.Component {
                 quote={""} 
                 hashtag={"#"+this.state.hashtag} 
                 description={this.state.description} 
-                className="share-button"
+                className="share-button pr-3"
                 >
-                    <FacebookIcon size={32} round />
+                    <FacebookIcon size={28} borderRadius={8} round={false} />
                 </FacebookShareButton>
 
                 <TwitterShareButton 
@@ -33,7 +33,7 @@ class Share extends React.Component {
                 url={this.state.url} 
                 hashtags={[this.state.hashtag]}
                 >
-                    <TwitterIcon size={32} round />
+                    <TwitterIcon size={28} borderRadius={8} round={false} />
                 </TwitterShareButton>
             </div>
         );

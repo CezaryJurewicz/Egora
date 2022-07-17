@@ -59,14 +59,10 @@ class CopyBtn extends React.Component {
     }
 
     copyCodeToClipboard = () => {
-        var text = "I support this idea in Egora, “The Worldwide Stock-Market of Ideas”: \n" + this.state.value + "\n\n"
-                + "What do you think about it?\n\n"
+        var text = "I support this idea in Egora.\n"
+                + "What do you think about it?\n"
                 + "Will you support it?\n\n"
-                + "***********************\n"
-                + "Egora enables everyone to\n"
-                + "– develop their own political philosophy out of various ideas,\n"
-                + "– determine which ideas are most strongly supported by the people, and\n"
-                + "– find the true representatives of the public will, to elect them into public office."
+                + "#Egora\n" + this.state.value
         
         this.copyText(text);
     }
