@@ -261,6 +261,25 @@ class UserController extends Controller
         return view('users.search')->with(compact('followers', 'recent', 'users', 'nations', 'search_name', 'nation', 'officer', 'officer_petitioner'));
     }
     
+    public function indexApi(Request $request)
+    {
+        $prefix = $request->input('q');
+        
+        if ($prefix) {
+            $result = $request->user()->following->filter(function ($item) use ($prefix) {
+                return false !== stripos($item->active_search_name, $prefix);
+            })->sortBy('active_search_name')->map(function ($item) {
+                return ['name' => $item['active_search_name'], 'hash'=>$item['active_search_name_hash']];
+            });
+        } else {
+            $result = $request->user()->following->sortBy('active_search_name')->map(function ($item) {
+                return ['name' => $item['active_search_name'], 'hash'=>$item['active_search_name_hash']];
+            });
+        }
+        
+        return response()->json(compact('result'));
+    }
+    
     public function default_leads()
     {
         $users = User::whereHas('default_lead')->paginate(10);

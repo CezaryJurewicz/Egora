@@ -217,3 +217,11 @@ ol.bold {
         color: $body-color;
     }
 }
+
+    .textarea-mentions textarea:focus {
+  color: $gray-700;
+  background-color: white;
+  border-color: #a1cbef;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}

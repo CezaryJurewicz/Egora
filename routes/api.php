@@ -47,4 +47,8 @@ Route::middleware('throttle:60,1')->group(function() {
     Route::prefix('/subdivisions')->name('subdivisions.')->group(function(){
         Route::get('/', 'SubdivisionController@indexApi')->name('indexapi')->middleware('auth:api');
     });
+    
+    Route::prefix('/leads')->name('leads.')->group(function(){
+        Route::get('/my', 'UserController@indexApi')->name('indexapi')->middleware('auth:api');
+    });
 }); 

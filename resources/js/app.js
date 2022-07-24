@@ -21,3 +21,4 @@ require('./components/CopyLink');
 require('./components/Invite');
 require('./components/Moderate');
 require('./components/Share');
+require('./components/TextareaMentions');

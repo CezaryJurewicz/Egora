@@ -9,9 +9,9 @@
                             </div>
                         </div>
                     
-                        <div class="row pt-2 pl-md-5 pb-4">
+                        <div class="row pt-2 pb-4">
                             <div id="copyLink" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-8"></div>
-                            <div class="share col-md-3 text-md-right" url="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}"></div>
+                            <div class="share col-md-4 text-md-center" url="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}"></div>
                         </div>
                         @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
                             @if (Auth::guard('web')->user()->notifications_disabled_by->contains($u))
