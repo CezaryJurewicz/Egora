@@ -128,7 +128,7 @@ class IdeaController extends Controller
                         if($community && $community != 0) {
                             $q->where('community_id', $community);
                         } else {
-                            if (!$request->user()->communities->pluck('id')->isEmpty()) {
+                            if ($request->user() && !$request->user()->communities->pluck('id')->isEmpty()) {
                                 $community = $request->user()->communities->pluck('id')->first();
                                 $q->where('community_id', $community);                
                             }
@@ -136,7 +136,7 @@ class IdeaController extends Controller
                     });
                 } elseif (is_egora('municipal')) {
                     $q->where(function($q) use (&$relevance, $municipality, $request){
-                        if($relevance != -1) {
+                        if($relevance != -1 && $request->user()) {
                             $relevance = $request->user()->municipality->id;
                             $q->where('municipality_id', $relevance);                
                         }
