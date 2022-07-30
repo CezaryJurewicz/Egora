@@ -50,6 +50,8 @@ class TextareaMentions extends React.Component {
                 placeholder={this.state.placeholder}
                 a11ySuggestionsListLabel={"Suggested mentions"}
                 rows={5}
+                allowSuggestionsAboveCursor={true}
+                customSuggestionsContainer={(children)=><div><span style={{fontWeight: "bold", padding: "5px 15px"}}>Your leads</span>{children}</div>}
               >
                 <Mention
                   displayTransform={name => `{${name}}`}

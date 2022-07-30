@@ -11,7 +11,7 @@
                     
                         <div class="row pt-2 pb-4">
                             <div id="copyLink" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-8"></div>
-                            <div class="share col-md-4 text-md-center" url="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}"></div>
+                            <div class="share col-md-4 text-center" url="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}"></div>
                         </div>
                         @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
                             @if (Auth::guard('web')->user()->notifications_disabled_by->contains($u))
@@ -19,7 +19,7 @@
                             @endif
                         <div class="row-striped ">
                             @if (in_array($u->id, $user_notifications_ids) && !$u->liked_ideas->contains($idea))
-                                <div class="row pt-1 pb-1 pl-5">
+                                <div class="row pt-1 pb-1 pl-md-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_name }}
@@ -56,20 +56,20 @@
                                 <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
                                     @csrf
 
-                                    <div class="row pt-1 pb-1 pl-5">
-                                        <div class="col-6 align-self-center">
+                                    <div class="row pt-1 pb-1 pl-md-5">
+                                        <div class="col-md-6 align-self-center">
                                             <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_name }}
                                             </a>
                                         </div>
 
-                                        <div class="col-2  align-self-center text-center">
+                                        <div class="col-md-2 align-self-center text-center">
                                             <button type="submit" class="btn btn-sm btn-primary col-md-12">
                                                 {{ __('Invite') }}
                                             </button>
                                         </div>
 
-                                        <div class="col-4 text-center">
+                                        <div class="col-md-4 text-center">
                                             {{ __('Not in this community') }} 
                                         </div>
                                     </div>

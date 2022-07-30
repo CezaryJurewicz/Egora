@@ -48,9 +48,13 @@ export default {
 
     suggestions: {
       list: {
+        ':before': {
+            left: '-5px',
+            content: "123123",
+        },
         backgroundColor: 'white',
         border: '1px solid rgba(0,0,0,0.15)',
-        fontSize: 14,
+        fontSize: 13,
       },
       item: {
         padding: '5px 15px',

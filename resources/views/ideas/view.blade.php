@@ -62,6 +62,7 @@
                             Source Idea: 
                             @if ($idea->source)
                             <a href="{{ route('ideas.preview', preview_id($idea->source->id)) }}">{{$idea->source->id}}</a>
+                            
                             @endif
                             </div>
                             <div class="col-4">

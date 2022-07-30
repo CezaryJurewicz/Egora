@@ -170,7 +170,7 @@
                     </ul>
                     
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">                        
+                    <ul class="navbar-nav ml-auto">                       
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (auth('admin')->check()) FV @endif
@@ -178,7 +178,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 
-                                <ul class="dropdown-menu dropdown-menu-right">
+                                <ul class="dropdown-menu dropdown-menu-right" style="max-height: 26vh; overflow-y: auto;">
                                     @foreach( config('egoras') as $key => $item)
                                         @if (auth('web')->check() && auth('web')->user()->can('switch', [App\User::class, $key]) )
                                         <li>
