@@ -160,6 +160,13 @@ ol.bold {
     }
 }
 
+.scrolloniphone {
+    @media only screen and (max-height: 44em) and (max-width: 62em) {
+        max-height: 26vh; 
+        overflow-y: auto;
+    }
+}
+
 .table-campaigns {
 
     @media 

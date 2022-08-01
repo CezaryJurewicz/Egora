@@ -178,7 +178,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 
-                                <ul class="dropdown-menu dropdown-menu-right" style="max-height: 26vh; overflow-y: auto;">
+                                <ul class="dropdown-menu dropdown-menu-right scrolloniphone">
                                     @foreach( config('egoras') as $key => $item)
                                         @if (auth('web')->check() && auth('web')->user()->can('switch', [App\User::class, $key]) )
                                         <li>
