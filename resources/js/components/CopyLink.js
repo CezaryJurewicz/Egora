@@ -62,7 +62,7 @@ class CopyBtn extends React.Component {
         var text = "I support this idea in Egora.\n"
                 + "What do you think about it?\n"
                 + "Will you support it?\n\n"
-                + "#Egora\n" + this.state.value
+                + "#Egora #democracy #philosophy #IntelligentDemocracy #InternationalLogicParty\n" + this.state.value
         
         this.copyText(text);
     }
