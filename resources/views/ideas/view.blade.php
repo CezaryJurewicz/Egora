@@ -52,35 +52,38 @@
                             @endif
                         </div>
                     </div>
-                    <div class="card-body">
-                    {!! filter_text($idea->content) !!}
-                    </div>
-                    
-                    <div class="card-footer pt-4 pb-4">
-                        <div class="row">
-                            <div class="col-8">
-                            Source Idea: 
-                            @if ($idea->source)
-                            <a href="{{ route('ideas.preview', preview_id($idea->source->id)) }}">{{$idea->source->id}}</a>
-                            
-                            @endif
-                            </div>
-                            <div class="col-4">
-                            Derivative Ideas: 
-                            @if ($idea->derivatives->isNotEmpty())
-                                @if ($idea->egora_id == config('egoras.default.id'))
-                                <a href="{{ route('ideas.indexes', ['relevance'=>-2, 'source_id'=>$idea->id])}}">IDI</a>
-                                @else 
-                                    @if (!is_null($idea->community))
-                                    <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">IPI</a>
-                                    @elseif (!is_null($idea->municipality))
-                                    <a href="{{ route('ideas.popularity_indexes', ['relevance'=>-1, 'source_id'=>$idea->id])}}">IPI</a>
-                                    @else
-                                    <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">IPI</a>
+                    <div id="idea-div" ideaid="{{$idea->id}}">
+                        <div class="card-body" id="idea-text">
+                        {!! filter_text($idea->content) !!}
+                        </div>
+
+                        <div class="card-footer pt-4 pb-4">
+                            <div class="row" id="source-derivative">
+                                <div class="col-8">
+                                Source Idea: 
+                                @if ($idea->source)
+                                <a href="{{ route('ideas.preview', preview_id($idea->source->id)) }}">{{$idea->source->id}}</a>
+
+                                @endif
+                                </div>
+                                <div class="col-4">
+                                Derivative Ideas: 
+                                @if ($idea->derivatives->isNotEmpty())
+                                    @if ($idea->egora_id == config('egoras.default.id'))
+                                    <a href="{{ route('ideas.indexes', ['relevance'=>-2, 'source_id'=>$idea->id])}}">IDI</a>
+                                    @else 
+                                        @if (!is_null($idea->community))
+                                        <a href="{{ route('ideas.popularity_indexes', ['community'=>$idea->community->id, 'source_id'=>$idea->id])}}">IPI</a>
+                                        @elseif (!is_null($idea->municipality))
+                                        <a href="{{ route('ideas.popularity_indexes', ['relevance'=>-1, 'source_id'=>$idea->id])}}">IPI</a>
+                                        @else
+                                        <a href="{{ route('ideas.popularity_indexes', ['source_id'=>$idea->id])}}">IPI</a>
+                                        @endif
                                     @endif
                                 @endif
-                            @endif
+                                </div>
                             </div>
+                            <div class='diff-text'></div>
                         </div>
                     </div>
                     
@@ -167,7 +170,7 @@
                         </div>
                     </div>
                     <div class="card-body text-center">
-                        <a class='btn btn-primary btn-xl ml-2' href="{{ route('index') }}">{{__('Register Now')}}</a>
+                        <a class='btn btn-primary btn-xl ml-2' href="{{ route('register') }}">{{__('Register Now')}}</a>
                     </div>
                     @endif
                     

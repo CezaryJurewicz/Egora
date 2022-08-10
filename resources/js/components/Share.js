@@ -11,14 +11,18 @@ class Share extends React.Component {
                 + "What do you think about it?\n"
                 + "Will you support it?";
         
+        var twitter_text = "What do you think about this idea?\n"
+            + "#Egora #democracy #philosophy #politics";
+        
         this.state = {
             url: props.url ? props.url : '',
-            title: props.title ? props.title : text,
+            title: props.title ? props.title : twitter_text,
             description: props.description ? props.description : '',
             text: text,
+            twitter_text: twitter_text,
             hashtag: props.hashtag ? props.hashtag : '#Egora',
-            hashtags: props.hashtags ? [props.hashtags] : ['Egora','democracy','philosophy','IntelligentDemocracy','InternationalLogicParty']
-        }
+            hashtags: props.hashtags ? [props.hashtags] : ['Egora','democracy','philosophy','politics']
+        };
     }
     
     render() {
@@ -27,7 +31,7 @@ class Share extends React.Component {
             <div>
                 <FacebookShareButton 
                 url={this.state.url} 
-                quote={this.state.quote} 
+                quote={this.state.text} 
                 hashtag={this.state.hashtag} 
                 description={this.state.description} 
                 className="share-button pr-3"
@@ -36,9 +40,8 @@ class Share extends React.Component {
                 </FacebookShareButton>
 
                 <TwitterShareButton 
-                title={this.state.title} 
+                title={this.state.twitter_text} 
                 url={this.state.url} 
-                hashtags={this.state.hashtags}
                 >
                     <TwitterIcon size={28} borderRadius={8} round={false} />
                 </TwitterShareButton>

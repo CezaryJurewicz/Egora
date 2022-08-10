@@ -53,9 +53,14 @@ function shorten_text_link($text, $limit = 92)
 
 }
 
+function filter_api_text($text)
+{
+    return str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars(strip_tags($text, '<br><p><b><i><li><ul><ol>'))));
+}
+
 function filter_text($text)
 {
-    return nl2br(str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), make_clickable_links(htmlspecialchars(strip_tags($text, '<br><p><b><i><li><ul><ol>')))));
+    return nl2br(filter_api_text($text));
 }
 
 function make_clickable_links($text) {

@@ -51,4 +51,8 @@ Route::middleware('throttle:60,1')->group(function() {
     Route::prefix('/leads')->name('leads.')->group(function(){
         Route::get('/my', 'UserController@indexApi')->name('indexapi')->middleware('auth:api');
     });
+    
+    Route::prefix('/ideas')->name('ideas.')->group(function(){
+        Route::get('/{idea}', 'IdeaController@showApi')->name('viewapi')->middleware('auth:api', 'can:view,idea')->where('idea', '[0-9]+');
+    });
 }); 

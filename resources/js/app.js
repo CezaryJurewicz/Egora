@@ -22,3 +22,5 @@ require('./components/Invite');
 require('./components/Moderate');
 require('./components/Share');
 require('./components/TextareaMentions');
+require('./components/Diff');
+require('./components/IdeaText');

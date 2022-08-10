@@ -522,7 +522,7 @@ class IdeaController extends Controller
         
         return redirect()->route('users.ideological_profile', array_merge([$request->user()->active_search_name_hash], $arr))->with('success', 'New Idea created');   
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -668,6 +668,13 @@ class IdeaController extends Controller
         $open = ($request->has('open') ? (int) $request->input('open') : null);
         
         return view('ideas.view')->with(compact('open', 'filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
+    }
+
+    public function showApi(Request $request, Idea $idea)
+    {
+        $idea->content = filter_api_text($idea->content);
+        
+        return response()->json(compact('idea'));
     }
 
     /**

@@ -50,8 +50,9 @@ class IdeaPolicy
         if ($user->isGuardian()) {
             return $this->allow();
         }
-        // is not secure for private communities, but priview is also
-        if (app('request')->has('preview')) {
+        // is not secure for private communities, but preview is also
+        // not secure for api
+        if (app('request')->has('preview') || app('request')->is('api/*')) {
             return $this->allow();
         }
         
