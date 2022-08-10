@@ -74,9 +74,15 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\CreateCommentNotification',
             'App\Listeners\CreateLeadsCommentUpdates',
         ],
+        'App\Events\CommentUpdated' => [
+            'App\Listeners\CreateNewCommentNotification',
+        ],
         'App\Events\StatusAdded' => [
             'App\Listeners\CreateStatusUpdates',
             'App\Listeners\LinkUserInStatus',
+        ],
+        'App\Events\StatusUpdated' => [
+            'App\Listeners\LinkNewUserInStatus',
         ]
     ];
 

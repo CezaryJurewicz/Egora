@@ -28,6 +28,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Events\UserLeftingMunicipality;
 use App\Comment;
 use App\Events\StatusAdded;
+use App\Events\StatusUpdated;
 use App\Events\CommentAdded;
 use App\Update;
 use App\Events\IdeaSupportHasChanged;
@@ -1400,9 +1401,11 @@ class UserController extends Controller
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
-        
+        $old_message = $comment->message;
         $comment->message = $request->input('message');
         $comment->save();
+
+        event(new StatusUpdated($comment, $old_message));
 
         return redirect()->to(route('users.about', [$comment->commentable->active_search_names->first()->hash]).'#comment-'.$comment->id)->with('success', 'Status updated.'); 
     }    

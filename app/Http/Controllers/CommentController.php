@@ -6,6 +6,7 @@ use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\CommentAdded;
+use App\Events\CommentUpdated;
 
 class CommentController extends Controller
 {
@@ -79,7 +80,7 @@ class CommentController extends Controller
             return redirect()->back()
                     ->withInput()->withErrors($validator);
         }
-        
+        $old_message = $comment->message;
         $comment->message = $request->input('message');
         $comment->save();
 
@@ -88,6 +89,8 @@ class CommentController extends Controller
         } else {
             $item = $comment->commentable;
         }
+
+        event(new CommentUpdated($comment, $old_message));
         
         if ($item instanceof \App\User) {
             return redirect()->to(route('users.about', [$item->active_search_names->first()->hash, 'open'=>$comment->commentable->id]).'#comment-'.$comment->id)->with('success', 'Comment updated.'); 
