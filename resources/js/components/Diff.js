@@ -36,7 +36,8 @@ class Diff extends React.Component {
         dmp.diff_cleanupSemantic(diffs);
         const result = dmp.diff_prettyHtml(diffs);
         
-        return result.replace(/&para;/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+        //TODO: make this better
+        return result.replace(/&para;/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     }
     
     diffClick = () => {
