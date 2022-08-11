@@ -17,6 +17,9 @@ class IdeaText extends React.Component {
         this.setState({
             text: newText
         });
+        
+        let el = document.getElementById("idea-card"); 
+        el && el.scrollIntoView(); 
     };
     
     saveText = () => {

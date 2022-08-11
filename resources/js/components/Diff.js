@@ -75,10 +75,12 @@ class Diff extends React.Component {
                     <div className="col-8">
                         <div className="form-group row mb-0">
                             <div className="pl-3 align-self-center">Compare to idea:</div>
-                            <input onChange={this.handleInputChange} type="input" id="compare" className="col-md-2 col-5 mr-2 ml-3 form-control form-control-sm" name="diffToId" value={this.state.diffToId}/>
-                            <div className="col-2">
-                                <div onClick={() => this.diffClick()} type="submit" className="btn btn-primary btn-sm">
-                                    Display
+                            <div className="col-9 row">
+                                <input onChange={this.handleInputChange} type="input" id="compare" className="col-md-3 col-5 mr-2 ml-3 form-control form-control-sm" name="diffToId" value={this.state.diffToId}/>
+                                <div className="col-4">
+                                    <div onClick={() => { this.diffClick(); } } type="submit" className="btn btn-primary btn-sm" style={{ '-webkit-appearance': 'none' }}>
+                                        Display
+                                    </div>
                                 </div>
                             </div>
                         </div>
