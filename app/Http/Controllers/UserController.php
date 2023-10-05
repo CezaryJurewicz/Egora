@@ -137,12 +137,14 @@ class UserController extends Controller
                 }
             });
 
-            $users = $model->get()->sortBy('active_search_name'); 
-              
+            $perPage = 100;
+            $total_users = $model->get()->sortBy('active_search_name');
+            $users = $total_users->chunk($perPage)->get(LengthAwarePaginator::resolveCurrentPage() - 1); 
+
             $users = new LengthAwarePaginator(
                 $users->toArray(), 
-                $users->count(), 
-                100, 
+                $total_users->count(), 
+                $perPage, 
                 LengthAwarePaginator::resolveCurrentPage(), 
                 ['path' => LengthAwarePaginator::resolveCurrentPath()]
             );
@@ -548,11 +550,11 @@ class UserController extends Controller
         $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
             $q->with('comments.comments');
             if (is_egora('community') && $community_id) {
-                if ($request->has('pdf')) {
-                    $q->whereNotNull('ideas.community_id');                    
-                } else {
+//                if ($request->has('pdf')) {
+//                    $q->whereNotNull('ideas.community_id');                    
+//                } else {
                     $q->where('ideas.community_id', $community_id);
-                }
+//                }
             } else {
                 $q->whereNull('ideas.community_id');
             }
@@ -732,7 +734,7 @@ class UserController extends Controller
         $searchName = $user->active_search_names->first();
         
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'string', 'max:92', 
+            'name' => ['required', 'string', 'regex:/^[a-z\d ]+$/i', 'max:92', 
                 function ($attribute, $value, $fail) use ($request, $user) {                    
                     if ($request->user()->id == $user->id && !$user->user_type->isOfficer 
                             && !is_null($user->campaign) && $user->name !== $value )
@@ -740,9 +742,9 @@ class UserController extends Controller
                         $fail('As a candidate, you are not allowed to change '.$attribute.' currently.');
                     }
                 }],
-            'national_affiliations' => ['nullable', 'string', 'max:92'],
+            'national_affiliations' => ['nullable', 'string', 'regex:/^[a-z\d ]+$/i', 'max:92'],
             'current_password' => ['required', 'password'],
-            'search_name' => 'required|min:3|max:92|string|unique:search_names,name,'.$searchName->id,                        
+            'search_name' => 'required|min:3|max:92|string|unique:search_names,name,'.$searchName->id.'|regex:/^[a-z\d ]+$/i',                        
             'delete_followers' => ['boolean', 'nullable',
                 function ($attribute, $value, $fail) use ($request, $searchName) {
                     if ($request->search_name == $searchName->name)
@@ -750,7 +752,7 @@ class UserController extends Controller
                         $fail('Please change your Search-Name.');
                     }
                 }],
-            'email_address' => ['nullable', 'string', 'max:92'],
+            'email_address' => ['nullable', 'string', 'email', 'max:92', 'unique:users,email,'.$user->id],
             'phone_number' => ['nullable', 'string', 'max:92'],
             'social_media_1' => ['nullable', 'string', 'max:92'],
             'social_media_2' => ['nullable', 'string', 'max:92'],
@@ -758,7 +760,7 @@ class UserController extends Controller
             'messenger_2' => ['nullable', 'string', 'max:92'],                        
             'other_1' => ['nullable', 'string', 'max:230'],
             'other_2' => ['nullable', 'string', 'max:230'],
-            'nation' => ['required', 'string', 'max:92',
+            'nation' => ['required', 'string', 'regex:/^[a-z\d ]+$/i', 'max:92',
                 function ($attribute, $value, $fail) use ($request, $user) {
                     if ($request->user()->id == $user->id && $user->nation->title !== $value && ($user->user_type->isOfficer || $user->user_type->isPetitioner || !is_null($user->campaign)))
                     {

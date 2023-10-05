@@ -44,7 +44,7 @@ class UserResponseLikeNotification extends Notification
         return (new MailMessage)
                     ->subject($this->notification->sender->name.' responded to your idea invitation!')
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
-                    ->line('I supported your idea!')
+                    ->line('Your idea has a new supporter!')
                     ->action('Open', route('notifications.view', $this->notification->id))
                     ->line('Egora, "The Worldwide Stock-Market of Ideas"');
     }

@@ -106,7 +106,7 @@
                     
                     <div class="form-group row">
                         <div class="offset-1 col-md-12 row">
-                            <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date') }}</label>
+                            <label for="date" class="col-md-2 col-form-label text-md-right">{{ __('Date (dd/mm/yyyy)') }}</label>
 
                             <div class="col-md-2">
                                 <div id="dateInput" class="@error('date') is-invalid @enderror" cssClass="@error('date') is-invalid @enderror form-control react-datepicker-ignore-onclickoutside"></div>

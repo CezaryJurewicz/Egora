@@ -167,17 +167,17 @@
                                         @endif
                                     </div>
                                     <div class="col-md-4 text-center">
-                                        @if (empty($sort) && empty($index)) 
+                                        @if (empty($sort) && ($index == 'dominance')) 
                                         <h5 class="pt-2">{{ __('Idea Dominance Index') }}</h5>
                                         @else
-                                        <a class="btn btn-primary btn-block" href="{{ route('index') }}#ideas">{{ __('Idea Dominance Index') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['search', 'relevance']), ['index'=>'dominance'])) }}#ideas">{{ __('Idea Dominance Index') }}</a>
                                         @endif
                                     </div>
                                     <div class="col-md-4 text-center">
-                                        @if (empty($index)) 
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', ['index'=>'popularity']) }}#ideas">{{ __('Idea Popularity Index') }}</a>
-                                        @else
+                                        @if (empty($sort) && ($index == 'popularity'))
                                         <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
+                                        @else
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['search', 'relevance']), ['index'=>'popularity'])) }}#ideas">{{ __('Idea Popularity Index') }}</a>
                                         @endif
                                     </div>
                                 </div>

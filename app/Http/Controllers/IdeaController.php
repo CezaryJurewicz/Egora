@@ -192,11 +192,14 @@ class IdeaController extends Controller
             $model->selectSub($subSql, 'liked_users_sum');
             
             
-            if ($request->has('sort')) {
+            if ($request->has('sort') && (!$request->has('index'))) {
                 $model->orderBy('created_at','desc');
-            } else if ($view == 'ideas.popularity_indexes'){
+            } else if ($view == 'ideas.popularity_indexes' || $request->input('index') == 'popularity'){
                 $model->orderBy('liked_users_count', 'desc');
                 $model->orderBy('liked_users_sum', 'desc');
+            } else if ($request->input('index') == 'dominance') {
+                $model->orderBy('liked_users_sum', 'desc');
+                $model->orderBy('liked_users_count', 'desc');
             } else {
                 $model->orderBy('liked_users_sum', 'desc');
                 $model->orderBy('liked_users_count', 'desc');

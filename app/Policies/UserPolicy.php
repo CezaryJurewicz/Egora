@@ -180,7 +180,7 @@ class UserPolicy
     
     public function status(User $user, User $model)
     {
-        return ($user->id == $model->id) && ($model->comments->count() < 23);
+        return ($user->id == $model->id) && ($model->comments->count() < 46);
     }
 
     /**

@@ -81,7 +81,7 @@
                                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                     <div class="row mb-1"> 
                                         <div class="col-lg-3 col-4">
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1])}}">Extract to PDF</a>
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1, 'community_id' => $community_id])}}">Extract to PDF</a>
                                         </div>
                                         <div class="col-lg-3 col-4 offset-4 offset-sm-6 text-right">
 

@@ -54,9 +54,9 @@ class CommentNotificationEmail extends Notification
         }
         
         return (new MailMessage)
-                    ->subject($this->notification->sender->active_search_name. $this->notification->message)
+                    ->subject($this->notification->sender->name. $this->notification->message)
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
-                    ->line($this->notification->sender->active_search_name.$this->notification->message)
+                    ->line($this->notification->sender->name.$this->notification->message)
                     ->action($title, $action)
                     ->line('Egora, "The Worldwide Stock-Market of Ideas"');
     }

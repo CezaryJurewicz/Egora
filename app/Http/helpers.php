@@ -38,7 +38,7 @@ function shorten_text($text, $limit = 92)
 
 }
 
-function shorten_text_link($text, $limit = 92) 
+function shorten_text_link($text, $limit = 42) 
 {
    
     return  nl2br(
@@ -64,7 +64,7 @@ function filter_text($text)
 }
 
 function make_clickable_links($text) {
-    return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?[^"<>\.\s]+)?[^"<>\.\s])?)?)@', '<a href="$1" rel="nofollow" style="word-break: break-all;" target="_blank">$1</a>', $text);
+    return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-\(\):~=,\-]*(\?[^"<>\s]+)?[^"<>\.\\s])?)?)@', '<a href="$1" rel="nofollow" style="word-break: break-all;" target="_blank">$1</a>', $text);
 }
 
 function ip_used_places($ideas, $idea=null) {
