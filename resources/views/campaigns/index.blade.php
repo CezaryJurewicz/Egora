@@ -32,6 +32,7 @@
                             <p>Regarding the Qualification Status of a candidate, only the votes of ILP Members from the candidate’s electoral division are counted. However, votes cast by Egora users who are non-members or outside the candidate’s electoral division will become counted once the user becomes a Member in the candidate’s electoral division.</p>
                             <p>Regarding candidate Seniority (IP), this is an indicator of how recently a candidate has repositioned their ideas or supported new ideas in their Ideological Profile. Regarding candidate Seniority (CRL), this is an indicator of how recently a candidate has announced themself as a candidate on the Candidate Rank Listing. 
                             Both of these indicators exist to ensure that candidates announce themselves with enough time in advance to be properly evaluated by the ILP membership. The Seniority requirements for official candidate nomination (or endorsement) by the ILP will be set by the leadership of the national branches of the ILP.</p>
+                            <p>Lastly, being a candidate makes a profile visible to all Egora visitors, including visitors without an account. The shareable URL of a candidate's profile is available in their Home screen.</p>
                             
                             <center>
                                 <p>Please support our work in completing Egora and making it available to all people around the world: <br>

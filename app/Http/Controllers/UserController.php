@@ -495,6 +495,10 @@ class UserController extends Controller
     
     public function ideological_profile(Request $request, $hash)
     {
+        if ($request->input('switch')) {
+            switch_to_egora($request->input('switch'));
+        }
+        
         $searchname = SearchName::where('hash', $hash)->get()->first();
         $user = $searchname->user;
         

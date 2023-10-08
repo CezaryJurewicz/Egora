@@ -57,6 +57,7 @@
                         {!! filter_text($idea->content) !!}
                         </div>
 
+                        @if( \Route::currentRouteName() != 'ideas.preview' )
                         <div class="card-footer pt-4 pb-4">
                             <div class="row" id="source-derivative">
                                 <div class="col-8">
@@ -85,6 +86,7 @@
                             </div>
                             <div class='diff-text'></div>
                         </div>
+                        @endif
                     </div>
                     
                     @include('blocks.like')
@@ -157,7 +159,12 @@
                             </div>
 
                         </div>                    
-                    
+                    @else
+                        <div class="card-header">
+                            <div id="updates-tabs" class="nav justify-content-center pb-0">
+                                <a style="font-size: large;" class="btn btn-primary col-12 col-md-4 m-1" href="{{ route('register') }}">Comments</a>
+                            </div>
+                        </div>
                     @endif 
 
                     @if( \Route::currentRouteName() == 'ideas.preview' )

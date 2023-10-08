@@ -161,6 +161,16 @@ function header_bg_color() {
     return config(implode('.',['egoras',session('current_egora', 'default'),'bgcolor']));
 }
 
+function _bg_color($egora, $user) {
+    if ($egora == 'default' 
+        && ($user->user_type->class == 'user' || $user->user_type->former)
+        ) {
+        return "#636363";
+    }
+    
+    return config(implode('.',['egoras',$egora,'bgcolor']));
+}
+
 function bg_color_by_egora_id($id) {
     $egora = collect(config('egoras'))->first(function($value, $key) use ($id) {
         return $value['id'] == $id;
@@ -235,10 +245,14 @@ function communities_list() : array
         6=>"Shaping culture",
         7=>"Media we can trust",
         8=>"Businesses to boycott",
-        9=>"My favorite books",
-        10=>"My personal values",
-        11=>"Bucket list",
-        12=>"Other public communities",
+        9=>"Political vocabulary",
+        10=>"My favorite books",
+        11=>"My favorite films",
+        12=>"My favorite recipes",
+        13=>"My personal values",
+        14=>"Relationship advice",
+        15=>"Bucket list",
+        16=>"Other public communities",
     ];
 }
 

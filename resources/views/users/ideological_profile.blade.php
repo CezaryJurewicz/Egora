@@ -13,7 +13,18 @@
                         
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col-12 col-md-8 offset-md-2">
+                                <div class="col-md-2 offset-md-2">
+                                    @if (auth('web')->user() && $user->id != auth('web')->user()->id)
+                                        @if (is_egora())
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'community']) }}">&lt;&lt;</a>
+                                        @elseif (is_egora('community'))
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('municipal',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'municipal']) }}">&lt;&lt;</a>
+                                        @elseif (is_egora('municipal'))
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'default']) }}">&lt;&lt;</a>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="col-12 col-md-4">
                                     <div class="text-center">
                                         @if (is_egora())
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
@@ -23,6 +34,17 @@
                                         <h3>{{ __('Municipal Matters') }}</h3>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (auth('web')->user() && $user->id != auth('web')->user()->id)
+                                        @if (is_egora())
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('municipal',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'municipal']) }}">&gt;&gt;</a>
+                                        @elseif (is_egora('community'))
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'default']) }}">&gt;&gt;</a>
+                                        @elseif (is_egora('municipal'))
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'community']) }}">&gt;&gt;</a>
+                                        @endif
+                                    @endif
                                 </div>
                                 @if (is_egora())
                                 <div class="col-12 col-md-2 text-right">
@@ -80,10 +102,19 @@
 
                                     @if (auth('web')->user() && $user->id == auth('web')->user()->id)
                                     <div class="row mb-1"> 
-                                        <div class="col-lg-3 col-4">
+                                        <div class="col-lg-3 col-sm-4 ">
                                             <a class="btn btn-sm btn-primary btn-block" href="{{ route('users.ideological_profile', [$user->active_search_name_hash, 'pdf'=>1, 'community_id' => $community_id])}}">Extract to PDF</a>
                                         </div>
-                                        <div class="col-lg-3 col-4 offset-4 offset-sm-6 text-right">
+                                        <div class="offset-sm-1 col-sm-2 offset-lg-1 col-lg-4">
+                                            @if (is_egora())
+                                                <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.indexes') }}">IDI</a>
+                                            @elseif (is_egora('community'))
+                                                <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.popularity_indexes', ['community'=>$community_id]) }}">IPI</a>
+                                            @elseif (is_egora('municipal'))
+                                                <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.popularity_indexes') }}">IPI</a>
+                                            @endif
+                                        </div>
+                                        <div class="offset-sm-1 offset-lg-1 col-lg-3 col-sm-4 text-right">
 
                                             @if (is_egora('community'))
                                                 <a class="btn btn-sm btn-primary btn-block" href="{{ route('ideas.create', ['community_id'=>$community_id]) }}">Create New Idea</a>
