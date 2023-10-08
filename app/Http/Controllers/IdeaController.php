@@ -734,6 +734,22 @@ class IdeaController extends Controller
         } else {
             $position = '0';
         }
+
+        $ideas = [];
+        if(is_null($idea->community) && is_null($idea->municipality)) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+        } else if(!is_null($idea->community)) {
+            $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
+        } else if(!is_null($idea->municipality)) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
+        }
+        
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
+        
+        if (in_array($order, $numbered)) {
+            return redirect()->back()
+                    ->withInput()->withErrors('Position is already taken.');
+        }
         
         if ($request->exists('notification_id') && ($order >= 0)) {
             $prev_notification = NotificationModel::findOrFail($request->notification_id);
