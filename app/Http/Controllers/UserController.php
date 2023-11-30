@@ -640,6 +640,65 @@ class UserController extends Controller
         return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
     }
     
+    public function bookmarked_ideas(Request $request)
+    {
+        $user = $request->user();
+
+        $_ideas = collect();
+        
+        $community_id = ($request->has('community_id')?$request->community_id :  $request->user()->communities->first()->id);
+        
+        
+        $user->load(['bookmarked_ideas' => function($q) use ($community_id, $user, $request) {
+            $q->with('comments.comments');
+            if (is_egora('community') && $community_id) {
+//                if ($request->has('pdf')) {
+//                    $q->whereNotNull('ideas.community_id');                    
+//                } else {
+                    $q->where('ideas.community_id', $community_id);
+//                }
+            } else {
+                $q->whereNull('ideas.community_id');
+            }
+            
+            if (is_egora('municipal')) {
+                $q->where('ideas.municipality_id', $user->municipality_id);
+                $q->whereNotNull('ideas.municipality_id');
+            } else {
+                $q->whereNull('ideas.municipality_id');
+            }
+            
+            $q->with(['nation', 'liked_users' => function($q) {
+                $q->recent();
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+                
+                if (!is_egora()) {
+                    //don't include supporters for E,G,O,R,A ideas
+                    $q->where('idea_user.order', '>=', 0 );
+                }
+            }, 'moderators' => function($q) {
+                $q->recent();
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
+            
+            //don't include E,G,O,R,A ideas 
+            //$q->where('idea_user.order', '>=', 0 );
+        }, 'petition.supporters' => function($q) {
+            $q->recent();
+        }, 'communities' => function($q) use ($request) {
+            if (!$request->user()->isAdmin()) {
+                $q->whereIn('id', $request->user()->communities->pluck('id'));
+            }
+        }]);
+        
+        
+        return view('users.bookmarked_ideas')->with(compact('user', 'community_id'));
+    }
+    
     public function about(Request $request, $hash)
     {
         $searchname = SearchName::where('hash', $hash)->get()->first();

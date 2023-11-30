@@ -69,11 +69,13 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
         Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
         Route::get('/{idea}/{user}/move', 'IdeaController@move')->name('move')->middleware('can:move,idea,user');
+        Route::get('/{idea}/{user}/bookmark_move', 'IdeaController@bookmark_move')->name('bookmark_move')->middleware('can:move,idea,user');
         Route::get('/{idea}/copy', 'IdeaController@copy')->name('copy')->middleware('can:create,App\Idea');
         Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
         Route::post('/{idea}/comment', 'IdeaController@comment')->name('store.comment')->middleware('can:comment,idea');
         Route::post('/{idea}/like', 'IdeaController@like')->name('like')->middleware('can:like,idea')->where('idea', '[0-9]+');
         Route::get('/{idea}/unlike', 'IdeaController@unlike')->name('unlike')->middleware('can:unlike,idea')->where('idea', '[0-9]+');
+        Route::post('/{idea}/bookmark', 'IdeaController@bookmark')->name('bookmark')->middleware('can:bookmark,idea')->where('idea', '[0-9]+');
     });
     
     Route::prefix('/comments')->name('comments.')->group(function(){
@@ -85,6 +87,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
+        Route::get('/bookmarked_ideas', 'UserController@bookmarked_ideas')->name('bookmarked_ideas');        
         Route::get('/leads', 'UserController@leads')->name('leads')->middleware('can:leads,App\User');        
         Route::get('/{hash}/leads', 'UserController@leadsbyid')->name('leadsbyid')->middleware('can:leadsbyid,App\User,hash');        
         Route::get('/{hash}/followers', 'UserController@followersbyid')->name('followersbyid')->middleware('can:followersbyid,App\User,hash');        

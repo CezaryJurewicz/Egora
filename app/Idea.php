@@ -76,4 +76,22 @@ class Idea extends Model
     {
         return $this->liked_users->sum('position');
     }
+    
+    public function bookmarkers()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withPivot('position');
+    }
+    
+    public function is_bookmarked($user)
+    {
+        if(is_null($this->community) && is_null($this->municipality)) {
+            $ideas = $user->bookmarked_ideas->whereNotNull('nation_id');
+        } else if(!is_null($this->community)) {
+            $ideas = $user->bookmarked_ideas->where('community_id', $this->community->id);
+        } else if(!is_null($this->municipality)) {
+            $ideas = $user->bookmarked_ideas->whereNotNull('municipality_id');
+        }
+        
+        return $ideas->where('id', $this->id)->isNotEmpty();
+    }
 }

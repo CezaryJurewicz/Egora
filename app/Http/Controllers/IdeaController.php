@@ -371,6 +371,59 @@ class IdeaController extends Controller
         return view('ideas.create')->with(compact('copy', 'idea', 'nation_id', 'community_id', 'user', 'nations', 'numbered', 'current_idea_position', 'text'));
     }
 
+    public function bookmark_move(Request $request, Idea $idea)
+    {
+        $validator = Validator::make($request->all(),[
+                'd' => ['required', Rule::in([1, -1]),],
+            ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }
+        
+        $idea = $request->user()->bookmarked_ideas->where('id', $idea->id)->first();
+        
+        $max = ($idea->community ? $idea->community->bookmark_limit : 300);
+        
+        if ($request->input('d') == 1) {
+            $order = (($idea->pivot->order + (int)$request->input('d')) > $max) ? false : $idea->pivot->order + (int)$request->input('d');
+        } else if ($request->input('d') == -1) {
+            $order = (($idea->pivot->order + (int)$request->input('d')) < 1) ? false : $idea->pivot->order + (int)$request->input('d');
+        }
+        
+        if ($order && ($idea = $request->user()->bookmarked_ideas->where('id', $idea->id)->first())) {
+            
+            if(is_egora('community')) {
+                $bookmarked = $request->user()->bookmarked_ideas()->where('bookmarks.community_id', $idea->community->id)->get();
+            } elseif(is_egora('municipal')) {
+                $bookmarked = $request->user()->bookmarked_ideas()->whereNotNull('municipality_id')->get();
+            } else {
+                $bookmarked = $request->user()->bookmarked_ideas->whereNotNull('nation_id');
+            }        
+
+            foreach($bookmarked as $b)
+            {
+                if ($b->pivot->order == $order) {
+                    $b->pivot->order = $b->pivot->order + (-1 * (int)$request->input('d'));
+                    $b->pivot->save();
+                }
+            }            
+            
+            $idea->pivot->order = $order;
+            $idea->pivot->save();
+            
+        }
+
+        $route = [$request->user()->active_search_names->first()->hash];
+        if (isset($idea->community)) {  
+            $route['community_id'] = $idea->community->id;
+        }
+
+        return redirect()->to(route('users.bookmarked_ideas', $route).'#idea'.$idea->id)
+                ->with('success', 'Idea position updated.');
+    }
+    
     public function move(Request $request, Idea $idea)
     {
         $validator = Validator::make($request->all(),[
@@ -714,6 +767,47 @@ class IdeaController extends Controller
         $idea->forceDelete();
                 
         return redirect()->back()->with('success', 'Idea removed.'); 
+    }
+    
+    public function bookmark(Request $request, Idea $idea) 
+    {
+        if ($idea->is_bookmarked($request->user())) {
+            // unbookmark
+            $request->user()->bookmarked_ideas()->detach($idea);
+            //fire event idea bookmarks changed
+
+            $route = [$request->user()->active_search_names->first()->hash];
+            if (isset($idea->community)) {  
+                $route['community_id'] = $idea->community->id;
+            }
+
+            return redirect()->to(route('users.bookmarked_ideas', $route).'#idea'.$idea->id)
+                    ->with('success', 'Idea unbookmarked.');            
+        } else {
+            // bookmark
+            $max = ($idea->community ? $idea->community->bookmark_limit : 300);
+            $spaces = range(1, $max);
+                       
+            $taken = $request->user()->bookmarked_list($idea)->pluck('pivot.order');            
+            $position = collect($spaces)->diff($taken)->shift();
+            
+            $arr =  ['position'=>$position, 'order' => $position];
+            if (isset($idea->community)) {
+                $arr['community_id'] = $idea->community->id;
+            }
+        
+            $request->user()->bookmarked_ideas()->syncWithoutDetaching($idea);
+            $request->user()->bookmarked_ideas()->updateExistingPivot($idea->id,$arr);
+            // fire bookmarked event
+
+            $route = [$request->user()->active_search_names->first()->hash];
+            if (isset($idea->community)) {  
+                $route['community_id'] = $idea->community->id;
+            }
+
+            return redirect()->to(route('users.bookmarked_ideas', $route).'#idea'.$idea->id)
+                    ->with('success', 'Idea bookmarked.');            
+        }
     }
     
     public function like(Request $request, Idea $idea) 

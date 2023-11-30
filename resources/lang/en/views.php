@@ -21,4 +21,5 @@ return [
     'Update Search-Name' => 'Update Search-Name',
     'Idea Dominance Index' => 'Idea Dominance Index',
     'Idea Popularity Index' => 'Idea Popularity Index',
+    'Bookmarked Ideas' => 'Bookmarked Ideas'
 ];

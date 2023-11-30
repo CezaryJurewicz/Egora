@@ -26,7 +26,7 @@ class RemoveIdea
      */
     public function handle(IdeaSupportHasChanged $event)
     {
-        if ($event->idea->liked_users->count() == 0) {
+        if ($event->idea->liked_users->count() == 0 && $event->idea->bookmarkers->count() == 0) {
             $event->idea->forceDelete();
         }
     }

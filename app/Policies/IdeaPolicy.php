@@ -87,6 +87,12 @@ class IdeaPolicy
         return $idea->egora_id == current_egora_id();
     }
     
+    public function bookmark(User $user, Idea $idea)
+    {
+        
+        return $this->allow();
+    }
+    
     public function like(User $user, Idea $idea)
     {
         if (is_null($idea->community) && is_null($idea->municipality)) {        

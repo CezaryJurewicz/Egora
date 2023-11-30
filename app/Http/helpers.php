@@ -121,6 +121,15 @@ function ip_has_place($ideas, $idea) {
     return [$up, $down];
 }
 
+function bookmarks_has_place($ideas, $idea) {
+    $max = ($idea->community ? $idea->community->bookmark_limit : 300);
+    
+    $down = $idea->pivot->order > 1;
+    $up = $idea->pivot->order < $max;
+
+    return [$up, $down];
+}
+
 function current_egora_id() {
     return config(implode('.', ['egoras', session('current_egora', 'default'), 'id']));
 }

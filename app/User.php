@@ -226,6 +226,27 @@ class User extends Authenticatable implements MustVerifyEmail
                 ->orderBy('pivot_order', 'desc');
     }
     
+    public function bookmarked_ideas()
+    {
+        return $this->belongsToMany(Idea::class, 'bookmarks')->withPivot('position', 'order', 'community_id')
+                ->orderBy('pivot_order', 'desc');
+    }
+    
+    public function bookmarked_list($idea)
+    {
+        $ideas = [];
+        
+        if(is_null($idea->community) && is_null($idea->municipality)) {
+            $ideas = $this->bookmarked_ideas->whereNotNull('nation_id');
+        } else if(!is_null($idea->community)) {
+            $ideas = $this->bookmarked_ideas->where('community_id', $idea->community->id);
+        } else if(!is_null($idea->municipality)) {
+            $ideas = $this->bookmarked_ideas->whereNotNull('municipality_id');
+        }
+        
+        return $ideas;
+    }
+    
     public function communities()
     {
         return $this->belongsToMany(Community::class)->withPivot('order')->orderBy('on_registration', 'desc')->orderBy('order')->orderBy('title');
