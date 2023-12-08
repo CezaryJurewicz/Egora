@@ -90,7 +90,6 @@
                     </div>
                     
                     @include('blocks.like')
-                    @include('blocks.bookmark')
                     @include('blocks.notincommunity')
                 </div>
 
