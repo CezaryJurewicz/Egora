@@ -161,7 +161,7 @@
                                 <div class="row pt-2" id="ideas">
                                     <div class="col-md-4 text-center">
                                         @if (empty($sort)) 
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}#ideas">{{ __('Newest Ideas') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['sort', 'unverified', 'nation','page']), ['sort' => 'date'])) }}#ideas">{{ __('Newest Ideas') }}</a>
                                         @else
                                         <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
                                         @endif
@@ -170,14 +170,14 @@
                                         @if (empty($sort) && ($index == 'dominance')) 
                                         <h5 class="pt-2">{{ __('Idea Dominance Index') }}</h5>
                                         @else
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['search', 'relevance']), ['index'=>'dominance'])) }}#ideas">{{ __('Idea Dominance Index') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),[]), ['index'=>'dominance'])) }}#ideas">{{ __('Idea Dominance Index') }}</a>
                                         @endif
                                     </div>
                                     <div class="col-md-4 text-center">
                                         @if (empty($sort) && ($index == 'popularity'))
                                         <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
                                         @else
-                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),['search', 'relevance']), ['index'=>'popularity'])) }}#ideas">{{ __('Idea Popularity Index') }}</a>
+                                        <a class="btn btn-primary btn-block" href="{{ route('index', array_merge(\Arr::only(\Request::query(),[]), ['index'=>'popularity'])) }}#ideas">{{ __('Idea Popularity Index') }}</a>
                                         @endif
                                     </div>
                                 </div>

@@ -7,6 +7,8 @@ class CopyBtn extends React.Component {
 
         this.state = {
             value: props.value ? props.value : '',
+            idea_text: props.idea_text ? props.idea_text : '',
+            idea_text_id: props.idea_text_id ? props.idea_text_id : '',
             copySuccess: false
         }
     }
@@ -58,6 +60,26 @@ class CopyBtn extends React.Component {
         });
     }
 
+    copyIdeaInvitationToClipboard = () => {
+        var text = "I support this idea in Egora.\n"
+                + "What do you think about it?\n"
+                + "Will you support it?\n\n"
+                + this.state.idea_text.innerText
+                + "\n\n"
+                + this.state.value
+        
+        this.copyText(text);
+    }
+    
+    copyIdeaAndLinkToClipboard = () => {
+        var text = ""
+                + this.state.idea_text.innerText
+                + "\n\n"
+                + this.state.value
+        
+        this.copyText(text);
+    }
+    
     copyCodeToClipboard = () => {
         var text = "I support this idea in Egora.\n"
                 + "What do you think about it?\n"
@@ -75,12 +97,17 @@ class CopyBtn extends React.Component {
       
     return (
         <div className="row">
-            <div className="col-md-6 text-md-center">
-                <button onClick={() => this.copyCodeToClipboard()} className="btn btn-sm btn-primary col-md-10 mb-1">
-                  Copy Invitation Message
+            <div className="col-md-4 text-md-center">
+                <button onClick={() => this.copyIdeaInvitationToClipboard()} className="btn btn-sm btn-primary col-md-10 mb-1">
+                  Copy Idea Invitation
                 </button>
             </div>
-            <div className="col-md-6 text-md-center">
+            <div className="col-md-4 text-md-center">
+                <button onClick={() => this.copyIdeaAndLinkToClipboard()} className="btn btn-sm btn-primary col-md-10 mb-1">
+                  Copy Idea & Link
+                </button>
+            </div>
+            <div className="col-md-4 text-md-center">
                 <button onClick={() => this.copyLinkToClipboard()} className="btn btn-sm btn-primary col-md-10 mb-1">
                   Copy Idea Link
                 </button>
@@ -101,5 +128,8 @@ export default CopyBtn;
 var elem = document.getElementById('copyLink');
 if (elem) {
     var value = elem.getAttribute('value');
-    ReactDOM.render(<CopyBtn value={ value } />, elem);
+    var idea_text_id = elem.getAttribute('idea_text_id');
+    var idea_text = document.getElementById(idea_text_id);
+    
+    ReactDOM.render(<CopyBtn value={ value } idea_text={ idea_text } idea_text_id={ idea_text_id } />, elem);
 }

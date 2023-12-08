@@ -43,7 +43,7 @@
                                 <div class="row pt-2 pl-md-5">
                                     <div class="offset-md-4 col-md-3 mb-3">
                                         <button class='btn btn-primary btn-sm btn-block'>
-                                            {{__('Submit')}}
+                                            {{__('Send')}}
                                         </button>
                                     </div>
                                 </div>

@@ -235,7 +235,9 @@ class IdeaController extends Controller
     
     public function welcome(Request $request)
     {
-        return $this->_ideas($request, 'welcome', 46);
+        $index = $request->has('index')? $request->input('index'): 'dominance';
+        
+        return $this->_ideas($request, 'welcome', 46)->with(compact('index'));
     }
     
     public function indexes(Request $request)
@@ -545,6 +547,22 @@ class IdeaController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
+        $ideas = [];
+        if(is_egora()) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
+        } else if(is_egora('community')) {
+            $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
+        } else if(is_egora('municipality')) {
+            $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
+        }
+        
+        list($numbered, $current_idea_position) = $this->_numbers_zeros($request, $ideas);
+        
+        if (in_array($order, $numbered)) {
+            return redirect()->back()
+                    ->withInput()->withErrors('Position is already taken.');
+        }        
+        
         $idea = new Idea([
             'content' => $this->_starting_space($request, 'content').$request->input('content'),
             'egora_id' => ($request->has('egora_id') ? $request->input('egora_id') : current_egora_id()),

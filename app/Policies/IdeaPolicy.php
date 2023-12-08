@@ -150,6 +150,11 @@ class IdeaPolicy
         return $user->liked_ideas->contains($idea) && $model->id == $user->id;
     }
     
+    public function bookmark_move(User $user, Idea $idea, User $model)
+    {
+        return $user->bookmarked_ideas->contains($idea) && $model->id == $user->id;
+    }
+    
     /**
      * Determine whether the user can create ideas.
      *

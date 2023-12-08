@@ -69,7 +69,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::get('/{idea}', 'IdeaController@show')->name('view')->middleware('can:view,idea')->where('idea', '[0-9]+');
         Route::get('/create', 'IdeaController@create')->name('create')->middleware('can:create,App\Idea');
         Route::get('/{idea}/{user}/move', 'IdeaController@move')->name('move')->middleware('can:move,idea,user');
-        Route::get('/{idea}/{user}/bookmark_move', 'IdeaController@bookmark_move')->name('bookmark_move')->middleware('can:move,idea,user');
+        Route::get('/{idea}/{user}/bookmark_move', 'IdeaController@bookmark_move')->name('bookmark_move')->middleware('can:bookmark_move,idea,user');
         Route::get('/{idea}/copy', 'IdeaController@copy')->name('copy')->middleware('can:create,App\Idea');
         Route::post('/store', 'IdeaController@store')->name('store')->middleware('can:create,App\Idea');
         Route::post('/{idea}/comment', 'IdeaController@comment')->name('store.comment')->middleware('can:comment,idea');

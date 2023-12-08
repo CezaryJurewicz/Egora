@@ -32,20 +32,20 @@
                                             <a id="idea{{$idea->id}}" style="display: block; position: relative;top: -70px;visibility: hidden;"></a>
                                             <div class="card-header">
                                                 <div class="row">
-                                                    @if (auth('web')->check() && auth('web')->user()->can('move', [$idea, $user]) )
+                                                    @if (auth('web')->check() && auth('web')->user()->can('bookmark_move', [$idea, $user]) )
                                                     <div class="col-1">
                                                         @php
                                                             list($up, $down) = bookmarks_has_place($user->bookmarked_ideas, $idea)
                                                         @endphp
-                                                        @if ($up)
-                                                        <a href="{{ route('ideas.bookmark_move', [$idea->id, $user->id, 'd'=>1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
+                                                        @if ($down)
+                                                        <a href="{{ route('ideas.bookmark_move', [$idea->id, $user->id, 'd'=>-1]) }}" class="mb-1 btn-outline-secondary btn-sm rounded-circle">
                                                         <i class="fa fa-chevron-up pt-1"></i>
                                                         </a><br/>
                                                         @else
                                                         &nbsp;<br/>
                                                         @endif
-                                                        @if ($down)
-                                                        <a href="{{ route('ideas.bookmark_move', [$idea->id, $user->id, 'd'=>-1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
+                                                        @if ($up)
+                                                        <a href="{{ route('ideas.bookmark_move', [$idea->id, $user->id, 'd'=>1]) }}" class="btn-outline-secondary btn-sm rounded-circle                     ">
                                                         <i class="fa fa-chevron-down pt-1"></i>
                                                         </a>
                                                         @endif

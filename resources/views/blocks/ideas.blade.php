@@ -75,7 +75,7 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                {!! shorten_text_link($idea->content) !!}
+                                {!! shorten_text_link_characters($idea->content) !!}
                             </div>
                         </div>
                     </div>

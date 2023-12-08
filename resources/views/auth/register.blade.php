@@ -280,6 +280,21 @@
                                 </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-md-7 row">
+                                <label for="email" class="col-12 col-form-label">{{ __('I am at least 18 years of age, and i understand that my age is subject to verification.') }}</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input class="form-control form-control-sm @error('age_verification') is-invalid @enderror" type="checkbox" name="age_verification" id="age_verification" {{ old('age_verification') ? 'checked' : '' }}>
+
+                                @error('age_verification')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
                         <div class="form-group row pt-3">
                                 <div class="offset-md-1 col-md-3 row">
                                     <label for="nation" class="col-7 col-form-label">{{ __('Nation') }}</label>
@@ -316,21 +331,6 @@
                                 </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="offset-md-2 col-md-7 row">
-                                <label for="email" class="col-12 col-form-label">{{ __('I am at least 18 years of age, and i understand that my age is subject to verification==') }}</label>
-                            </div>
-                            <div class="col-md-2">
-                                <input class="form-control form-control-sm @error('age_verification') is-invalid @enderror" type="checkbox" name="age_verification" id="age_verification" {{ old('age_verification') ? 'checked' : '' }}>
-
-                                @error('age_verification')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
                         <div class="form-group row">
                             <div class="offset-md-1 col-md-3 row">
                                 <label for="email" class="col-12 col-form-label">{{ __('E-Mail Address') }}</label>

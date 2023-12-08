@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-4 text-center">
                         @if (empty($sort)) 
-                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes', array_merge(\Arr::only(\Request::query(),['sort', 'search', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
+                        <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes', array_merge(\Arr::only(\Request::query(),['sort', 'relevance', 'unverified', 'nation','page']), ['sort' => 'date'])) }}">{{ __('Newest Ideas') }}</a>
                         @else
                         <h5 class="pt-2">{{ __('Newest Ideas') }}</h5>
                         @endif

@@ -25,6 +25,30 @@ function _shorten_text($text, $limit = 92)
     return $result;
 }
 
+function _shorten_text_characters($text, $limit = 92) 
+{ 
+    if (strlen($text) > $limit) {
+        $words = str_word_count($text, 2);
+        $pos = array_keys($words);
+        $result = substr($text, 0, $limit);
+        
+        if (strrpos($result, ' ') || strpos($text, ' ', $limit)) {
+            $backward = $limit - strrpos($result, ' ');
+            $forward = abs(strpos($text, ' ', $limit) - $limit);
+            
+            if ($backward < $forward) {
+                $result =  substr($text, 0, $limit - ($backward-1) );
+            } else {
+                $result =  substr($text, 0, $forward + ($limit+1) );
+            }
+        }
+    } else {
+        $result = $text;
+    }
+    
+    return $result;
+}
+
 function shorten_text($text, $limit = 92) 
 {
    
@@ -51,6 +75,20 @@ function shorten_text_link($text, $limit = 42)
                 )
             );
 
+}
+
+function shorten_text_link_characters($text, $limit = 300) 
+{
+   
+    return  nl2br(
+                str_replace(array('  ', "\t"), array('&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'), 
+                     make_clickable_links(
+                         htmlspecialchars(
+                             _shorten_text_characters(strip_tags($text, '<br><p><b><i><li><ul><ol>'), $limit)
+                         )
+                     )
+                )
+            );
 }
 
 function filter_api_text($text)

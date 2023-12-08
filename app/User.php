@@ -229,7 +229,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function bookmarked_ideas()
     {
         return $this->belongsToMany(Idea::class, 'bookmarks')->withPivot('position', 'order', 'community_id')
-                ->orderBy('pivot_order', 'desc');
+                ->orderBy('pivot_order', 'asc');
     }
     
     public function bookmarked_list($idea)

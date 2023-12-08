@@ -119,7 +119,7 @@ You may take credit for your idea, but all text must be copyleft and will remain
 
                             <div class="col-md-4 text-center">
                                 <button type="submit" class="btn btn-primary col-md-6">
-                                    {{ __('Save & Close') }}
+                                    {{ __('Publish') }}
                                 </button>
                             </div>
                         </div>  
