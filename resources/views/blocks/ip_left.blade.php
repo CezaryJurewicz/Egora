@@ -54,7 +54,15 @@
 
                             @if (is_egora('community'))
                             <div class="mt-2">
-                                @foreach($user->communities as $c)
+                                @foreach($user->communities_not_allowed_to_leave as $c)
+                                @if(isset($community_id) && $community_id == $c->id)
+                                {{$c->title}}<br/>
+                                @else
+                                <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
+                                @endif
+                                @endforeach
+                                
+                                @foreach($user->communities_allowed_to_leave->sortBy('pivot.order') as $c)
                                 @if(isset($community_id) && $community_id == $c->id)
                                 {{$c->title}}<br/>
                                 @else

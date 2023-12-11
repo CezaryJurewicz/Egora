@@ -361,12 +361,13 @@ class UserController extends Controller
         
         $communities=[];
         
-        $dec = count($user->communities_not_allowed_to_leave);
+        $dec = $user->communities_not_allowed_to_leave->count();
         
-        foreach( $user->communities_allowed_to_leave as $i=>$community) {
-            $communities[$community->pivot->order-$dec-1] = $community;
+        $i=0;
+        foreach( $user->communities_allowed_to_leave->sortBy('pivot.order') as $community) {
+            $communities[$i++] = $community;
         }
-
+        
         return view('users.communities')->with(compact('user', 'communities'));
     }
     
