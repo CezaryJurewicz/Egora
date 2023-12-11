@@ -54,7 +54,7 @@
                             <input type="hidden" name="notification_id" value="{{ $notification->id }}"/>
                             @endif
                             
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-3 text-center mb-1">
                                 <button type="submit" class="btn btn-primary col-md-auto">
                                     {{ __('Save & Close') }}
                                 </button>

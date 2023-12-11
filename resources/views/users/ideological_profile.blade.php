@@ -13,7 +13,7 @@
                         
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col-2 col-md-2 offset-1 offset-md-2">
+                                <div class="col-2 col-lg-3 offset-1 offset-lg-1 offset-md-2">
                                     @if (auth('web')->user())
                                         @if (is_egora())
                                             <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'community']) }}">&lt;</a>
@@ -24,7 +24,7 @@
                                         @endif
                                     @endif
                                 </div>
-                                <div class="col-6 col-md-4">
+                                <div class="col-6 col-lg-4 col-md-3">
                                     <div class="text-center">
                                         @if (is_egora())
                                         <h3>{{ __('views.Ideological Profile') }}</h3>
@@ -35,7 +35,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-2 col-md-2">
+                                <div class="col-2 col-md-2 col-lg-2">
                                     @if (auth('web')->user())
                                         @if (is_egora())
                                             <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('municipal',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'municipal']) }}">&gt;</a>
@@ -46,7 +46,7 @@
                                         @endif
                                     @endif
                                 </div>
-                                <div class="col-12 col-md-2 text-right">
+                                <div class="col-12 col-md-3 col-lg-2 text-right">
                                 @if (is_egora())
                                     <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
                                 @endif

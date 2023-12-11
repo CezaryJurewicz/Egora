@@ -7,7 +7,8 @@ class CopyBtn extends React.Component {
 
         this.state = {
             value: props.value ? props.value : '',
-            idea_text: props.idea_text ? props.idea_text : '',
+            idea_text: props.idea_text ? props.idea_text.innerText : '',
+            idea_text_elm: props.idea_text ? props.idea_text : '',
             idea_text_id: props.idea_text_id ? props.idea_text_id : '',
             copySuccess: false
         }
@@ -63,8 +64,9 @@ class CopyBtn extends React.Component {
     copyIdeaInvitationToClipboard = () => {
         var text = "I support this idea in Egora.\n"
                 + "What do you think about it?\n"
-                + "Will you support it?\n\n"
-                + this.state.idea_text.innerText
+                + "Will you support it?"
+                + "\n\n"
+                + this.state.idea_text
                 + "\n\n"
                 + this.state.value
         
@@ -73,7 +75,7 @@ class CopyBtn extends React.Component {
     
     copyIdeaAndLinkToClipboard = () => {
         var text = ""
-                + this.state.idea_text.innerText
+                + this.state.idea_text
                 + "\n\n"
                 + this.state.value
         

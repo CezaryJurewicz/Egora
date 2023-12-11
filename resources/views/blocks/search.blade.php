@@ -5,8 +5,12 @@
                     
                     @guest
                     <input type="hidden" name="relevance" value="{{ collect($nations)->first() }}" />
+                    @if (collect(Request::query())->has('sort'))
                     <input type="hidden" name="sort" value="{{ $sort }}" />
+                    @endif
+                    @if (collect(Request::query())->has('index'))
                     <input type="hidden" name="index" value="{{ $index }}" />
+                    @endif
                     @endguest
                     
                     @auth
