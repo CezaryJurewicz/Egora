@@ -6,6 +6,8 @@ return [
     'Settings' => 'Settings',
     'Users' => 'Users',
     'User Search' => 'User Search',
+    'New Philosophers' => 'New Philosophers',
+    'Philosopher Search' => 'Philosopher Search',
     'User' => 'User',
     'User Edit' => 'User Edit',
     'User Types' => 'User Types',

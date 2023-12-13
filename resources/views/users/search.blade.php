@@ -8,7 +8,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="text-center"> 
-                <h3>{{ __('views.User Search') }}</h3>
+                <h3>{{ __('views.Philosopher Search') }}</h3>
                 </div>
                 <form action="{{ route('users.search') }}" method="POST" autocomplete="off">
                     <div class="form-group row mt-4">
@@ -72,13 +72,13 @@
                     @if($users->isNotEmpty())
                         @if ($recent)
                         <center>
-                        <h5>New Users</h5>
+                        <h5>{{ __('views.New Philosophers') }}</h5>
                         </center>
                         @endif
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">{{ __('tables.User Category')}}</th>
+                                    <th scope="col">{{ __('tables.Category')}}</th>
                                     <th scope="col">{{ __('tables.Search-Name')}}</th>
                                     <th scope="col">{{ __('tables.Nation')}}</th>
                                 </tr>

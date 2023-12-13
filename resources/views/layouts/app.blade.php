@@ -85,19 +85,19 @@
 
                             @if (auth('web')->user() && auth('web')->user()->can('search', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->active_search_names->first()->hash) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Users') }}</a>
+                                <a class="nav-link{{ ( (Route::current()->getName() == 'users.search') || (Route::current()->getName() == 'users.ideological_profile' && auth('web')->check() && Request::segment(2) != auth('web')->user()->active_search_names->first()->hash) ) ? ' active' : '' }}" href="{{ route('users.search')}}">{{ __('Philosophers') }}</a>
                             </li>
                             @endif
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ (Route::current()->getName() == 'users.index') ? ' active' : '' }}" href="{{ route('users.index')}}">{{ __('All users') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'users.index') ? ' active' : '' }}" href="{{ route('users.index')}}">{{ __('All Philosophers') }}</a>
                             </li>
                             @endif
                             
                             @if ((auth('web')->user()?:auth('admin')->user())->can('viewAny', App\User::class))
                             <li class="nav-item">
-                                <a class="nav-link{{ (Route::current()->getName() == 'default_leads') ? ' active' : '' }}" href="{{ route('default_leads')}}">{{ __('Default leads') }}</a>
+                                <a class="nav-link{{ (Route::current()->getName() == 'default_leads') ? ' active' : '' }}" href="{{ route('default_leads')}}">{{ __('Default Leads') }}</a>
                             </li>
                             @endif
 

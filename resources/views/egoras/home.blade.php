@@ -33,9 +33,9 @@
                         “Know Thyself”.</li>
                         <li>As you build your IP, you are actually giving support to those
                         ideas on the Idea Dominance Index (IDI) and the Idea Popularity
-                        Index (IPI). These two indexes keep track of how strongly (IDI) and
-                        how popularly (IPI) various ideas are supported in Egora among the
-                        users. This knowledge gives us––the people––tremendous power
+                        Index (IPI). These two indexes keep track of how strongly (IDI) 
+                        and how popularly (IPI) various ideas are supported in Egora.
+                        This knowledge gives us––the people––tremendous power
                         regarding what we can demand from our governments.</li>
                         <li>Egora enables us to organize meetings (in-person or online) so
                         that we can come together in small groups to discuss any of those

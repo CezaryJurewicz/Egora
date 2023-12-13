@@ -20,7 +20,9 @@
                 @if (auth('web')->check())
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <!--<a class='btn btn-primary btn-sm btn-block' href="{{  url()->previous() }}">{{__('some.Cancel and Close')}}</a>-->
+                        @if (!is_null($idea->community))
+                        <a class='btn btn-primary btn-sm btn-block' href="{{ route('users.ideological_profile', [auth('web')->user()->active_search_name_hash, 'community_id'=>$idea->community->id]) }}">{{__('some.Go to Community')}}</a>
+                        @endif
                     </div>
                     <div class="offset-6 col-md-3 mb-3">
                         <a href="{{ route('ideas.copy', $idea) }}" class='btn btn-primary btn-sm btn-block'>{{__('some.Copy and Edit')}}</a>

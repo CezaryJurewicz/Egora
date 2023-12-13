@@ -551,7 +551,7 @@ class IdeaController extends Controller
         if(is_egora()) {
             $ideas = $request->user()->liked_ideas->whereNotNull('nation_id');
         } else if(is_egora('community')) {
-            $ideas = $request->user()->liked_ideas->where('community_id', $idea->community->id);
+            $ideas = $request->user()->liked_ideas->where('community_id', $request->input('community'));
         } else if(is_egora('municipality')) {
             $ideas = $request->user()->liked_ideas->whereNotNull('municipality_id');
         }

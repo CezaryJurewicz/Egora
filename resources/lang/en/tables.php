@@ -32,6 +32,7 @@ return [
     'Points' => 'Points',
     'Search-Name' => 'Search-Name',
     'User Category' => 'User Category',
+    'Category' => 'Category',
     'Last Online At' => 'Last Online At'
 
 ];

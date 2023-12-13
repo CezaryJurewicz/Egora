@@ -56,7 +56,7 @@
                             
                             <div class="col-md-3 text-center mb-1">
                                 <button type="submit" class="btn btn-primary col-md-auto">
-                                    {{ __('Save & Close') }}
+                                    {{ __('Save and Close') }}
                                 </button>
                             </div>
                     </form>

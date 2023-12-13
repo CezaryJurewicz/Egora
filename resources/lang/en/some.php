@@ -25,6 +25,7 @@ return [
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
     'Submit' => 'Submit',
+    'Go to Community' => 'Go to Community',
     '@<Search-Name>' => 'Use {Search-Name} to link other philosophers in your comments.
 
 Each philosopher is limited to 23 comments per idea and 23 sub-comments per comment. If you have more to say, we recommend arranging a meeting with the other philosophers to have a real discussion ;-)',
