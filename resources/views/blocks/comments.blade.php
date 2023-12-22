@@ -62,7 +62,7 @@
                         <div id="responses{{ $comment->id }}" @if(is_null($open) || (isset($open) && ($open != $comment->id))) style="display:none" @endif>
                             @foreach($comment->comments as $child)
                                 <div class="reply">
-                                @include('blocks.comment', ['comment' => $child, 'reply' => false, 'class' => 'subcomment'])                
+                                @include('blocks.comment', ['comment' => $child, 'parent'=>$comment, 'reply' => false, 'class' => 'subcomment'])                
                                 </div>
                             @endforeach
                         </div>

@@ -22,12 +22,12 @@
                         philosopher. Egora turns everyone who uses it into a philosopher,
                         and we’re all better off for it. Thank you for joining us so that we
                         can make the world a better place by learning from one another.</p>
-                        <p>Now, I want to give you a brief description of how things work:</p>
+                        <p>Now, i want to give you a brief description of how things work:</p>
                         <ol class="bold">
                         <li>By filling out your Ideological Profile (IP), you assemble the
                         ideas and issues that identify you. This process alone already has two
                         great benefits. First, through your IP you can quickly and
-                        conveniently demonstrate to others what you stand for and why. But
+                        conveniently demonstrate to others what you represent and why. But
                         most importantly, you can easily and effectively define yourself to
                         <u>yourself</u>, and there is no higher goal for any philosopher than to
                         “Know Thyself”.</li>
@@ -50,12 +50,11 @@
                         people really want. These candidates then go on to campaign for
                         government offices, as the nominees of the ILP. If any politician ever
                         fails us, we have other candidates already waiting to replace them.</li>
-                        <li>Lastly, Egora is not a business; it is a <i>Republic</i>. The ILP
-                        Members own it, and the ILP Members control it. Thus, all of
-                        Egora’s surplus revenue (revenue not used for maintenance) is
-                        distributed to ILP Members, based on how much they attend ILP
-                        meetings. The ILP Members then decide which ILP candidates to
-                        support with their earned credits.</li>
+                        <li>Lastly, Egora is not a business; it is a <i>Republic</i>. And we, the ILP Members, 
+                        are its citizens. We all own Egora, and we all control Egora. Therefore, all of 
+                        Egora’s surplus revenue (revenue not used for maintenance or development) is 
+                        distributed to ILP Members, based on how much we attend ILP meetings. The ILP 
+                        Members then decide which ILP candidates to support with their earned credits.</li>
                         </ol>
                         
                         <p>There are many details left out from this description; but basically,

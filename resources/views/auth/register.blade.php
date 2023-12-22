@@ -97,9 +97,9 @@
                     <div class="row">
                         <div class="col-md-10 offset-1">
                             <div class="text-center">
-                                <h4>Egora User Agreement</h4>
+                                <h4>Egora Use Agreement</h4>
                             </div>
-                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u>––hence forth referred to as the “user”––and 
+                            <p>By this document, <u>&nbsp; &nbsp; <span id="regName">(your name)</span> &nbsp; &nbsp;</u>––for the purposes of this agreement, referred to as the “user”––and 
                             the <i>International Logic Party</i>––the citizens and proprietors of the Republic of Egora (a.k.a. Egora), represented by the 
                             administration of Egora––enter into an agreement on the following terms.</p>
                         </div>
@@ -176,8 +176,8 @@
                                         <p>Furthermore, the user agrees to abide by fair, local laws in using Egora. If the user is suspected
                                         of being in violation of such laws, all public information within Egora will be available for the
                                         prosecution of the user, and the Egora administration reserves the right to aid external agencies in
-                                        collecting that information. However, if the International Logic Party agrees that certain laws are
-                                        unfair, the International Logic Party may assist the user in resisting those laws.</p>
+                                        collecting that information. However, if the <i>International Logic Party</i> agrees that certain laws are
+                                        unfair, the <i>International Logic Party</i> may assist the user in resisting those laws (until the laws are changed).</p>
                                     </div>
                                 </div>
                             </li>
@@ -320,8 +320,8 @@
                                     <div class="row">
                                         <div class="mt-1 col-md-12 collapse" id="collapseg">
                                             <div class="card card-body">
-                                                <p>Out of regard for people whose nations do not yet have their own countries, Egora asks for the 
-                                                    user’s nation,  not country. This is a free-type field, and it is up to each nation to coalesce 
+                                                <p>Out of regard for people whose nations do not yet have their own countries, Egora asks for each 
+                                                    person’s nation, not country. This is a free-type field, and it is up to each nation to coalesce 
                                                     around the name that best suits  them. If you are not sure what to enter, simply put whatever 
                                                     feels right, and you can change it later if you  prefer.</p>
                                             </div>

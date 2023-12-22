@@ -47,8 +47,8 @@
                             
                             @if (auth('web')->check())
                             @if(isset($current_idea_position) && !is_null($current_idea_position))
-                            <div class="col-md-2">
-                                <a class='btn btn-primary btn-sm ml-2' href="{{ route('ideas.unlike', $idea->id) }}">{{__('some.Remove and Close')}}</a>
+                            <div class="col-md-2 text-right">
+                                <a class='btn btn-primary btn-sm col-md-auto' href="{{ route('ideas.unlike', $idea->id) }}">{{__('some.Remove')}}</a>
                             </div>
                             @endif
                             @endif

@@ -18,6 +18,7 @@ return [
     'Back' => 'Back',
     'Search' => 'Search',
     'Save and Close' => 'Save and Close',
+    'Remove' => 'Remove',
     'Remove and Close' => 'Remove and Close',
     'Cancel and Close' => 'Cancel and Close',
     'Copy and Edit' => 'Copy and Edit',

@@ -46,6 +46,8 @@
                         @if (auth('web')->check() && auth('web')->user()->can('comment', $comment))
                         <a href="#" onclick="$('#reply{{ $comment->id }}').toggle(); return false;" >Reply</a> 
                         @endif
+                    @elseif (isset($parent))
+                        <a href="#" onclick="$('#reply{{ $parent->id }}').show(); $('html, body').animate({ scrollTop: $('#reply{{ $parent->id }}').offset().top - 70 }); return false;" >Reply</a> 
                     @endif
                 </small>
             </div>

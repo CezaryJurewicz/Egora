@@ -55,7 +55,7 @@
                             @endif
                             
                             <div class="col-md-3 text-center mb-1">
-                                <button type="submit" class="btn btn-primary col-md-auto">
+                                <button type="submit" class="btn btn-primary btn-sm col-md-auto">
                                     {{ __('Save and Close') }}
                                 </button>
                             </div>
@@ -70,7 +70,7 @@
                                 @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('bookmark', $idea) )
                                 <form action="{{ route('ideas.bookmark',[$idea->id]) }}" method="POST">
                                     @csrf
-                                            <button type="submit" class="btn btn-primary col-md-auto">
+                                            <button type="submit" class="btn btn-primary btn-sm col-md-auto">
                                                 @if($idea->is_bookmarked(Auth::guard('web')->user()))
                                                 {{ __('Unbookmark') }}
                                                 @else
