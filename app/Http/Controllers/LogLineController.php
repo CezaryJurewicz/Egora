@@ -21,17 +21,15 @@ class LogLineController extends Controller
                 });
                 $q->Notifications();
                 $q->new();
-                $q->where('egora_id', current_egora_id());
             })
             ->orWhere(function($q) use ($request) {
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });
                 $q->Comments();
-                $q->where('egora_id', current_egora_id());
             })
             ->orderBy('created_at','asc')
-            ->paginate(100);
+            ->get();
 
         return view('log.index')->with(compact('lines'));
 

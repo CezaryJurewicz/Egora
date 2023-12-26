@@ -46,18 +46,13 @@
                 </div>
                 
                 <div class="card p-5 mt-5">
-                    @forelse($lines as $line)
-                        @if ($line->loggable instanceof \App\Notification)   
-                            @include('blocks.log.notification', ['row' => $line->loggable])   
-                        @elseif ($line->loggable instanceof \App\CommentNotification)   
-                                @include('blocks.log.comment', ['row' => $line->loggable])   
-                        @endif
+                    @if ($lines->where('egora_id', current_egora_id())->isNotEmpty())
+                        @include('blocks.log.card', ['lines' => $lines->where('egora_id', current_egora_id()), 'eid' => current_egora_id()])   
+                    @endif 
                     
-                    @empty
-                        <!--<p>@lang('ideas.No ideas found')</p>-->
-                    @endforelse
-                    
-                    {{  $lines->render() }}
+                    @foreach($lines->groupBy('egora_id')->diffKeys([current_egora_id() => []])->sortKeys() as  $eid => $nlines)
+                        @include('blocks.log.card', ['lines' => $nlines, 'eid' => $eid])
+                    @endforeach
                 </div>
             </div>
         </div>
