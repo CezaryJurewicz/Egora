@@ -47,8 +47,10 @@
                                     @endif
                                 </div>
                                 <div class="col-12 col-md-3 col-lg-2 text-right">
-                                @if (is_egora())
-                                    <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
+                                @if (auth('web')->check())                                     
+                                    @if (is_egora())
+                                        <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
+                                    @endif
                                 @endif
                                 
                                 @if (auth('web')->user() && $user->id == auth('web')->user()->id)
@@ -89,19 +91,28 @@
 
                                           <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                                             <div class="card-body">
-                                                <p>The Ideological Profile (IP) is a person’s existential, political, economic,
-                                                social, and personal philosophy. The 23-point idea is the most fundamental
-                                                idea or the most practically important idea, depending on which strategy a
-                                                person uses for building their IP. The total number of points Egora users
-                                                assign to a particular idea in their IPs is given as “IDI Points” (only verified
-                                                and active users are counted).</p>
+                                                <p>The Ideological Profile (IP) is a philosopher’s existential, political, 
+                                                    economic, social, and personal philosophy. The 23-point idea is the most 
+                                                    fundamental idea or the most urgent idea, depending on which strategy a 
+                                                    philosopher uses for developing their IP. The total number of points that 
+                                                    have been assigned to a particular idea is given as “IDI Points” (only 
+                                                    verified and active accounts are counted).</p>
                                                 <p>The 0-point ideas are a convenient way to suggest alternative ideas to the
                                                 point-weighted ideas.</p>
+                                                <p>
+                                                    Idea Bookmarks let you keep track of many more ideas than what can be 
+                                                    supported in the IP. Bookmarks are private and do not count toward supporting 
+                                                    ideas, other than keeping them ‘alive’ after they lost all support. You can 
+                                                    have up to 300 ideas bookmarked in the Main Egora, 100 in the Municipal Egora, 
+                                                    and 100 in each Egora Community, with the exception of a few communities that 
+                                                    also enable 300.
+                                                </p>
                                                 <p>The E, G, O, R, and A ideas are additional ideas for ILP Members to control
                                                 Egora and to organize of the ILP.</p>
-                                                <p>The Portfolio Score is equal to the Candidate Score. The Candidate Score is 
-                                                explained in the Campaigns screen. The Portfolio Score is here to let you know 
-                                                where you would stand if you announced yourself as an ILP candidate.</p>
+                                                <p>The Portfolio Score is the same as the Candidate Score. The Candidate Score 
+                                                    is explained in the Campaigns screen. The Portfolio Score is here to let 
+                                                    you know where you would stand if you were to announce yourself as a political 
+                                                    candidate (representing the ILP or any other party).</p>
                                             </div>
                                           </div>
                                         </div>
@@ -183,9 +194,13 @@
                                                     @endif
                                                     </div>
                                                     <div class="col-12 col-sm-2 pr-0 pl-0 text-center small">
+                                                        @if( \Route::currentRouteName() == 'users.vote_ip' )
+                                                        <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.preview', preview_id($idea->id)) }}">{{ __('Open') }}</a>
+                                                        @else
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                         <br/>
                                                         <a class="col-12" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
+                                                        @endif
                                                     </div>
                                                     <div class="offset-sm-1 col-12 col-sm-4">
                                                         @if (is_egora())

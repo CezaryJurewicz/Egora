@@ -24,3 +24,4 @@ require('./components/Share');
 require('./components/TextareaMentions');
 require('./components/Diff');
 require('./components/IdeaText');
+require('./components/SimpleCopy');

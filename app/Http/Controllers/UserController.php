@@ -494,6 +494,105 @@ class UserController extends Controller
         return view('users.view')->with(compact('user'));
     }
     
+    public function vote_ideological_profile(Request $request, $search_name)
+    {
+        $searchname = SearchName::with('user')->where('name', $search_name)->first();
+        $user = $searchname->user;
+            
+        $ownIP = false;
+        $_ideas = collect();
+        
+        // Change;
+            $community_id = ($request->has('community_id')?$request->community_id :  $user->communities->first()->id);
+            
+            if ($request->user()) {
+                $_user = $request->user();
+                $_user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
+                    if (is_egora('community') && $community_id) {
+                        $q->where('ideas.community_id', $community_id);
+                    } else {
+                        $q->whereNull('ideas.community_id');
+                    }
+
+                    if (is_egora('municipal')) {
+                        $q->where('ideas.municipality_id', $user->municipality_id);
+                        $q->whereNotNull('ideas.municipality_id');
+                    } else {
+                        $q->whereNull('ideas.municipality_id');
+                    }
+
+                    //don't include E,G,O,R,A ideas 
+                    //$q->where('idea_user.order', '>=', 0 );
+                }]);
+                
+                $_ideas = $_user->liked_ideas->pluck('id');
+                $ownIP = $user->id == $_user->id;
+            }
+        
+        $user->load(['liked_ideas' => function($q) use ($community_id, $user, $request) {
+            $q->with('comments.comments');
+            if (is_egora('community') && $community_id) {
+                    $q->where('ideas.community_id', $community_id);
+            } else {
+                $q->whereNull('ideas.community_id');
+            }
+            
+            if (is_egora('municipal')) {
+                $q->where('ideas.municipality_id', $user->municipality_id);
+                $q->whereNotNull('ideas.municipality_id');
+            } else {
+                $q->whereNull('ideas.municipality_id');
+            }
+            
+            $q->with(['nation', 'liked_users' => function($q) {
+                $q->recent();
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+                
+                if (!is_egora()) {
+                    //don't include supporters for E,G,O,R,A ideas
+                    $q->where('idea_user.order', '>=', 0 );
+                }
+            }, 'moderators' => function($q) {
+                $q->recent();
+                $q->whereHas('user_type',function($q){
+                    $q->where('verified', 1);
+                });
+            }]);
+            
+            //don't include E,G,O,R,A ideas 
+            //$q->where('idea_user.order', '>=', 0 );
+        }, 'petition.supporters' => function($q) {
+            $q->recent();
+        }, 'communities' => function($q) use ($request, $user) {
+            $q->whereIn('id', $user->communities->pluck('id'));
+        }]);
+
+        $shared_ideas = null;
+        $ideas=collect();
+        $ip_score = 0;
+        $scores = [];        
+        foreach($user->liked_ideas as $idea) {
+            if ($idea->pivot->order >= 0) {
+                $scores[] = $idea->liked_users->pluck('pivot.position')->sum();
+                $ideas->push($idea->id);
+            }
+        }        
+        rsort($scores, SORT_NUMERIC);
+        $ip_score = array_sum(array_slice($scores, 0, 23));
+
+        if (!$ownIP && isset($_user)) {
+            $filtered = $_user->liked_ideas->filter(function($v,$k){
+                return $v->pivot->order >= 0;
+            });
+            
+            $shared_ideas = $ideas->intersect($filtered->pluck('id'));
+        }
+        
+        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
+    }
+    
     public function ideological_profile(Request $request, $hash)
     {
         if ($request->input('switch')) {

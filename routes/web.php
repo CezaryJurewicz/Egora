@@ -19,6 +19,8 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
     Route::get('/{hash}/preview', 'IdeaController@preview')->name('preview');
 });
 
+Route::get('/vote/{search_name}', 'UserController@vote_ideological_profile')->name('users.vote_ip')->middleware('can:vote_ideological_profile,App\User,search_name');
+
 Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::get('/switch/{key}/{page}', 'UserController@switch')->name('switch')->middleware('can:switch, App\User, key');
     

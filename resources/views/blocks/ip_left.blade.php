@@ -141,10 +141,12 @@
                             @endif
                             
                             @if (is_egora())
-                            @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
-                            <div class="mt-2">
-                                <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
-                            </div>
+                            @if (auth('web')->check() || auth('admin')->check())
+                                @if ((auth('web')->user()?:auth('admin')->user())->can('update', $user))
+                                <div class="mt-2">
+                                    <a class="btn btn-sm btn-secondary btn-block" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                                </div>
+                                @endif
                             @endif
                             
                             @if (auth('web')->user() && (auth('web')->user()->id == $user->id))
@@ -205,12 +207,15 @@
                             @endif
                             
                             <div class="mt-2">
+                                @if (auth('web')->check() || auth('admin')->check())
                                 @if ( (auth('admin')->user() ?: auth('web')->user())->can('disqualify_membership', $user) )
                                 <a class="btn btn-black btn-sm btn-block" href="{{ route('users.disqualify_membership', $user->id ) }}">Disqualify Membership</a>
+                                @endif
                                 @endif
                             </div>
 
                             <div class="mt-2">
+                                @if (auth('web')->check() || auth('admin')->check())
                                 @if ((auth('admin')->user() ?: auth('web')->user())->can('reset', $user) )
                                 <form action="{{ route('users.reset',[$user->id]) }}" method="POST">
                                     @csrf
@@ -220,9 +225,11 @@
                                     </div>
                                 </form>
                                 @endif
+                                @endif
                             </div>
                             
                             <div class="mt-2">
+                                @if (auth('web')->check() || auth('admin')->check())
                                 @if ( auth('admin')->check() && auth('admin')->user()->can('delete', $user) )
                                 <form action="{{ route('users.delete',[$user->id]) }}" method="POST">
                                     @csrf
@@ -231,5 +238,6 @@
                                         <button type='submit' class='btn btn-sm btn-block' style="background-color: #ff00ff; color: #ffffff;">{{__('some.Delete')}}</button>
                                     </div>
                                 </form>
+                                @endif
                                 @endif
                             </div>

@@ -130,6 +130,19 @@ class UserPolicy
         return $this->deny();
     }
     
+    public function vote_ideological_profile(?User $user, $search_name)
+    {
+        $searchname = SearchName::with('user')->where('name', $search_name)->first();
+        
+        if ($searchname) {
+            $model = $searchname->user;
+
+            return (!$model->trashed() && $model->campaign)? $this->allow() : $this->deny() ;
+        }
+        
+        return $this->deny();
+    }
+    
     public function about_edit(User $user, $hash)
     {
         $searchname = SearchName::with('user')->where('hash', $hash)->first();

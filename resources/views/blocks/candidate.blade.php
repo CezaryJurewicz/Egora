@@ -1,4 +1,4 @@
-@if (auth('web')->check() && auth('web')->user() && $user->campaign)
+@if ($user->campaign)
 <div class="panel mt-3">
     <div class="panel-body">
         <h5 class="mb-2">Political Candidate</h5>
@@ -18,6 +18,12 @@
         International Logic Party
         </p>
         @endif
+        <p style="word-wrap: break-word;"><b>{{ __('Visitor URL:') }}</b><br/>
+        {{ route('users.vote_ip', $user->active_search_name) }}
+        </p>
+        <div class="mt-2">
+            <div id="simpleCopy" btn_title="{{ __('Copy Link') }}" value="{{ route('users.vote_ip', $user->active_search_name) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
+        </div>
     </div>
 </div>
 @endif
