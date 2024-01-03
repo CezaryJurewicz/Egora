@@ -53,9 +53,9 @@ class AppServiceProvider extends ServiceProvider
                     ->where(function($q){
                         $q->whereHas('receiver', function($q) {
                             $q->where('id', auth('web')->user()->id);
-                        })
-                        ->whereHas('idea', function($q) {
-                            $q->where('egora_id', current_egora_id());
+//                        })
+//                        ->whereHas('idea', function($q) {
+//                            $q->where('egora_id', current_egora_id());
                         });
                     })->new()->get();
 
@@ -79,8 +79,8 @@ class AppServiceProvider extends ServiceProvider
                 $comment_notifications = CommentNotification::where(function($q){
                         $q->whereHas('receiver', function($q) {
                             $q->where('id', auth('web')->user()->id);
-                        })
-                        ->where('egora_id', current_egora_id());
+                        });
+//                        ->where('egora_id', current_egora_id());
                     })->select('id');
                     
                 $view->with('inbox_comment_notifications_cnt', $comment_notifications->count());
