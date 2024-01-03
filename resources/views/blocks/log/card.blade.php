@@ -4,11 +4,11 @@
                     </div>
                     <div class="card-body">
 
-                    @forelse($lines as $line)
+                        @forelse($lines as $line)
                         @if ($line->loggable instanceof \App\Notification)   
                             @include('blocks.log.notification', ['row' => $line->loggable])   
                         @elseif ($line->loggable instanceof \App\CommentNotification)   
-                                @include('blocks.log.comment', ['row' => $line->loggable])   
+                            @include('blocks.log.comment', ['row' => $line->loggable])   
                         @endif
                     
                     @empty

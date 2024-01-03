@@ -228,7 +228,7 @@
         </nav>
 
         <div class="py-5">
-            <main role="main" class="container py-5                 ">
+            <main role="main" class="container-lg py-5                 ">
                 @include('blocks.alerts')
 
                 @yield('content')

@@ -86,7 +86,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::put('/{comment}', 'CommentController@update')->name('update')->middleware('can:update,comment');
     });
     
-    Route::prefix('/users')->name('users.')->group(function(){
+    Route::prefix('/philosophers')->name('users.')->group(function(){
         Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
         Route::get('/bookmarked_ideas', 'UserController@bookmarked_ideas')->name('bookmarked_ideas');        

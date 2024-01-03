@@ -15,7 +15,7 @@ class LogLineController extends Controller
     public function index(Request $request)
     {
         $lines = LogLine::
-            where(function($q) use ($request) {
+            where(function($q) use ($request) {                
                 $q->whereHas('user', function($q) use ($request) {
                     $q->where('id', $request->user()->id);
                 });

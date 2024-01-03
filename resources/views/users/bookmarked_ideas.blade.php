@@ -13,13 +13,18 @@
                         
                         <div class="col-md-9">
                             <div class="row pb-3">
-                                <div class="col-12 col-md-8 offset-md-2">
+                                <div class="col-12 col-md-3">
+                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$community_id]) }}">IP</a>
+                                </div>
+                                <div class="col-12 col-md-6">
                                     <div class="text-center">
                                         <h3>{{ __('views.Bookmarked Ideas') }}</h3>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-2 text-right">
-                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$community_id]) }}">IP</a>
+                                <div class="col-12 col-md-3 text-right">
+                                    @if (is_egora())
+                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
+                                    @endif
                                 </div>
                             </div>                            
                             

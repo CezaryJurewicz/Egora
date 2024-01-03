@@ -132,7 +132,7 @@ class UserPolicy
     
     public function vote_ideological_profile(?User $user, $search_name)
     {
-        $searchname = SearchName::with('user')->where('name', $search_name)->first();
+        $searchname = SearchName::with('user')->where('name', _url_search_name($search_name))->first();
         
         if ($searchname) {
             $model = $searchname->user;

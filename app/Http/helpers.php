@@ -303,6 +303,14 @@ function communities_list() : array
     ];
 }
 
+function _clean_search_name($search_name) {
+    return str_replace(' ', '_', $search_name);
+}
+
+function _url_search_name($search_name) {
+    return str_replace('_', ' ', $search_name);
+}
+
 function preview_id($id) {
     return base_convert($id, 10, 36);
 }

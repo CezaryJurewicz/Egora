@@ -496,7 +496,7 @@ class UserController extends Controller
     
     public function vote_ideological_profile(Request $request, $search_name)
     {
-        $searchname = SearchName::with('user')->where('name', $search_name)->first();
+        $searchname = SearchName::with('user')->where('name', _url_search_name($search_name))->first();
         $user = $searchname->user;
             
         $ownIP = false;

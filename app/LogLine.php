@@ -26,11 +26,13 @@ class LogLine extends Model
     
     public function scopeNotifications($query)
     {
-        return $query->where('loggable_type', 'App\Notification');
+//        return $query->where('loggable_type', 'App\Notification');
+        return $query->whereHasMorph('loggable', [\App\Notification::class]);;
     }
     public function scopeComments($query)
     {
-        return $query->where('loggable_type', 'App\CommentNotification');
+//        return $query->where('loggable_type', 'App\CommentNotification');
+        return $query->whereHasMorph('loggable', [\App\CommentNotification::class]);
     }
 
 }

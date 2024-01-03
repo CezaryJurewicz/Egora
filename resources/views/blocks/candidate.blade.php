@@ -19,10 +19,10 @@
         </p>
         @endif
         <p style="word-wrap: break-word;"><b>{{ __('Visitor URL:') }}</b><br/>
-        {{ route('users.vote_ip', $user->active_search_name) }}
+        {{ route('users.vote_ip', _clean_search_name($user->active_search_name)) }}
         </p>
         <div class="mt-2">
-            <div id="simpleCopy" btn_title="{{ __('Copy Link') }}" value="{{ route('users.vote_ip', $user->active_search_name) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
+            <div id="simpleCopy" btn_title="{{ __('Copy Link') }}" value="{{ route('users.vote_ip', _clean_search_name($user->active_search_name)) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
         </div>
     </div>
 </div>
