@@ -51,7 +51,7 @@
                          
                     <div class="comments">
                     @foreach($comments as $comment)
-                        <div>
+                        <div class="mb-5">
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments->isNotEmpty())
                         <div style="padding-left:48px; margin-top: -20px; padding-bottom: 10px;">
@@ -65,6 +65,11 @@
                                 @include('blocks.comment', ['comment' => $child, 'parent'=>$comment, 'reply' => false, 'class' => 'subcomment'])                
                                 </div>
                             @endforeach
+                            <div class="col-12">
+                                <small>
+                                <a href="#" onclick="$('#reply{{ $comment->id }}').show(); $('html, body').animate({ scrollTop: $('#reply{{ $comment->id }}').offset().top - 70 }); return false;" >Reply</a> 
+                                </small>
+                            </div>
                         </div>
                         @endif
                         </div>
