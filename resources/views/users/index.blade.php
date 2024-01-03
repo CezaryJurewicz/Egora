@@ -31,7 +31,7 @@
                 </form>
                 
                 <div>   
-                    <a href="{{ route('users.index',['awaiting']) }}">List Awaiting Verification Users</a>                
+                    <a href="{{ route('users.index',['awaiting']) }}">List Awaiting Verification: Philosophers</a>                
                 </div>
                 
                 <div class="mt-3">
@@ -111,7 +111,7 @@
                                     </td>
                                 </tr>   
                     @empty
-                        <p>@lang('user.No users')</p>
+                        <p>@lang('some.None')</p>
                     @endforelse
                     
                     @if($users->isNotEmpty())                 

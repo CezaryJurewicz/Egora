@@ -62,7 +62,7 @@
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
-                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(user name)" name="name">, am a Member of the International Logic Party.                    
+                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(your name)" name="name">, am a Member of the International Logic Party.                    
                     </div>
                     <div class="row">
                         <div class="col-md-3 mb-2">

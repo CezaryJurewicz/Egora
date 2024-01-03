@@ -49,7 +49,7 @@
                 <form action="{{ route('ilp.submit_officer_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
-                        I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name">, am opening 
+                        I, <input class="line" value="{{ old('name') ?: '' }}" placeholder=" (your name)" name="name">, am opening 
                         my petition to become <i>Filosofos tou Dromou</i> of the <u>&nbsp; {{ auth('web')->user()->nation->title }} &nbsp;</u> branch
                         of the International Logic Party for the Polis of <input class="line" value="{{ old('polis') ?: '' }}" placeholder=" (your polis)" name="polis">.
                     </div>

@@ -53,8 +53,8 @@
                         <li>Lastly, Egora is not a business; it is a <i>Republic</i>. And we, the ILP Members, 
                         are its citizens. We all own Egora, and we all control Egora. Therefore, all of 
                         Egora’s surplus revenue (revenue not used for maintenance or development) is 
-                        distributed to ILP Members, based on how much we attend ILP meetings. The ILP 
-                        Members then decide which ILP candidates to support with their earned credits.</li>
+                        distributed to ILP Members, based on how much we attend ILP meetings. We then 
+                        decide which candidates to support with our earned credits.</li>
                         </ol>
                         
                         <p>There are many details left out from this description; but basically,

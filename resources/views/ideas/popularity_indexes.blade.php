@@ -45,17 +45,12 @@
                         <div class="card-body col-md-10 offset-md-1">
                             @if (empty($sort)) 
                             <p>The Idea Popularity Index (IPI) shows what are the most <u>popularly</u>
-                            supported ideas universally, within any nation, and within Egora. As
-                            more people include a particular idea in their Ideological Profiles,
+                            supported ideas universally, within any nation, and within Egora. As more philosophers include a particular idea in their Ideological Profiles,
                             the idea rises higher on the IPI.</p>
                             <p>The IPI serves two main purposes. First, it is an alternative way to
                             measure the support behind an idea. Here, the zero-point ideas count
-                            equally to the point-weighted ideas; therefore, the IPI can be a way
-                            to “test” the support for an idea before people give to it any of their
-                            valuable points. Second, the IPI enables the ILP Members––who are
-                            the citizens of Egora––to control the Egora. Using the “Egora”
-                            category of idea relevance, ILP Members can voice their feedback
-                            about Egora. Most importantly, however, ILP Members can use the
+                            equally to the point-weighted ideas; therefore, the IPI can be a way to test the support for an idea before philosophers give to it any of their valuable points. Second, the IPI enables the ILP Members––who are
+                            the citizens of Egora––to control Egora. Using the “Egora” category of idea relevance, ILP Members can make decisions about the administration of Egora. Most importantly, however, ILP Members can use the
                             IPI to elect the next administrator of Egora (not yet available).</p>
                             @else
                             <p>This is simply a listing of ideas according to how recently they were introduced.</p>

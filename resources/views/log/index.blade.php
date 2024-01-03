@@ -25,19 +25,17 @@
 
                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-md-1">
-                            <p>Sending ideas to other Egora users for review and support is easy
-                                and convenient.</p>
+                            <p>Sending ideas to other philosophers for review and support is easy and convenient.</p>
                             <ol>
-                                <li>In the Users screen, find any other user and go to their profile.</li>
-                                <li>Click the “Follow” button to add the user as one of your leads.</li>
+                                <li>In the Philosophers screen, find the other philosopher and go to their profile.</li>
+                                <li>Click the “Follow” button to add the philosopher as one of your leads.</li>
                                 <li>Open any idea that you want to share with others.</li>
                                 <li>Scroll down to the “Invitations” section.</li>
                                 <li>Send the idea to any of your leads by clicking the “Invite”
                                     button.</li>
-                                <li>The idea will show up in the other user’s Inbox, and they will be
-                                    able to respond with one of several helpful responses.</li>
+                                <li>The idea will show up in the other philosopher's inbox, and they will be able to respond with one of several helpful preset responses.</li>
                             </ol>
-                            <p>If you want other Egora users to be able to contact you directly to discuss anything in detail,
+                            <p>If you want other philosophers to be able to contact you directly to discuss anything in detail,
                                 provide your external contact information in your profile. Otherwise, you can use the Comments 
                                 section under each idea for some general exchanges.</p>
                         </div>

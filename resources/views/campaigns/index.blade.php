@@ -26,10 +26,10 @@
 
                       <div id="collapseOne" class="collapse show1" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body col-md-10 offset-md-1">
-                            <p>The Campaign Manager functions enable us to create a list of political candidates for any government position in the world, according to which candidates most closely represent the will of the people (Candidate Score) and how much the Members of the ILP trust those candidates to carry out the will of the people (Qualification Status). Each user is able to see the Candidate Rank Listing for the candidates from their own electoral divisions, according to their Nation and Administrative Subdivisions.</p>
+                            <p>The Campaign Manager functions enable us to create a list of political candidates for any government position in the world, according to which candidates most closely represent the will of the people (Candidate Score) and how much the Members of the ILP trust those candidates to carry out the will of the people (Qualification Status). Each philosopher is able to see the Candidate Rank Listing for the candidates from their own electoral divisions, according to their Nation and Administrative Subdivisions.</p>
                             <p>The Candidate Score algorithm is very simple: <br/>
                             From all ideas that a candidate supports––up to 46, from both 23 to 1 and 0 (23) to 0 (1) positions––we total the IDI Points of the 23 ideas with the most IDI Points. </p>
-                            <p>Regarding the Qualification Status of a candidate, only the votes of ILP Members from the candidate’s electoral division are counted. However, votes cast by Egora users who are non-members or outside the candidate’s electoral division will become counted once the user becomes a Member in the candidate’s electoral division.</p>
+                            <p>Regarding the Qualification Status of a candidate, only the votes of ILP Members from the candidate’s electoral division are counted. However, votes cast by philosophers who are non-members or outside the candidate’s electoral division will become counted once the philosopher becomes a Member in the candidate’s electoral division.</p>
                             <p>Regarding candidate Seniority (IP), this is an indicator of how recently a candidate has repositioned their ideas or supported new ideas in their Ideological Profile. Regarding candidate Seniority (CRL), this is an indicator of how recently a candidate has announced themself as a candidate on the Candidate Rank Listing. 
                             Both of these indicators exist to ensure that candidates announce themselves with enough time in advance to be properly evaluated by the ILP membership. The Seniority requirements for official candidate nomination (or endorsement) by the ILP will be set by the leadership of the national branches of the ILP.</p>
                             <p>Lastly, being a candidate makes a profile visible to all Egora visitors, including visitors without an account. The shareable URL of a candidate's profile is available in their Home screen.</p>
@@ -181,7 +181,7 @@
                                 <label for="status" class="col-md-5 col-form-label">{{ __('Qualification Status:') }}</label>
                                 </div>
                                 <div class="row">
-                                <small class="col-md-12">See the bottom of any user's Ideological Profile for details about this function</small>
+                                <small class="col-md-12">See the bottom of any philosopher's Ideological Profile for details about this function</small>
                                 </div>
                             </div>
                             <div class="col-md-2 offset-1">

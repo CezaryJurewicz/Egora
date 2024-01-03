@@ -40,13 +40,10 @@
                         <div class="card-body col-md-10 offset-md-1">
                             @if (empty($sort)) 
                             <p>The Idea Dominance Index (IDI) shows what are the most <u>strongly</u>
-                            supported ideas universally and within any nation. As the people
-                            give more points to a particular idea within their Ideological Profiles,
+                            supported ideas universally and within any nation. As philosophers give more points to a particular idea within their Ideological Profiles,
                             the idea rises higher on the IDI.</p>
-                            <p>If you think there is an idea that should be higher on the IDI, explain
-                            to other people why they should support this idea. If you think there
-                            is an idea that should not be so high on the IDI, give other people
-                            better ideas for them to support instead.</p>
+                            <p>If you think there is an idea that should be higher on the IDI, explain to other philosophers why they should support this idea. If you think there
+                            is an idea that should not be so high on the IDI, give other philosophers better ideas for them to support instead.</p>
                             @else
                             <p>This is simply a listing of ideas according to how recently they were introduced.</p>
                             @endif

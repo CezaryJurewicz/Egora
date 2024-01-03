@@ -36,7 +36,7 @@
                 <form action="{{ route('users.withdraw_from_ilp_process', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
-                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder=" (user name)" name="name" autocomplete="off">, withdraw and forever forfeit my membership in the International Logic Party.
+                        I, <input class='line' value="{{ old('name') ?: '' }}" placeholder=" (your name)" name="name" autocomplete="off">, withdraw and forever forfeit my membership in the International Logic Party.
                     </div>
                     
                     <div class="col-md-10 offset-md-1 mt-5 mb-5">

@@ -26,6 +26,7 @@ return [
     'Follow' => 'Follow',
     'Unfollow' => 'Unfollow',
     'Submit' => 'Submit',
+    'None' => 'None',
     'Go to Community' => 'Go to Community',
     '@<Search-Name>' => 'Use {Search-Name} to link other philosophers in your comments.
 
