@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 
-                <div class="card p-5 mt-5">
+                <div class="card pl-2 pr-2 pt-1 mt-5">
                     @if ($lines->where('egora_id', current_egora_id())->isNotEmpty())
                         @include('blocks.log.card', ['lines' => $lines->where('egora_id', current_egora_id()), 'eid' => current_egora_id()])   
                     @endif 

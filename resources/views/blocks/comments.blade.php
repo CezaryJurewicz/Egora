@@ -54,7 +54,7 @@
                         <div class="mb-5">
                         @include('blocks.comment', ['comment' => $comment])                
                         @if ($comment->comments->isNotEmpty())
-                        <div style="padding-left:48px; margin-top: -20px; padding-bottom: 10px;">
+                        <div class="pt-1" style="padding-left:48px; margin-top: -20px; padding-bottom: 10px;">
                             <small>
                             <a href="#" onclick="$('#responses{{ $comment->id }}').toggle(); return false;" >Responses ({{ $comment->comments->count() }})</a>
                             </small>
@@ -65,7 +65,7 @@
                                 @include('blocks.comment', ['comment' => $child, 'parent'=>$comment, 'reply' => false, 'class' => 'subcomment'])                
                                 </div>
                             @endforeach
-                            <div class="col-12">
+                            <div style="padding-left:48px;">
                                 <small>
                                 <a href="#" onclick="$('#reply{{ $comment->id }}').show(); $('html, body').animate({ scrollTop: $('#reply{{ $comment->id }}').offset().top - 70 }); return false;" >Reply</a> 
                                 </small>
