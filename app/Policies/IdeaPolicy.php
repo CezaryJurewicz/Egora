@@ -67,8 +67,8 @@ class IdeaPolicy
             }
         }
         
-        if (app('request')->has('notification_id')) {
-            $notification = \App\Notification::findOrFail(app('request')->input('notification_id'));
+        if (app('request')->has('notification_id') || app('request')->has('invitation_response_notification_id')) {
+            $notification = \App\Notification::findOrFail((app('request')->has('notification_id')? app('request')->input('notification_id') : app('request')->input('invitation_response_notification_id')));
 
             if ($user->id == $notification->receiver->id && $notification->idea_id == $idea->id) {
                 $egora = collect(config('egoras'))->first(function($value, $key) use ($notification) {

@@ -703,6 +703,10 @@ class IdeaController extends Controller
                 }
             }
             
+            if ($request->has('invitation_response_notification_id')) {
+                switch_by_idea($idea);
+            }
+            
             if ($request->user()) {
                 $user_notifications = $request->user()->user_notifications_new()
                         ->where('idea_id', $idea->id)
