@@ -58,7 +58,7 @@
                             <li><a href="{{ route('ilp.officer_petition') }}">Petition to become an ILP officer</a></li>
                             @endif
                             @if (auth('web')->check() && auth('web')->user()->can('cancel_officer_application', auth('web')->user()))
-                            <li><a href="{{ route('ilp.cancel_officer_application', auth('web')->user()->id ) }}">Close petition to become an ILP officer</a></li>
+                            <li><a href="{{ route('ilp.cancel_officer_application', auth('web')->user()->id ) }}">Withdraw Officer Petition</a></li>
                             @endif
                             @if (auth('web')->check() && auth('web')->user()->can('withdraw_from_ilp', auth('web')->user()))
                             <li><a href="{{ route('users.withdraw_from_ilp', auth('web')->user()->id ) }}">Withdraw from ILP membership</a></li>

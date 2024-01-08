@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
-                <h3>{{ __('views.Users') }}</h3>
+                <h3>{{ __('Philosophers') }}</h3>
                 
                 <form action="{{ route('users.index') }}" method="POST">
                 <div class="form-group row">
@@ -67,8 +67,9 @@
                                         @endif
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                         <br>
-                                        {{ __('user.User Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
-                                            ({{$user->user_type->verified_text}})
+                                        {{ __('Type')}}: {{$user->user_type->title}} 
+                                        <!-- {{ __('Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
+                                            ({{$user->user_type->verified_text}}) //-->
                                     </td>
                                     <td>
                                         @isset($user->ideas)
