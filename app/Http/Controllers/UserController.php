@@ -494,7 +494,7 @@ class UserController extends Controller
         return view('users.view')->with(compact('user'));
     }
     
-    public function vote_ideological_profile(Request $request, $search_name)
+    public function _ideological_profile($view, Request $request, $search_name)
     {
         $searchname = SearchName::with('user')->where('name', _url_search_name($search_name))->first();
         $user = $searchname->user;
@@ -590,7 +590,17 @@ class UserController extends Controller
             $shared_ideas = $ideas->intersect($filtered->pluck('id'));
         }
         
-        return view('users.ideological_profile')->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
+        return view($view)->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
+    }
+    
+    public function vote_ideological_profile(Request $request, $search_name)
+    {
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+    }
+    
+    public function external_ideological_profile(Request $request, $search_name)
+    {
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name)->with(array('external_ip' => 1));
     }
     
     public function ideological_profile(Request $request, $hash)
@@ -797,6 +807,23 @@ class UserController extends Controller
         
         
         return view('users.bookmarked_ideas')->with(compact('user', 'community_id'));
+    }
+    
+    public function external_about(Request $request, $search_name)
+    {
+        $searchname = SearchName::with('user')->where('name', _url_search_name($search_name))->first();
+        $user = $searchname->user;
+        $hash = $searchname->hash;
+        
+        $user->load(['petition.supporters' => function($q) {
+            $q->recent();
+        }]);
+        
+        $comments = $user->comments()->orderBy('created_at', 'desc')->paginate(25);
+        
+        $open = ($request->has('open') ? (int) $request->input('open') : null);
+        
+        return view('users.about')->with(compact('user','hash', 'comments', 'open'))->with(array('external'=>1));
     }
     
     public function about(Request $request, $hash)
@@ -1101,6 +1128,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'seachable' => ['required', 'boolean'],
             'visible' => ['required', 'boolean'],
+            'external_visible' => ['required', 'boolean'],
         ]);
          
         if ($validator->fails()) {
@@ -1115,6 +1143,7 @@ class UserController extends Controller
 
         $user = $request->user();
         $user->visible = $request->input('visible')?:0;
+        $user->external_visible = $request->input('external_visible')?:0;
         
         $user->save();
         

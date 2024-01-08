@@ -102,6 +102,12 @@
                             @endif
                             
                             @if (is_egora())
+                                @if( $user->external_visible )
+                                <div class="mt-2" style="word-wrap: break-word;">{{ route('users.external_ip', _clean_search_name($user->active_search_name)) }}</div>
+                                <div class="mt-2">
+                                    <div class="simpleCopy" btn_title="{{ __('Copy Link') }}" value="Examine my philosophy at {{ route('users.external_ip', _clean_search_name($user->active_search_name)) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
+                                </div>
+                                @endif
                                 @if($user->infoEmpty() && auth('web')->check() && auth('web')->user()->id == $user->id)
                                 <div class="mt-2">Please provide your contact information so other philosophers can reach you to discuss ideas ;-)</div>
                                 @else

@@ -88,7 +88,7 @@ function shorten_text_link_characters($text, $limit = 300)
                          )
                      )
                 )
-            );
+            ) . '...';
 }
 
 function filter_api_text($text)

@@ -20,6 +20,8 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
 });
 
 Route::get('/vote/{search_name}', 'UserController@vote_ideological_profile')->name('users.vote_ip')->middleware('can:vote_ideological_profile,App\User,search_name');
+Route::get('/philosopher/{search_name}', 'UserController@external_ideological_profile')->name('users.external_ip')->middleware('can:external_ideological_profile,App\User,search_name');
+Route::get('/philosopher/{search_name}/about', 'UserController@external_about')->name('users.external_about')->middleware('can:external_ideological_profile,App\User,search_name');
 
 Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::get('/switch/{key}/{page}', 'UserController@switch')->name('switch')->middleware('can:switch, App\User, key');

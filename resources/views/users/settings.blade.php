@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-lg">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="panel ">
@@ -9,7 +9,7 @@
                     <div class="text-center">
                     <h3>{{ __('views.Settings') }}</h3>
                     </div>
-                    <div class="col-centered col-md-6">
+                    <div class="col-centered col-md-8">
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
                             <h4>@lang('Email')</h4>
@@ -121,11 +121,11 @@
                                 <h5 class="pt-1">@lang('Profile Searchability:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="seachable1" class="col-form-lable col-8 col-md-10">{{ __('Public Profile (searchable with partial Search-Name match)') }}</label>
+                                        <label for="seachable1" class="col-form-lable col-11">{{ __('Public Profile (searchable with partial Search-Name match)') }}</label>
                                         <input  id="seachable1" name="seachable" value=1 type="radio" {{ (old('seachable')?: $user->active_search_names->first()->seachable) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="seachable0" class="col-form-lab1e col-8 col-md-10">{{ __('Hidden Profile (searchable with strict Search-Name match)') }}</label>
+                                        <label for="seachable0" class="col-form-lab1e col-11">{{ __('Hidden Profile (searchable with strict Search-Name match)') }}</label>
                                         <input id="seachable0" name="seachable" value=0 type="radio" {{ (old('seachable')?: ($user->active_search_names->first()->seachable==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -133,15 +133,29 @@
                                 <h5 class="pt-1">@lang('Profile Visibility:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="visible1" class="col-form-lable col-8 col-md-10">{{ __('Public Profile') }}</label>
+                                        <label for="visible1" class="col-form-lable col-11">{{ __('Public Profile') }}</label>
                                         <input  id="visible1" name="visible" value=1 type="radio" {{ (old('visible')?: $user->visible) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="visible0" class="col-form-lab1e col-8 col-md-10">{{ __('Hidden Profile (Profile is not listed under "New Philosophers"; profile is not listed under "Leads" or "Followers" of other philosophers; your support for ideas is hidden in the Main Egora.)') }}</label>
+                                        <label for="visible0" class="col-form-lab1e col-11">{{ __('Hidden Profile (Profile is not listed under "New Philosophers"; profile is not listed under "Leads" or "Followers" of other philosophers; your support for ideas is hidden in the Main Egora.)') }}</label>
                                         <input id="visible0" name="visible" value=0 type="radio" {{ (old('visible')?: ($user->visible==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
                                 
+                                <h5 class="pt-1">@lang('External Visibility:')</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="externalvisible1" class="col-form-lable col-11">{{ __('Profile visible to all') }}</label>
+                                        <input  id="externalvisible1" name="external_visible" value=1 type="radio" {{ (old('external_visible')?: $user->external_visible) ? ' checked' : '' }} >
+                                        @if( $user->external_visible )
+                                        <div style="padding-left: 45px; margin-top: -10px; padding-bottom: 10px;">{{ route('users.external_ip', _clean_search_name($user->active_search_name)) }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="row">
+                                        <label for="externalvisible0" class="col-form-lab1e col-11">{{ __('Profile visible only to other philosophers') }}</label>
+                                        <input id="externalvisible0" name="external_visible" value=0 type="radio" {{ (old('external_visible')?: ($user->external_visible==0)) ? ' checked' : '' }} >
+                                    </div>
+                                </div>
                                 
                                 <div class="form-group row">
                                     <div class="col-2">
@@ -168,11 +182,11 @@
                                 <h5 class="pt-1">@lang('Idea Notifications:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="notifications1" class="col-form-lable col-8 col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <label for="notifications1" class="col-form-lable col-11">{{ __('Instant (instant email notifications)') }}</label>
                                         <input  id="notifications1" name="notifications" value=1 type="radio" {{ (old('notifications')?: $user->notifications) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="notifications0" class="col-form-lab1e col-8 col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <label for="notifications0" class="col-form-lab1e col-11">{{ __('None (no email notifications)') }}</label>
                                         <input id="notifications0" name="notifications" value=0 type="radio" {{ (old('notifications')?: ($user->notifications==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>
@@ -180,11 +194,11 @@
                                 <h5 class="pt-1">@lang('Comment Notifications:')</h5>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label for="сomment_notifications1" class="col-form-lable col-8 col-md-10">{{ __('Instant (instant email notifications)') }}</label>
+                                        <label for="сomment_notifications1" class="col-form-lable col-11">{{ __('Instant (instant email notifications)') }}</label>
                                         <input  id="сomment_notifications1" name="сomment_notifications" value=1 type="radio" {{ (old('сomment_notifications')?: $user->сomment_notifications) ? ' checked' : '' }} >
                                     </div>
                                     <div class="row">
-                                        <label for="сomment_notifications0" class="col-form-lab1e col-8 col-md-10">{{ __('None (no email notifications)') }}</label>
+                                        <label for="сomment_notifications0" class="col-form-lab1e col-11">{{ __('None (no email notifications)') }}</label>
                                         <input id="сomment_notifications0" name="сomment_notifications" value=0 type="radio" {{ (old('сomment_notifications')?: ($user->сomment_notifications==0)) ? ' checked' : '' }} >
                                     </div>
                                 </div>

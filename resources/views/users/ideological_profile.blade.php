@@ -18,6 +18,10 @@
                                         @if (is_egora())
                                             <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
                                         @endif
+                                    @else
+                                        @if (isset($external_ip))                              
+                                            <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.external_about', _clean_search_name($user->active_search_names->first()->name)) }}">About Me</a>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="col-2 col-md-1 col-lg-2 offset-1 offset-lg-0 offset-md-1">
@@ -195,7 +199,7 @@
                                                     @endif
                                                     </div>
                                                     <div class="col-12 col-sm-2 pr-0 pl-0 text-center small">
-                                                        @if( \Route::currentRouteName() == 'users.vote_ip' )
+                                                        @if( in_array(\Route::currentRouteName(), ['users.vote_ip','users.external_ip']) )
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.preview', preview_id($idea->id)) }}">{{ __('Open') }}</a>
                                                         @else
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>

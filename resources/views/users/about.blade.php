@@ -14,7 +14,9 @@
                         <div class="col-md-9">
                             <div class="row pb-3">
                                 <div class="col-12 col-md-3">
+                                    @if(!isset($external))
                                     <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.bookmarked_ideas') }}">Bookmarks</a>
+                                    @endif
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="text-center">
@@ -22,7 +24,11 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-3 text-right">
+                                    @if (isset($external))                              
+                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.external_ip', _clean_search_name($user->active_search_names->first()->name)) }}">IP</a>
+                                    @else
                                     <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.ideological_profile', $user->active_search_names->first()->hash) }}">IP</a>
+                                    @endif
                                 </div>
                             </div>
                             <div>

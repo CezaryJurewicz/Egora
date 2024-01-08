@@ -90,3 +90,13 @@ if (elem) {
     
     ReactDOM.render(<SimpleCopy value={ value } btn_title={ btn_title } />, elem);
 }
+
+var buttons = document.querySelectorAll("div.simpleCopy");
+if (buttons) {
+    buttons.forEach(function(elem) {
+        var value = elem.getAttribute('value');
+        var btn_title = elem.getAttribute('btn_title');
+
+        ReactDOM.render(<SimpleCopy value={ value } btn_title={ btn_title } />, elem);
+    });
+}
