@@ -89,6 +89,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     });
     
     Route::prefix('/philosophers')->name('users.')->group(function(){
+        Route::get('/clear_coh', 'UserController@clear_coh')->name('clear_coh');
         Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
         Route::get('/bookmarked_ideas', 'UserController@bookmarked_ideas')->name('bookmarked_ideas');        

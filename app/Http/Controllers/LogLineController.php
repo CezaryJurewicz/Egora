@@ -31,6 +31,17 @@ class LogLineController extends Controller
             ->orderBy('created_at','asc')
             ->get();
 
+        foreach($lines as &$line)
+        {
+            if ($line->loggable instanceof \App\Notification) {
+                $line->loggable->notification_response_sent = $request->user()->user_notifications_new()
+                        ->where('idea_id', $line->loggable->idea->id)
+                        ->where('sender_id', $request->user()->id)
+                        ->where('notification_id', $line->loggable->id)
+                        ->first();
+            }            
+        }
+            
         return view('log.index')->with(compact('lines'));
 
     }

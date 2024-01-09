@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-lg">
     <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="panel">
@@ -9,7 +9,7 @@
                 <div class="text-center">
                     <h3>{{ __('Personal Information') }}</h3>
                 </div>
-                <div class="col-centered col-md-6">
+                <div class="col-centered col-lg-6 col-lg-8">
                     <form autocomplete="off" method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT"/>
                         @csrf
@@ -196,6 +196,7 @@
                         <hr class="mt-4">
                         <div class="text-center">
                             <h5>{{ __('Citizen Office Hours') }}</h5>
+                            <a id="coh"></a>
                         </div>
                         
                         <div class="clearfix">&nbsp;</div>
@@ -232,7 +233,7 @@
                             @for($i=0;$i<5;$i++)
                             <div class="is-invalid col row p-0 mb-1">
                             
-                                <div class="col">
+                                <div class="col col-md-8">
                                     <select type="text" class="form-control @error('office_hours.'.$i.'.day') is-invalid @enderror" name="office_hours[{{$i}}][day]" value="{{ old('office_hours.'.$i.'.day') }}">
                                     @foreach(['', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
                                         <option @if((old('office_hours.'.$i.'.day') && old('office_hours.'.$i.'.day')==$day) || ($office_hours && $office_hours[$i]['day']==$day)) selected @endif value="{{$day}}">{{$day}}</option>
@@ -245,6 +246,9 @@
                                     </div>
                                     <div class="col pl-0">
                                         <div id="to{{$i}}" class="timeInput" name='office_hours[{{$i}}][to]' caption='to' value='{{ old('office_hours.'.$i.'.to') ?? $office_hours[$i]['to'] ?? '' }}' cssClass="form-control @error('office_hours.'.$i.'.to') is-invalid @enderror react-datepicker-ignore-onclickoutside"></div>
+                                    </div>
+                                    <div class="col-1 pl-0">
+                                        <a class="btn btn-secondary" title="Clear" href="{{ route('users.clear_coh', ['row' => $i]) }}">X</a>                                        
                                     </div>
                                 </div>
                             </div>

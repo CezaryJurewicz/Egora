@@ -911,7 +911,7 @@ class UserController extends Controller
         $office_hours = $user->office_hours ?: [];
         return view('users.edit')->with(compact('user','searchName', 'office_hours'));        
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -1081,6 +1081,20 @@ class UserController extends Controller
         return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->withErrors('User information update failed!');   
     }
 
+    public function clear_coh(Request $request)
+    {
+        $user = $request->user();
+        
+        if (isset($request->row) && isset($user->office_hours[$request->row])) {
+            $office_hours = $user->office_hours;
+            $office_hours[$request->row] = ["day"=>null,"from"=>null,"to"=>null];
+            $user->office_hours = $office_hours;
+            $user->save();
+        }
+        
+        return redirect()->route('users.edit', [$user->id, "#coh"])->with('success', 'Cleared.');         
+    }    
+    
     public function update_password(Request $request, User $user)
     {
         $validator = Validator::make($request->all(),[
