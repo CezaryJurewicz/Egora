@@ -12,6 +12,17 @@ class UserType extends Model
         'created_at','updated_at','deleted_at'
     );
     
+    public function getClassTextAttribute()
+    {
+        $replace = [
+            'user' => 'Philosopher',
+            'member' => 'Member',
+            'petitioner' => 'Petitioner',
+            'officer' => 'Officer',
+        ];
+        
+        return isset($replace[$this->attributes['class']])? $replace[$this->attributes['class']] : $this->attributes['class'];
+    }
     public function getVerifiedTextAttribute()
     {
         return $this->attributes['verified']? 'verified' : 'unverified';

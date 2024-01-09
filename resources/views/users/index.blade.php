@@ -67,9 +67,8 @@
                                         @endif
                                         {{ __('user.Nation')}}: {{ $user->nation->title }}                                        
                                         <br>
-                                        {{ __('Type')}}: {{$user->user_type->title}} 
-                                        <!-- {{ __('Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class }} {{$user->user_type->candidate_text}}
-                                            ({{$user->user_type->verified_text}}) //-->
+                                        {{ __('Class')}}: {{$user->user_type->fake_text}} {{$user->user_type->former_text}} {{ $user->user_type->class_text }} {{$user->user_type->candidate_text}}
+                                            ({{$user->user_type->verified_text}})
                                     </td>
                                     <td>
                                         @isset($user->ideas)
