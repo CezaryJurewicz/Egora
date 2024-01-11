@@ -148,7 +148,7 @@
                                         <label for="externalvisible1" class="col-form-lable col-11">{{ __('Profile visible to all') }}</label>
                                         <input  id="externalvisible1" name="external_visible" value=1 type="radio" {{ (old('external_visible')?: $user->external_visible) ? ' checked' : '' }} >
                                         @if( $user->external_visible )
-                                        <div style="padding-left: 45px; margin-top: -10px; padding-bottom: 10px;">{{ route('users.external_ip', _clean_search_name($user->active_search_name)) }}</div>
+                                        <div style="padding-left: 45px; margin-top: -10px; padding-bottom: 10px;">{{ _url_replace(route('users.external_ip', _clean_search_name($user->active_search_name))) }}</div>
                                         @endif
                                     </div>
                                     <div class="row">

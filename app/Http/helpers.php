@@ -46,7 +46,7 @@ function _shorten_text_characters($text, $limit = 92)
         $result = $text;
     }
     
-    return $result;
+    return rtrim($result,".,?!: ");
 }
 
 function shorten_text($text, $limit = 92) 
@@ -309,6 +309,15 @@ function _clean_search_name($search_name) {
 
 function _url_search_name($search_name) {
     return str_replace('_', ' ', $search_name);
+}
+
+function _url_replace($url, $clear=false) {
+    $result = str_replace(['http://', 'https://', 'egora','ilp'], ['', '', 'Egora', 'ILP'], $url);
+    
+    if ($clear) {
+        $result = substr_replace($result, '/ ', strrpos($result, '/'));
+    }
+    return $result;
 }
 
 function preview_id($id) {
