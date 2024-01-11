@@ -312,10 +312,11 @@ function _url_search_name($search_name) {
 }
 
 function _url_replace($url, $clear=false) {
-    $result = str_replace(['www.', 'test.', 'http://', 'https://', 'egora','ilp'], ['', '', '', '', 'Egora', 'ILP'], $url);
+    $result = str_replace(['http://', 'https://', 'egora','ilp'], ['', '', 'Egora', 'ILP'], $url);
     
     if ($clear) {
         $result = substr_replace($result, '/ ', strrpos($result, '/'));
+//        $result = str_replace(['www.', 'test.'], '', $url);
     }
     return $result;
 }
