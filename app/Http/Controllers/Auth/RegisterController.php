@@ -92,18 +92,12 @@ class RegisterController extends Controller
         }
         
         $value = \App\Setting::where('name', 'auto_validation')->first()->value;        
-        if ($value == 1) {
-            $user_type = UserType::where('title', 'Verified User')->first();
-        } else {
-            $user_type = UserType::where('title', 'Unverified User')->first();
-        }
+        $user_type = UserType::where('class', 'user')
+            ->where('candidate', 0)
+            ->where('former', 0)
+            ->where('verified', ($value? 1:0))
+            ->first();
         
-        if (is_null($user_type)) {
-            $user_type = UserType::create([
-               'title' => 'Unverified User'
-            ]);
-        }
-
         $user->nation()->associate($nation);
         $user->user_type()->associate($user_type);
         
