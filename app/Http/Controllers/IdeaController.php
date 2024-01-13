@@ -16,6 +16,7 @@ use App\Events\CommentAdded;
 use App\CommentNotification;
 use App\Events\UserIdeologicalProfileChanged;
 use App\Events\UserIdeologicalProfileIdeaMoved;
+use App\Events\IdeaUnbookmarked;
 
 class IdeaController extends Controller
 {
@@ -801,12 +802,13 @@ class IdeaController extends Controller
             // unbookmark
             $request->user()->bookmarked_ideas()->detach($idea);
             //fire event idea bookmarks changed
-
+            event(new IdeaUnbookmarked($request->user(), $idea));
+            
             $route = [$request->user()->active_search_names->first()->hash];
             if (isset($idea->community)) {  
                 $route['community_id'] = $idea->community->id;
             }
-
+                
             return redirect()->to(route('users.bookmarked_ideas', $route).'#idea'.$idea->id)
                     ->with('success', 'Idea unbookmarked.');            
         } else {

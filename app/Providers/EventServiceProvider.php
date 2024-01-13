@@ -83,6 +83,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\StatusUpdated' => [
             'App\Listeners\LinkNewUserInStatus',
+        ],
+        'App\Events\IdeaUnbookmarked' => [
+            'App\Listeners\RemoveIdea'
         ]
     ];
 

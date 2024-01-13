@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\IdeaSupportHasChanged;
+use App\Events\IdeaUnbookmarked;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,10 +22,10 @@ class RemoveIdea
     /**
      * Handle the event.
      *
-     * @param  IdeaSupportHasChanged  $event
+     * @param  IdeaSupportHasChanged || IdeaUnbookmarked $event
      * @return void
      */
-    public function handle(IdeaSupportHasChanged $event)
+    public function handle($event)
     {
         if ($event->idea->liked_users->count() == 0 && $event->idea->bookmarkers->count() == 0) {
             $event->idea->forceDelete();
