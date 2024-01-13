@@ -175,8 +175,13 @@ class IdeaController extends Controller
                 if (!is_egora()) {
                     $q->where('idea_user.order', '>=', 0 );
                 }
-            }, 'moderators' => function($q) {
+            }, 'moderators' => function($q) use ($request){
                 $q->recent();
+                if (!$request->input('unverified')) {
+                    $q->whereHas('user_type', function($q){
+                        $q->where('verified', 1);                
+                    });
+                }
             }]);
             
             
@@ -684,6 +689,10 @@ class IdeaController extends Controller
         }, 'moderators' => function($q) {
             $q->with('active_search_names');
             $q->visible()->recent();
+            
+//            $q->whereHas('user_type', function($q){
+//                $q->where('verified', 1);                
+//            });
         }]);
 
         
