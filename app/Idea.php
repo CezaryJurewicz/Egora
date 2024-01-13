@@ -62,6 +62,11 @@ class Idea extends Model
         return $this->belongsToMany(User::class)->withPivot('position');
     }
     
+    public function just_liked_users()
+    {
+        return $this->liked_users()->where('idea_user.order', '>=', 0 );
+    }
+    
     public function moderators()
     {
         return $this->liked_users()->where('idea_user.order', '<', 0 );
