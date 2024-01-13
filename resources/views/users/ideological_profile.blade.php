@@ -226,7 +226,7 @@
                                                         @if (is_egora())
                                                         {{ number_format($idea->liked_users->count()) }}
                                                         @else
-                                                        {{ number_format($idea->just_liked_users->count() - $idea->moderators->count()) }}
+                                                        {{ number_format($idea->liked_users->count() - $idea->moderators->count()) }}
                                                         @endif
                                                             </div>
                                                         </div>
