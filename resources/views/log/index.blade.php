@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 
-                <div class="card pl-2 pr-2 pt-1 mt-5">
+                <div class="card pl-2 pr-2 pt-2 mt-5">
                     @if ($lines->where('egora_id', current_egora_id())->isNotEmpty())
                         @include('blocks.log.card', ['lines' => $lines->where('egora_id', current_egora_id()), 'eid' => current_egora_id()])   
                     @endif 
@@ -51,6 +51,10 @@
                     @foreach($lines->groupBy('egora_id')->diffKeys([current_egora_id() => []])->sortKeys() as  $eid => $nlines)
                         @include('blocks.log.card', ['lines' => $nlines, 'eid' => $eid])
                     @endforeach
+                    
+                    @if($lines->isEmpty())
+                    <div class="p-5"></div>
+                    @endif
                 </div>
             </div>
         </div>

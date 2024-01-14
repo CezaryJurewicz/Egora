@@ -80,7 +80,7 @@ class HomeController extends Controller
             }]);
             $q->with(['participants' => function($q){
                 $q->whereHas('user_type', function($q){
-                    $q->where('verified', 1);
+                    $q->verified();
                 });
             }]);
         }]);
@@ -99,7 +99,7 @@ class HomeController extends Controller
             }]);
             $q->with(['participants' => function($q){
                 $q->whereHas('user_type', function($q){
-                    $q->where('verified', 1);
+                    $q->verified();
                 });
             }]);
         }]);
