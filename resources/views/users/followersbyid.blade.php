@@ -32,7 +32,7 @@
                                         <table class="table table-striped" style="table-layout:fixed;">
                                             <thead>
                                                 <tr style="border-top: hidden;">
-                                                    <th scope="col">{{ __('tables.User Category')}}</th>
+                                                    <th scope="col">{{ __('tables.Category')}}</th>
                                                     <th scope="col">{{ __('tables.Search-Name')}}</th>
                                                     <th scope="col">{{ __('tables.Nation')}}</th>
                                                 </tr>

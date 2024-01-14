@@ -1075,7 +1075,7 @@ class UserController extends Controller
         $user->nation()->associate($nation);
         
         if($user->save()){
-            return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'User information updated!');   
+            return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->with('success', 'Information updated!');   
         }
         
         return redirect()->route('users.ideological_profile', $request->user()->active_search_names->first()->hash)->withErrors('User information update failed!');   
@@ -1247,7 +1247,7 @@ class UserController extends Controller
             $media->delete();
             $user->verification_id->delete();
         }
-        return redirect()->back()->with('success', 'User verification updated!');  
+        return redirect()->back()->with('success', 'Verification status updated.');  
     }
     
     public function unverify(User $user)
@@ -1271,7 +1271,7 @@ class UserController extends Controller
         
         event(new UserLostVerification($user));
         
-        return redirect()->back()->with('success', 'User verification updated!');  
+        return redirect()->back()->with('success', 'Verification status updated.');  
     }
     
     public function follow(Request $request, User $user)
@@ -1479,7 +1479,7 @@ class UserController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        return redirect()->back()->with('success', 'Former user set to '. $type->title);  
+        return redirect()->back()->with('success', 'Member restored.');  
     }
     
     public function subdivisions(Request $request)
@@ -1552,14 +1552,14 @@ class UserController extends Controller
     {
         $request->user()->disqualifying_users()->syncWithoutDetaching($user);
 
-        return redirect()->back()->with('success', "User is disqualified.");
+        return redirect()->back()->with('success', "Disqualified.");
     }
     
     public function qualify(Request $request, User $user)
     {
         $request->user()->disqualifying_users()->detach($user->id);
 
-        return redirect()->back()->with('success', "User is qualified.");
+        return redirect()->back()->with('success', "Qualified.");
     }
     
     public function status(Request $request, User $user)
