@@ -42,7 +42,7 @@ class IdeaBookmarkedNotificationEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject($this->notification->message)
+                    ->subject($this->notification->sender->name.' responded to your idea invitation!')
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
                     ->line($this->notification->message)
                     ->action('Open', route('log.index'). '#bnid'.$this->notification->id)

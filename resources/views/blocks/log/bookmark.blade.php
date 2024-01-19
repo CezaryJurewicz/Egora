@@ -9,6 +9,7 @@
                                             {{ $row->sender->active_search_names->first()->name ??  $row->sender->id }} 
                                             </a>
                                         </b>
+                                            bookmarked your idea.
                                         </div>
                                     </div>
                                     <div class="row">
@@ -22,6 +23,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-body">
+                                {!! shorten_text_link($row->bookmark->idea->content) !!}
+                            </div>
+                        </div>
                         <div class="pt-2">
                             <div class="row">
                                 <div class="col-3 text-left">
@@ -33,9 +39,6 @@
                                     </form>
                                     @endif
 
-                                </div>
-                                <div class="col-7 pt-1">
-                                    {{ $row->message }}
                                 </div>
                             </div>
                         </div>
