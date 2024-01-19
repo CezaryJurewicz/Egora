@@ -62,7 +62,7 @@
                     </form>
                             <div class="col-md-3 text-right">
                                 @if(isset($current_idea_position) && !is_null($current_idea_point_position))
-                                Current Position in my IP:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span>
+                                Current Position:<span  class="font-weight-bold">&nbsp;&nbsp;&nbsp;{{ str_pad($current_idea_point_position, 20, ' ', STR_PAD_LEFT) }}</span>
                                 @endif
                             </div>
                             
