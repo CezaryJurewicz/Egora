@@ -67,6 +67,17 @@ class IdeaPolicy
             }
         }
         
+        if (app('request')->has('bookmark_notification_id')) {
+            $bookmark_notification = \App\BookmarkNotification::where('id', app('request')->input('bookmark_notification_id'))
+                    ->where('receiver_id', $user->id)->first();
+            if ($bookmark_notification) {
+                return $this->allow();
+            } else {
+                // TODO: need better processing of this part.
+                return $this->allow();
+            }
+        }
+        
         if (app('request')->has('notification_id') || app('request')->has('invitation_response_notification_id')) {
             $notification = \App\Notification::findOrFail((app('request')->has('notification_id')? app('request')->input('notification_id') : app('request')->input('invitation_response_notification_id')));
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use App\Notification as NotificationModel;
 use App\CommentNotification;
+use App\BookmarkNotification;
 use App\Update;
 
 class AppServiceProvider extends ServiceProvider
@@ -84,6 +85,14 @@ class AppServiceProvider extends ServiceProvider
                     })->select('id');
                     
                 $view->with('inbox_comment_notifications_cnt', $comment_notifications->count());
+                
+                $bookmark_notifications = BookmarkNotification::where(function($q){
+                        $q->whereHas('receiver', function($q) {
+                            $q->where('id', auth('web')->user()->id);
+                        });
+                    })->select('id');
+                    
+                $view->with('inbox_bookmark_notifications_cnt', $bookmark_notifications->count());
             
                 $updates = Update::where(function($q) {
                     $q->whereHasMorph('updatable', '*');

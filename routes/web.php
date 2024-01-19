@@ -57,6 +57,10 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
         Route::delete('/{comment_notification}', 'CommentNotificationController@destroy')->name('delete')->middleware('can:delete,comment_notification');
     });
     
+    Route::prefix('/bookmark_notifications')->name('bookmark_notifications.')->group(function(){
+        Route::delete('/{bookmark_notification}', 'BookmarkNotificationController@destroy')->name('delete')->middleware('can:delete,bookmark_notification');
+    });
+    
     Route::prefix('/media')->name('media.')->group(function(){
         Route::post('/store/{user}', 'MediaController@store')->name('store')->middleware('can:create,App\Media,user');
         Route::post('/verification', 'MediaController@verification')->name('verification')->middleware('can:verification,App\Media');

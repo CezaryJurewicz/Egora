@@ -86,6 +86,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\IdeaUnbookmarked' => [
             'App\Listeners\RemoveIdea'
+        ],
+        'App\Events\IdeaBookmarked' => [
+            'App\Listeners\CreateIdeaBookmarkedNotification'
         ]
     ];
 

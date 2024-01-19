@@ -14,9 +14,12 @@ use App\Notification as NotificationModel;
 use App\Events\UserLikedIdeaFromNotification;
 use App\Events\CommentAdded;
 use App\CommentNotification;
+use App\BookmarkNotification;
 use App\Events\UserIdeologicalProfileChanged;
 use App\Events\UserIdeologicalProfileIdeaMoved;
 use App\Events\IdeaUnbookmarked;
+use App\Events\IdeaBookmarked;
+use App\Bookmark;
 
 class IdeaController extends Controller
 {
@@ -618,10 +621,12 @@ class IdeaController extends Controller
        $validator = Validator::make($request->all(),[
             'notification_id' => ['exists:notifications,id'],
             'comment_notification_id' => ['exists:comment_notifications,id'],
+            'bookmark_notification_id' => ['exists:bookmark_notifications,id'],
             ],
             [
             'notification_id.exists' => 'This notification no longer exists.',
-            'comment_notification_id.exists' => 'This notification no longer exists.'
+            'comment_notification_id.exists' => 'This notification no longer exists.',
+            'bookmark_notification_id.exists' => 'This notification no longer exists.'
             ]);
 
         if ($validator->fails()) {
@@ -717,6 +722,15 @@ class IdeaController extends Controller
                         ->where('receiver_id', $request->user()->id)->first();
                 
                 if ($comment_notification) {
+                    switch_by_idea($idea);
+                }
+            }
+            
+            if ($request->has('bookmark_notification_id')) {
+                $bookmark_notification = BookmarkNotification::where('id', $request->input('bookmark_notification_id'))
+                        ->where('receiver_id', $request->user()->id)->first();
+                
+                if ($bookmark_notification) {
                     switch_by_idea($idea);
                 }
             }
@@ -839,8 +853,12 @@ class IdeaController extends Controller
         
             $request->user()->bookmarked_ideas()->syncWithoutDetaching($idea);
             $request->user()->bookmarked_ideas()->updateExistingPivot($idea->id,$arr);
+            
+            $bookmark = Bookmark::where('user_id', $request->user()->id)->where('idea_id',$idea->id)->first();
+            
             // fire bookmarked event
-
+            event(new IdeaBookmarked($bookmark));
+            
             $route = [$request->user()->active_search_names->first()->hash];
             if (isset($idea->community)) {  
                 $route['community_id'] = $idea->community->id;

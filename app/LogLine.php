@@ -34,5 +34,9 @@ class LogLine extends Model
 //        return $query->where('loggable_type', 'App\CommentNotification');
         return $query->whereHasMorph('loggable', [\App\CommentNotification::class]);
     }
+    public function scopeBookmarks($query)
+    {
+        return $query->whereHasMorph('loggable', [\App\BookmarkNotification::class]);
+    }
 
 }

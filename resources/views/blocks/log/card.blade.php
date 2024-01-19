@@ -9,6 +9,8 @@
                             @include('blocks.log.notification', ['row' => $line->loggable])   
                         @elseif ($line->loggable instanceof \App\CommentNotification)   
                             @include('blocks.log.comment', ['row' => $line->loggable])   
+                        @elseif ($line->loggable instanceof \App\BookmarkNotification)   
+                            @include('blocks.log.bookmark', ['row' => $line->loggable])   
                         @endif
                     
                     @empty

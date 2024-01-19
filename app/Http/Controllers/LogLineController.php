@@ -28,6 +28,12 @@ class LogLineController extends Controller
                 });
                 $q->Comments();
             })
+            ->orWhere(function($q) use ($request) {
+                $q->whereHas('user', function($q) use ($request) {
+                    $q->where('id', $request->user()->id);
+                });
+                $q->Bookmarks();
+            })
             ->orderBy('created_at','asc')
             ->get();
 
