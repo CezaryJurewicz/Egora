@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-lg">
     <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-4 text-center mb-1">
                         @if (empty($sort)) 
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.popularity_indexes', array_merge(\Arr::only(\Request::query(),['sort', 'relevance', 'unverified', 'nation','page', 'community', 'municipality']), ['sort' => 'date']) ) }}">{{ __('Newest Ideas') }}</a>
                         @else
@@ -15,11 +15,11 @@
                         @endif
                     </div>
                     @if (is_egora())
-                    <div class="col-md-4 text-md-right">
+                    <div class="col-md-4 text-md-right mb-1">
                         <a class="btn btn-primary btn-block" href="{{ route('ideas.indexes') }}">{{ __('Idea Dominance Index') }}</a>
                     </div>
                     @endif
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-4 text-center mb-1">
                         @if (empty($sort)) 
                             <h5 class="pt-2">{{ __('Idea Popularity Index') }}</h5>
                         @else

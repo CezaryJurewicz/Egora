@@ -175,9 +175,9 @@
                                                         </a>
                                                         @endif
                                                     </div>
-                                                    <div class="col-10 col-sm-4">
+                                                    <div class="col-10 col-sm-3 col-md-4">
                                                     @else
-                                                    <div class="col-11 col-sm-5">
+                                                    <div class="col-11 col-sm-4 col-md-5">
                                                     @endif
                                                         <b>@if ($idea->pivot->position>0) {{$idea->pivot->position}} 
                                                            @else 
@@ -198,31 +198,31 @@
                                                         {{$idea->community->title}}
                                                     @endif
                                                     </div>
-                                                    <div class="col-12 col-sm-2 pr-0 pl-0 text-center small">
+                                                    <div class="col-12 col-sm-4 col-md-2 pr-sm-4 pl-sm-4 pr-md-0 pl-md-0 text-center small">
                                                         @if( in_array(\Route::currentRouteName(), ['users.vote_ip','users.external_ip']) )
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.preview', preview_id($idea->id)) }}">{{ __('Open') }}</a>
                                                         @else
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                         <br/>
-                                                        <a class="col-12" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
+                                                        <a class="col-12 p-0" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
                                                         @endif
                                                     </div>
-                                                    <div class="offset-sm-1 col-12 col-sm-4">
+                                                    <div class="col-12 col-sm-4 offset-md-1">
                                                         @if (is_egora())
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                                 IDI Points:
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-4">
                                                             {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
                                                             </div>
                                                         </div>
                                                         @endif
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-8">
                                                         Supporters:
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-4">
                                                         @if (is_egora())
                                                         {{ number_format($idea->liked_users->count()) }}
                                                         @else
