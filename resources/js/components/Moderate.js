@@ -32,6 +32,10 @@ class CallAPI extends React.Component {
                         this.setState({score: this.state.score-1});                        
                     }
                     
+                    if (typeof(r.data) !== 'undefined' && typeof(r.data.score) !== 'undefined') {
+                        this.setState({score: r.data.score});                        
+                    }
+                    
                     if (typeof r.data.deleted !== 'undefined') {
                         document.getElementById(this.state.comment).parentElement.parentElement.remove();                    
                     }
@@ -62,7 +66,7 @@ class CallAPI extends React.Component {
             </a> }]
             this comment? { this.state.score }
             </span>
-                    
+                
         )
     }
 };

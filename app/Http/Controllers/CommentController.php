@@ -156,7 +156,7 @@ class CommentController extends Controller
             
             if ($vote != $add) {
                 $comment->votes()->syncWithoutDetaching([$request->user()->id => ['vote' => $add]]);
-                $comment->score = $comment->score + $add;
+                $comment->score = $comment->score + (2 * $add);
                 $comment->save();
                 
                 if ($comment->is_response() && $comment->score == -5) {
