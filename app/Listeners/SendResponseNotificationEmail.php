@@ -27,9 +27,11 @@ class SendResponseNotificationEmail
      */
     public function handle(UserRespondedToInvitation $event)
     {
-        // send email
-        $event->notification
-            ->receiver
-            ->notify(new UserResponseNotification($event->notification));
+        if ($event->notification->receiver->notifications) {
+            // send email
+            $event->notification
+                ->receiver
+                ->notify(new UserResponseNotification($event->notification));
+        }
     }
 }

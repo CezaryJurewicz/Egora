@@ -45,8 +45,10 @@ class CreateIdeaBookmarkedNotification
             $line->created_at = $notification->created_at;
             $notification->logline()->save($line);
 
-            $notification->receiver
-                    ->notify(new IdeaBookmarkedNotificationEmail($notification));
+            if ($notification->receiver->notifications) {
+                $notification->receiver
+                        ->notify(new IdeaBookmarkedNotificationEmail($notification));
+            }
         }
     }
 }
