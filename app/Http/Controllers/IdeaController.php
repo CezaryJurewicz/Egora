@@ -776,8 +776,32 @@ class IdeaController extends Controller
         $comments->load(['user.image', 'comments.user.image', 'user.active_search_names', 'comments.user.active_search_names', 'commentable', 'comments.commentable']);
         
         $open = ($request->has('open') ? (int) $request->input('open') : null);
+                
+        $total_list = $request->user()->following->sortBy('active_search_name');
         
-        return view('ideas.view')->with(compact('open', 'filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
+        $request->user()->load(['following'  => function($q) use ($idea,$request){
+            $q->with('active_search_names');
+            
+            if(is_egora()) {
+                $q->whereHas('nation',function($q) use ($request){
+                    $q->where('id', $request->user()->nation->id);
+                });
+            } else if(is_egora('community')) {
+                $q->whereHas('communities',function($q) use ($idea){
+                    $q->where('id', $idea->community->id);
+                });
+            } else if(is_egora('municipal')) {
+                $q->whereHas('municipality',function($q) use ($request){
+                    $q->where('id', $request->user()->municipality->id);
+                });
+            }        
+        }]);
+        
+        $top_part = $request->user()->following->sortBy('active_search_name');
+        
+        $following = $top_part->concat($total_list->diff($top_part));
+        
+        return view('ideas.view')->with(compact('following', 'open', 'filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }
 
     public function showApi(Request $request, Idea $idea)

@@ -12,7 +12,7 @@
                         <div class="row pt-2 pb-4">
                             <div id="copyLink" idea_text_id="idea-text" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-12"></div>
                         </div>
-                        @foreach(Auth::guard('web')->user()->following->sortBy('active_search_name') as $u)
+                        @foreach($following as $u)
                             @if (Auth::guard('web')->user()->notifications_disabled_by->contains($u))
                                 @continue
                             @endif
@@ -55,7 +55,7 @@
                                 <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
                                     @csrf
 
-                                    <div class="row pt-1 pb-1 pl-md-5">
+                                    <div class="row pt-1 pb-1 pl-md-5 pr-md-5">
                                         <div class="col-md-6 align-self-center">
                                             <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_name }}
@@ -74,7 +74,7 @@
                                     </div>
                                 </form>
                             @elseif ($u->liked_ideas->contains($idea))
-                                <div class="row pt-1 pb-1 pl-md-5">
+                                <div class="row pt-1 pb-1 pl-md-5 pr-md-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                         {{ $u->active_search_name }}
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                             @else
-                                <div class="row pt-1 pb-1 pl-md-5">
+                                <div class="row pt-1 pb-1 pl-md-5 pr-md-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_name }}
@@ -120,7 +120,7 @@
                             
                                 <form action="{{ route('users.invite',[$u->id, $idea->id]) }}" method="POST" style="display: none;">
                                     @csrf
-                                    <div class="row pt-1 pb-1 pl-5">
+                                    <div class="row pt-1 pb-1 pl-5 pr-md-5">
                                         <div class="col-md-6 align-self-center">
                                             <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                                 {{ $u->active_search_name }}
