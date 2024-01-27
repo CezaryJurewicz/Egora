@@ -272,6 +272,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereDate('users.last_online_at', '>', now()->subDays(23));
     }
     
+    public function scopeWasNotRecent($query)
+    {
+        return $query->whereDate('users.last_online_at', '>', now()->subSeconds(10));
+    }
+    
+    public function getInactiveAttribute()
+    {
+        return (new Carbon($this->last_online_at))->lessThan((new Carbon())->subDays(23));
+    }
+    
     public function scopeVisible($query)
     {
         return is_egora() ? $query->where('visible', 1) : $query;

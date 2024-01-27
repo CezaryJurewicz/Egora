@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Update;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class UpdateController extends Controller
 {
@@ -24,6 +25,16 @@ class UpdateController extends Controller
                     ->withInput()->withErrors($validator);
         }
 
+        // expire after 23 days 
+        $rows = Update::
+            where(function($q) use ($request) {
+                $q->whereHas('user', function($q) use ($request) {
+                    $q->where('id', $request->user()->id);
+                });
+                $q->whereDate('created_at', '<', Carbon::now()->subDays(23));            
+            })->delete();
+        
+        
         $filter = $request->input('filter') ?: 'idea';
         
         $lines = Update::
