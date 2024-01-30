@@ -8,6 +8,7 @@
             <div class="card mb-3">
                 <div class="card-header">Communities</div>
                 <div class="card-body text-center">
+                Default Communities - {{ $total_verified_users }}<br/>
                 @foreach($user->communities as $community)
                 {{ $community->title }} - {{ $community->participants_count }}<br/>
                 @endforeach

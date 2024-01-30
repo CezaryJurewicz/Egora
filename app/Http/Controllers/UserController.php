@@ -942,7 +942,7 @@ class UserController extends Controller
                         $fail('Please change your Search-Name.');
                     }
                 }],
-            'email_address' => ['nullable', 'string', 'email', 'max:92', 'unique:users,email,'.$user->id],
+            'email_address' => ['nullable', 'string', 'email', 'max:92'],
             'phone_number' => ['nullable', 'string', 'max:92'],
             'social_media_1' => ['nullable', 'string', 'max:92'],
             'social_media_2' => ['nullable', 'string', 'max:92'],

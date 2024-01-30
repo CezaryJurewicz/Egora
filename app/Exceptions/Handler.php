@@ -49,11 +49,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
             return redirect()->route('login');
         }
-        
+
         if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
             return redirect_to_egora_home();
         }
-        
+
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             if (($exception->getModel() == \App\Idea::class) && $request->has('notification_id')) {
                 return redirect()->route('ideas.popularity_indexes')->with(['message' => 'This idea has lost all support and no longer exists.']); 

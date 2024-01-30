@@ -18,7 +18,7 @@
                             @endif
                         <div class="row-striped ">
                             @if (in_array($u->id, $user_notifications_ids) && !$u->liked_ideas->contains($idea))
-                                <div class="row pt-1 pb-1 pl-md-5">
+                                <div class="row pt-1 pb-1 pl-md-5 pr-md-5">
                                     <div class="col-md-6 align-self-center">
                                         <a style="color:#000;" href="{{ route('users.ideological_profile', $u->active_search_name_hash) }}">
                                             {{ $u->active_search_name }}

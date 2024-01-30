@@ -14,8 +14,10 @@
                         <div class="col-md-9">
                             <div class="row pb-3">
                                 <div class="col-12 col-md-3">
-                                    @if(!isset($external))
-                                    <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.bookmarked_ideas') }}">Bookmarks</a>
+                                    @if (auth('web')->user() && $user->id == auth('web')->user()->id)
+                                        @if(!isset($external))
+                                        <a class="col-12 btn btn-sm btn-primary" href="{{ route('users.bookmarked_ideas') }}">Bookmarks</a>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="col-12 col-md-6">

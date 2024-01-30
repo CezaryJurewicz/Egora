@@ -43,13 +43,13 @@ class HomeController extends Controller
                     $q->where('verified', 1);
                 });
             }])
-            ->with(['users' => function($q){
-                $q->whereHas('user_type', function($q){
-                    $q->where('class', '<>' ,'user');
-                    $q->where('former', 0);
-                    $q->where('verified', 1);
-                });
-            }])
+//            ->with(['users' => function($q){
+//                $q->whereHas('user_type', function($q){
+//                    $q->where('class', '<>' ,'user');
+//                    $q->where('former', 0);
+//                    $q->where('verified', 1);
+//                });
+//            }])
             ->orderBy('users_count', 'desc')
             ->orderBy('title', 'asc')
             ->get();
@@ -73,19 +73,24 @@ class HomeController extends Controller
     {
         $user = $request->user();
         $user->load(['communities' => function($q){
+            $q->where('on_registration',0);
             $q->withCount(['participants' => function($q){
                 $q->whereHas('user_type', function($q){
                     $q->verified();
                 });
             }]);
-            $q->with(['participants' => function($q){
-                $q->whereHas('user_type', function($q){
-                    $q->verified();
-                });
-            }]);
+//            $q->with(['participants' => function($q){
+//                $q->whereHas('user_type', function($q){
+//                    $q->verified();
+//                });
+//            }]);
         }]);
         
-        return view('egoras.community')->with(compact('user'));
+        $total_verified_users = User::whereHas('user_type',function($q){
+                $q->where('verified', 1);
+        })->get()->count();
+        
+        return view('egoras.community')->with(compact('user', 'total_verified_users'));
     }
     
     public function municipal(Request $request)
