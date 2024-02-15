@@ -419,7 +419,7 @@ class UserController extends Controller
     public function communities_update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'communities' => 'required|array|min:11|max:11',
+            'communities' => 'required|array|min:23|max:23',
             'communities.*' => 'nullable|string|min:3|max:92'
         ],[
             'communities.*.max' => 'A community may not be greater than :max characters.'
