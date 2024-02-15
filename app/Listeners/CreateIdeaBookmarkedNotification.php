@@ -29,12 +29,12 @@ class CreateIdeaBookmarkedNotification
      */
     public function handle(IdeaBookmarked $event)
     {
-        if ( $event->bookmark->user_id != $event->bookmark->idea->user->id ) 
+        if ( $event->notification && $event->bookmark->user_id != $event->notification->sender->id ) 
         {
             $notification = new BookmarkNotification();
             $notification->egora_id = $event->egora_id;
             $notification->sender_id = $event->bookmark->user_id;
-            $notification->receiver_id = $event->bookmark->idea->user->id;
+            $notification->receiver_id = $event->notification->sender->id;
             $notification->bookmark_id = $event->bookmark->id;
             $notification->message = 'Your idea was bookmarked.';
             $notification->save();
@@ -45,6 +45,8 @@ class CreateIdeaBookmarkedNotification
             $line->created_at = $notification->created_at;
             $notification->logline()->save($line);
 
+            $event->notification->delete();
+            
             if ($notification->receiver->notifications) {
                 $notification->receiver
                         ->notify(new IdeaBookmarkedNotificationEmail($notification));

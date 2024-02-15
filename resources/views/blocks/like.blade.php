@@ -68,8 +68,12 @@
                             
                             <div class="col-md-2 text-right">
                                 @if( Auth::guard('web')->check() && Auth::guard('web')->user()->can('bookmark', $idea) )
-                                <form action="{{ route('ideas.bookmark',[$idea->id]) }}" method="POST">
-                                    @csrf
+                                    @if (isset($notification))
+                                    <form action="{{ route('ideas.bookmark',[$idea->id, 'notification' => $notification]) }}" method="POST">
+                                    @else
+                                    <form action="{{ route('ideas.bookmark',[$idea->id]) }}" method="POST">
+                                    @endif
+                                        @csrf
                                             <button type="submit" class="btn btn-primary btn-sm col-md-auto">
                                                 @if($idea->is_bookmarked(Auth::guard('web')->user()))
                                                 {{ __('Unbookmark') }}
@@ -77,7 +81,7 @@
                                                 {{ __('Bookmark') }}
                                                 @endif                                    
                                             </button>
-                                </form>
+                                    </form>                                
                                 @endif
                             </div>
 

@@ -862,7 +862,7 @@ class IdeaController extends Controller
                 
             return redirect()->to(route('users.bookmarked_ideas', $route).'#idea'.$idea->id)
                     ->with('success', 'Idea unbookmarked.');            
-        } else {
+        } else {            
             // bookmark
             $max = ($idea->community ? $idea->community->bookmark_limit : 300);
             $spaces = range(1, $max);
@@ -880,8 +880,14 @@ class IdeaController extends Controller
             
             $bookmark = Bookmark::where('user_id', $request->user()->id)->where('idea_id',$idea->id)->first();
             
+            if($request->has('notification')) {
+                $notification = NotificationModel::find($request->notification);
+            } else {
+                $notification = null;
+            }
+            
             // fire bookmarked event
-            event(new IdeaBookmarked($bookmark));
+            event(new IdeaBookmarked($bookmark, $notification));
             
             $route = [$request->user()->active_search_names->first()->hash];
             if (isset($idea->community)) {  
