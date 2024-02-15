@@ -10,7 +10,7 @@
                         </div>
                     
                         <div class="row pt-2 pb-4">
-                            <div id="copyLink" idea_text_id="idea-text" value="{{ route('ideas.preview', base_convert($idea->id, 10, 36)) }}" class="col-md-12"></div>
+                            <div id="copyLink" idea_text_id="idea-text" value="{{ route('ideas.preview', preview_id($idea->id)) }}" class="col-md-12"></div>
                         </div>
                         @foreach($following as $u)
                             @if (Auth::guard('web')->user()->notifications_disabled_by->contains($u))

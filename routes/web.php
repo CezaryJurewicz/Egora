@@ -16,7 +16,7 @@ Route::get('/', 'IdeaController@welcome')->name('index');
 Auth::routes(['verify' => true]);
 
 Route::prefix('/ideas')->name('ideas.')->group(function(){
-    Route::get('/{hash}/preview', 'IdeaController@preview')->name('preview');
+    Route::get('/{id}/visitor', 'IdeaController@preview')->name('preview');
 });
 
 Route::get('/vote/{search_name}', 'UserController@vote_ideological_profile')->name('users.vote_ip')->middleware('can:vote_ideological_profile,App\User,search_name');

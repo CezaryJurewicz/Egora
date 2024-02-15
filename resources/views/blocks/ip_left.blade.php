@@ -104,8 +104,7 @@
                             @if (is_egora())
                                 @if( $user->external_visible )
                                 <div class="mt-2" style="word-wrap: break-word;">
-                                    {{ _url_replace(route('users.external_ip', _clean_search_name($user->active_search_name)),1) }} <br> 
-                                    {{ _clean_search_name($user->active_search_name) }}
+                                    {{ _url_replace(route('users.external_ip', _clean_search_name($user->active_search_name))) }} <br> 
                                 </div>
                                 @if (auth('web')->check() && auth('web')->user()->can('update', $user))                                
                                 <div class="mt-2">

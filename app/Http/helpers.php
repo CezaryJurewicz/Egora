@@ -322,7 +322,13 @@ function _url_replace($url, $clear=false) {
 }
 
 function preview_id($id) {
-    return base_convert($id, 10, 36);
+    return $id;
+//    return base_convert($id, 10, 36);
+}
+
+function decode_preview_id($id) {
+    return $id;
+//    return intval($hash, 36);
 }
 
 function filter_office_hours_array($office_hours) {

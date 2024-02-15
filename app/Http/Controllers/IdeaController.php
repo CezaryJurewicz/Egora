@@ -985,7 +985,7 @@ class IdeaController extends Controller
     
     public function preview(Request $request, $hash)
     {
-        $idea_id = intval($hash, 36); // base64_encode / base64_decode
+        $idea_id = decode_preview_id($hash); // base64_encode / base64_decode
         
         $idea = Idea::findOrFail($idea_id);
         
