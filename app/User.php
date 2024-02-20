@@ -208,6 +208,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Passport::class);
     }
     
+    public function government_id()
+    {
+        return $this->hasOne(GovernmentId::class);
+    }
+    
     // I muted
     public function notifications_disabled()
     {

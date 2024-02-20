@@ -11,6 +11,9 @@ use App\Events\PetitionSupportersChanged;
 use App\Events\UserLeftIlp;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use App\GovernmentId;
+use App\Media;
+use Illuminate\Support\Facades\Storage;
 
 class IlpController extends Controller
 {
@@ -72,24 +75,24 @@ class IlpController extends Controller
         if ($validator->fails()) {
                 return redirect()->back()
                         ->withInput()->withErrors($validator);
-            }
-            
+        }
+
         $petition = new Petition();
         $petition->polis = $request->input('polis');
         $petition->user()->associate($user);
         $petition->save();
-        
+
         // Change class to petitioner
         $type = UserType::where('class', 'petitioner')
             ->where('verified', $user->user_type->verified)
             ->where('candidate',  $user->user_type->candidate)
             ->where('former',  $user->user_type->former)
             ->first();
-        
+
         $user->user_type()->associate($type);
         $user->save();
-        
-        return redirect()->route('ilp.menu')->with('success', 'Petition started');      
+
+        return redirect()->route('ilp.menu')->with('success', 'Petition started');
     }
     
     public function cancel_officer_application(Request $request, User $usr)
@@ -135,23 +138,59 @@ class IlpController extends Controller
         
         $validator = Validator::make($request->all(),[
             'name' => 'required|in:'.$name,
+            'file' => 'required|mimes:jpeg,jpg,png',
+            'type' => 'required|in:government_id'
         ],
         [
             'in' => 'The name you entered does not match your registered name.',
+            'file.mimes'     => 'Uploaded file is not an Image format.',
+            'file.required'  => 'File is required.'
         ]);
         
         if ($validator->fails()) {
-                return redirect()->back()
-                        ->withInput()->withErrors($validator);
-            }
-            
-        $type = UserType::where('class', 'member')
-            ->where('verified', $user->user_type->verified)
-            ->where('candidate', 0) //Accepr member ILP declaration
-            ->first();
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+         
+        if (!is_null($request->file('file')) && $request->file('file')->isValid()) {
+            $file = $request->file('file');
+            $hash = sha1_file($file->path());
+
+            $extention = $file->getClientOriginalExtension();
+            $storage_disk = env('STORAGE_DISK','local');
+            $filename = uniqid().".$extention";
+
+            $imported = Media::where('hash', $hash)->first();
+            if (is_null($imported)) {
+                Storage::disk($storage_disk)->makeDirectory('public'.DIRECTORY_SEPARATOR.$request->type);
+                if (Storage::disk($storage_disk)->putFileAs('public'.DIRECTORY_SEPARATOR.$request->type, $file, $filename)) {
+                    Storage::disk($storage_disk)->setVisibility('public'.DIRECTORY_SEPARATOR.$request->type.DIRECTORY_SEPARATOR.$filename, 'public'); 
+                    $data = [
+                        'filename' => 'public'.DIRECTORY_SEPARATOR.$request->type.DIRECTORY_SEPARATOR.$filename,
+                        'original_name' => $file->getClientOriginalName(),
+                        'hash' => $hash,
+                        'mime' => $file->getClientMimeType(),
+                        'disk' => $storage_disk,
+                        'user_id' => $request->user()->id
+                    ];
         
-        $user->user_type()->associate($type);
-        $user->save();
+                    $government_id = new GovernmentId();
+                    $government_id->user()->associate($user);
+                    $government_id->save();
+        
+                    $media = new Media($data);
+                    $media->mediable()->associate($government_id);
+                    $media->save();                                        
+                    
+//                    $type = UserType::where('class', 'member')
+//                        ->where('verified', $user->user_type->verified)
+//                        ->where('candidate', 0) //Accepr member ILP declaration
+//                        ->first();
+//                    
+//                    $user->user_type()->associate($type);
+//                    $user->save();
+                }
+            }
+        }
         
         return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', __('Member declaration has been signed.'));           
     }

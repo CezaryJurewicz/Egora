@@ -214,6 +214,9 @@
                             <div class="mt-3">
                             @include('blocks.verification')
                             </div>
+                            <div class="mt-3">
+                            @include('blocks.verification_ilp')
+                            </div>
                             @endif
                             
                             <div class="mt-2">

@@ -58,11 +58,35 @@
                     <div class="text-justify mt-5">
                         Application in progress
                     </div>
+                @elseif (auth('web')->check() && auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'submitted')
+                    <div class="text-justify col-md-10 offset-md-1 mt-5">
+                        Application in progress <br/>
+                        If your government ID is rejected, you will receive a notification in your Inbox.
+                    </div>
+                @elseif (auth('web')->check() && auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'rejected')
+                    <div class="text-justify col-md-10 offset-md-1 mt-5">
+                        The image of your government ID that you submitted with your ILP Member Declaration was not accepted. Please submit another one.
+                        
+                        <form action="{{ route('users.government_id.reupload') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <button type='submit' class='btn btn-primary btn-sm'>{{__('Upload ID')}}</button>
+                        </form>
+                    </div>
                 @else
                 <form action="{{ route('ilp.submit_application', auth('web')->user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
                         I, <input class='line' value="{{ old('name') ?: '' }}" placeholder="(your name)" name="name">, am a Member of the International Logic Party.                    
+                    </div>
+                    <div class="text-justify col-md-10 offset-md-1 mt-5 mb-5">
+                        To confirm your identity, please upload an image of your government ID (JPEG, JPG, or PNG format).
+
+                        <div class="input-group mt-2 mb-2">
+                            <input type="file" name="file" id="file" style="overflow: hidden;"/>
+                            <input type="hidden" name="type" value="government_id"/>
+                        </div>
+                        
+                        The ID number will be maintained in a secure record to prevent fraudulent activity. Your information will not be shared with anyone.                        
                     </div>
                     <div class="row">
                         <div class="col-md-3 mb-2">

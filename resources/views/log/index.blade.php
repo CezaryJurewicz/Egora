@@ -44,6 +44,9 @@
                 </div>
                 
                 <div class="card pl-2 pr-2 pt-2 mt-5">
+                    
+                    @include('blocks.log.government_id')
+                    
                     @if ($lines->where('egora_id', current_egora_id())->isNotEmpty())
                         @include('blocks.log.card', ['lines' => $lines->where('egora_id', current_egora_id()), 'eid' => current_egora_id()])   
                     @endif 

@@ -14,6 +14,14 @@
                                     </div>
                                 @endif
                                 
+                                @if (auth('web')->check() && auth('web')->user()->id == $user->id)
+                                <div class="mt-2">
+                                    @if (auth('web')->user() && auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'submitted')
+                                        <small>If your government ID is rejected, you will receive a notification in your Inbox.</small>
+                                    @endif
+                                </div>
+                                @endif
+                                
                                 @if ($user->user_type->class == 'member' && $user->user_type->candidate && (auth('web')->user()?:auth('admin')->user())->can('accept_application', $user))
                                     <div class="text-center mt-2">
                                         <a class="btn btn-block btn-primary btn-sm" href="{{ route('ilp.accept_application', $user->id) }}">{{ __('Accept Application')}}</a>

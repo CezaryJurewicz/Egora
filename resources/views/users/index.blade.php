@@ -30,8 +30,18 @@
                 </div>
                 </form>
                 
-                <div>   
-                    <a href="{{ route('users.index',['awaiting']) }}">List Awaiting Verification: Philosophers</a>                
+                <div>
+                    @if (request()->has('awaiting'))
+                        List Awaiting Verification: Philosophers
+                    @else
+                        <a href="{{ route('users.index',['awaiting']) }}">List Awaiting Verification: Philosophers</a>
+                    @endif
+                    &nbsp;
+                    @if (request()->has('members'))
+                    List Awaiting Verification: Members
+                    @else
+                    <a href="{{ route('users.index',['members']) }}">List Awaiting Verification: Members</a>                
+                    @endif
                 </div>
                 
                 <div class="mt-3">

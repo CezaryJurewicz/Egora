@@ -65,6 +65,14 @@ class UserController extends Controller
             });
         }
         
+        if ($request->has('members')) {
+            $model->where(function($q) use($request){
+                $q->whereHas('government_id', function($q){
+                    $q->where('status','submitted');
+                });
+            });
+        }
+        
         $users = $model->orderBy('created_at', 'desc')->paginate(100);
         return view('users.index')->with(compact('users', 'search'));
     }
@@ -1223,6 +1231,64 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User restored');  
     }
     
+    private function _government_id_delete(Request $request)
+    {
+        $user = $request->user();
+        
+        if ($user->government_id) {
+            $media = $user->government_id->image;
+            if (Storage::disk($media->disk)->exists($media->filename)) {
+                Storage::disk($media->disk)->delete($media->filename);
+            }
+
+            $media->delete();
+            $user->government_id->delete();
+        }
+    }
+    
+    public function government_id_delete(Request $request)
+    {
+        $this->_government_id_delete($request);
+        
+        return redirect()->back()->with('success', 'Your Government ID is deleted.');  
+    }
+    
+    public function government_id_reupload(Request $request)
+    {
+        $this->_government_id_delete($request);
+        
+        return redirect()->route('ilp.index');
+    }
+
+    public function accept_id(Request $request, User $user)
+    {
+        $type = UserType::where('class', 'member')
+            ->where('verified', $user->user_type->verified)
+            ->where('candidate', 0) //Accepr member ILP declaration
+            ->first();
+
+        $user->user_type()->associate($type);
+        $user->save();
+        
+        if ($user->government_id) {
+            $media = $user->government_id->image;
+            if (Storage::disk($media->disk)->exists($media->filename)) {
+                Storage::disk($media->disk)->delete($media->filename);
+            }
+
+            $media->delete();
+            $user->government_id->delete();
+        }
+        return redirect()->back()->with('success', 'Accepted the ID.');  
+    }
+    
+    public function reject_id(Request $request, User $user)
+    {
+        $user->government_id->status = 'rejected';
+        $user->government_id->save();
+        return redirect()->back()->with('success', 'Rejected the ID.');  
+    }
+    
     public function verify(Request $request, User $user)
     {
         $type = UserType::where('class', $user->user_type->class)
@@ -1389,6 +1455,11 @@ class UserController extends Controller
     public function verification_id_image(Request $request, User $user)
     {
         return view('users.verification_id_image')->with(compact('user'));
+    }
+    
+    public function government_id_image(Request $request, User $user)
+    {
+        return view('users.government_id_image')->with(compact('user'));
     }
     
     public function invite(Request $request, User $user, Idea $idea)

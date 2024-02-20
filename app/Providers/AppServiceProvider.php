@@ -75,7 +75,13 @@ class AppServiceProvider extends ServiceProvider
                 
                 $inbox_notifications = $notification_ids->diff($responses->pluck('notification_id'));
 
-                $view->with('inbox_notifications_cnt', $inbox_notifications->count());
+                $government_id_rejected = 0;
+                if (auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'rejected')
+                {
+                    $government_id_rejected = 1;
+                }
+                
+                $view->with('inbox_notifications_cnt', $government_id_rejected + $inbox_notifications->count());
 
                 $comment_notifications = CommentNotification::where(function($q){
                         $q->whereHas('receiver', function($q) {
@@ -93,7 +99,7 @@ class AppServiceProvider extends ServiceProvider
                     })->select('id');
                     
                 $view->with('inbox_bookmark_notifications_cnt', $bookmark_notifications->count());
-            
+                            
                 $updates = Update::where(function($q) {
                     $q->whereHasMorph('updatable', '*');
                     $q->whereHas('user', function($q) {

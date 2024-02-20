@@ -93,6 +93,8 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     });
     
     Route::prefix('/philosophers')->name('users.')->group(function(){
+        Route::delete('/government_id/delete', 'UserController@government_id_delete')->name('government_id.delete');
+        Route::post('/government_id/reupload', 'UserController@government_id_reupload')->name('government_id.reupload');
         Route::get('/clear_coh', 'UserController@clear_coh')->name('clear_coh');
         Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        
@@ -207,7 +209,7 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::get('/default_leads', 'UserController@default_leads')->name('default_leads')->middleware('can:viewAny,App\User');
     Route::delete('/default_leads/{user}', 'UserController@remove_default_lead')->name('remove_default_lead')->middleware('can:viewAny,App\User');
     Route::get('/default_leads/{user}', 'UserController@add_default_lead')->name('add_default_lead')->middleware('can:viewAny,App\User');
-    Route::prefix('/users')->name('users.')->group(function(){
+    Route::prefix('/philosophers')->name('users.')->group(function(){
         Route::get('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::post('/', 'UserController@index')->name('index')->middleware('can:viewAny,App\User');
         Route::get('/{user}/profile', 'UserController@profile')->name('profile')->where('user', '[0-9]+');
@@ -216,7 +218,10 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::put('/{user}/deactivate', 'UserController@deactivate')->name('deactivate')->middleware('can:deactivate,user');
         Route::post('/{user}/reset', 'UserController@reset')->name('reset')->middleware('can:reset,user');
         Route::put('/{user}/verify', 'UserController@verify')->name('verify')->middleware('can:verify,user');
+        Route::put('/{user}/accept_id', 'UserController@accept_id')->name('accept_id')->middleware('can:verify,user');
         Route::delete('/{user}/verify', 'UserController@unverify')->name('unverify')->middleware('can:unverify,user');
+        Route::delete('/{user}/reject_id', 'UserController@reject_id')->name('reject_id')->middleware('can:unverify,user');
+        Route::get('/{user}/government_id_image', 'UserController@government_id_image')->name('government_id_image')->middleware('can:verify,user');
     });
     
     Route::prefix('/nations')->name('nations.')->group(function(){
