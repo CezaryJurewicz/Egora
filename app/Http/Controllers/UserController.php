@@ -32,6 +32,7 @@ use App\Events\StatusUpdated;
 use App\Events\CommentAdded;
 use App\Update;
 use App\Events\IdeaSupportHasChanged;
+use App\Events\IdeaUnbookmarked;
 
 class UserController extends Controller
 {
@@ -150,7 +151,7 @@ class UserController extends Controller
             $users = $total_users->chunk($perPage)->get(LengthAwarePaginator::resolveCurrentPage() - 1); 
 
             $users = new LengthAwarePaginator(
-                $users->toArray(), 
+                (($users && $users->isNotEmpty()) ? $users->toArray(): []), 
                 $total_users->count(), 
                 $perPage, 
                 LengthAwarePaginator::resolveCurrentPage(), 
@@ -1715,4 +1716,73 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Role removed.'); 
     }
     
+    public function clear_account(Request $request)
+    {
+        $user = $request->user();
+        
+        $liked_ideas = $user->liked_ideas;
+        $user->liked_ideas()->sync([]);
+
+        $liked_ideas->each(function($idea, $key) use ($user) {
+            event(new IdeaSupportHasChanged($user, $idea));
+        });        
+        
+        $bookmarked_ideas = $user->bookmarked_ideas;
+        $user->bookmarked_ideas()->sync([]);
+
+        $bookmarked_ideas->each(function($idea, $key) use ($user) {
+            event(new IdeaUnbookmarked($user, $idea));
+        });        
+        
+        $user->followers()->sync([]);
+        $user->following()->sync([]);
+        
+        \App\Comment::whereHas('user', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
+        
+        \App\Update::whereHas('user', function($q) use ($user) {
+            $q->where('id', $user->id);
+        })->forceDelete();
+        
+        \App\LogLine::whereHas('user', function($q) use ($user) {
+            $q->where('id', $user->id);
+        })->forceDelete();
+
+        $user->national_affiliations = null;
+        $user->phone_number = null;
+        $user->social_media_1 = null;
+        $user->social_media_2 = null;
+        $user->messenger_1 = null;
+        $user->messenger_2 = null;
+        $user->other_1 = null;
+        $user->other_2 = null;
+        
+        $user->office_hours = null;
+        $user->meeting_location = null;
+        $user->calendar_link = null;
+        $user->time_zone = null;
+        
+        $user->about_me = null;
+        
+        $user->notifications = 0;
+        $user->сomment_notifications = 0;
+        $user->visible = 0;
+        $user->external_visible = 0;
+        
+        $user->save();
+        
+        if ($user->campaign) {
+            $user->campaign->delete();
+        }
+        
+        $searchName = $user->active_search_names->first();
+        $searchName->seachable = 0;
+        $searchName->save();
+                
+        Auth::logout();
+//        $user->delete();
+        
+        return redirect()->route('index')->with('success', 'Account is cleaared.');  
+    }
 }

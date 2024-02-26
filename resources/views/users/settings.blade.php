@@ -288,15 +288,22 @@
                     @else
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
-                            <h4>@lang('Delete Account')</h4>
-                                <p class="col-md-12 row">Per the ILP Membership Declaration, account deletion is not available to ILP Members nor former ILP members in
+                            <h4>@lang('Clear & Hide Account')</h4>
+                                <p class="col-md-12 row">Per the ILP Membership Declaration, account deletion is not available to ILP Members or former ILP members in
                                 order to protect the interests of the current ILP Members.</p>
-                                <p class="col-md-12 row">However, if you wish to minimize your presence in Egora, you can do so by
-                                changing your registered name, changing your Search-Name, changing your
-                                email address, deleting your public contact information, and removing all of
-                                your ideas. Nevertheless, if you verified your Egora account using a
-                                government ID, your ID number––associated to your Egora Account
-                                Number––will be maintained externally as a secure record.</p>
+                                <p class="col-md-12 row">However, you can erase your public presence in Egora with this "Clear & Hide Account" function. 
+                                If you procede, this will erase from your profile all of your ideas, comments, statuses, leads, 
+                                followers, and chat messages. Additionally, it will hide your account so it is no longer publicly 
+                                visible. If you are ever ready to resume using Egora, you will be able to re-activate your 
+                                account by logging in again.</p>
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
+                                    </div>
+                                    <div class="col-4 offset-2 text-center">
+                                        <a class="btn btn-secondary btn-sm btn-static-100" href="{{  route('users.clear_account') }}">Clear Account</a>
+                                    </div>
+                                </div>    
                         </div>
                     </div>
                     @endif
