@@ -134,9 +134,10 @@
                                 <div class="collapse" id="collapse2">
                                     <div class="card card-body">
                                         <p>The Egora administration will never investigate or track any of the user’s personal activity in Egora to
-                                        exploit the user in any way nor to share that data with others. Furthermore, to protect the user's private personal 
+                                        exploit the user in any way or to share that data with others. Furthermore, to protect the user's private personal 
                                         activity, we will not cooperate with anyone seeking to violate it, including other governments
-                                        and their agencies.</p>
+                                        and their agencies. Furthermore, if a user maliciously violates the privacy of another user, the 
+                                        administration of Egora reserves the right to delete offending content and to restrict and penalize the offending account.</p>
                                     </div>
                                 </div>
                             </li>
@@ -193,12 +194,12 @@
                                     <div class="card card-body">
                                         <p>The ideas of a user’s Ideological Profile in Egora are subject to copyleft, thus available to be restated
                                         and developed by anyone. Expressing even an original idea in one’s Ideological Profile does not imply
-                                        taking credit for the origination of that idea nor claiming ownership of that idea.</p>
+                                        taking credit for the origination of that idea or claiming ownership of that idea.</p>
                                         <p>However, any specific concepts/plans/expressions/names included within the text of an idea that
                                         are externally protected by copyrights will remain as such. The user must always abide by the “fair
-                                        use” doctrine protecting copyrighted works, despite an otherwise absolute freedom of speech within
-                                        their Ideological Profile. The administration of Egora reserves the right to delete ideas from Egora if
-                                        and only if they are in violation of the “fair use” doctrine.</p>
+                                        use” doctrine protecting copyrighted works, despite otherwise having near-absolute freedom of speech 
+                                        within their Ideological Profile. The administration of Egora reserves the right to delete ideas from Egora 
+                                        if they are in violation of the “fair use” doctrine.</p>
                                     </div>
                                 </div>
                             </li>
@@ -233,9 +234,9 @@
                                         <p>If the user is found to be in violation of this agreement, they will be prosecuted according to the
                                         specific procedures set by the administration of Egora, in accordance with this document.</p>
                                         <p>The most severe penalty that can be imposed upon the user by the administration of Egora for
-                                        the violation of this agreement is being publicly exposed to the Egora community, and this penalty may
-                                        be selected by the user in lieu of any other penalty imposed. In any case, no user will ever be banned
-                                        from using Egora nor be restricted in any basic (non-ILP) functionality.</p>
+                                        the violation of this agreement is being publicly exposed to the Egora community. However, a user 
+                                        will never be banned from using Egora or be restricted in any basic (non-ILP) functionality, 
+                                        unless such allowance would conflict with another part of this agreement (especially Section 2).</p>
                                     </div>
                                 </div>
                             </li>                        
