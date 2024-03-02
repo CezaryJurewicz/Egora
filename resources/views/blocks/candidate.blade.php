@@ -19,10 +19,10 @@
         </p>
         @endif
         <p style="word-wrap: break-word;"><b>{{ __('Visitor URL:') }}</b><br/>
-        {{ _url_replace(route('users.vote_ip', _clean_search_name($user->active_search_name))) }}
+        {{ _url_replace(route(implode('.', ['users.vote_ip', session('current_egora', 'default')]), _clean_search_name($user->active_search_name))) }}
         </p>
         <div class="mt-2">
-            <div class="simpleCopy" btn_title="{{ __('Copy Link') }}" value="{{ _url_replace(route('users.vote_ip', _clean_search_name($user->active_search_name))) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
+            <div class="simpleCopy" btn_title="{{ __('Copy Link') }}" value="{{ _url_replace(route(implode('.', ['users.vote_ip', session('current_egora', 'default')]), _clean_search_name($user->active_search_name))) }}" btn_class="btn btn-sm btn-primary btn-block"></div>
         </div>
     </div>
 </div>

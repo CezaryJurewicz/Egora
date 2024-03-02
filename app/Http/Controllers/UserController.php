@@ -602,8 +602,20 @@ class UserController extends Controller
         return view($view)->with(compact('user', 'community_id', 'ip_score', '_ideas', 'ideas', 'ownIP', 'shared_ideas'));
     }
     
+    public function municipal_vote_ideological_profile(Request $request, $search_name)
+    {
+        switch_to_egora('municipal');
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+    }
+    public function community_vote_ideological_profile(Request $request, $search_name)
+    {
+        switch_to_egora('community');
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+    }
+    
     public function vote_ideological_profile(Request $request, $search_name)
     {
+        switch_to_egora();
         return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
     }
     

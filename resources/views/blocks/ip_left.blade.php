@@ -71,10 +71,12 @@
                                 @endforeach
                             </div>
                             
+                            @if (auth('web')->check() || auth('admin')->check())
                             @if ( (auth('admin')->user() ?: auth('web')->user())->can('communities', [App\User::class, $user->active_search_name_hash]) )
                             <div class="mt-2">
                                 <a class="btn btn-secondary btn-sm btn-block" href="{{ route('users.communities', $user->active_search_name_hash) }}">Edit Communities</a>
                             </div>                            
+                            @endif
                             @endif
                             @endif
                             
@@ -168,11 +170,13 @@
                             <div class="mt-2">
                             @include('blocks.ilp')
                             </div>
+                            @endif
                             
                             <div class="mt-2">
                             @include('blocks.candidate')
                             </div>
                             
+                            @if (is_egora())
                             <div class="mt-2">
                             @include('blocks.petition')
                             </div>

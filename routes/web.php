@@ -19,7 +19,9 @@ Route::prefix('/ideas')->name('ideas.')->group(function(){
     Route::get('/{id}/visitor', 'IdeaController@preview')->name('preview');
 });
 
-Route::get('/vote/{search_name}', 'UserController@vote_ideological_profile')->name('users.vote_ip')->middleware('can:vote_ideological_profile,App\User,search_name');
+Route::get('/vote/{search_name}', 'UserController@vote_ideological_profile')->name('users.vote_ip.default')->middleware('can:vote_ideological_profile,App\User,search_name');
+Route::get('/municipal/vote/{search_name}', 'UserController@municipal_vote_ideological_profile')->name('users.vote_ip.municipal')->middleware('can:vote_ideological_profile,App\User,search_name');
+Route::get('/community/vote/{search_name}', 'UserController@community_vote_ideological_profile')->name('users.vote_ip.community')->middleware('can:vote_ideological_profile,App\User,search_name');
 Route::get('/philosopher/{search_name}', 'UserController@external_ideological_profile')->name('users.external_ip')->middleware('can:external_ideological_profile,App\User,search_name');
 Route::get('/philosopher/{search_name}/about', 'UserController@external_about')->name('users.external_about')->middleware('can:external_ideological_profile,App\User,search_name');
 
