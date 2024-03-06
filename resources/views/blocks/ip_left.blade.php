@@ -172,9 +172,11 @@
                             </div>
                             @endif
                             
+                            @if (!is_egora('community'))
                             <div class="mt-2">
                             @include('blocks.candidate')
                             </div>
+                            @endif
                             
                             @if (is_egora())
                             <div class="mt-2">

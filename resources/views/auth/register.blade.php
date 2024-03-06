@@ -195,7 +195,7 @@
                                         <p>The ideas of a user’s Ideological Profile in Egora are subject to copyleft, thus available to be restated
                                         and developed by anyone. Expressing even an original idea in one’s Ideological Profile does not imply
                                         taking credit for the origination of that idea or claiming ownership of that idea.</p>
-                                        <p>However, any specific concepts/plans/expressions/names included within the text of an idea that
+                                        <p>However, any texts that 
                                         are externally protected by copyrights will remain as such. The user must always abide by the “fair
                                         use” doctrine protecting copyrighted works, despite otherwise having near-absolute freedom of speech 
                                         within their Ideological Profile. The administration of Egora reserves the right to delete ideas from Egora 

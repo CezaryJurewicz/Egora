@@ -192,7 +192,7 @@ class IlpController extends Controller
             }
         }
         
-        return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', __('Member declaration has been signed.'));           
+        return redirect()->route('users.ideological_profile', $user->active_search_names->first()->hash)->with('success', __('Member declaration has been submitted.'));           
     }
     
     public function accept_application(User $user)

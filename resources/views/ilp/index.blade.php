@@ -56,11 +56,11 @@
                 
                 @if (auth('web')->check() && auth('web')->user()->user_type->class == 'member' && auth('web')->user()->user_type->candidate)
                     <div class="text-justify mt-5">
-                        Application in progress
+                        Your declaration is in progress.
                     </div>
                 @elseif (auth('web')->check() && auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'submitted')
                     <div class="text-justify col-md-10 offset-md-1 mt-5">
-                        Application in progress <br/>
+                        Your declaration is in progress. <br/>
                         If your government ID is rejected, you will receive a notification in your Inbox.
                     </div>
                 @elseif (auth('web')->check() && auth('web')->user()->government_id && auth('web')->user()->government_id->status == 'rejected')

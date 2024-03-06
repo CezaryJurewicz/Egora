@@ -605,18 +605,18 @@ class UserController extends Controller
     public function municipal_vote_ideological_profile(Request $request, $search_name)
     {
         switch_to_egora('municipal');
-        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name)->with(array('vote_ip' => 1));
     }
     public function community_vote_ideological_profile(Request $request, $search_name)
     {
         switch_to_egora('community');
-        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name)->with(array('vote_ip' => 1));
     }
     
     public function vote_ideological_profile(Request $request, $search_name)
     {
         switch_to_egora();
-        return $this->_ideological_profile('users.ideological_profile', $request, $search_name);
+        return $this->_ideological_profile('users.ideological_profile', $request, $search_name)->with(array('vote_ip' => 1));
     }
     
     public function external_ideological_profile(Request $request, $search_name)

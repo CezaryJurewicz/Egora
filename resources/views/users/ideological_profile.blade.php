@@ -33,6 +33,17 @@
                                         @elseif (is_egora('municipal'))
                                             <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'default']) }}">&lt;</a>
                                         @endif
+                                    @elseif (isset($vote_ip))
+                                        @if (is_egora())
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip', 'community']), _clean_search_name($user->active_search_name))) }}">&lt;</a>
+                                        @elseif (is_egora('community'))
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('municipal',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip', 'municipal']), _clean_search_name($user->active_search_name))) }}">&lt;</a>
+                                        @elseif (is_egora('municipal'))
+                                            <a class="float-right btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip.default']), _clean_search_name($user->active_search_name))) }}">&lt;</a>
+                                        @endif
                                     @endif
                                 </div>
                                 <div class="col-6 col-lg-4 col-md-4 p-0">
@@ -54,6 +65,17 @@
                                             <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'default']) }}">&gt;</a>
                                         @elseif (is_egora('municipal'))
                                             <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'switch'=>'community']) }}">&gt;</a>
+                                        @endif
+                                    @elseif (isset($vote_ip))
+                                        @if (is_egora())
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('municipal',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip', 'municipal']), _clean_search_name($user->active_search_name))) }}">&gt;</a>
+                                        @elseif (is_egora('community'))
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('default',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip', 'default']), _clean_search_name($user->active_search_name))) }}">&gt;</a>
+                                        @elseif (is_egora('municipal'))
+                                            <a class="float-left btn btn-sm btn-block mb-1" style="width: 50px; color: #fff; font-weight: 700; background-color: {{ _bg_color('community',$user) }};" href="
+                                               {{ _url_replace(route(implode('.', ['users.vote_ip', 'community']), _clean_search_name($user->active_search_name))) }}">&gt;</a>
                                         @endif
                                     @endif
                                 </div>
