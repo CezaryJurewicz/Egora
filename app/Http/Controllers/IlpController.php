@@ -128,7 +128,7 @@ class IlpController extends Controller
         $user->user_type()->associate($type);
         $user->save();
         
-        return redirect()->route('ilp.menu')->with('success', 'Petition canceled');      
+        return redirect()->route('ilp.menu')->with('success', 'Petition closed');      
     }
     
     public function submit_application(Request $request, User $usr)

@@ -27,6 +27,11 @@ class Idea extends Model
         return $this->hasMany(Idea::class);
     }
     
+    public function approval_ratings()
+    {
+        return $this->hasMany(ApprovalRating::class);
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

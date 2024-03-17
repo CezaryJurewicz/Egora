@@ -228,4 +228,33 @@ class IdeaPolicy
     {
         //
     }
+    
+    public function vote(User $user, Idea $idea) {
+
+        if (is_null($idea->community) && is_null($idea->municipality)) {        
+            if ($user->user_type->class == 'user' && $idea->nation->title=='Egora') {
+                return $this->deny();
+            }
+
+            $nations = Nation::whereIn('title', ['Egora', 'Universal', $user->nation->title])->get()->pluck('id');
+
+            if ($nations->contains($idea->nation->id)) {
+                return $this->allow();
+            }
+        }
+        
+        if (!is_null($idea->community)) {
+            if ($user->communities->contains($idea->community)) {
+                return $this->allow();
+            }
+        }
+        
+        if (!is_null($idea->municipality)) {
+            if ($idea->municipality && $user->municipality->id == $idea->municipality->id) {
+                return $this->allow();
+            }
+        }        
+        
+        return $this->deny();
+    }
 }

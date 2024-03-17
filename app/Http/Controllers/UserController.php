@@ -302,19 +302,19 @@ class UserController extends Controller
     public function remove_default_lead(Request $request, User $user)
     {
         if ($result = \DB::table('default_leads')->where('user_id', $user->id)->delete()) {
-            return redirect()->back()->with('success', 'User removed from default leads');
+            return redirect()->back()->with('success', 'Default Lead removed');
         }
         
-        return redirect()->back()->withErrors('Can\'t remove user from default leads.');
+        return redirect()->back()->withErrors('Can\'t remove default lead.');
     }    
     
     public function add_default_lead(Request $request, User $user)
     {
         if ($result = \DB::table('default_leads')->insertOrIgnore(['user_id' => $user->id])) {
-            return redirect()->back()->with('success', 'User added to default leads');
+            return redirect()->back()->with('success', 'Default Lead added');
         }
         
-        return redirect()->back()->withErrors('Can\'t add user to default leads.');
+        return redirect()->back()->withErrors('Can\'t default lead.');
     }    
     
     public function leads()
@@ -415,7 +415,7 @@ class UserController extends Controller
         if ($user->municipality->id !== $municipality->id) {
             event(new UserLeftingMunicipality($user));
         }
-        
+
         $user->municipality()->associate($municipality);
         
         if($user->save()){
@@ -639,6 +639,14 @@ class UserController extends Controller
                     if ($request->user()->id != $user->id)
                     {
                         $fail('You are not allowed to download other users pdf.');
+                    }
+                }],
+            'community_id' => ['numeric', function ($attribute, $value, $fail) use ($request, $user) {                    
+                    if ($request->user() && !$request->user()->isAdmin()) {
+                        if (!$request->user()->communities->contains($request->community_id ))
+                        {
+                            $fail('You are not allowed to list the community.');
+                        }
                     }
                 }]
         ]);
@@ -1201,6 +1209,8 @@ class UserController extends Controller
     {
         $ideas = $user->liked_ideas;
         
+        $user->approval_ratings()->delete();
+        
         $user->forceDelete();
         
         $ideas->each(function($idea, $key) {
@@ -1225,6 +1235,8 @@ class UserController extends Controller
         }
         
         $ideas = $user->liked_ideas;
+        
+        $user->approval_ratings()->delete();
         
         Auth::logout();
         
@@ -1746,6 +1758,8 @@ class UserController extends Controller
             event(new IdeaUnbookmarked($user, $idea));
         });        
         
+        $user->approval_ratings()->delete();
+        
         $user->followers()->sync([]);
         $user->following()->sync([]);
         
@@ -1795,6 +1809,6 @@ class UserController extends Controller
         Auth::logout();
 //        $user->delete();
         
-        return redirect()->route('index')->with('success', 'Account is cleaared.');  
+        return redirect()->route('index')->with('success', 'You have vanished.');  
     }
 }

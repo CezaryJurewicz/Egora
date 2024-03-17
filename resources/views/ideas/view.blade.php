@@ -92,6 +92,7 @@
                     </div>
                     
                     @include('blocks.like')
+                    @include('blocks.approval_rating')                    
                     @include('blocks.notincommunity')
                 </div>
 

@@ -227,6 +227,10 @@
                                                         <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
                                                         <br/>
                                                         <a class="col-12 p-0" href="{{ route('ideas.view', [$idea->id, 'comments']).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
+                                                        <br/>
+                                                        <small>
+                                                            Votes: {{$idea->approval_ratings->count()}}
+                                                        </small>                   
                                                         @endif
                                                     </div>
                                                     <div class="col-12 col-sm-4 offset-md-1">
@@ -235,7 +239,7 @@
                                                             <div class="col-8">
                                                                 IDI Points:
                                                             </div>
-                                                            <div class="col-4">
+                                                            <div class="col-4 p-0">
                                                             {{ number_format( $idea->liked_users->pluck('pivot.position')->sum() ) }}
                                                             </div>
                                                         </div>
@@ -244,12 +248,23 @@
                                                             <div class="col-8">
                                                         Supporters:
                                                             </div>
-                                                            <div class="col-4">
+                                                            <div class="col-4 p-0">
                                                         @if (is_egora())
                                                         {{ number_format($idea->liked_users->count()) }}
                                                         @else
                                                         {{ number_format($idea->liked_users->count() - $idea->moderators->count()) }}
                                                         @endif
+                                                            </div>
+                                                        </div>
+                                                        @if (!is_egora())
+                                                        <br/>
+                                                        @endif
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                Rating:
+                                                            </div>
+                                                            <div class="col-4 p-0">
+                                                                {{ number_format($idea->approval_ratings()->avg('score'), 3) }}
                                                             </div>
                                                         </div>
                                                     </div>

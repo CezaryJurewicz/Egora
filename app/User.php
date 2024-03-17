@@ -107,6 +107,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Update::class);
     }
     
+    public function approval_ratings()
+    {
+        return $this->hasMany(ApprovalRating::class);
+    }
+    
     public function update_relation()
     {
         return $this->morphOne(Update::class, 'updatable');

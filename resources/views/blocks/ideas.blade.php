@@ -28,6 +28,10 @@
                                     <small>
                                     <a href="{{ route('ideas.view', [$idea->id, 'comments'] ).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>
                                     </small>
+                                    <br/>
+                                    <small>
+                                        Votes: {{$idea->approval_ratings->count()}}
+                                    </small>                                    
                                     @endif
                                     @endauth
                                     
@@ -62,6 +66,8 @@
                                         Supporters:
                                         @elseif (is_egora())
                                         IDI Points: 
+                                        @else
+                                        <br/>
                                         @endif
                                         </div>
                                         <div class="col-5 col-sm-4">
@@ -70,6 +76,14 @@
                                         @elseif (is_egora())
                                         {{ number_format($idea->liked_users_sum) }}
                                         @endif
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                        Rating:
+                                        </div>
+                                        <div class="col-5 col-sm-4">
+                                        {{ number_format($idea->approval_ratings()->avg('score'), 3) }}
                                         </div>
                                     </div>
                                 </div>

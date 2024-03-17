@@ -232,3 +232,13 @@ ol.bold {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
+
+.approval_rating_chart {
+    .checkboxgroup, .form-check {
+      display: inline-block;
+      text-align: center;
+    }
+    .checkboxgroup label, .form-check label {
+      display: block;
+    }
+}

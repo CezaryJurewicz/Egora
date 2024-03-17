@@ -43,6 +43,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\RemoveToggleLikedIdeas',
             'App\Listeners\RemoveOfficerPetitionSupport',
             'App\Listeners\RemoveAdministrativeSubdivisions',
+            'App\Listeners\RemoveNationalApprovalRatingVotes',
         ],
         'App\Events\UserLeftIlp' => [
             'App\Listeners\RemoveOfficerPetition',
@@ -66,9 +67,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserLeftComminity' => [
             'App\Listeners\DetachComminityIdeasFromUser',
+            'App\Listeners\RemoveComminityApprovalRatingVotes',
         ],
         'App\Events\UserLeftingMunicipality' => [
             'App\Listeners\DetachMunicipalityIdeasFromUser',
+            'App\Listeners\RemoveMunicipalityApprovalRatingVotes',
         ],
         'App\Events\CommentAdded' => [
             'App\Listeners\CreateCommentNotification',
