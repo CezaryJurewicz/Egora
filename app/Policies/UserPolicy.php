@@ -150,7 +150,7 @@ class UserPolicy
         if ($searchname) {
             $model = $searchname->user;
             
-            return (!$model->trashed() && $model->user_type->verified && $model->external_visible)? $this->allow() : $this->deny() ;
+            return (!$model->trashed() && $model->user_type->verified && ($model->external_visible || $model->campaign))? $this->allow() : $this->deny() ;
         }
         
         return $this->deny();

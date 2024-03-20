@@ -19,7 +19,7 @@
                                             <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.about', $user->active_search_names->first()->hash) }}">About Me</a>
                                         @endif
                                     @else
-                                        @if (isset($external_ip))                              
+                                        @if (isset($external_ip) || isset($vote_ip))                              
                                             <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.external_about', _clean_search_name($user->active_search_names->first()->name)) }}">About Me</a>
                                         @endif
                                     @endif
@@ -219,6 +219,8 @@
                                                     @elseif ($idea->community)
                                                         {{$idea->community->title}}
                                                     @endif
+                                                        <br/>
+                                                        Views: {{$idea->views_cnt}}
                                                     </div>
                                                     <div class="col-12 col-sm-4 col-md-2 pr-sm-4 pl-sm-4 pr-md-0 pl-md-0 text-center small">
                                                         @if( in_array(\Route::currentRouteName(), ['users.vote_ip','users.external_ip']) )

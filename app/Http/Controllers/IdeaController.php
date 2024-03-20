@@ -801,6 +801,9 @@ class IdeaController extends Controller
         
         $following = $top_part->concat($total_list->diff($top_part));
         
+        $idea->views_cnt++;
+        $idea->save();
+        
         return view('ideas.view')->with(compact('following', 'open', 'filter', 'order', 'comments', 'notification_response_sent', 'user_notifications', 'user_notifications_ids', 'idea', 'numbered', 'current_idea_position', 'current_idea_point_position', 'presets', 'notification', 'notification_id'));
     }
 

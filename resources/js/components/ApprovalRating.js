@@ -10,10 +10,10 @@ export const options = {
 //    axisFontSize : 0,
     tooltip: {
         isHtml: false,
-        trigger: 'none'
+//        trigger: 'none'
     },
     vAxis: {
-        minValue: 1,
+        minValue: 0, //1
         maxValue: 0,
         baselineColor: '#fff',
 //        gridlineColor: '#fff',
@@ -49,14 +49,14 @@ class ApprovalRating extends React.Component {
             result: {avg:0, cols:[]},
             options: options,
             data : [
-                ["vote", "avg", { role: "style" }],
-                ["-3", 0, "#ff0000"],
-                ["-2", 0, "#ff0000"],
-                ["-1", 0, "#ff0000"],
-                ["0", 0, "#ff0000"],
-                ["1", 0, "#ff0000"],
-                ["2", 0, "#ff0000"],
-                ["3", 0, "#ff0000"]
+                ["vote", "avg", { role: "style" }, { role: "tooltip" } ],
+                ["-3", 0, "#ff0000", ''],
+                ["-2", 0, "#ff0000", ''],
+                ["-1", 0, "#ff0000", ''],
+                ["0", 0, "#ff0000", ''],
+                ["1", 0, "#ff0000", ''],
+                ["2", 0, "#ff0000", ''],
+                ["3", 0, "#ff0000", '']
             ]
         };
         
@@ -98,7 +98,7 @@ class ApprovalRating extends React.Component {
             });
             
             var arr = data.cols.map((col) => (
-                [col.score, col.avg, col.color]
+                [col.score, col.avg, col.color, col.tooltip]
             ));
             
             arr.unshift(this.state.data[0])

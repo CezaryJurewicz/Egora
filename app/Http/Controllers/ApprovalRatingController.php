@@ -45,6 +45,7 @@ class ApprovalRatingController extends Controller
         foreach($result as $row) {
             $this->dummy[$row->score]['avg'] = $row->quantity / ($total ?? 1);
             $this->dummy[$row->score]['quantity'] = $row->quantity;
+            $this->dummy[$row->score]['tooltip'] = 'Votes: '. $row->quantity;
         }
         
         $cols = collect($this->dummy);

@@ -19,6 +19,9 @@
                                         @endif
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-12">Views: {{$idea->views_cnt}}</div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-sm-4 col-md-2 text-center small pr-sm-4 pl-sm-4 pr-md-0 pl-md-0">
                                     @auth
