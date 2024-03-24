@@ -92,7 +92,6 @@
                     </div>
                     
                     @include('blocks.like')
-                    @include('blocks.approval_rating')                    
                     @include('blocks.notincommunity')
                 </div>
 
@@ -100,6 +99,8 @@
                     @include('blocks.invite_response')
                 @endif
                 
+                @include('blocks.approval_rating')                    
+
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mt-2">Supporters</h5>

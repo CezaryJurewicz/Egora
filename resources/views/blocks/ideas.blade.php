@@ -26,7 +26,7 @@
                                 <div class="col-12 col-sm-4 col-md-2 text-center small pr-sm-4 pl-sm-4 pr-md-0 pl-md-0">
                                     @auth
                                     @if ((auth('web')->user()?:auth('admin')->user())->can('view', $idea))
-                                    <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', $idea->id) }}">{{ __('Open') }}</a>
+                                    <a class="btn btn-sm btn-primary col-12" href="{{ route('ideas.view', [$idea->id,'cnt']) }}">{{ __('Open') }}</a>
                                     <br/>
                                     <small>
                                     <a href="{{ route('ideas.view', [$idea->id, 'comments'] ).'#tabs' }}">{{ __('Comments:').' '.($idea->comments->count() + $idea->comments->reduce(function ($count, $comment) { return $count + $comment->comments->count(); }, 0)) }}</a>

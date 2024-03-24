@@ -19,7 +19,7 @@
                             @else
                                 @if (auth('web')->check() && auth('web')->user()->can('create', [App\Media::class, $user]) )
                                 <small>
-                                    If your profile image depicts people realistically, it should only be an image you, the owner of the account. If your torso is depicted, it must be covered.
+                                    If your profile image depicts people realistically, it should only be an image of you, the owner of the account. If your torso is depicted, it must be covered.
                                 </small>
                                 <form action="{{ route('media.store', $user) }}" method="POST" enctype="multipart/form-data">
                                     @csrf

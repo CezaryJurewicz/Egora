@@ -45,7 +45,7 @@ class UserInvitedToIdea extends Notification
                     ->subject( $this->notification->sender->name.' invited you to examine an idea!')
                     ->greeting('Philosopher '.($this->notification->receiver->name).' – ')
                     ->line('What do you think about this idea?')
-                    ->action('Idea', route('ideas.view',[$this->notification->idea->id, 'notification_id' => $this->notification->id]))
+                    ->action('Idea', route('ideas.view',[$this->notification->idea->id, 'notification_id' => $this->notification->id, 'cnt']))
                     ->line('Your voice can make this idea rise or fall in Egora,')
                     ->line('"The Worldwide Stock-Market of Ideas".');
     }
