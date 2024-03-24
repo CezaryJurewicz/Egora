@@ -97,7 +97,7 @@ Route::middleware(['verified', 'auth:admin,web'])->group(function() {
     Route::prefix('/philosophers')->name('users.')->group(function(){
         Route::delete('/government_id/delete', 'UserController@government_id_delete')->name('government_id.delete');
         Route::post('/government_id/reupload', 'UserController@government_id_reupload')->name('government_id.reupload');
-        Route::get('/clear_account', 'UserController@clear_account')->name('clear_account');
+        Route::delete('/clear_account', 'UserController@clear_account')->name('clear_account');
         Route::get('/clear_coh', 'UserController@clear_coh')->name('clear_coh');
         Route::get('/subdivisions', 'UserController@subdivisions')->name('subdivisions');        
         Route::put('/subdivisions', 'UserController@subdivisions_update')->name('subdivisions_update');        

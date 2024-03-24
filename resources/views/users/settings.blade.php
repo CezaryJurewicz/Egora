@@ -289,17 +289,36 @@
                     <div class="panel mt-4 mb-4">
                         <div class="panel-body">
                             <h4>@lang('Reset & Deactivate Account')</h4>
+                            <form method="POST" action="{{ route('users.clear_account') }}" enctype="multipart/form-data">
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                @csrf
                                 <p class="col-md-12 row">ILP Members or former ILP members are able to remove themselves from public presence in Egora with this function. 
                                     If you procede, this will erase all of your ideas, comments, statuses, leads, and followers. Additionally, it will hide your account 
                                     from public visibility. If you are ever ready to resume using Egora, you will be able to re-activate your account by logging in again.</p>
+                                
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="current_password" class="col-form-label">{{ __('Provide Your Current Password') }}</label>
+                                        <input id="current_password" type="password" class="form-control @error('current') is-invalid @enderror" name="current_password" value="" required>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group row">
                                     <div class="col-2">
                                         <a class="btn btn-black btn-sm btn-static-100" href="{{  route('users.ideological_profile', $user->active_search_names->first()->hash) }}">Back</a>
                                     </div>
                                     <div class="col-4 offset-2 text-center">
-                                        <a class="btn btn-secondary btn-sm btn-static-100" href="{{  route('users.clear_account') }}">Disappear</a>
+                                        <button type="submit" class="btn btn-secondary btn-sm btn-static-100">
+                                            {{ __('Disappear') }}
+                                        </button>
                                     </div>
                                 </div>    
+                            </form>
                         </div>
                     </div>
                     @endif

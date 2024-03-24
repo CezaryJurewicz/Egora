@@ -58,16 +58,20 @@
                                     @if(isset($community_id) && $community_id == $c->id)
                                     {{$c->title}}<br/>
                                     @else
-                                    <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
+                                        @if (isset($vote_ip))
+                                            <a href="{{ route( implode('.', ['users.vote_ip', session('current_egora', 'default')]), [_clean_search_name($user->active_search_name), 'community_id'=>$c->id ] ) }}">{{$c->title}}</a><br/>
+                                        @else
+                                            <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
+                                        @endif
                                     @endif
                                 @endforeach
 
                                 @foreach($user->communities_allowed_to_leave->sortBy('pivot.order') as $c)
-                                    @if ($user->communities->contains($c->id))
+                                    @if (request()->user() && request()->user()->communities->contains($c->id))
                                         @if(isset($community_id) && $community_id == $c->id)
                                         {{$c->title}}<br/>
                                         @else
-                                        <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
+                                            <a href="{{ route('users.ideological_profile', [$user->active_search_names->first()->hash, 'community_id'=>$c->id ]) }}">{{$c->title}}</a><br/>
                                         @endif
                                     @endif
                                 @endforeach

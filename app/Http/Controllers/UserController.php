@@ -33,6 +33,7 @@ use App\Events\CommentAdded;
 use App\Update;
 use App\Events\IdeaSupportHasChanged;
 use App\Events\IdeaUnbookmarked;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -1742,6 +1743,15 @@ class UserController extends Controller
     
     public function clear_account(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'current_password' => ['required', 'password'],
+        ]);
+         
+        if ($validator->fails()) {
+            return redirect()->back()
+                    ->withInput()->withErrors($validator);
+        }        
+        
         $user = $request->user();
         
         $liked_ideas = $user->liked_ideas;
@@ -1775,6 +1785,25 @@ class UserController extends Controller
             $q->where('id', $user->id);
         })->forceDelete();
 
+        \App\BookmarkNotification::whereHas('sender', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
+        
+        \App\CommentNotification::whereHas('sender', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
+        
+        \App\Notification::whereHas('sender', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
+        
+        \App\Update::whereHasMorph('updatable', [User::class], function($q) use ($user) {
+            $q->where('id', $user->id);
+        })->delete();
+        
+        $user->petition()->forceDelete();
+        $user->meetings()->delete();
+        
         $user->national_affiliations = null;
         $user->phone_number = null;
         $user->social_media_1 = null;
@@ -1795,6 +1824,7 @@ class UserController extends Controller
         $user->сomment_notifications = 0;
         $user->visible = 0;
         $user->external_visible = 0;
+        $user->disappeared = 1;
         
         $user->save();
         
@@ -1803,10 +1833,13 @@ class UserController extends Controller
         }
         
         $searchName = $user->active_search_names->first();
+        $searchName->active = 0;
         $searchName->seachable = 0;
         $searchName->save();
-                
+        
         Auth::logout();
+        Session::flush();
+        Session::regenerate();
 //        $user->delete();
         
         return redirect()->route('index')->with('success', 'You have vanished.');  

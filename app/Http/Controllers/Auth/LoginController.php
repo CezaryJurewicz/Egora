@@ -56,6 +56,15 @@ class LoginController extends Controller
         if ($user = \Auth::guard()->attempt(
             $this->credentials($request), $request->filled('remember')
         )) {
+            if ($usr = $this->guard()->user()) {
+                $usr->disappeared = 1;
+                $usr->save();
+                
+                $searchName = $usr->search_names->first();
+                $searchName->active = 1;
+                $searchName->save();
+            }
+            
             return $user;
         }
     }       
