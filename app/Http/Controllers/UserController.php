@@ -614,6 +614,23 @@ class UserController extends Controller
         return $this->_ideological_profile('users.ideological_profile', $request, $search_name)->with(array('vote_ip' => 1));
     }
     
+    public function vote_about(Request $request, $search_name)
+    {
+        $searchname = SearchName::with('user')->where('name', _url_search_name($search_name))->first();
+        $user = $searchname->user;
+        $hash = $searchname->hash;
+        
+        $user->load(['petition.supporters' => function($q) {
+            $q->recent();
+        }]);
+        
+        $comments = $user->comments()->orderBy('created_at', 'desc')->paginate(25);
+        
+        $open = ($request->has('open') ? (int) $request->input('open') : null);
+        
+        return view('users.about')->with(compact('user','hash', 'comments', 'open'))->with(array('vote'=>1));
+    }    
+    
     public function vote_ideological_profile(Request $request, $search_name)
     {
         switch_to_egora();

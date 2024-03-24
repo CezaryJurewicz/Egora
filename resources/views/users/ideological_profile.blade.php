@@ -20,7 +20,7 @@
                                         @endif
                                     @else
                                         @if (isset($external_ip) || isset($vote_ip))                              
-                                            <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.external_about', _clean_search_name($user->active_search_names->first()->name)) }}">About Me</a>
+                                            <a class="btn btn-sm btn-primary btn-block mb-1" href="{{ route('users.vote_about', _clean_search_name($user->active_search_names->first()->name)) }}">About Me</a>
                                         @endif
                                     @endif
                                 </div>
