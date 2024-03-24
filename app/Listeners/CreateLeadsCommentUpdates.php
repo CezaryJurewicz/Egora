@@ -34,18 +34,21 @@ class CreateLeadsCommentUpdates
         }
         
         foreach($event->comment->user->followers as $user){
-//            if ($user->updates->count() < 99 && (((config('egoras.community.id') == $event->egora_id) && $user->communities->contains($item->community)) || (config('egoras.community.id') != $event->egora_id)) ) {
-            if (!$user->inactive && (((config('egoras.community.id') == $event->egora_id) && $user->communities->contains($item->community)) || (config('egoras.community.id') != $event->egora_id)) ) {
-                $update = new Update();
-                $update->user_id = $user->id;
-                $update->egora_id = $event->egora_id;
+            if ($event->comment->is_response() && $user->id == $event->comment->commentable->user_id) {
+                continue;
+            } else {
+                if (!$user->inactive && (((config('egoras.community.id') == $event->egora_id) && $user->communities->contains($item->community)) || (config('egoras.community.id') != $event->egora_id)) ) {
+                    $update = new Update();
+                    $update->user_id = $user->id;
+                    $update->egora_id = $event->egora_id;
 
-                if ($event->comment->is_response()) {
-                    $update->type = 'subcomment';
-                } else {
-                    $update->type = 'comment';
+                    if ($event->comment->is_response()) {
+                        $update->type = 'subcomment';
+                    } else {
+                        $update->type = 'comment';
+                    }
+                    $event->comment->update_relation()->save($update);
                 }
-                $event->comment->update_relation()->save($update);
             }
         }
     }

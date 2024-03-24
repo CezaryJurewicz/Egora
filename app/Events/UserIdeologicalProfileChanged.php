@@ -18,15 +18,17 @@ class UserIdeologicalProfileChanged
 
     public $idea;
     public $user;
+    public $notification;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, Idea $idea)
+    public function __construct(User $user, Idea $idea, $notification = null)
     {
         $this->idea = $idea;
         $this->user = $user;
+        $this->notification = $notification;
     }
 
     /**

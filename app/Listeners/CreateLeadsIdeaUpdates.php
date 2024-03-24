@@ -28,14 +28,17 @@ class CreateLeadsIdeaUpdates
     public function handle(UserIdeologicalProfileChanged $event)
     {
         foreach($event->user->followers as $user){
-//            if ($user->updates->count() < 99 && ( ((config('egoras.community.id') == $event->idea->egora_id) && $user->communities->contains($event->idea->community)) || (config('egoras.community.id') != $event->idea->egora_id) ) ) {
-            if (!$user->inactive && ( ((config('egoras.community.id') == $event->idea->egora_id) && $user->communities->contains($event->idea->community)) || (config('egoras.community.id') != $event->idea->egora_id) ) ) {
-                $update = new Update();
-                $update->user_id = $user->id;
-                $update->egora_id = $event->idea->egora_id;
-                $update->from_id = $event->user->id;
-                $update->type = 'idea';
-                $event->idea->update_relation()->save($update);
+            if  ( !is_null($event->notification) && $user->id == $event->notification->receiver->id) {
+                continue;
+            } else {
+                if (!$user->inactive && ( ((config('egoras.community.id') == $event->idea->egora_id) && $user->communities->contains($event->idea->community)) || (config('egoras.community.id') != $event->idea->egora_id) ) ) {
+                    $update = new Update();
+                    $update->user_id = $user->id;
+                    $update->egora_id = $event->idea->egora_id;
+                    $update->from_id = $event->user->id;
+                    $update->type = 'idea';
+                    $event->idea->update_relation()->save($update);
+                }
             }
         }
     }

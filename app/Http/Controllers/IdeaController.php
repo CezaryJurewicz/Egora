@@ -937,6 +937,8 @@ class IdeaController extends Controller
                     ->withInput()->withErrors('Position is already taken.');
         }
         
+        $notification = null;
+        
         if ($request->exists('notification_id') && ($order >= 0)) {
             $prev_notification = NotificationModel::findOrFail($request->notification_id);
                         
@@ -959,7 +961,7 @@ class IdeaController extends Controller
         $request->user()->liked_ideas()->syncWithoutDetaching($idea);
         $request->user()->liked_ideas()->updateExistingPivot($idea->id,$arr);
         
-        event(new UserIdeologicalProfileChanged($request->user(), $idea));
+        event(new UserIdeologicalProfileChanged($request->user(), $idea, $notification));
         event(new IdeaSupportHasChanged($request->user(), $idea));
         
         $params = [$request->user()->active_search_name_hash];
