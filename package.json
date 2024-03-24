@@ -35,6 +35,7 @@
         "minimist": ">=1.2.6",
         "react-apexcharts": "^1.4.1",
         "react-datepicker": "^2.14.1",
+        "react-device-detect": "^2.2.3",
         "react-google-charts": "^4.0.1",
         "react-mentions": "^4.4.6",
         "react-share": "^4.4.0",
