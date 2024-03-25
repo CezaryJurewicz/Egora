@@ -45,7 +45,7 @@ class CreateIdeaBookmarkedNotification
             $line->created_at = $notification->created_at;
             $notification->logline()->save($line);
 
-            $event->notification->delete();
+//            $event->notification->delete();
             
             if ($notification->receiver->notifications) {
                 $notification->receiver
