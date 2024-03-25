@@ -1805,12 +1805,21 @@ class UserController extends Controller
         \App\BookmarkNotification::whereHas('sender', function($q) use ($user){
             $q->where('id', $user->id);
         })->forceDelete();
+        \App\BookmarkNotification::whereHas('receiver', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
         
         \App\CommentNotification::whereHas('sender', function($q) use ($user){
             $q->where('id', $user->id);
         })->forceDelete();
+        \App\CommentNotification::whereHas('receiver', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
         
         \App\Notification::whereHas('sender', function($q) use ($user){
+            $q->where('id', $user->id);
+        })->forceDelete();
+        \App\Notification::whereHas('receiver', function($q) use ($user){
             $q->where('id', $user->id);
         })->forceDelete();
         
