@@ -105,8 +105,11 @@ class ApprovalRating extends React.Component {
             
             this.setState({
                 data: arr
-            })
-            
+            });
+
+            this.setState({
+                vote: data.selected
+            });
         });
     }
     
