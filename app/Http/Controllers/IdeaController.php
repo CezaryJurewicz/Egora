@@ -706,8 +706,12 @@ class IdeaController extends Controller
 
         
         if($request->has('notification_id')) {
-            $notification = \App\Notification::findOrFail($request->input('notification_id'));
-            $notification_id = $notification->id;            
+            $notification = \App\Notification::
+                    whereHas('receiver', function($q) use ($request) {
+                        $q->where('id',$request->user()->id);
+                    })
+                    ->findOrFail($request->input('notification_id'));
+            $notification_id = $notification->id;                        
             switch_by_idea($idea);
 
             $notification_response_sent = $request->user()->user_notifications_new()
