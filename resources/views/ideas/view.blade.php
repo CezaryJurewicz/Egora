@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div id="idea-div" ideaid="{{$idea->id}}">
-                        <div class="card-body" id="idea-text">
+                        <div class="card-body"  @if( \Route::currentRouteName() != 'ideas.preview' ) id="idea-text" @endif >
                         {!! filter_text($idea->content) !!}
                         </div>
 

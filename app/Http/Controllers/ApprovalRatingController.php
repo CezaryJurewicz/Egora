@@ -26,6 +26,11 @@ class ApprovalRatingController extends Controller
 
     public function indexApi(Request $request)
     {
+        $user = null;
+        if (auth('api')->check()) { 
+            $user = auth('api')->user();
+        }        
+        
         $model = ApprovalRating::select('score')
             ->whereHas('idea', function($q) use ($request){
                 $q->where('id', $request->input('id')); 
@@ -33,14 +38,14 @@ class ApprovalRatingController extends Controller
         $avg = number_format($model->avg('score'),3);
         $total = $model->count();
 
-        if ($request->user()) {
+        if ($user) {
             $selected = ApprovalRating::select('score')
-            ->where(function($q) use ($request){
+            ->where(function($q) use ($request, $user){
                 $q->whereHas('idea', function($q) use ($request){
                     $q->where('id', $request->input('id')); 
                 });
-                $q->whereHas('user', function($q) use ($request){
-                    $q->where('id', $request->user()->id); 
+                $q->whereHas('user', function($q) use ($request, $user){
+                    $q->where('id', $user->id); 
                 });
             })->pluck('score')->first();
         } else {
@@ -63,8 +68,12 @@ class ApprovalRatingController extends Controller
         }
         
         $cols = collect($this->dummy);
-        
-        $vote_allowed = $request->user()->can('vote', Idea::findOrFail($request->input('id')));
+       
+        if ($user) {
+            $vote_allowed = $user->can('vote', Idea::findOrFail($request->input('id')));
+        } else {
+            $vote_allowed = 0;
+        }
         
         return response()->json(['selected' => $selected ?? 0, 'avg'=> $avg ?? 0, 'vote_allowed'=> $vote_allowed, 'total' => $total, 'cols' => $cols->values()->all()]);
     }

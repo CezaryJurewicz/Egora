@@ -12,14 +12,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    
+
 Route::middleware('auth:api')->group(function(){
     Route::post('/users/{user}/invite/{idea}', 'UserController@invite')->name('api.users.invite')->middleware('throttle:100,1,invite', 'can:invite,user,idea');
     
     Route::prefix('/approval_rating')->name('approval_rating.')->group(function(){
-        Route::get('/', 'ApprovalRatingController@indexApi')->name('indexapi');
         Route::post('/', 'ApprovalRatingController@voteApi')->name('voteapi');
     });
+});
+
+Route::prefix('/approval_rating')->name('approval_rating.')->group(function(){
+    Route::get('/', 'ApprovalRatingController@indexApi')->name('indexapi');
 });
 
 // Moved default throttle from Kernel
