@@ -245,7 +245,7 @@ class CampaignController extends Controller
     public function destroy(Request $request, Campaign $campaign)
     {
         $validator = Validator::make($request->all(),[
-            'password' => ['required', 'string', 'password'],
+            'password' => ['required', 'string', 'current_password'],
         ]);
          
         if ($validator->fails()) {

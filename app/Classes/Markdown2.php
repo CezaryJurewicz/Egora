@@ -3,8 +3,9 @@
 namespace App\Classes;
 
 use Illuminate\Mail\Markdown;
-use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Environment;
+use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use Illuminate\Support\HtmlString;
@@ -14,14 +15,8 @@ class Markdown2 extends Markdown
     
    public static function parse($text)
     {
-        $environment = Environment::createCommonMarkEnvironment();
-
-        $environment->addExtension(new TableExtension);
-        $environment->addExtension(new ExternalLinkExtension());
-
-        // https://commonmark.thephpleague.com/1.5/extensions/external-links/
         $config = [
-            'allow_unsafe_links' => false,
+            'html' => ['allow_unsafe_links' => false],
             'external_link' => [
                 'internal_hosts' => '',
                 'open_in_new_window' => true,
@@ -31,9 +26,15 @@ class Markdown2 extends Markdown
                 'noreferrer' => 'external',
             ],
         ];
-        
-        $converter = new CommonMarkConverter($config, $environment);
 
-        return new HtmlString($converter->convertToHtml($text));
+        $environment = new Environment($config);
+        $environment->addExtension(new CommonMarkCoreExtension());
+        $environment->addExtension(new TableExtension());
+        $environment->addExtension(new ExternalLinkExtension());
+
+        $converter = new MarkdownConverter($environment);
+        $html = $converter->convert($text);
+
+        return new HtmlString($html);
     }
 }

@@ -787,17 +787,23 @@ class IdeaController extends Controller
             $q->with('active_search_names');
             
             if(is_egora()) {
-                $q->whereHas('nation',function($q) use ($request){
-                    $q->where('id', $request->user()->nation->id);
-                });
+                if($request->user()->nation) {
+                    $q->whereHas('nation',function($q) use ($request){
+                        $q->where('id', $request->user()->nation->id);
+                    });
+                }
             } else if(is_egora('community')) {
-                $q->whereHas('communities',function($q) use ($idea){
-                    $q->where('id', $idea->community->id);
-                });
+                if($idea->community) {
+                    $q->whereHas('communities',function($q) use ($idea){
+                        $q->where('id', $idea->community->id);
+                    });
+                }
             } else if(is_egora('municipal')) {
-                $q->whereHas('municipality',function($q) use ($request){
-                    $q->where('id', $request->user()->municipality->id);
-                });
+                if($request->user()->municipality) {
+                    $q->whereHas('municipality',function($q) use ($request){
+                        $q->where('id', $request->user()->municipality->id);
+                    });
+                }
             }        
         }]);
         

@@ -980,7 +980,7 @@ class UserController extends Controller
                     }
                 }],
             'national_affiliations' => ['nullable', 'string', 'regex:/^[a-z\d ]+$/i', 'max:92'],
-            'current_password' => ['required', 'password'],
+            'current_password' => ['required', 'current_password'],
             'search_name' => 'required|min:3|max:92|string|unique:search_names,name,'.$searchName->id.'|regex:/^[a-z\d ]+$/i',                        
             'delete_followers' => ['boolean', 'nullable',
                 function ($attribute, $value, $fail) use ($request, $searchName) {
@@ -1761,7 +1761,7 @@ class UserController extends Controller
     public function clear_account(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'current_password' => ['required', 'password'],
+            'current_password' => ['required', 'current_password'],
         ]);
          
         if ($validator->fails()) {
