@@ -39,6 +39,6 @@
         "react-google-charts": "^4.0.1",
         "react-mentions": "^4.4.6",
         "react-share": "^4.4.0",
-        "serialize-javascript": ">=3.1.0"
+        "serialize-javascript": ">=7.0.5"
     }
 }
